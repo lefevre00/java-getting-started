@@ -1,7 +1,5 @@
 package org.friends.app.view;
 
-import java.util.UUID;
-
 import org.friends.app.Constants;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.UserServiceBean;
@@ -24,7 +22,7 @@ public class ValidLoginRoute extends LoginRoute {
 		
 		User user = userService.Authenticate(email, pwd);
 		if (user != null) {
-			response.cookie(Constants.COOKIE, UUID.randomUUID().toString());
+			response.cookie(Constants.COOKIE, user.createCookie());
 
 			String dest = "/protected/search";
 			if (user.getPlaceNumber() != null)
