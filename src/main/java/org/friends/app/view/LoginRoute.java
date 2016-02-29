@@ -38,7 +38,7 @@ public class LoginRoute implements TemplateViewRoute {
 		String email = request.queryParams("email");
 		String pwd = request.queryParams("pwd");
 		
-		User user = userService.Authenticate(email, pwd);
+		User user = userService.authenticate(email, pwd);
 		if (user != null) {
 			response.cookie(Constants.COOKIE, user.createCookie());
 

@@ -25,7 +25,7 @@ public class UserServiceBean {
 	 * @return
 	 * @throws Exception
 	 */
-	public User Authenticate (String email, String pwd) throws Exception{
+	public User authenticate (String email, String pwd) throws Exception{
 		if (Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(pwd))
 			return null;
 		
