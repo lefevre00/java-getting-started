@@ -3,6 +3,10 @@ package org.friends.app.view;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.friends.app.Constants;
+import org.friends.app.model.User;
+import org.friends.app.service.impl.UserServiceBean;
+
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -16,32 +20,35 @@ public class LoginRoute implements TemplateViewRoute {
 
 	private static final String ERROR = "error";
 	private static final String EMAIL = "email";
-	private String errorMessage;
-	private String email;
+	
+	UserServiceBean userService = new UserServiceBean();
 	
 	@Override
 	public ModelAndView handle(Request request, Response response) throws Exception {
 		
-		onLogin(request, response);
-		
-    	return new ModelAndView(buildMap(), "login.ftl");
-	}
-
-	private Object buildMap() {
 		Map<String, Object> map = new HashMap<>();
-		map.put(ERROR, errorMessage != null ? errorMessage : "");
-		map.put(EMAIL, email != null ? email : "");
-		return map;
+		if ("POST".equalsIgnoreCase(request.requestMethod())) {
+			onLogin(request, response, map);
+		}
+		
+    	return new ModelAndView(map, "login.ftl");
 	}
 
-	protected void setErrorMessage(String message) {
-		errorMessage = message;
-	}
-	
-	protected void setEmail(String mail) {
-		email = mail;
-	}
+	protected void onLogin(Request request, Response response, Map<String, Object> map) throws Exception {
+		String email = request.queryParams("email");
+		String pwd = request.queryParams("pwd");
+		
+		User user = userService.Authenticate(email, pwd);
+		if (user != null) {
+			response.cookie(Constants.COOKIE, user.createCookie());
 
-	protected void onLogin(Request request, Response response) throws Exception{
+			String dest = "/protected/search";
+			if (user.getPlaceNumber() != null)
+				dest = "/protected/sharePlace";
+			response.redirect(dest);
+		} else {
+			map.put(ERROR, "Email ou mot de passe incorrect");
+			map.put(EMAIL, email);
+		}
 	}
 }
