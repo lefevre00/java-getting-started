@@ -12,12 +12,16 @@ import spark.utils.Assert;
 public class UserDao {
 
 	private static List<User> userCache = new ArrayList<>();
+    
+    static{
+    	userCache.add(new User("abdel.tamditi@amdm.fr","at"));
+    	userCache.add(new User("william.verdeil@amdm.fr","wv"));
+    	userCache.add(new User("michael.lefevre@amdm.fr","ml"));
+    }		
 	
 	public User persist(User user) {
 		Assert.notNull(user);
-		
 		userCache.add(user);
-		
 		return user;
 	}
 

@@ -27,7 +27,7 @@
 	        </div>
 	        <div class="form-group">
 		        <label for="pwd">Mot de passe</label>
-		        <input type="password" class="form-control" id="pwd" placeholder="********"/>
+		        <input type="password" class="form-control" name="pwd" id="pwd" placeholder="********"/>
 	        </div>
 	        <div class="form-group">
 				<input type="submit" class="btn btn-success" value="Se connecter"/>

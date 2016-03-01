@@ -37,6 +37,9 @@ public class UserServiceBean {
 		if (user == null)
 			throw new Exception("Utilisateur introuvable !");
 		
+		if (!email.equals(user.getEmailAMDM()))
+			throw new Exception("Email inconnu !");
+
 		if (!pwd.equals(user.getPwd()))
 			throw new Exception("Mot de passe incorrect !");
 		

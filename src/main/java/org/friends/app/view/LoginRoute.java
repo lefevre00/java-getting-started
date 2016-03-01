@@ -47,7 +47,7 @@ public class LoginRoute implements TemplateViewRoute {
 				dest = "/protected/sharePlace";
 			response.redirect(dest);
 		} else {
-			map.put(ERROR, "Email ou mot de passe incorrect");
+			map.put(ERROR, "Utilisateur introuvable : Email ou mot de passe incorrect !");
 			map.put(EMAIL, email);
 		}
 	}
