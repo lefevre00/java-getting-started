@@ -49,7 +49,6 @@ public class PlaceDao {
 		List<Integer> listFree = new ArrayList<Integer>();
 		for (Iterator<Place> iterator = placeCache.iterator(); iterator.hasNext();) {
 			Place place = (Place) iterator.next();
-			System.out.println(place.getPlaceNumber() + " - " + strDateToday + " - " + place.getOccupationDate() );
 			if(place.isFree() && (strDateToday.equalsIgnoreCase(place.getOccupationDate())))	listFree.add(place.getPlaceNumber());
 		}
 		

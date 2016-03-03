@@ -1,6 +1,8 @@
 package org.friends.app.view;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.friends.app.model.Place;
@@ -30,8 +32,12 @@ public class SharePlace implements TemplateViewRoute {
 		}else{
 			if ("POST".equalsIgnoreCase(paramRequest.requestMethod())) {
 					if(paramRequest.queryParams("dateDebut") != null){
+						System.out.println(paramRequest.queryParams("dateFin"));
 						placeService.releasePlace(user.getPlaceNumber().intValue(), paramRequest.queryParams("dateDebut"));
 				        paramResponse.redirect("/protected/search");
+
+				        map.put("places", new ArrayList<>());
+				        model = new ModelAndView(map, "search.ftl");
 					}
 			}else{
 				Place place = new Place(user.getPlaceNumber() != null ? user.getPlaceNumber().intValue() : null, true);
