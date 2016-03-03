@@ -1,7 +1,5 @@
 package org.friends.app.model;
 
-import java.util.Date;
-
 public class Place {
 	
 	private Integer placeNumber;

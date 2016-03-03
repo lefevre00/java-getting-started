@@ -1,7 +1,13 @@
 package org.friends.app.view;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -31,9 +37,21 @@ public class SharePlace implements TemplateViewRoute {
 			model = new ModelAndView(map, "login.ftl");
 		}else{
 			if ("POST".equalsIgnoreCase(paramRequest.requestMethod())) {
-					if(paramRequest.queryParams("dateDebut") != null){
-						System.out.println(paramRequest.queryParams("dateFin"));
-						placeService.releasePlace(user.getPlaceNumber().intValue(), paramRequest.queryParams("dateDebut"));
+				String strDateDebut = paramRequest.queryParams("dateDebut");
+				String strDateFin = paramRequest.queryParams("dateFin");
+					
+					List<String> lesDates = new ArrayList<String>();
+					if((strDateDebut != null) && (strDateFin != null)){
+						if(strDateDebut.equalsIgnoreCase(strDateFin)){
+							lesDates.add(strDateDebut);
+						}else{
+							lesDates = getDaysBetweenDates(strtoDate(strDateDebut), strtoDate(strDateFin));
+						}
+						for (Iterator<String> iterator = lesDates.iterator(); iterator.hasNext();) {
+							String leJour = (String) iterator.next();
+							placeService.releasePlace(user.getPlaceNumber().intValue(), leJour);
+						}
+						
 				        paramResponse.redirect("/protected/search");
 
 				        map.put("places", new ArrayList<>());
@@ -47,4 +65,25 @@ public class SharePlace implements TemplateViewRoute {
 		return model;
 	}
 	
+	private Date strtoDate(String strdate) throws ParseException{
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.parse(strdate);
+	}
+	
+	
+	public static List<String> getDaysBetweenDates(Date startdate, Date enddate)
+	{
+	    List<String> dates = new ArrayList<String>();
+	    Calendar calendar = new GregorianCalendar();
+	    calendar.setTime(startdate);
+
+	    while (calendar.getTime().before(enddate))
+	    {
+	        Date result = calendar.getTime();
+	        dates.add(new SimpleDateFormat("dd/MM/yyyy").format(result));
+	        calendar.add(Calendar.DATE, 1);
+	    }
+	    return dates;
+	}
 }
+
