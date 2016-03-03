@@ -38,7 +38,6 @@ public class SharePlace implements TemplateViewRoute {
 				model = new ModelAndView(place, "sharePlace.ftl");
 			}
 		}
-		
 		return model;
 	}
 	
