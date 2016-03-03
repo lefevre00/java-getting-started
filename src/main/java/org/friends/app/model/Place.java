@@ -5,13 +5,25 @@ import java.util.Date;
 public class Place {
 	
 	private Integer placeNumber;
-	private Integer occupiedBy;
-	private Date occupationDate;
+	private String occupiedBy;
+	private String occupationDate;
 	private boolean free;
 	
 	public Place(int n, boolean f) {
 		placeNumber = n;
 		free = f;
+	}	
+	
+	public Place(int n, boolean f, String o) {
+		placeNumber = n;
+		free = f;
+		occupationDate = o;
+	}	
+	
+	public Place(int n, String emailOccupant, String o) {
+		placeNumber = n;
+		free = emailOccupant != null ? false : true;
+		occupationDate = o;
 	}	
 	
 	/**
@@ -31,28 +43,28 @@ public class Place {
 	/**
 	 * @return the occupiedBy
 	 */
-	public Integer getOccupiedBy() {
+	public String getOccupiedBy() {
 		return occupiedBy;
 	}
 	
 	/**
 	 * @param occupiedBy the occupiedBy to set
 	 */
-	public void setOccupiedBy(Integer occupiedBy) {
+	public void setOccupiedBy(String occupiedBy) {
 		this.occupiedBy = occupiedBy;
 	}
 	
 	/**
 	 * @return the occupationDate
 	 */
-	public Date getOccupationDate() {
+	public String getOccupationDate() {
 		return occupationDate;
 	}
 	
 	/**
 	 * @param occupationDate the occupationDate to set
 	 */
-	public void setOccupationDate(Date occupationDate) {
+	public void setOccupationDate(String occupationDate) {
 		this.occupationDate = occupationDate;
 	}
 

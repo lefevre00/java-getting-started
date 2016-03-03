@@ -1,6 +1,8 @@
 package org.friends.app.view;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +26,9 @@ public class SearchRoute implements TemplateViewRoute {
         return new ModelAndView(map, "search.ftl");
 	}
 
-	private List<Place> getPlaces() {
+	private List<Place> getPlaces() throws ParseException {
 		List<Place> places = new ArrayList<>();
-		List<Integer> freePlaces = placeService.getAvailable();
+		List<Integer> freePlaces = placeService.getAvailableByDate(new Date());
 		for (int i = 1; i<150; i++) {
 			places.add(new Place(i, freePlaces.contains(i)));
 		}
