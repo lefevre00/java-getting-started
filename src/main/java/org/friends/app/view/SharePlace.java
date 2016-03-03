@@ -53,7 +53,8 @@ public class SharePlace implements TemplateViewRoute {
 						}
 						
 				        paramResponse.redirect("/protected/search");
-
+				        map.put("dateRecherche", "");
+				        map.put("nextDay", "?nextDay="+new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 				        map.put("places", new ArrayList<>());
 				        model = new ModelAndView(map, "search.ftl");
 					}
@@ -80,7 +81,11 @@ public class SharePlace implements TemplateViewRoute {
 	    while (calendar.getTime().before(enddate))
 	    {
 	        Date result = calendar.getTime();
-	        dates.add(new SimpleDateFormat("dd/MM/yyyy").format(result));
+	        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+	        if((dayOfWeek != Calendar.SUNDAY) || (dayOfWeek != Calendar.SATURDAY)){
+	        	dates.add(new SimpleDateFormat("dd/MM/yyyy").format(result));
+	        }
+	        
 	        calendar.add(Calendar.DATE, 1);
 	    }
 	    return dates;

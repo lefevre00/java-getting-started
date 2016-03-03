@@ -8,7 +8,8 @@
   <#include "nav.ftl">
 
   <div class="container">
-    <div class="row">&nbsp;</div>
+  	
+    <div class="row"><center>Places disponibles le ${dateRecherche}</center></div>
     <div>
       <div class="col-sm-1"></div>
       <div class="col-sm-10">
@@ -19,8 +20,10 @@
             <span class="col-sm-1"><span class="label label-default">${place.placeNumber}</span></span>
       	  </#if>
         </#list>
+        
+        
       </div>
-      <div class="col-sm-1"> </div>
+      <div class="col-sm-1"><a href="/protected/search${nextDay}" alt="jour suivant" title="jour suivant"><span class="glyphicon glyphicon-menu-right">&nbsp;</span></a></div>
     </div>
   </div>
 

@@ -62,7 +62,8 @@ SELECT 23, null, DATE('31/03/2016')
 		List<Integer> listFree = new ArrayList<Integer>();
 		for (Iterator<Place> iterator = placeCache.iterator(); iterator.hasNext();) {
 			Place place = (Place) iterator.next();
-			if(place.isFree() && (strDateToday.equalsIgnoreCase(place.getOccupationDate())))	listFree.add(place.getPlaceNumber());
+			String strDateRecherche =new SimpleDateFormat("dd/MM/yyyy").format(date);
+			if(place.isFree() && (strDateRecherche.equalsIgnoreCase(place.getOccupationDate()))) listFree.add(place.getPlaceNumber());
 		}
 		
 		return listFree;

@@ -94,6 +94,7 @@ public class Application {
 		 * Places booking 
 		 */
 		get("/protected/search", new SearchRoute(), new FreeMarkerEngine());
+		//post("/protected/search", new SearchRoute(), new FreeMarkerEngine());
 
 		get("/protected/book/:placeId", (req, res) -> {
 			return "Are you looking for " + req.params(":placeId");
