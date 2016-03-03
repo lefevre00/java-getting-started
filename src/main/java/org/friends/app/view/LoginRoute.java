@@ -3,8 +3,8 @@ package org.friends.app.view;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.friends.app.Constants;
 import org.friends.app.model.User;
+import org.friends.app.service.UserService;
 import org.friends.app.service.impl.UserServiceBean;
 
 import spark.ModelAndView;
@@ -34,21 +34,42 @@ public class LoginRoute implements TemplateViewRoute {
     	return new ModelAndView(map, "login.ftl");
 	}
 
-	protected void onLogin(Request request, Response response, Map<String, Object> map) throws Exception {
+	protected void onLogin(Request request, Response response, Map<String, Object> map) {
 		String email = request.queryParams("email");
 		String pwd = request.queryParams("pwd");
 		
-		User user = userService.authenticate(email, pwd);
-		if (user != null) {
-			response.cookie(Constants.COOKIE, user.createCookie());
+		User user = null;
+		try {
+			user = userService.userAuthentication(email, pwd);
 
-			String dest = "/protected/search";
-			if (user.getPlaceNumber() != null)
-				dest = "/protected/sharePlace";
-			response.redirect(dest);
-		} else {
+			if (user != null) {
+				addAuthenticatedUser(request, user);
+				String dest = "/protected/search";
+				if (user.getPlaceNumber() != null)
+					dest = "/"; //"/protected/sharePlace"
+				response.redirect(dest);
+			}
 			map.put(ERROR, "Utilisateur introuvable : Email ou mot de passe incorrect !");
 			map.put(EMAIL, email);
+
+		} catch (Exception e) {
+			
+			if (UserService.EMAIL_ERROR.equals(e.getMessage()))
+				map.put(ERROR, "L'email saisi est incorrect !");
+			
+			if(UserService.PWD_ERROR.equals(e.getMessage()))
+				map.put(ERROR, "Le mot de passe saisi est incorrect !");
+
 		}
 	}
+	
+	
+	private void addAuthenticatedUser(Request request, User user) {
+		request.session().attribute("user", user);
+		
+	}
+	
+	private void removeAuthenticatedUser(Request request) {
+		request.session().removeAttribute("user");
+	}	
 }

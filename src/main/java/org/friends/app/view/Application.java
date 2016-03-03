@@ -13,9 +13,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.friends.app.Configuration;
-import org.friends.app.Constants;
-
-import com.heroku.sdk.jdbc.DatabaseUrl;
+import org.friends.app.model.User;
 
 import spark.Filter;
 import spark.ModelAndView;
@@ -23,6 +21,8 @@ import spark.Request;
 import spark.Response;
 import spark.template.freemarker.FreeMarkerEngine;
 import spark.utils.StringUtils;
+
+import com.heroku.sdk.jdbc.DatabaseUrl;
 
 public class Application {
 
@@ -36,19 +36,24 @@ public class Application {
 		port(getPort());
 		staticFileLocation("/public");
 
-		/* Auto compress response */
+		/*
+		 * Auto compress response 
+		 */
 		after((request, response) -> {
 			String header = request.raw().getHeader("Accept-Encoding");
 			if (header != null && header.contains("gzip"))
 				response.header("Content-Encoding", "gzip");
 		});
 		
-		/* When in production, controle that user first logged in*/
-		if (!Configuration.development()) {
+		/*
+		 * When in production, controle that user first logged in
+		 */
+		if (Configuration.development()) {
 			Filter checkLoggedIn = new Filter() {
 				@Override
 				public void handle(Request request, Response response) throws Exception {
-					if (StringUtils.isEmpty(request.cookie(Constants.COOKIE))) {
+					User authenticatedUser = getAuthenticatedUser(request);
+					if(StringUtils.isEmpty(authenticatedUser)) {
 						response.redirect("/user/login");
 					}
 				}
@@ -61,31 +66,42 @@ public class Application {
 			return new ModelAndView(null, "index.ftl");
 		}, new FreeMarkerEngine());
 
-
-		/* User managment */
+		/*
+		 * User login 
+		 */
 		LoginRoute loginRoute = new LoginRoute();
 		get("/user/login", loginRoute, new FreeMarkerEngine());
 		post("/user/login", loginRoute, new FreeMarkerEngine());
 
+		/* 
+		 * User register 
+		 */
 		get("/user/new", (req, res) -> {
 			return new ModelAndView(null, "createUser.ftl");
 		}, new FreeMarkerEngine());
 		post("/user/new", (req, res) -> "A user tried to create his account");
 
-
+		/*
+		 * Forgot password
+		 */
 		get("/user/forget", (req, res) -> {
 			return new ModelAndView(null, "lostPwd.ftl");
 		}, new FreeMarkerEngine());
 		post("/user/forget", (req, res) -> "A user lost his password");
 
 
-		/* places booking */
+		/*
+		 * Places booking 
+		 */
 		get("/protected/search", new SearchRoute(), new FreeMarkerEngine());
 
 		get("/protected/book/:placeId", (req, res) -> {
 			return "Are you looking for " + req.params(":placeId");
 		});
 
+		/*
+		 * Share a place
+		 */
 		get("/protected/sharePlace", new SharePlace(), new FreeMarkerEngine()); 
 		post("/protected/sharePlace",(req, res) -> "Vous libérez la place   " + req.queryParams("number") +" du " + req.queryParams("dateDebut") +" du " + req.queryParams("dateFin"));
 
@@ -93,6 +109,7 @@ public class Application {
 		/* Doc */
 		get("/help", (req, res) -> "Nothing yet at help");
 
+		
 		/*
 	    get("/db", (req, res) -> {
 	      Connection connection = null;
@@ -121,6 +138,7 @@ public class Application {
 	    }, new FreeMarkerEngine());
 		 */
 		
+
 		/* Intercept 404 */
 		get("*", (request, response) -> {
 			response.redirect("/user/login");
@@ -135,4 +153,8 @@ public class Application {
 	public static Application instance() {
 		return instance;
 	}
+	
+	private User getAuthenticatedUser(Request request) {
+		return request.session().attribute("user");
+	}	
 }

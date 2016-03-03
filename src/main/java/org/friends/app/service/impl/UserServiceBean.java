@@ -7,12 +7,13 @@ import org.friends.app.dao.SessionDao;
 import org.friends.app.dao.UserDao;
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
+import org.friends.app.service.UserService;
 
 import com.google.common.base.Strings;
 
 import spark.utils.Assert;
 
-public class UserServiceBean {
+public class UserServiceBean implements UserService{
 	
 	UserDao userDao = new UserDao();
 	SessionDao sessionDao = new SessionDao();
@@ -25,31 +26,28 @@ public class UserServiceBean {
 	 * @return
 	 * @throws Exception
 	 */
-	public User authenticate (String email, String pwd) throws Exception{
+	@Override
+	public User userAuthentication (String email, String pwd) throws Exception{
 		if (Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(pwd))
 			return null;
 		
 		// Email validator
 		if (!emailAMDMValidate(email))
-			throw new Exception("L'email saisi est incorrect !");
+			throw new Exception(EMAIL_ERROR);
 		
 		User user = findUserByEmail(email);
-		if (user == null)
-			throw new Exception("Utilisateur introuvable !");
-		
-		if (!email.equals(user.getEmailAMDM()))
-			throw new Exception("Email inconnu !");
-
-		if (!pwd.equals(user.getPwd()))
-			throw new Exception("Mot de passe incorrect !");
+		if (user!=null && !pwd.equals(user.getPwd()))
+			throw new Exception(PWD_ERROR);
 		
 		return user;
 	}
 	
+	@Override
 	public User findUserByEmail(String email) {
 		return userDao.findFirst(user -> user.getEmailAMDM().equals(email));
 	}
 
+	@Override
 	public User findUserByCookie(String cookie) {
 		Session session = sessionDao.findFirst(s -> s.getCookie().equals(cookie));
 		if (session == null)
@@ -68,6 +66,7 @@ public class UserServiceBean {
 	 * @param user
 	 * @throws Exception 
 	 */
+	@Override
 	public void create(User user) throws Exception {
 		Assert.notNull(user);
 		Assert.notNull(user.getEmailAMDM());
