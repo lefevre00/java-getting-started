@@ -76,10 +76,9 @@ public class Application {
 		/* 
 		 * User register 
 		 */
-		get("/user/new", (req, res) -> {
-			return new ModelAndView(null, "createUser.ftl");
-		}, new FreeMarkerEngine());
-		post("/user/new", (req, res) -> "A user tried to create his account");
+		RegisterRoute registerRoute = new RegisterRoute();
+		get("/user/new", registerRoute, new FreeMarkerEngine());
+		post("/user/new", registerRoute, new FreeMarkerEngine());
 
 		/*
 		 * Forgot password
