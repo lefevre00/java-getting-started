@@ -35,6 +35,7 @@ public class LoginRoute implements TemplateViewRoute {
 	}
 
 	protected void onLogin(Request request, Response response, Map<String, Object> map) {
+		
 		String email = request.queryParams("email");
 		String pwd = request.queryParams("pwd");
 		
@@ -49,17 +50,27 @@ public class LoginRoute implements TemplateViewRoute {
 					dest = "/"; //"/protected/sharePlace"
 				response.redirect(dest);
 			}
-			map.put(ERROR, "Utilisateur introuvable : Email ou mot de passe incorrect !");
+			map.put(ERROR, "Utilisateur introuvable !");
 			map.put(EMAIL, email);
+			
 
 		} catch (Exception e) {
 			
+			if(UserService.EMAIL_REQUIRED.equals(e.getMessage()))
+				map.put(ERROR, "Vous devez saisir une adresse email !");	
+			
+			if(UserService.PWD_REQUIRED.equals(e.getMessage()))
+				map.put(ERROR, "Vous devez saisir un mot de passe !");	
+			
 			if (UserService.EMAIL_ERROR.equals(e.getMessage()))
-				map.put(ERROR, "L'email saisi est incorrect !");
+				map.put(ERROR, "L'email saisi est invalide !");
 			
 			if(UserService.PWD_ERROR.equals(e.getMessage()))
 				map.put(ERROR, "Le mot de passe saisi est incorrect !");
 
+			map.put(EMAIL, email);
+			
+			
 		}
 	}
 	

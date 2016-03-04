@@ -1,5 +1,8 @@
 package org.friends.app.model;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 
@@ -90,4 +93,22 @@ public class User {
 	public String createCookie() {
 		return Hashing.sha1().hashString(emailAMDM, Charsets.UTF_8 ).toString();
 	}
+	
+	/**
+	 * On valide le format de l'email saisi qui doit être celui de l'AMDM
+	 * L'email doit avoir le format prenom.nom@amdm.fr (un '-' dans le prénom et le nom sont possibles)
+	 * 
+	 * @param email
+	 * @return
+	 */
+	public static boolean emailAMDMValidate(final String email){
+
+		String EMAIL_PATTERN = "^([A-Za-z]+\\-?)+\\.([A-Za-z]+\\-?)+@amdm.fr$";
+	    Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+	    
+	    Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+		
+	}		
+	
 }

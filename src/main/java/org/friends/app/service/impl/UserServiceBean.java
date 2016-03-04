@@ -9,9 +9,9 @@ import org.friends.app.model.Session;
 import org.friends.app.model.User;
 import org.friends.app.service.UserService;
 
-import com.google.common.base.Strings;
-
 import spark.utils.Assert;
+import spark.utils.StringUtils;
+
 
 public class UserServiceBean implements UserService{
 	
@@ -28,12 +28,8 @@ public class UserServiceBean implements UserService{
 	 */
 	@Override
 	public User userAuthentication (String email, String pwd) throws Exception{
-		if (Strings.isNullOrEmpty(email) || Strings.isNullOrEmpty(pwd))
-			return null;
 		
-		// Email validator
-		if (!emailAMDMValidate(email))
-			throw new Exception(EMAIL_ERROR);
+		parametersValidator(email, pwd);
 		
 		User user = findUserByEmail(email);
 		if (user!=null && !pwd.equals(user.getPwd()))
@@ -73,7 +69,7 @@ public class UserServiceBean implements UserService{
 		Assert.notNull(user.getPwd());
 		
 		// Email validator
-		if (!emailAMDMValidate(user.getEmailAMDM()))
+		if (!User.emailAMDMValidate(user.getEmailAMDM()))
 			throw new Exception("L'email saisi est incorrect !");
 		
 		userDao.persist(user);
@@ -90,7 +86,7 @@ public class UserServiceBean implements UserService{
 	 * @param email
 	 * @return
 	 */
-	public static boolean emailAMDMValidate(final String email){
+	public static boolean emailAMDMValidator(final String email){
 
 		String EMAIL_PATTERN = "^([A-Za-z]+\\-?)+\\.([A-Za-z]+\\-?)+@amdm.fr$";
 	    Pattern pattern = Pattern.compile(EMAIL_PATTERN);
@@ -99,5 +95,19 @@ public class UserServiceBean implements UserService{
         return matcher.matches();
 		
 	}	
+	
+	
+	public void parametersValidator(String email, String pwd) throws Exception {
+		
+		if (StringUtils.isEmpty(email)) 
+			throw new Exception(EMAIL_REQUIRED);
+		
+		if(!emailAMDMValidator(email)) 
+			throw new Exception(EMAIL_ERROR);		
+		
+		if(StringUtils.isEmpty(pwd)) 
+			throw new Exception(PWD_REQUIRED);
+
+	}
 	
 }
