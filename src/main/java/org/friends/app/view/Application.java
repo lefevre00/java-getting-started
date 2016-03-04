@@ -83,10 +83,9 @@ public class Application {
 		/*
 		 * Forgot password
 		 */
-		get("/user/forget", (req, res) -> {
-			return new ModelAndView(null, "lostPwd.ftl");
-		}, new FreeMarkerEngine());
-		post("/user/forget", (req, res) -> "A user lost his password");
+		ForgottenPwdRoute forgottenPwdRoute = new ForgottenPwdRoute();
+		get("/user/forget", forgottenPwdRoute, new FreeMarkerEngine());
+		post("/user/forget", forgottenPwdRoute, new FreeMarkerEngine());
 
 
 		/*
