@@ -5,7 +5,6 @@
 </head>
 
 <body>
-  <#include "nav.ftl">
   
   <#if error??>
   	<div class="bg-warning">

@@ -73,6 +73,15 @@ public class Application {
 		get("/user/login", loginRoute, new FreeMarkerEngine());
 		post("/user/login", loginRoute, new FreeMarkerEngine());
 
+		/*
+		 * Déconnexion
+		 */
+		get("/user/logout", (req, res) -> {
+			removeAuthenticatedUser(req);
+			res.redirect("/user/login");
+			return null;
+		});
+
 		/* 
 		 * User register 
 		 */
@@ -157,4 +166,9 @@ public class Application {
 	private User getAuthenticatedUser(Request request) {
 		return request.session().attribute("user");
 	}	
+	
+	private void removeAuthenticatedUser(Request request) {
+		request.session().removeAttribute("user");
+	}		
+	
 }

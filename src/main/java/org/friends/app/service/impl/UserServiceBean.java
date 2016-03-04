@@ -69,7 +69,7 @@ public class UserServiceBean implements UserService{
 		Assert.notNull(user.getPwd());
 		
 		// Email validator
-		if (!User.emailAMDMValidate(user.getEmailAMDM()))
+		if (!emailAMDMValidator(user.getEmailAMDM()))
 			throw new Exception("L'email saisi est incorrect !");
 		
 		userDao.persist(user);

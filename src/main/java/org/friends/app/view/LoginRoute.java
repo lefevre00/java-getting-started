@@ -74,13 +74,8 @@ public class LoginRoute implements TemplateViewRoute {
 		}
 	}
 	
-	
 	private void addAuthenticatedUser(Request request, User user) {
 		request.session().attribute("user", user);
-		
 	}
-	
-	private void removeAuthenticatedUser(Request request) {
-		request.session().removeAttribute("user");
-	}	
+
 }
