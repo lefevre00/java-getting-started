@@ -18,7 +18,11 @@
 	      <form method="post" role="form">
 	        <div class="form-group">
 		        <label for="email">Email</label>
-		        <input type="email" class="form-control" name="email" id="email" placeholder="adresse@email.fr"/>
+		        <#if email??>
+  		          <input type="email" class="form-control" name="email" placeholder="adresse@email.fr" value="${email}"/>
+		        <#else>
+		          <input type="email" class="form-control" name="email" placeholder="adresse@email.fr"/>
+                </#if>
 	        </div>
 	        <div class="form-group">
 		        <label for="pwd">Mot de passe</label>

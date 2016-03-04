@@ -50,7 +50,7 @@ public class RegisterRoute implements TemplateViewRoute {
 				
 				response.redirect("/user/login");
 			} else {
-				map.put(ERROR, "Un compte existe déjà avec ces données !");
+				map.put(ERROR, "Un compte existe déjà avec cette adresse email !");
 			}
 			map.put(EMAIL, email);
 				
@@ -64,8 +64,8 @@ public class RegisterRoute implements TemplateViewRoute {
 			if (UserService.EMAIL_ERROR.equals(e.getMessage()))
 				map.put(ERROR, "L'email saisi est invalide !");
 			
-			if(UserService.PWD_ERROR.equals(e.getMessage()))
-				map.put(ERROR, "Le mot de passe saisi est incorrect !");			
+			if(UserService.PWD_REQUIRED.equals(e.getMessage()))
+				map.put(ERROR, "Vous devez saisir un mot de passe !");			
 			
 			map.put(EMAIL, email);
 		}
