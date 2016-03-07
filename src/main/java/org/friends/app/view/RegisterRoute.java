@@ -48,7 +48,7 @@ public class RegisterRoute implements TemplateViewRoute {
 
 				userService.create(user);
 				response.cookie(Constants.COOKIE, user.createCookie(), Constants.COOKIE_DURATION);
-				UserRoutes.redirect(user, response);
+				Routes.redirect(user, response);
 
 			} else {
 				map.put(ERROR, "Un compte existe déjà avec cette adresse email !");
