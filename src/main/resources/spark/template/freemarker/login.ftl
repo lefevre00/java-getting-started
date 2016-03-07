@@ -20,14 +20,14 @@
 	        <div class="form-group">
 		        <label for="email">Email</label>
 		        <#if email??>
-  		          <input type="email" class="form-control" name="email" placeholder="adresse@email.fr" value="${email}"/>
+  		          <input type="email" class="form-control" name="email" placeholder="adresse@email.fr" value="${email}" required/>
 		        <#else>
-		          <input type="email" class="form-control" name="email" placeholder="adresse@email.fr"/>
+		          <input type="email" class="form-control" name="email" placeholder="adresse@email.fr" required/>
                 </#if>
 	        </div>
 	        <div class="form-group">
 		        <label for="pwd">Mot de passe</label>
-		        <input type="password" class="form-control" name="pwd" id="pwd" placeholder="********"/>
+		        <input type="password" class="form-control" name="pwd" id="pwd" placeholder="********" required/>
 	        </div>
 	        <div class="form-group">
 				<input type="submit" class="btn btn-success" value="Se connecter"/>
