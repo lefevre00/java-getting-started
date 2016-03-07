@@ -93,14 +93,14 @@ public class Application {
 		 * Forgot password
 		 */
 		ForgottenPwdRoute forgottenPwdRoute = new ForgottenPwdRoute();
-		get("/user/forget", forgottenPwdRoute, new FreeMarkerEngine());
-		post("/user/forget", forgottenPwdRoute, new FreeMarkerEngine());
+		get(Routes.PASSWORD_LOST, forgottenPwdRoute, new FreeMarkerEngine());
+		post(Routes.PASSWORD_LOST, forgottenPwdRoute, new FreeMarkerEngine());
 
 
 		/*
 		 * Places booking 
 		 */
-		get("/protected/search", new SearchRoute(), new FreeMarkerEngine());
+		get(Routes.PLACE_SEARCH, new SearchRoute(), new FreeMarkerEngine());
 		//post("/protected/search", new SearchRoute(), new FreeMarkerEngine());
 
 		get("/protected/book/:placeId", (req, res) -> {
@@ -116,7 +116,8 @@ public class Application {
 
 
 		/* Doc */
-		get("/help", (req, res) -> "Nothing yet at help");
+		// TODO someone at some point ;)
+//		get("/help", (req, res) -> "Nothing yet at help");
 
 		
 		/*

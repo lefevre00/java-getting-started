@@ -16,4 +16,6 @@ public interface Routes {
 	String LOGOUT = "/user/logout";
 	String REGISTER = "/user/new";
 	String LOGIN = "/user/login";
+	String PASSWORD_LOST = "/user/forget";
+	String PLACE_SEARCH = "/protected/search";
 }
