@@ -1,11 +1,10 @@
 package org.friends.app.view;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -20,43 +19,52 @@ import spark.Response;
 import spark.TemplateViewRoute;
 
 public class SearchRoute implements TemplateViewRoute {
+	
+	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	private PlaceServiceBean placeService = new PlaceServiceBean();
 	
 	@Override
 	public ModelAndView handle(Request req, Response resp) throws Exception {
     	Map<String, Object> map = new HashMap<>();
-    	Date dateRecherche = new Date();
-    	
-    	String strdateRecherche = new SimpleDateFormat("dd/MM/yyyy").format(new Date(dateRecherche.getTime()));
-    	String strTomorrow = rechercherLejourSuivant(dateRecherche);
-//    	//if ("POST".equalsIgnoreCase(req.requestMethod())) {
-    		if(req.queryParams("nextDay") != null){
-    			dateRecherche = strtoDate(req.queryParams("nextDay"));
-    			strdateRecherche = new SimpleDateFormat("dd/MM/yyyy").format(new Date(dateRecherche.getTime()));
-    			strTomorrow = rechercherLejourSuivant(dateRecherche);
-	    	}
-    		map.put("nextDay", "?nextDay="+strTomorrow);
-    		map.put("dateRecherche", strdateRecherche);
-    	map.put("places", getPlaces(dateRecherche));
+    	LocalDate timePoint = LocalDate.now();
+    	String dateRecherchee = req.queryParams("nextDay")!= null ? req.queryParams("nextDay") : LocalDate.now().format(formatter);
+    	LocalDate jourSuivant  = dateRecherchee != null ? LocalDate.parse(dateRecherchee, formatter) : timePoint;
+    	String strYesteday = null;
+    	if(req.queryParams("nextDay")!= null){
+    		strYesteday = rechercherLejourPrecedent(LocalDate.parse(dateRecherchee, formatter));
+    	}
+    	//String strdateRecherche = dateParametre != null ? LocalDate.now().format(formatter) :  timePoint.format(formatter);
+    	String strTomorrow = rechercherLejourSuivant(jourSuivant);
+    	map.put("nextDay", "?nextDay="+strTomorrow);
+    	map.put("yesteday", "?previousDay="+strYesteday);
+    	map.put("dateRecherche", dateRecherchee);
+    	map.put("places", getPlaces(LocalDate.parse(dateRecherchee, formatter)));
         return new ModelAndView(map, "search.ftl");
 	}
 
-	private String rechercherLejourSuivant(Date dateRecherche) {
-		int nextDay = 1;
-		Calendar calendar = new GregorianCalendar();
-	    calendar.setTime(dateRecherche);
-		int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        if(dayOfWeek == Calendar.FRIDAY){
-			nextDay = 3;
+	private String rechercherLejourSuivant(LocalDate dateRecherche) {
+		if(DayOfWeek.FRIDAY.equals(dateRecherche.getDayOfWeek())){
+			dateRecherche = dateRecherche.plusDays(3);
+		}else{
+			dateRecherche = dateRecherche.plusDays(1);
 		}
-		return new SimpleDateFormat("dd/MM/yyyy").format(new Date(dateRecherche.getTime() + (1000 * 60 * 60 * 24 * nextDay)));
+		return dateRecherche.format(formatter);//new SimpleDateFormat("dd/MM/yyyy").format(new Date(dateRecherche.getTime() + (1000 * 60 * 60 * 24 * nextDay)));
+	}
+	
+	private String rechercherLejourPrecedent(LocalDate dateRecherche) {
+		if(DayOfWeek.MONDAY.equals(dateRecherche.getDayOfWeek())){
+			dateRecherche = dateRecherche.minusDays(3);
+		}else{
+			dateRecherche = dateRecherche.minusDays(1);
+		}
+		return dateRecherche.format(formatter);//new SimpleDateFormat("dd/MM/yyyy").format(new Date(dateRecherche.getTime() + (1000 * 60 * 60 * 24 * nextDay)));
 	}
 
-	private List<Place> getPlaces(Date dateRecherche) throws ParseException {
+	private List<Place> getPlaces(LocalDate dateRecherche) throws ParseException {
 		List<Place> places = new ArrayList<>();
 		List<Integer> freePlaces = placeService.getAvailableByDate(dateRecherche);
-		for (Iterator iterator = freePlaces.iterator(); iterator.hasNext();) {
+		for (Iterator<Integer> iterator = freePlaces.iterator(); iterator.hasNext();) {
 			Integer integer = (Integer) iterator.next();
 			places.add(new Place(integer.intValue(), freePlaces.contains(integer.intValue())));
 		}
@@ -68,8 +76,5 @@ public class SearchRoute implements TemplateViewRoute {
 		return places;
 	}
 	
-	private Date strtoDate(String strdate) throws ParseException{
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		return formatter.parse(strdate);
-	}
+
 }

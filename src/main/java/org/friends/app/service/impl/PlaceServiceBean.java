@@ -1,7 +1,7 @@
 package org.friends.app.service.impl;
 
 import java.text.ParseException;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.friends.app.dao.PlaceDao;
@@ -15,7 +15,7 @@ public class PlaceServiceBean {
 		return placedao.findAllFree();
 	}
 	
-	public List<Integer> getAvailableByDate(Date date) throws ParseException {
+	public List<Integer> getAvailableByDate(LocalDate date) throws ParseException {
 		return placedao.findAllFree(date);
 	}
 	

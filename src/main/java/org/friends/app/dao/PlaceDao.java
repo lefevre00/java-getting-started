@@ -1,10 +1,9 @@
 package org.friends.app.dao;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,10 +13,12 @@ import spark.utils.Assert;
 
 public class PlaceDao {
 
+	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	private static List<Place> placeCache = new ArrayList<Place>();
-	static String strDateToday  = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
-	static String strTomorrow = new SimpleDateFormat("dd/MM/yyyy").format(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)));
-	static String strYearsteday = new SimpleDateFormat("dd/MM/yyyy").format(new Date(new Date().getTime() - (1000 * 60 * 60 * 24)));
+	static LocalDate timePoint = LocalDate.now();
+	static String strDateToday  = timePoint.format(formatter);
+	static String strTomorrow = timePoint.plusYears(1).format(formatter);
+	static String strYearsteday = timePoint.minusDays(1).format(formatter);
 	
     static{
     	placeCache.add(new Place(1, true, strDateToday));//Place libre aujourd'hui free = true
@@ -58,11 +59,12 @@ SELECT 23, null, DATE('31/03/2016')
 		return listFree;
 	}
 
-	public List<Integer> findAllFree(Date date) throws ParseException {
+	public List<Integer> findAllFree(LocalDate date) throws ParseException {
 		List<Integer> listFree = new ArrayList<Integer>();
 		for (Iterator<Place> iterator = placeCache.iterator(); iterator.hasNext();) {
 			Place place = (Place) iterator.next();
-			String strDateRecherche =new SimpleDateFormat("dd/MM/yyyy").format(date);
+			
+			String strDateRecherche = date.format(formatter);
 			if(place.isFree() && (strDateRecherche.equalsIgnoreCase(place.getOccupationDate()))) listFree.add(place.getPlaceNumber());
 		}
 		

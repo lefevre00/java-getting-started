@@ -11,7 +11,7 @@
   	
     <div class="row"><center>Places disponibles le ${dateRecherche}</center></div>
     <div>
-      <div class="col-sm-1"></div>
+      <div class="col-sm-1"><a href="/protected/search${yesteday}" alt="jour précédent" title="jour précédent"><span class="glyphicon glyphicon-menu-left">&nbsp;</span></a></div>
       <div class="col-sm-10">
       	<#list places as place>
       	  <#if place.free>
