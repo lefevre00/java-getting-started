@@ -54,7 +54,7 @@ public class Application {
 				public void handle(Request request, Response response) throws Exception {
 					User authenticatedUser = getAuthenticatedUser(request);
 					if(StringUtils.isEmpty(authenticatedUser)) {
-						response.redirect("/user/login");
+						response.redirect(Routes.LOGIN);
 					}
 				}
 			};
@@ -70,15 +70,15 @@ public class Application {
 		 * User login 
 		 */
 		LoginRoute loginRoute = new LoginRoute();
-		get("/user/login", loginRoute, new FreeMarkerEngine());
-		post("/user/login", loginRoute, new FreeMarkerEngine());
+		get(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
+		post(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
 
 		/*
 		 * Déconnexion
 		 */
-		get("/user/logout", (req, res) -> {
+		get(Routes.LOGOUT, (req, res) -> {
 			removeAuthenticatedUser(req);
-			res.redirect("/user/login");
+			res.redirect(Routes.LOGIN);
 			return null;
 		});
 
@@ -86,8 +86,8 @@ public class Application {
 		 * User register 
 		 */
 		RegisterRoute registerRoute = new RegisterRoute();
-		get("/user/new", registerRoute, new FreeMarkerEngine());
-		post("/user/new", registerRoute, new FreeMarkerEngine());
+		get(Routes.REGISTER, registerRoute, new FreeMarkerEngine());
+		post(Routes.REGISTER, registerRoute, new FreeMarkerEngine());
 
 		/*
 		 * Forgot password
@@ -150,7 +150,7 @@ public class Application {
 
 		/* Intercept 404 */
 		get("*", (request, response) -> {
-			response.redirect("/user/login");
+			response.redirect(Routes.LOGIN);
 			return "404";
 		});
 	}
@@ -165,10 +165,9 @@ public class Application {
 	
 	private User getAuthenticatedUser(Request request) {
 		return request.session().attribute("user");
-	}	
-	
+	}
+
 	private void removeAuthenticatedUser(Request request) {
 		request.session().removeAttribute("user");
-	}		
-	
+	}
 }
