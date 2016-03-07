@@ -18,4 +18,5 @@ public interface Routes {
 	String LOGIN = "/user/login";
 	String PASSWORD_LOST = "/user/forget";
 	String PLACE_SEARCH = "/protected/search";
+	String PLACE_SHARE = "/protected/sharePlace";
 }

@@ -111,8 +111,8 @@ public class Application {
 		 * Share a place
 		 */
 		SharePlace shareRoute = new SharePlace();
-		get("/protected/sharePlace", shareRoute, new FreeMarkerEngine()); 
-		post("/protected/sharePlace", shareRoute, new FreeMarkerEngine());//(req, res) -> "Vous libérez la place   " + req.queryParams("number") +" du " + req.queryParams("dateDebut") +" du " + req.queryParams("dateFin"));
+		get(Routes.PLACE_SHARE, shareRoute, new FreeMarkerEngine()); 
+		post(Routes.PLACE_SHARE, shareRoute, new FreeMarkerEngine());//(req, res) -> "Vous libérez la place   " + req.queryParams("number") +" du " + req.queryParams("dateDebut") +" du " + req.queryParams("dateFin"));
 
 
 		/* Doc */
