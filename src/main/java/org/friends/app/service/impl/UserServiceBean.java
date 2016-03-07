@@ -60,10 +60,11 @@ public class UserServiceBean implements UserService{
 	 *   <li>Aucun utilisateur ne comporte le même email</li>
 	 * </ul>
 	 * @param user
+	 * @return 
 	 * @throws Exception 
 	 */
 	@Override
-	public void create(User user) throws Exception {
+	public User create(User user) throws Exception {
 		Assert.notNull(user);
 		Assert.notNull(user.getEmailAMDM());
 		Assert.notNull(user.getPwd());
@@ -72,7 +73,7 @@ public class UserServiceBean implements UserService{
 		if (!emailAMDMValidator(user.getEmailAMDM()))
 			throw new Exception("L'email saisi est incorrect !");
 		
-		userDao.persist(user);
+		return userDao.persist(user);
 	}
 	
 	public void update(User user) {}

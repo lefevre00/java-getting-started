@@ -14,13 +14,9 @@ public interface UserService {
 	
 	public User userAuthentication (String email, String pwd) throws Exception;
 	
-	
 	public User findUserByEmail(String email);
-	
 	
 	public User findUserByCookie(String cookie);
 	
-	
-	public void create(User user) throws Exception;
-
+	public User create(User user) throws Exception;
 }

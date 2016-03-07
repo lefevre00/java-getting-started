@@ -3,6 +3,7 @@ package org.friends.app.view;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.friends.app.Constants;
 import org.friends.app.model.User;
 import org.friends.app.service.UserService;
 import org.friends.app.service.impl.UserServiceBean;
@@ -44,11 +45,11 @@ public class RegisterRoute implements TemplateViewRoute {
 			
 			User userExiste = userService.findUserByEmail(user.getEmailAMDM());
 			if(userExiste == null) {
-//				userService.create(user);
-				
-				// TODO Affichier message succès puis faire redirection   
-				
-				response.redirect("/user/login");
+
+				userService.create(user);
+				response.cookie(Constants.COOKIE, user.createCookie(), Constants.COOKIE_DURATION);
+				UserRoutes.redirect(user, response);
+
 			} else {
 				map.put(ERROR, "Un compte existe déjà avec cette adresse email !");
 			}
