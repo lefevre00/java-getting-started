@@ -8,9 +8,9 @@
 <body>
    
   <#if error??>
-  	<div class="bg-warning">
-  	${error}
-  	</1div>
+	  <div class="alert alert-danger">
+	  	<strong>Erreur : </strong>${error}
+	  </div>
   </#if>
   
   <div class="jumbotron">
