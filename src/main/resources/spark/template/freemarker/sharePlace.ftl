@@ -22,13 +22,11 @@
 
     <div class="row">
     <form method="post" role="form">
-        <div class='col-sm-6'>
-           <div class="well text-center">
-           			<input type="hidden" name="number" value="${placeNumber}"/>
+           <div class="well">
 			        Je lib&egrave;re la place n&deg;<strong>${placeNumber}</strong> pour la (ou les) journ&eacute;e(s) du <br/>
-			         
-			             <div class='col-md-4'>
-					        <div class="form-group">
+			        <div class="text-center"> 
+			             
+					        <div class="form-group col-md-2">
 					            <div class='input-group date' id='datetimepicker6'>
 					                <input type='text' class="form-control" name="dateDebut"/>
 					                <span class="input-group-addon">
@@ -36,9 +34,8 @@
 					                </span>
 					            </div>
 					        </div>
-					    </div>
-					    <div class='col-md-4'>
-					        <div class="form-group">
+
+					        <div class="form-group col-md-2">
 					            <div class='input-group date' id='datetimepicker7'>
 					                <input type='text' class="form-control"  name="dateFin"/>
 					                <span class="input-group-addon">
@@ -46,13 +43,11 @@
 					                </span>
 					            </div>
 					        </div>
-					    </div>
-			         
+			         <div/>
 			         
 			      <br clear="both"/>
 			            <input type="submit" class="btn btn-ok" value="Valider"/>
           </div>
-        </div>
 	</form>
     </div>
 </div>

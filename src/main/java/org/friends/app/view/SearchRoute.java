@@ -21,6 +21,7 @@ import spark.TemplateViewRoute;
 public class SearchRoute implements TemplateViewRoute {
 	
 	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	static DateTimeFormatter formatterDatePicker = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	private PlaceServiceBean placeService = new PlaceServiceBean();
 	
@@ -38,7 +39,8 @@ public class SearchRoute implements TemplateViewRoute {
     	String strTomorrow = rechercherLejourSuivant(jourSuivant);
     	map.put("nextDay", "?nextDay="+strTomorrow);
     	map.put("yesteday", "?previousDay="+strYesteday);
-    	map.put("dateRecherche", dateRecherchee);
+    	
+    	map.put("dateRecherche", LocalDate.parse(dateRecherchee, formatter).format(formatterDatePicker));
     	map.put("places", getPlaces(LocalDate.parse(dateRecherchee, formatter)));
         return new ModelAndView(map, "search.ftl");
 	}
