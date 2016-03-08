@@ -45,7 +45,7 @@ public class LoginRoute implements TemplateViewRoute {
 
 			if (user != null) {
 				addAuthenticatedUser(request, user);
-				String dest = "/protected/search";
+				String dest = Routes.PLACE_SEARCH;
 				if (user.getPlaceNumber() != null)
 					dest = "/"; //"/protected/sharePlace"
 				response.redirect(dest);

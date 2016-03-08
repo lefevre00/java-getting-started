@@ -11,6 +11,7 @@ import static spark.Spark.staticFileLocation;
 import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Map;
 
 import org.friends.app.Configuration;
 import org.friends.app.model.User;
@@ -52,6 +53,7 @@ public class Application {
 			Filter checkLoggedIn = new Filter() {
 				@Override
 				public void handle(Request request, Response response) throws Exception {
+					Map<String, String> cookies = request.cookies();
 					User authenticatedUser = getAuthenticatedUser(request);
 					if(StringUtils.isEmpty(authenticatedUser)) {
 						response.redirect(Routes.LOGIN);
