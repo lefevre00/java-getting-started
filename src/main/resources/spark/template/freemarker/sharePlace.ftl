@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <#include "header.ftl">
@@ -13,6 +14,12 @@
 
 
 <div class="container">
+
+    <div class="text-center">
+    	<h2>Proposer une place de parking</h2>
+	</div>
+	<br/>
+
     <div class="row">
     <form method="post" role="form">
         <div class='col-sm-6'>

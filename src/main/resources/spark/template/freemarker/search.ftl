@@ -8,6 +8,11 @@
   <#include "nav.ftl">
 
   <div class="container">
+
+    <div class="text-center">
+    	<h2>Trouver une place de parking</h2>
+	</div>
+	<br/>
   	
     <div class="row"><center>Places disponibles le ${dateRecherche}</center></div>
     <div>
