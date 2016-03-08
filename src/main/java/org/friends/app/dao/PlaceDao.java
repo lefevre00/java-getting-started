@@ -23,7 +23,7 @@ public class PlaceDao {
     static{
     	placeCache.add(new Place(1, true, strDateToday));//Place libre aujourd'hui free = true
     	placeCache.add(new Place(2, false, strDateToday));//Place occupée aujourd'hui
-    	placeCache.add(new Place(3, "damien.urvoix", strDateToday));//place occupée aujourd'hui
+    	placeCache.add(new Place(3, "damien.urvoix@amdm.fr", strDateToday));//place occupée aujourd'hui
     	placeCache.add(new Place(4, null, strDateToday)); // place libre  aujourd'hui
     	placeCache.add(new Place(33, true, strDateToday)); //Place libre aujourd'hui free = true
     	placeCache.add(new Place(34, true, strYearsteday)); //Place libre hier free = true

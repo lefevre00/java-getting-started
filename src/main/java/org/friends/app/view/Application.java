@@ -10,11 +10,17 @@ import static spark.Spark.staticFileLocation;
 
 import java.net.URISyntaxException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.friends.app.Configuration;
 import org.friends.app.model.User;
+
+import com.heroku.sdk.jdbc.DatabaseUrl;
 
 import spark.Filter;
 import spark.ModelAndView;
@@ -22,8 +28,6 @@ import spark.Request;
 import spark.Response;
 import spark.template.freemarker.FreeMarkerEngine;
 import spark.utils.StringUtils;
-
-import com.heroku.sdk.jdbc.DatabaseUrl;
 
 public class Application {
 
@@ -122,7 +126,7 @@ public class Application {
 //		get("/help", (req, res) -> "Nothing yet at help");
 
 		
-		/*
+		/* 
 	    get("/db", (req, res) -> {
 	      Connection connection = null;
 	      Map<String, Object> attributes = new HashMap<>();
@@ -130,13 +134,38 @@ public class Application {
 	        connection = getConnection();
 
 	        Statement stmt = connection.createStatement();
-	        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-	        stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-	        ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
+	        // Création de la structure
+	        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (user_id INT NOT NULL, email_amdm VARCHAR(255) NOT NULL, place_id INT, pwd varchar(255) NOT NULL, PRIMARY KEY (user_id, email_amdm));");
+	        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS places (place_id int NOT NULL, mail_occupant varchar(255), occupation_date varchar(10) NOT NULL, PRIMARY KEY (place_id, occupation_date));");
+	        // Peuplement des users
+	        stmt.executeUpdate("DELETE FROM users");
+	        stmt.executeUpdate("INSERT INTO users (user_id, email_amdm, place_id, pwd) VALUES (1, 'william.verdeil@amdm.fr', 141 , 'wv')");
+	   
+	 * stmt.executeUpdate("INSERT INTO users (user_id, email_amdm, place_id, pwd)  "+
+	    	        "SELECT 1, 'william.verdeil@amdm.fr', 141 , 'wv') FROM users "+
+	    	         "WHERE NOT EXISTS (SELECT 1 FROM users WHERE user_id = 1 AND email_amdm = 'william.verdeil@amdm.fr')");    
+	        stmt.executeUpdate("INSERT INTO users (user_id, email_amdm, place_id, pwd) "+
+	    	        "SELECT 2, 'abdel.tamditi@amdm.fr', 133 , 'at') FROM places "+
+	    	         "WHERE NOT EXISTS (SELECT 1 FROM users WHERE user_id = 2 AND email_amdm = 'abdel.tamditi@amdm.fr');");
+	        
+	        stmt.executeUpdate("INSERT INTO users (user_id, email_amdm, place_id, pwd) "+
+	    	        "SELECT 3, 'michael.lefevre@amdm.fr', 87 , 'ml') FROM places "+
+	    	         "WHERE NOT EXISTS (SELECT 1 FROM users WHERE user_id = 3 AND email_amdm = 'michael.lefevre@amdm.fr');");
+	        stmt.executeUpdate("INSERT INTO users (user_id, email_amdm, place_id, pwd) "+
+	    	        "SELECT 4, 'damien.urvoix@amdm.fr', null , 'ml') FROM places "+
+	    	         "WHERE NOT EXISTS (SELECT 1 FROM users WHERE user_id = 4 AND email_amdm = 'damien.urvoix@amdm.fr');");
+	        
+	        stmt.executeUpdate("INSERT INTO users (user_id, email_amdm, place_id, pwd) "+
+	    	        "SELECT 5, 'jean-pierre.cluzel@amdm.fr', null , 'jpc') FROM places "+
+	    	         "WHERE NOT EXISTS (SELECT 1 FROM users WHERE user_id = 5 AND email_amdm = 'jean-pierre.cluzel@amdm.fr');");
+	      
+
+
+	        ResultSet rs = stmt.executeQuery("SELECT email_amdm FROM users");
 
 	        ArrayList<String> output = new ArrayList<String>();
 	        while (rs.next()) {
-	          output.add( "Read from DB: " + rs.getTimestamp("tick"));
+	          output.add( "Read from DB: " + rs.getTimestamp("email_amdm"));
 	        }
 
 	        attributes.put("results", output);
@@ -148,8 +177,8 @@ public class Application {
 	        if (connection != null) try{connection.close();} catch(SQLException e){}
 	      }
 	    }, new FreeMarkerEngine());
-		 */
 		
+		*/
 
 		/* Intercept 404 */
 		get("*", (request, response) -> {

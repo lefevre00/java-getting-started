@@ -3,8 +3,8 @@ package org.friends.app.model;
 public class Place {
 	
 	private Integer placeNumber;
-	private String occupiedBy;
-	private String occupationDate;
+	private String mail_occupant;
+	private String occupation_date;
 	private boolean free;
 	
 	public Place(int n, boolean f) {
@@ -15,13 +15,13 @@ public class Place {
 	public Place(int n, boolean f, String o) {
 		placeNumber = n;
 		free = f;
-		occupationDate = o;
+		occupation_date = o;
 	}	
 	
 	public Place(int n, String emailOccupant, String o) {
 		placeNumber = n;
 		free = emailOccupant != null ? false : true;
-		occupationDate = o;
+		occupation_date = o;
 	}	
 	
 	/**
@@ -42,28 +42,28 @@ public class Place {
 	 * @return the occupiedBy
 	 */
 	public String getOccupiedBy() {
-		return occupiedBy;
+		return mail_occupant;
 	}
 	
 	/**
 	 * @param occupiedBy the occupiedBy to set
 	 */
 	public void setOccupiedBy(String occupiedBy) {
-		this.occupiedBy = occupiedBy;
+		this.mail_occupant = occupiedBy;
 	}
 	
 	/**
 	 * @return the occupationDate
 	 */
 	public String getOccupationDate() {
-		return occupationDate;
+		return occupation_date;
 	}
 	
 	/**
 	 * @param occupationDate the occupationDate to set
 	 */
 	public void setOccupationDate(String occupationDate) {
-		this.occupationDate = occupationDate;
+		this.occupation_date = occupationDate;
 	}
 
 	public boolean isFree() {
