@@ -1,11 +1,9 @@
 package org.friends.app.view;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -22,6 +20,9 @@ import spark.TemplateViewRoute;
 
 public class SharePlace implements TemplateViewRoute {
 	
+	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	static DateTimeFormatter formatterDatePicker = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	
 	private PlaceServiceBean placeService = new PlaceServiceBean();
 
 	@Override
@@ -37,16 +38,13 @@ public class SharePlace implements TemplateViewRoute {
 			model = new ModelAndView(map, "login.ftl");
 		}else{
 			if ("POST".equalsIgnoreCase(paramRequest.requestMethod())) {
-				String strDateDebut = paramRequest.queryParams("dateDebut");
-				String strDateFin = paramRequest.queryParams("dateFin");
+				LocalDate dateDebut = paramRequest.queryParams("dateDebut") != null ? LocalDate.parse(paramRequest.queryParams("dateDebut"), formatterDatePicker) : null;
+				LocalDate dateFin = paramRequest.queryParams("dateFin") != null ? LocalDate.parse(paramRequest.queryParams("dateFin"), formatterDatePicker) : null;
 					
 					List<String> lesDates = new ArrayList<String>();
-					if((strDateDebut != null) && (strDateFin != null)){
-						if(strDateDebut.equalsIgnoreCase(strDateFin)){
-							lesDates.add(strDateDebut);
-						}else{
-							lesDates = getDaysBetweenDates(strtoDate(strDateDebut), strtoDate(strDateFin));
-						}
+					if((dateDebut != null) && (dateFin != null)){
+						
+						lesDates = getDaysBetweenDates(dateDebut, dateFin);
 						for (Iterator<String> iterator = lesDates.iterator(); iterator.hasNext();) {
 							String leJour = (String) iterator.next();
 							placeService.releasePlace(user.getPlaceNumber().intValue(), leJour);
@@ -54,7 +52,8 @@ public class SharePlace implements TemplateViewRoute {
 						
 				        paramResponse.redirect("/protected/search");
 				        map.put("dateRecherche", "");
-				        map.put("nextDay", "?nextDay="+new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+				        map.put("nextDay", "?nextDay="+ LocalDate.now().format(formatter));
+				        map.put("yesteday", "?previousDay="+null);
 				        map.put("places", new ArrayList<>());
 				        model = new ModelAndView(map, "search.ftl");
 					}
@@ -66,27 +65,21 @@ public class SharePlace implements TemplateViewRoute {
 		return model;
 	}
 	
-	private Date strtoDate(String strdate) throws ParseException{
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		return formatter.parse(strdate);
-	}
-	
-	
-	public static List<String> getDaysBetweenDates(Date startdate, Date enddate)
+	public static List<String> getDaysBetweenDates(LocalDate startdate, LocalDate enddate)
 	{
+		
 	    List<String> dates = new ArrayList<String>();
-	    Calendar calendar = new GregorianCalendar();
-	    calendar.setTime(startdate);
-
-	    while (calendar.getTime().before(enddate))
+	    LocalDate dateToAdd = startdate;
+	    while (dateToAdd.isBefore(enddate.plusDays(1)))
 	    {
-	        Date result = calendar.getTime();
-	        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-	        if((dayOfWeek != Calendar.SUNDAY) || (dayOfWeek != Calendar.SATURDAY)){
-	        	dates.add(new SimpleDateFormat("dd/MM/yyyy").format(result));
+	    	System.out.println(dateToAdd.toString() + " / " + startdate.toString() + " - " + enddate.toString());
+	    	if((DayOfWeek.SATURDAY.equals(dateToAdd.getDayOfWeek())) || (DayOfWeek.SUNDAY.equals(dateToAdd.getDayOfWeek()))){
+	        	
+	        }else{
+	        	dates.add(dateToAdd.format(formatter));
+
 	        }
-	        
-	        calendar.add(Calendar.DATE, 1);
+	    	dateToAdd= dateToAdd.plusDays(1);
 	    }
 	    return dates;
 	}
