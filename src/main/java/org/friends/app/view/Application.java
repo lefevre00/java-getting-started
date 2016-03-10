@@ -156,7 +156,7 @@ public class Application {
 //		get("/help", (req, res) -> "Nothing yet at help");
 
 		
-		/* 
+/*		
 	    get("/db", (req, res) -> {
 	      Connection connection = null;
 	      Map<String, Object> attributes = new HashMap<>();
@@ -169,8 +169,8 @@ public class Application {
 	        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS places (place_id int NOT NULL, mail_occupant varchar(255), occupation_date varchar(10) NOT NULL, PRIMARY KEY (place_id, occupation_date));");
 	        // Peuplement des users
 	        stmt.executeUpdate("DELETE FROM users");
-	        stmt.executeUpdate("INSERT INTO users (user_id, email_amdm, place_id, pwd) VALUES (1, 'william.verdeil@amdm.fr', 141 , 'wv')");
-	   
+	        stmt.executeUpdate("INSERT INTO USERS (USER_ID, email_amdm, place_id, pwd) SELECT 1, 'william.verdeil@amdm.fr', 141 , 'wv' WHERE NOT EXISTS (SELECT 1 FROM users WHERE user_id = 1 AND email_amdm = 'william.verdeil@amdm.fr');");
+*	   
 	 * stmt.executeUpdate("INSERT INTO users (user_id, email_amdm, place_id, pwd)  "+
 	    	        "SELECT 1, 'william.verdeil@amdm.fr', 141 , 'wv') FROM users "+
 	    	         "WHERE NOT EXISTS (SELECT 1 FROM users WHERE user_id = 1 AND email_amdm = 'william.verdeil@amdm.fr')");    
@@ -208,7 +208,7 @@ public class Application {
 	      }
 	    }, new FreeMarkerEngine());
 		
-		*/
+	*/	
 
 		/* Intercept 404 */
 		get("*", (request, response) -> {
