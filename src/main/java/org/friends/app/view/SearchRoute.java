@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.friends.app.dao.PlaceDao;
 import org.friends.app.model.Place;
 import org.friends.app.service.impl.PlaceServiceBean;
 
@@ -20,7 +21,7 @@ import spark.TemplateViewRoute;
 
 public class SearchRoute implements TemplateViewRoute {
 	
-	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN);
 	static DateTimeFormatter formatterDatePicker = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	private PlaceServiceBean placeService = new PlaceServiceBean();
