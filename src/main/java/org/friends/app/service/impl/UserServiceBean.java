@@ -48,7 +48,7 @@ public class UserServiceBean implements UserService{
 		Session session = sessionDao.findFirst(s -> s.getCookie().equals(cookie));
 		if (session == null)
 			return null;
-		return userDao.findFirst(u -> u.getIdUser().equals(session.getUserId())); 
+		return userDao.findFirst(u -> u.getId().equals(session.getUserId())); 
 	}
 	
 	public Session createSession(User user) {

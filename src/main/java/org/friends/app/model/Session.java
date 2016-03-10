@@ -11,12 +11,13 @@ import com.google.common.hash.Hashing;
  * @author michael
  */
 public class Session {
+	
 	Integer userId;
 	String cookie;
 	Date creationDate;
 
 	public Session(User user) {
-		userId = user.getIdUser();
+		userId = user.getId();
 		creationDate = new Date();
 		cookie = Hashing.sha1().hashString(user.getEmailAMDM() + creationDate.toString(), Charsets.UTF_8).toString();
 	}

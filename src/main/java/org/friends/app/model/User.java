@@ -1,11 +1,7 @@
 package org.friends.app.model;
 
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.google.common.base.Charsets;
-import com.google.common.hash.Hashing;
 
 /**
  * A user of the application.
@@ -13,7 +9,7 @@ import com.google.common.hash.Hashing;
  */
 public class User {
 	
-	private Integer idUser;
+	private Integer id;
 	private String emailAMDM;
 	private Integer placeNumber;
 	private String pwd;
@@ -34,15 +30,15 @@ public class User {
 	/**
 	 * @return the idUser
 	 */
-	public Integer getIdUser() {
-		return idUser;
+	public Integer getId() {
+		return id;
 	}
 	
 	/**
 	 * @param idUser the idUser to set
 	 */
-	public void setIdUser(Integer idUser) {
-		this.idUser = idUser;
+	public void setId(Integer idUser) {
+		this.id = idUser;
 	}
 	
 	/**
