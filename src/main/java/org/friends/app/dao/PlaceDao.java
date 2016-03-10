@@ -13,24 +13,9 @@ import spark.utils.Assert;
 
 public class PlaceDao {
 
-	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	public static final String DATE_PATTERN = "yyyy-MM-dd";
+	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
 	private static List<Place> placeCache = new ArrayList<Place>();
-	static LocalDate timePoint = LocalDate.now();
-	static String strDateToday  = timePoint.format(formatter);
-	static String strTomorrow = timePoint.plusYears(1).format(formatter);
-	static String strYearsteday = timePoint.minusDays(1).format(formatter);
-	
-    static{
-    	placeCache.add(new Place(1, true, strDateToday));//Place libre aujourd'hui free = true
-    	placeCache.add(new Place(2, false, strDateToday));//Place occupée aujourd'hui
-    	placeCache.add(new Place(3, "damien.urvoix@amdm.fr", strDateToday));//place occupée aujourd'hui
-    	placeCache.add(new Place(4, null, strDateToday)); // place libre  aujourd'hui
-    	placeCache.add(new Place(33, true, strDateToday)); //Place libre aujourd'hui free = true
-    	placeCache.add(new Place(34, true, strYearsteday)); //Place libre hier free = true
-    	placeCache.add(new Place(35, true, strTomorrow)); //Place libre dans le futur free = true
-    	placeCache.add(new Place(36, null, strYearsteday)); //Place libre hier occupee == null
-    	placeCache.add(new Place(37, null, strTomorrow)); //Place libre dans le futur occupee == null
-    }		
 	
 	public Place persist(Place place) {
 		/*En sql faire : 
