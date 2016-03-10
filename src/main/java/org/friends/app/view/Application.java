@@ -10,15 +10,13 @@ import static spark.Spark.staticFileLocation;
 
 import java.net.URISyntaxException;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.friends.app.Configuration;
+import org.friends.app.Constants;
+import org.friends.app.model.Session;
 import org.friends.app.model.User;
+import org.friends.app.service.impl.UserServiceBean;
 
 import com.heroku.sdk.jdbc.DatabaseUrl;
 
@@ -32,6 +30,7 @@ import spark.utils.StringUtils;
 public class Application {
 
 	private static Application instance;
+	UserServiceBean userService = new UserServiceBean();
 
 	public Application() {
 		if (instance == null) instance = this;
@@ -57,10 +56,24 @@ public class Application {
 			Filter checkLoggedIn = new Filter() {
 				@Override
 				public void handle(Request request, Response response) throws Exception {
-					Map<String, String> cookies = request.cookies();
+					// 1 : try to find user in session
 					User authenticatedUser = getAuthenticatedUser(request);
-					if(StringUtils.isEmpty(authenticatedUser)) {
-						response.redirect(Routes.LOGIN);
+					if (StringUtils.isEmpty(authenticatedUser)) {
+						
+						// 2. Try to find user using cookie
+						String cookie = request.cookie(Constants.COOKIE);
+						if (StringUtils.isEmpty(cookie)) {
+							response.redirect(Routes.LOGIN);
+						} else {
+							User user = userService.findUserByCookie(cookie);
+							if (user != null) {
+								request.session().attribute("user", user);
+							} else {
+								
+								// Clean cookie if no user
+								response.removeCookie(Constants.COOKIE);
+							}
+						}
 					}
 				}
 			};
@@ -85,6 +98,7 @@ public class Application {
 		get(Routes.LOGOUT, (req, res) -> {
 			removeAuthenticatedUser(req);
 			res.redirect(Routes.LOGIN);
+			res.removeCookie(Constants.COOKIE);
 			return null;
 		});
 
@@ -120,7 +134,23 @@ public class Application {
 		get(Routes.PLACE_SHARE, shareRoute, new FreeMarkerEngine()); 
 		post(Routes.PLACE_SHARE, shareRoute, new FreeMarkerEngine());//(req, res) -> "Vous libérez la place   " + req.queryParams("number") +" du " + req.queryParams("dateDebut") +" du " + req.queryParams("dateFin"));
 
-
+		/*
+		 * Set cookie if needed
+		 */
+		Filter setCookieFilter = (request, response) -> {
+			User authUser = getAuthenticatedUser(request); 
+			if (authUser != null) {
+				String cookie = request.cookie(Constants.COOKIE);
+				if (cookie == null) {
+					Session session = userService.createSession(authUser);
+					response.cookie("/", Constants.COOKIE, session.getCookie(), Constants.COOKIE_DURATION, false);
+				}
+			}
+		};
+		after(Routes.PLACE_SEARCH, setCookieFilter);
+		after(Routes.PLACE_SHARE, setCookieFilter);
+		after("/", setCookieFilter);
+		
 		/* Doc */
 		// TODO someone at some point ;)
 //		get("/help", (req, res) -> "Nothing yet at help");

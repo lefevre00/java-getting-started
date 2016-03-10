@@ -51,6 +51,11 @@ public class UserServiceBean implements UserService{
 		return userDao.findFirst(u -> u.getIdUser().equals(session.getUserId())); 
 	}
 	
+	public Session createSession(User user) {
+		Assert.notNull(user);
+		return sessionDao.persist(new Session(user));
+	}
+	
 	/**
 	 * Création d'un utilisateur.
 	 * Voici les règles a respecter lors de la création :

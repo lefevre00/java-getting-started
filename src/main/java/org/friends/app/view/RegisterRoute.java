@@ -3,7 +3,6 @@ package org.friends.app.view;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.friends.app.Constants;
 import org.friends.app.model.User;
 import org.friends.app.service.UserService;
 import org.friends.app.service.impl.UserServiceBean;
@@ -46,8 +45,8 @@ public class RegisterRoute implements TemplateViewRoute {
 			User userExiste = userService.findUserByEmail(user.getEmailAMDM());
 			if(userExiste == null) {
 
-				userService.create(user);
-				response.cookie(Constants.COOKIE, user.createCookie(), Constants.COOKIE_DURATION);
+				user = userService.create(user);
+				request.session().attribute("user", user);
 				Routes.redirect(user, response);
 
 			} else {

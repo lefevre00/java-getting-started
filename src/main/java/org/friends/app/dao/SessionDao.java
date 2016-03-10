@@ -15,4 +15,9 @@ public class SessionDao {
 		Optional<Session> o = cache.stream().filter(p).findFirst();
 		return o.isPresent() ? o.get() : null;
 	}
+
+	public Session persist(Session session) {
+		cache.add(session);
+		return session;
+	}
 }

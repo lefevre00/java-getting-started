@@ -1,5 +1,6 @@
 package org.friends.app.model;
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -86,14 +87,6 @@ public class User {
 		this.pwd = pwd;
 	}
 
-	/**
-	 * TODO suffixe avec le date pour que le cookie soit unique pour un user donné
-	 * @return
-	 */
-	public String createCookie() {
-		return Hashing.sha1().hashString(emailAMDM, Charsets.UTF_8 ).toString();
-	}
-	
 	/**
 	 * On valide le format de l'email saisi qui doit être celui de l'AMDM
 	 * L'email doit avoir le format prenom.nom@amdm.fr (un '-' dans le prénom et le nom sont possibles)

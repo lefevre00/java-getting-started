@@ -3,6 +3,8 @@ package org.friends.app.view;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.friends.app.Constants;
+import org.friends.app.model.Session;
 import org.friends.app.model.User;
 import org.friends.app.service.UserService;
 import org.friends.app.service.impl.UserServiceBean;
@@ -45,14 +47,11 @@ public class LoginRoute implements TemplateViewRoute {
 
 			if (user != null) {
 				addAuthenticatedUser(request, user);
-				String dest = Routes.PLACE_SEARCH;
-				if (user.getPlaceNumber() != null)
-					dest = "/"; //"/protected/sharePlace"
-				response.redirect(dest);
+				Routes.redirect(user, response);
+			} else {
+				map.put(ERROR, "Utilisateur introuvable !");
+				map.put(EMAIL, email);
 			}
-			map.put(ERROR, "Utilisateur introuvable !");
-			map.put(EMAIL, email);
-			
 
 		} catch (Exception e) {
 			
@@ -77,5 +76,4 @@ public class LoginRoute implements TemplateViewRoute {
 	private void addAuthenticatedUser(Request request, User user) {
 		request.session().attribute("user", user);
 	}
-
 }
