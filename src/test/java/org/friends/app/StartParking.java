@@ -47,7 +47,7 @@ public class StartParking {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN);
 		LocalDate timePoint = LocalDate.now();
 		String strDateToday  = timePoint.format(formatter);
-		String strTomorrow = timePoint.plusYears(1).format(formatter);
+		String strTomorrow = timePoint.plusDays(1).format(formatter);
 		String strYearsteday = timePoint.minusDays(1).format(formatter);
 		PlaceDao placeDao = new PlaceDao();
 		
