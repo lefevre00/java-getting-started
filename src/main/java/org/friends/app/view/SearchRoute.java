@@ -28,8 +28,9 @@ public class SearchRoute implements TemplateViewRoute {
 	@Override
 	public ModelAndView handle(Request req, Response resp) throws Exception {
     	Map<String, Object> map = new HashMap<>();
-    	LocalDate timePoint = LocalDate.now();
+    	
     	String dateRecherchee = req.queryParams("nextDay")!= null ? req.queryParams("nextDay") : LocalDate.now().format(formatter);
+    	LocalDate timePoint = LocalDate.now();
     	LocalDate jourSuivant  = dateRecherchee != null ? LocalDate.parse(dateRecherchee, formatter) : timePoint;
     	String strYesteday = null;
     	if(req.queryParams("nextDay")!= null){
@@ -38,7 +39,9 @@ public class SearchRoute implements TemplateViewRoute {
     	//String strdateRecherche = dateParametre != null ? LocalDate.now().format(formatter) :  timePoint.format(formatter);
     	String strTomorrow = rechercherLejourSuivant(jourSuivant);
     	map.put("nextDay", "?nextDay="+strTomorrow);
-    	map.put("yesteday", "?previousDay="+strYesteday);
+    	
+    	if (strYesteday != null)
+    		map.put("yesteday", "?previousDay="+strYesteday);
     	
     	map.put("dateRecherche", LocalDate.parse(dateRecherchee, formatter).format(formatterDatePicker));
     	map.put("places", getPlaces(LocalDate.parse(dateRecherchee, formatter)));
