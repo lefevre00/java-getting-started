@@ -1,7 +1,7 @@
 CREATE TABLE users
 (
   id serial NOT NULL,
-  email character varying(50) NOT NULL,
+  email character varying(255) NOT NULL,
   place integer,
   password character varying(50) NOT NULL,
   token character varying(100),
