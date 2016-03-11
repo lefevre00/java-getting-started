@@ -2,7 +2,7 @@ CREATE TABLE users
 (
   id serial NOT NULL,
   email character varying(255) NOT NULL,
-  place integer,
+  place_id integer,
   password character varying(50) NOT NULL,
   token character varying(100),
   CONSTRAINT prim_key_users PRIMARY KEY (id),
@@ -11,8 +11,8 @@ CREATE TABLE users
 
 CREATE TABLE places
 (
-  place_id integer NOT NULL,
-  mail_occupant character varying(255),
+  id integer NOT NULL,
+  email_occupant character varying(255),
   occupation_date character varying(10) NOT NULL,
   CONSTRAINT places_pkey PRIMARY KEY (place_id, occupation_date),
   CONSTRAINT user_fkey FOREIGN KEY (mail_occupant)

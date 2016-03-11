@@ -35,7 +35,7 @@ public class Application {
 		if (instance == null) instance = this;
 	}
 
-	public void start() {
+	public void start() throws SQLException, URISyntaxException {
 		port(getPort());
 		staticFileLocation("/public");
 
@@ -172,7 +172,7 @@ public class Application {
 	        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS places (place_id int NOT NULL, mail_occupant varchar(255), occupation_date varchar(10) NOT NULL, PRIMARY KEY (place_id, occupation_date));");
 	        // Peuplement des users
 	        stmt.executeUpdate("DELETE FROM users");
-	        stmt.executeUpdate("INSERT INTO USERS (USER_ID, email_amdm, place_id, pwd) SELECT 1, 'william.verdeil@amdm.fr', 141 , 'wv' WHERE NOT EXISTS (SELECT 1 FROM users WHERE user_id = 1 AND email_amdm = 'william.verdeil@amdm.fr');");
+	        stmt.executeUpdate("INSERT INTO USERS (id, email_amdm, place_id, pwd) SELECT 1, 'william.verdeil@amdm.fr', 141 , 'wv' WHERE NOT EXISTS (SELECT 1 FROM users WHERE user_id = 1 AND email_amdm = 'william.verdeil@amdm.fr');");
 *	   
 	 * stmt.executeUpdate("INSERT INTO users (user_id, email_amdm, place_id, pwd)  "+
 	    	        "SELECT 1, 'william.verdeil@amdm.fr', 141 , 'wv') FROM users "+
