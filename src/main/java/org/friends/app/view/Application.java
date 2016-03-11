@@ -50,36 +50,34 @@ public class Application {
 		});
 		
 		/*
-		 * When in production, controle that user first logged in
+		 * Controle that user first logged in
 		 */
-		if (Configuration.development()) {
-			Filter checkLoggedIn = new Filter() {
-				@Override
-				public void handle(Request request, Response response) throws Exception {
-					// 1 : try to find user in session
-					User authenticatedUser = getAuthenticatedUser(request);
-					if (StringUtils.isEmpty(authenticatedUser)) {
-						
-						// 2. Try to find user using cookie
-						String cookie = request.cookie(Constants.COOKIE);
-						if (StringUtils.isEmpty(cookie)) {
-							response.redirect(Routes.LOGIN);
+		Filter checkLoggedIn = new Filter() {
+			@Override
+			public void handle(Request request, Response response) throws Exception {
+				// 1 : try to find user in session
+				User authenticatedUser = getAuthenticatedUser(request);
+				if (StringUtils.isEmpty(authenticatedUser)) {
+					
+					// 2. Try to find user using cookie
+					String cookie = request.cookie(Constants.COOKIE);
+					if (StringUtils.isEmpty(cookie)) {
+						response.redirect(Routes.LOGIN);
+					} else {
+						User user = userService.findUserByCookie(cookie);
+						if (user != null) {
+							request.session().attribute("user", user);
 						} else {
-							User user = userService.findUserByCookie(cookie);
-							if (user != null) {
-								request.session().attribute("user", user);
-							} else {
-								
-								// Clean cookie if no user
-								response.removeCookie(Constants.COOKIE);
-							}
+							
+							// Clean cookie if no user
+							response.removeCookie(Constants.COOKIE);
 						}
 					}
 				}
-			};
-			before("/protected/*", checkLoggedIn); 
-			before("/", checkLoggedIn);
-		}
+			}
+		};
+		before("/protected/*", checkLoggedIn); 
+		before("/", checkLoggedIn);
 
 		get("/", (request, response) -> {
 			return new ModelAndView(null, "index.ftl");
