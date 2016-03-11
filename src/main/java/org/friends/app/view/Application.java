@@ -12,7 +12,6 @@ import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import org.friends.app.Configuration;
 import org.friends.app.Constants;
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
@@ -55,24 +54,31 @@ public class Application {
 		Filter checkLoggedIn = new Filter() {
 			@Override
 			public void handle(Request request, Response response) throws Exception {
+				boolean userFound = false;
+
 				// 1 : try to find user in session
 				User authenticatedUser = getAuthenticatedUser(request);
-				if (StringUtils.isEmpty(authenticatedUser)) {
+				if (authenticatedUser != null) {
+					userFound = true;
+				} else {
 					
 					// 2. Try to find user using cookie
 					String cookie = request.cookie(Constants.COOKIE);
-					if (StringUtils.isEmpty(cookie)) {
-						response.redirect(Routes.LOGIN);
-					} else {
+					if (!StringUtils.isEmpty(cookie)) {
+						
 						User user = userService.findUserByCookie(cookie);
 						if (user != null) {
 							request.session().attribute("user", user);
+							userFound = true;
 						} else {
-							
 							// Clean cookie if no user
 							response.removeCookie(Constants.COOKIE);
 						}
 					}
+				}
+				
+				if (!userFound) {
+					response.redirect(Routes.LOGIN);
 				}
 			}
 		};
