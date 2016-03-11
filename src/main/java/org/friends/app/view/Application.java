@@ -101,7 +101,6 @@ public class Application {
 		 */
 		get(Routes.LOGOUT, (req, res) -> {
 			removeAuthenticatedUser(req);
-			res.redirect(Routes.LOGIN);
 			res.removeCookie(Constants.COOKIE);
 			return null;
 		});
