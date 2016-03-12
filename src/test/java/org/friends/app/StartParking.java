@@ -36,11 +36,11 @@ public class StartParking {
 				super.start();
 				Connection connexion = getConnection();
 				Statement stmt = connexion.createStatement();
-				stmt.executeUpdate("DROP TABLE users");
+				//stmt.executeUpdate("DROP TABLE users");
 				stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (id INT NOT NULL, email VARCHAR(255) NOT NULL, place_id INT, pwd varchar(255) NOT NULL, token varchar(100), PRIMARY KEY (id))");
-				stmt.executeUpdate("DROP TABLE places");
+				//stmt.executeUpdate("DROP TABLE places");
 				stmt.executeUpdate("CREATE TABLE IF NOT EXISTS places (id int NOT NULL, email_occupant varchar(255), occupation_date varchar(10) NOT NULL, PRIMARY KEY (id, occupation_date))");
-				stmt.executeUpdate("DROP TABLE sessions");
+				//stmt.executeUpdate("DROP TABLE sessions");
 				stmt.executeUpdate("CREATE TABLE IF NOT EXISTS sessions (user_id int NOT NULL, creation_date TIMESTAMP NOT NULL DEFAULT NOW(), cookie character varying(100) NOT NULL, PRIMARY KEY (cookie))");
 				stmt.executeUpdate("INSERT INTO USERS (id, email, place_id, pwd, token) SELECT 1, 'william.verdeil@amdm.fr', 141 , 'wv','token' WHERE NOT EXISTS (SELECT 1 FROM users WHERE id = 1 AND email = 'william.verdeil@amdm.fr')");
 				stmt.executeUpdate("INSERT INTO USERS (id, email, place_id, pwd, token) SELECT 2, 'abdel.tamditi@amdm.fr', 133 , 'at','token1' WHERE NOT EXISTS (SELECT 1 FROM users WHERE id = 2 AND email = 'abdel.tamditi@amdm.fr')");

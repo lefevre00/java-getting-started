@@ -10,16 +10,12 @@ import org.friends.app.model.Place;
 public class PlaceServiceBean {
 	
 	PlaceDao placedao = new PlaceDao();
-
-	public List<Integer> getAvailable() {
-		return placedao.findAllFree();
-	}
 	
 	public List<Integer> getAvailableByDate(LocalDate date) throws ParseException {
 		return placedao.findAllFree(date);
 	}
 	
-	public void releasePlace(Integer numberPlace, String dateReservation){
+	public void releasePlace(Integer numberPlace, String dateReservation) {
 		Place releasePlace = new Place(numberPlace.intValue(), null, dateReservation);
 		placedao.persist(releasePlace);
 	}
