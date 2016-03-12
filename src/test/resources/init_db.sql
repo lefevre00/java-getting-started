@@ -20,14 +20,16 @@ CREATE TABLE places
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 
+
 CREATE TABLE sessions
 (
   user_id integer NOT NULL,
   creation_date timestamp without time zone NOT NULL DEFAULT now(),
-  expiration_date timestamp without time zone NOT NULL,
   cookie character varying(100) NOT NULL,
+  expiration_date timestamp without time zone NOT NULL,
   CONSTRAINT pkey_session PRIMARY KEY (cookie),
   CONSTRAINT fkey_user_id FOREIGN KEY (user_id)
       REFERENCES users (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
+
