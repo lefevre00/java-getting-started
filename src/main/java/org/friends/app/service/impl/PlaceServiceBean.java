@@ -12,7 +12,7 @@ public class PlaceServiceBean {
 	PlaceDao placedao = new PlaceDao();
 	
 	public List<Integer> getAvailableByDate(LocalDate date) throws ParseException {
-		return placedao.findAllFree(date);
+		return placedao.findAllFreeByDate(date);
 	}
 	
 	public void releasePlace(Integer numberPlace, String dateReservation) {

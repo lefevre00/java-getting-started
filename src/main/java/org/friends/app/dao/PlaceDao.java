@@ -34,17 +34,19 @@ SELECT 23, null, DATE('31/03/2016')
 		return place;
 	}
 
-	public List<Integer> findAllFree() {
-		List<Integer> listFree = new ArrayList<Integer>();
-		for (Iterator<Place> iterator = placeCache.iterator(); iterator.hasNext();) {
-			Place place = (Place) iterator.next();
-			if(place.isFree())	listFree.add(place.getPlaceNumber());
-		}
-		
-		return listFree;
-	}
+//	public List<Integer> findAllFree() {
+//		List<Integer> listFree = new ArrayList<Integer>();
+//		for (Iterator<Place> iterator = placeCache.iterator(); iterator.hasNext();) {
+//			Place place = (Place) iterator.next();
+//			if(place.isFree())	listFree.add(place.getPlaceNumber());
+//		}
+//		
+//		
+//		
+//		return listFree;
+//	}
 
-	public List<Integer> findAllFree(LocalDate date) throws ParseException {
+	public List<Integer> findAllFreeByDate(LocalDate date) throws ParseException {
 		List<Integer> listFree = new ArrayList<Integer>();
 		for (Iterator<Place> iterator = placeCache.iterator(); iterator.hasNext();) {
 			Place place = (Place) iterator.next();

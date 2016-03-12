@@ -16,6 +16,7 @@ import org.friends.app.view.Application;
 
 public class StartParking {
 
+	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN);
 
 	public static void main(String[] args) throws SQLException, URISyntaxException {
 		System.setProperty("PORT", "8080");
@@ -41,13 +42,31 @@ public class StartParking {
 				stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (id INT NOT NULL, email VARCHAR(255) NOT NULL, place_id INT, pwd varchar(255) NOT NULL, token varchar(100), PRIMARY KEY (id))");
 				//stmt.executeUpdate("DROP TABLE places");
 				stmt.executeUpdate("CREATE TABLE IF NOT EXISTS places (id int NOT NULL, email_occupant varchar(255), occupation_date varchar(10) NOT NULL, PRIMARY KEY (id, occupation_date))");
+				
 				//stmt.executeUpdate("DROP TABLE sessions");
 				stmt.executeUpdate("CREATE TABLE IF NOT EXISTS sessions (user_id int NOT NULL, creation_date TIMESTAMP NOT NULL DEFAULT NOW(), cookie character varying(100) NOT NULL, expiration_date timestamp NOT NULL,  PRIMARY KEY (cookie))");
+				// Création des utilisateurs
 				stmt.executeUpdate("INSERT INTO USERS (id, email, place_id, pwd, token) SELECT 1, 'william.verdeil@amdm.fr', 141 , 'wv','token' WHERE NOT EXISTS (SELECT 1 FROM users WHERE id = 1 AND email = 'william.verdeil@amdm.fr')");
 				stmt.executeUpdate("INSERT INTO USERS (id, email, place_id, pwd, token) SELECT 2, 'abdel.tamditi@amdm.fr', 133 , 'at','token1' WHERE NOT EXISTS (SELECT 1 FROM users WHERE id = 2 AND email = 'abdel.tamditi@amdm.fr')");
 				stmt.executeUpdate("INSERT INTO USERS (id, email, place_id, pwd, token) SELECT 3, 'michael.lefevre@amdm.fr', 87 , 'ml','token2' WHERE NOT EXISTS (SELECT 1 FROM users WHERE id = 3 AND email = 'michael.lefevre@amdm.fr')");
 				stmt.executeUpdate("INSERT INTO USERS (id, email, place_id, pwd, token) SELECT 4, 'damien.urvoix@amdm.fr', null , 'du','token3' WHERE NOT EXISTS (SELECT 1 FROM users WHERE id = 4 AND email = 'damien.urvoix@amdm.fr')");
 				stmt.executeUpdate("INSERT INTO USERS (id, email, place_id, pwd, token) SELECT 5, 'jean-pierre.cluzel@amdm.fr', null , 'jpc','token4' WHERE NOT EXISTS (SELECT 1 FROM users WHERE id = 5 AND email = 'jean-pierre.cluzel@amdm.fr')");
+				
+				LocalDate timePoint = LocalDate.now();
+				String strDateToday  = timePoint.format(formatter);
+				String strTomorrow = timePoint.plusDays(1).format(formatter);
+				String strYearsteday = timePoint.minusDays(1).format(formatter);
+				// Création des places
+				stmt.executeUpdate("DELETE FROM places");
+				stmt.executeUpdate("INSERT INTO places (id, email_occupant, occupation_date) SELECT 1, null, '" + strDateToday + "' WHERE NOT EXISTS (SELECT 1 FROM places WHERE id=1 AND email_occupant = null AND occupation_date = '" + strDateToday + "')");
+				stmt.executeUpdate("INSERT INTO places (id, email_occupant, occupation_date) SELECT 4, null, '" + strDateToday + "' WHERE NOT EXISTS (SELECT 1 FROM places WHERE id=4 AND email_occupant = null AND occupation_date = '" + strDateToday + "')");
+				stmt.executeUpdate("INSERT INTO places (id, email_occupant, occupation_date) SELECT 141, 'damien.urvoix@amdm.fr', '" + strDateToday + "' WHERE NOT EXISTS (SELECT 1 FROM places WHERE id=141 AND email_occupant = 'damien.urvoix@amdm.fr' AND occupation_date = '" + strDateToday + "')");
+				stmt.executeUpdate("INSERT INTO places (id, email_occupant, occupation_date) SELECT 1, null, '" + strTomorrow + "' WHERE NOT EXISTS (SELECT 1 FROM places WHERE id=1 AND email_occupant = null AND occupation_date = '" + strTomorrow + "')");
+				stmt.executeUpdate("INSERT INTO places (id, email_occupant, occupation_date) SELECT 4, null, '" + strTomorrow + "' WHERE NOT EXISTS (SELECT 1 FROM places WHERE id=4 AND email_occupant = null AND occupation_date = '" + strTomorrow + "')");
+				
+				stmt.executeUpdate("INSERT INTO places (id, email_occupant, occupation_date) SELECT 1, null, '" + strYearsteday + "' WHERE NOT EXISTS (SELECT 1 FROM places WHERE id=1 AND email_occupant = null AND occupation_date = '" + strYearsteday + "')");
+				stmt.executeUpdate("INSERT INTO places (id, email_occupant, occupation_date) SELECT 4, null, '" + strYearsteday + "' WHERE NOT EXISTS (SELECT 1 FROM places WHERE id=4 AND email_occupant = null AND occupation_date = '" + strYearsteday + "')");
+				
 				initData();
 				stmt.close();
 				connexion.close();
@@ -63,7 +82,7 @@ public class StartParking {
 		userDao.persist(new User("damien.urvoix@amdm.fr", "du"));
 		userDao.persist(new User("jean-pierre.cluzel@amdm.fr", "jpc"));
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN);
+		
 		LocalDate timePoint = LocalDate.now();
 		String strDateToday  = timePoint.format(formatter);
 		String strTomorrow = timePoint.plusDays(1).format(formatter);
