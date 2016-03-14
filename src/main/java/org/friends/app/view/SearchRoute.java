@@ -4,9 +4,7 @@ import java.text.ParseException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -68,19 +66,6 @@ public class SearchRoute implements TemplateViewRoute {
 	}
 
 	private List<Place> getPlaces(LocalDate dateRecherche) throws ParseException {
-		List<Place> places = new ArrayList<>();
-		List<Integer> freePlaces = placeService.getAvailableByDate(dateRecherche);
-		for (Iterator<Integer> iterator = freePlaces.iterator(); iterator.hasNext();) {
-			Integer integer = (Integer) iterator.next();
-			places.add(new Place(integer.intValue(), freePlaces.contains(integer.intValue())));
-		}
-		
-		
-//		for (int i = 1; i<150; i++) {
-//			places.add(new Place(i, freePlaces.contains(i)));
-//		}
-		return places;
+		return placeService.getAvailableByDate(dateRecherche);
 	}
-	
-
 }

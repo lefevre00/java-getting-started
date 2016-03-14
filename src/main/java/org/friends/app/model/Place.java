@@ -5,23 +5,16 @@ public class Place {
 	private Integer placeNumber;
 	private String mail_occupant;
 	private String occupation_date;
-	private boolean free;
 	
-	public Place(int n, boolean f) {
-		placeNumber = n;
-		free = f;
+	public Place(int number, String date) {
+		placeNumber = number;
+		occupation_date = date;
 	}	
 	
-	public Place(int n, boolean f, String o) {
-		placeNumber = n;
-		free = f;
-		occupation_date = o;
-	}	
-	
-	public Place(int n, String emailOccupant, String o) {
-		placeNumber = n;
-		free = emailOccupant != null ? false : true;
-		occupation_date = o;
+	public Place(int number, String emailOccupant, String date) {
+		placeNumber = number;
+		mail_occupant = emailOccupant;
+		occupation_date = date;
 	}	
 	
 	/**
@@ -65,9 +58,4 @@ public class Place {
 	public void setOccupationDate(String occupationDate) {
 		this.occupation_date = occupationDate;
 	}
-
-	public boolean isFree() {
-		return free;
-	}
-	
 }

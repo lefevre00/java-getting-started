@@ -3,8 +3,6 @@ package org.friends.app.view;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.friends.app.Constants;
-import org.friends.app.model.Session;
 import org.friends.app.model.User;
 import org.friends.app.service.UserService;
 import org.friends.app.service.impl.UserServiceBean;

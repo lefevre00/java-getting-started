@@ -46,13 +46,15 @@ SELECT 23, null, DATE('31/03/2016')
 //		return listFree;
 //	}
 
-	public List<Integer> findAllFreeByDate(LocalDate date) throws ParseException {
-		List<Integer> listFree = new ArrayList<Integer>();
+	public List<Place> findAllFreeByDate(LocalDate date) throws ParseException {
+		List<Place> listFree = new ArrayList<Place>();
+		String strDateRecherche = date.format(formatter);
+
 		for (Iterator<Place> iterator = placeCache.iterator(); iterator.hasNext();) {
 			Place place = (Place) iterator.next();
 			
-			String strDateRecherche = date.format(formatter);
-			if(place.isFree() && (strDateRecherche.equalsIgnoreCase(place.getOccupationDate()))) listFree.add(place.getPlaceNumber());
+			if (place.getOccupiedBy() == null && strDateRecherche.equalsIgnoreCase(place.getOccupationDate()))
+				listFree.add(place);
 		}
 		
 		return listFree;

@@ -30,7 +30,7 @@ public class ForgottenPwdRoute implements TemplateViewRoute {
 		String email = request.queryParams("email");
 		
 		// Email validator
-		if (!userService.emailAMDMValidator(email))
+		if (!UserServiceBean.emailAMDMValidator(email))
 			throw new Exception("L'email saisi est incorrect !");
 		
 	}

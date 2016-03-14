@@ -11,7 +11,7 @@ public class PlaceServiceBean {
 	
 	PlaceDao placedao = new PlaceDao();
 	
-	public List<Integer> getAvailableByDate(LocalDate date) throws ParseException {
+	public List<Place> getAvailableByDate(LocalDate date) throws ParseException {
 		return placedao.findAllFreeByDate(date);
 	}
 	

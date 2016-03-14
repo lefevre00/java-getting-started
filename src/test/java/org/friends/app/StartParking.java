@@ -89,14 +89,11 @@ public class StartParking {
 		String strYearsteday = timePoint.minusDays(1).format(formatter);
 		PlaceDao placeDao = new PlaceDao();
 		
-    	placeDao.persist(new Place(1, true, strDateToday));//Place libre aujourd'hui free = true
-    	placeDao.persist(new Place(2, false, strDateToday));//Place occupée aujourd'hui
-    	placeDao.persist(new Place(3, "damien.urvoix@amdm.fr", strDateToday));//place occupée aujourd'hui
-    	placeDao.persist(new Place(4, null, strDateToday)); // place libre  aujourd'hui
-    	placeDao.persist(new Place(33, true, strDateToday)); //Place libre aujourd'hui free = true
-    	placeDao.persist(new Place(34, true, strYearsteday)); //Place libre hier free = true
-    	placeDao.persist(new Place(35, true, strTomorrow)); //Place libre dans le futur free = true
-    	placeDao.persist(new Place(36, null, strYearsteday)); //Place libre hier occupee == null
-    	placeDao.persist(new Place(37, null, strTomorrow)); //Place libre dans le futur occupee == null
+    	placeDao.persist(new Place(1, strDateToday)); //Place libre aujourd'hui free = true
+    	placeDao.persist(new Place(2, "damien.urvoix@amdm.fr", strDateToday));//place occupée aujourd'hui
+    	placeDao.persist(new Place(34, strYearsteday)); //Place libre hier free = true
+    	placeDao.persist(new Place(35, strTomorrow)); //Place libre demain
+    	placeDao.persist(new Place(36, "damien.urvoix@amdm.fr", strYearsteday)); //Place occupee hier
+    	placeDao.persist(new Place(37, strTomorrow)); //Place libre demain
 	}
 }
