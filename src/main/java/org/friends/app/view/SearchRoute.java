@@ -20,7 +20,7 @@ import spark.TemplateViewRoute;
 public class SearchRoute implements TemplateViewRoute {
 	
 	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN);
-	static DateTimeFormatter formatterDatePicker = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	static DateTimeFormatter formatterDatePicker = DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy");
 
 	private PlaceServiceBean placeService = new PlaceServiceBean();
 	
@@ -28,22 +28,26 @@ public class SearchRoute implements TemplateViewRoute {
 	public ModelAndView handle(Request req, Response resp) throws Exception {
     	Map<String, Object> map = new HashMap<>();
     	
-    	String dateRecherchee = req.queryParams("nextDay")!= null ? req.queryParams("nextDay") : LocalDate.now().format(formatter);
-    	LocalDate timePoint = LocalDate.now();
-    	LocalDate jourSuivant  = dateRecherchee != null ? LocalDate.parse(dateRecherchee, formatter) : timePoint;
-    	String strYesteday = null;
-    	if(req.queryParams("nextDay")!= null){
-    		strYesteday = rechercherLejourPrecedent(LocalDate.parse(dateRecherchee, formatter));
+    	LocalDate now = LocalDate.now();
+    	String paramDate = req.queryParams("day");
+		String dateRecherchee = paramDate != null ? paramDate : now.format(formatter);
+		LocalDate dateRechercheeAsDate = LocalDate.parse(dateRecherchee, formatter);
+
+    	// Previous date
+    	String previous = null;
+		if (paramDate != null) {
+    		previous = rechercherLejourPrecedent(dateRechercheeAsDate);
+    		map.put("previous", previous);
     	}
-    	//String strdateRecherche = dateParametre != null ? LocalDate.now().format(formatter) :  timePoint.format(formatter);
-    	String strTomorrow = rechercherLejourSuivant(jourSuivant);
-    	map.put("nextDay", "?nextDay="+strTomorrow);
     	
-    	if (strYesteday != null)
-    		map.put("yesteday", "?previousDay="+strYesteday);
+    	// Next date
+    	LocalDate nextDate  = dateRecherchee != null ? dateRechercheeAsDate : now;
+    	String next = rechercherLejourSuivant(nextDate);
+    	map.put("next", next);
     	
-    	map.put("dateRecherche", LocalDate.parse(dateRecherchee, formatter).format(formatterDatePicker));
-    	map.put("places", getPlaces(LocalDate.parse(dateRecherchee, formatter)));
+    	map.put("dateRecherche", dateRechercheeAsDate.format(formatterDatePicker));
+    	map.put("places", getPlaces(dateRechercheeAsDate));
+    	
         return new ModelAndView(map, "search.ftl");
 	}
 
@@ -53,7 +57,7 @@ public class SearchRoute implements TemplateViewRoute {
 		}else{
 			dateRecherche = dateRecherche.plusDays(1);
 		}
-		return dateRecherche.format(formatter);//new SimpleDateFormat("dd/MM/yyyy").format(new Date(dateRecherche.getTime() + (1000 * 60 * 60 * 24 * nextDay)));
+		return dateRecherche.format(formatter);
 	}
 	
 	private String rechercherLejourPrecedent(LocalDate dateRecherche) {
@@ -62,7 +66,7 @@ public class SearchRoute implements TemplateViewRoute {
 		}else{
 			dateRecherche = dateRecherche.minusDays(1);
 		}
-		return dateRecherche.format(formatter);//new SimpleDateFormat("dd/MM/yyyy").format(new Date(dateRecherche.getTime() + (1000 * 60 * 60 * 24 * nextDay)));
+		return dateRecherche.format(formatter);
 	}
 
 	private List<Place> getPlaces(LocalDate dateRecherche) throws ParseException {

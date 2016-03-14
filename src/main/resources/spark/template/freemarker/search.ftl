@@ -17,18 +17,17 @@
     <div class="row"><center>Places disponibles le ${dateRecherche}</center></div>
     <div>
       <div class="col-sm-1">
-      	<#if yesteday??>
-      		<a href="/protected/search${yesteday}" alt="jour précédent" title="jour précédent"><span class="glyphicon glyphicon-menu-left">&nbsp;</span></a>
+      	<#if previous??>
+      		<a href="/protected/search?day=${previous}" alt="jour précédent" title="jour précédent"><span class="glyphicon glyphicon-menu-left">&nbsp;</span></a>
       	</#if>
       </div>
       <div class="col-sm-10">
       	<#list places as place>
       	    <span class="col-sm-1"> <a class="label label-success" href="/protected/book/${place.placeNumber}">${place.placeNumber}</a></span>
         </#list>
-        
-        
       </div>
-      <div class="col-sm-1"><a href="/protected/search${nextDay}" alt="jour suivant" title="jour suivant"><span class="glyphicon glyphicon-menu-right">&nbsp;</span></a></div>
+
+      <div class="col-sm-1"><a href="/protected/search?day=${next}" alt="jour suivant" title="jour suivant"><span class="glyphicon glyphicon-menu-right">&nbsp;</span></a></div>
     </div>
   </div>
 
