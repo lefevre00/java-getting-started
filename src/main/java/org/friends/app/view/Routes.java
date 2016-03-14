@@ -9,7 +9,7 @@ public interface Routes {
 	
 	public static void redirect(User user, Response response) {
 		String dest = PLACE_SEARCH;
-		if ( StringUtils.isEmpty(user.getPlaceNumber()))
+		if (!StringUtils.isEmpty(user.getPlaceNumber()))
 			dest = PLACE_SHARE;
 		response.redirect(dest);
 	}
