@@ -13,6 +13,7 @@ public class User {
 	private String emailAMDM;
 	private Integer placeNumber;
 	private String pwd;
+	private String token;
 	
 	public User() {}
 	
@@ -81,6 +82,14 @@ public class User {
 	 */
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
+	}
+	
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	public String getToken() {
+		return token;
 	}
 
 	/**

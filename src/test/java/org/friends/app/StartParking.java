@@ -21,6 +21,7 @@ public class StartParking {
 	public static void main(String[] args) throws SQLException, URISyntaxException {
 		System.setProperty("PORT", "8080");
 		System.setProperty(Configuration.DEPLOY_MODE, "dev");
+		System.setProperty("MAIL_DEST", "lefevre00@yahoo.fr");
 
 		new Application() {
 			protected Connection getConnection() throws java.sql.SQLException, java.net.URISyntaxException {

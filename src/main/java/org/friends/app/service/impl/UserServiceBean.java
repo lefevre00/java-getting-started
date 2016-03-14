@@ -1,5 +1,6 @@
 package org.friends.app.service.impl;
 
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +18,7 @@ public class UserServiceBean implements UserService{
 	
 	UserDao userDao = new UserDao();
 	SessionDao sessionDao = new SessionDao();
+	MailServiceBean mailService = new MailServiceBean();
 	
 	/**
 	 * Authentification de l'utilisateur
@@ -83,7 +85,11 @@ public class UserServiceBean implements UserService{
 		if (!emailAMDMValidator(user.getEmailAMDM()))
 			throw new Exception("L'email saisi est incorrect !");
 		
-		return userDao.persist(user);
+		user.setToken(UUID.randomUUID().toString());
+		
+		User back = userDao.persist(user);
+		mailService.sendWelcome(back);
+		return back;
 	}
 	
 	public void update(User user) {}
