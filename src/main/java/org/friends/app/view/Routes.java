@@ -3,12 +3,13 @@ package org.friends.app.view;
 import org.friends.app.model.User;
 
 import spark.Response;
+import spark.utils.StringUtils;
 
 public interface Routes {
 	
 	public static void redirect(User user, Response response) {
 		String dest = PLACE_SEARCH;
-		if (user.getPlaceNumber() != null)
+		if ( StringUtils.isEmpty(user.getPlaceNumber()))
 			dest = PLACE_SHARE;
 		response.redirect(dest);
 	}
