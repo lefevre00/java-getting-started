@@ -3,12 +3,14 @@ package org.friends.app.view;
 import static org.friends.app.Configuration.getPort;
 import static spark.Spark.after;
 import static spark.Spark.before;
+import static spark.Spark.exception;
 import static spark.Spark.get;
 import static spark.Spark.port;
 import static spark.Spark.post;
 import static spark.Spark.staticFileLocation;
 
 import java.net.URISyntaxException;
+import java.security.AccessControlException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -46,6 +48,11 @@ public class Application {
 			String header = request.raw().getHeader("Accept-Encoding");
 			if (header != null && header.contains("gzip"))
 				response.header("Content-Encoding", "gzip");
+		});
+		
+		exception(AccessControlException.class, (e, request, response) -> {
+		    response.status(401);
+		    response.body("User not authenticated");
 		});
 		
 		/*

@@ -19,7 +19,7 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 
 	private void checkAuthenticated(Request req) {
 		if (req.session().attribute("user") == null)
-			throw new AccessControlException("");
+			throw new AccessControlException("This page can only be accessed by authenticated user.");
 	}
 
 }
