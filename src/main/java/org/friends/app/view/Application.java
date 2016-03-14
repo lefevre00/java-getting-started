@@ -124,11 +124,7 @@ public class Application {
 		 * Places booking 
 		 */
 		get(Routes.PLACE_SEARCH, new SearchRoute(), new FreeMarkerEngine());
-		//post("/protected/search", new SearchRoute(), new FreeMarkerEngine());
-
-		get("/protected/book/:placeId", (req, res) -> {
-			return "Are you looking for " + req.params(":placeId");
-		});
+		get(Routes.PLACE_BOOK, new BookRoute(), new FreeMarkerEngine());
 
 		/*
 		 * Share a place

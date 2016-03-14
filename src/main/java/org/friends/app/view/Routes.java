@@ -22,4 +22,5 @@ public interface Routes {
 	String PLACE_SEARCH = "/protected/search";
 	String PLACE_SHARE = "/protected/sharePlace";
 	String CHOICE_ACTION = "/protected/choice";
+	String PLACE_BOOK = "/protected/book/:placeId";
 }
