@@ -1,5 +1,7 @@
 package org.friends.app;
 
+import spark.utils.StringUtils;
+
 public class Configuration {
 
 	public final static String PORT = "PORT";
@@ -26,5 +28,16 @@ public class Configuration {
 
 	public static boolean development() {
 		return System.getProperty(DEPLOY_MODE) != null;
+	}
+	
+	/**
+	 * Get configuration, first in environment, then in property.
+	 * @param propertyName
+	 */
+	public static String get(String propertyName, String defaultValue) {
+		String value = System.getenv(propertyName);
+		if (!StringUtils.isEmpty(value))
+			return value;
+		return System.getProperty(propertyName, defaultValue);
 	}
 }

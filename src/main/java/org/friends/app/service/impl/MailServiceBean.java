@@ -12,7 +12,8 @@ import com.sendgrid.SendGridException;
 public class MailServiceBean {
 
 	private void sendMail(SendGrid.Email email) {
-		String value = System.getProperty(Configuration.MAIL_ENABLE, "false");
+		String value = Configuration.get(Configuration.MAIL_ENABLE, "false");
+
 		if (Boolean.parseBoolean(value)) {
 			SendGrid sendgrid = new SendGrid(getMailServiceLogin(), getMailServicePassword());
 			email.setFrom("takemyplace@heroku.com");
@@ -37,7 +38,7 @@ public class MailServiceBean {
 
 	public void sendWelcome(User user) {
 		SendGrid.Email email = new SendGrid.Email();
-		email.addTo(System.getProperty("MAIL_TEST"));
+		email.addTo(Configuration.get("MAIL_TEST", "foo@bar.null"));
 		email.setSubject("Bienvenue @ TakeMyPlace");
 		email.setText("Texte de bienvenue avec le token qu'il faut mettre dedans.");
 		sendMail(email);
