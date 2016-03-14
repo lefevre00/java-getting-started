@@ -47,7 +47,9 @@ public class SearchRoute implements TemplateViewRoute {
     	
     	map.put("dateRecherche", dateRechercheeAsDate.format(formatterDatePicker));
     	map.put("dateBook", dateRecherchee);
-    	map.put("places", getPlaces(dateRechercheeAsDate));
+    	List<Place> places = getPlaces(dateRechercheeAsDate);
+    	if (!places.isEmpty())
+    		map.put("places", places);
     	
         return new ModelAndView(map, "search.ftl");
 	}

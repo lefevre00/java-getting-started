@@ -22,9 +22,13 @@
       	</#if>
       </div>
       <div class="col-sm-10">
-      	<#list places as place>
-      	    <span class="col-sm-1"> <a class="label label-success" href="/protected/book/${dateBook}/${place.placeNumber}">${place.placeNumber}</a></span>
-        </#list>
+      	<#if places??>
+		  	<#list places as place>
+		  	    <span class="col-sm-1"> <a class="label label-success" href="/protected/book/${dateBook}/${place.placeNumber}">${place.placeNumber}</a></span>
+		    </#list>
+		<#else>
+			Aucune place disponible à cette date.
+        </#if>
       </div>
 
       <div class="col-sm-1"><a href="/protected/search?day=${next}" alt="jour suivant" title="jour suivant"><span class="glyphicon glyphicon-menu-right">&nbsp;</span></a></div>
