@@ -53,9 +53,14 @@ public class UserServiceBean implements UserService{
 	
 	public Session createSession(User user) {
 		Assert.notNull(user);
+		cleanExpiredSession();
 		return sessionDao.persist(new Session(user));
 	}
 	
+	private void cleanExpiredSession() {
+		sessionDao.deleteExpired();
+	}
+
 	/**
 	 * Création d'un utilisateur.
 	 * Voici les règles a respecter lors de la création :

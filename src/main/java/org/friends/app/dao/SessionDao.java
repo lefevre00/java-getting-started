@@ -1,6 +1,9 @@
 package org.friends.app.dao;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -19,5 +22,14 @@ public class SessionDao {
 	public Session persist(Session session) {
 		cache.add(session);
 		return session;
+	}
+
+	public void deleteExpired() {
+		Date now = Calendar.getInstance().getTime();
+		for (Iterator<Session> iterator = cache.iterator(); iterator.hasNext();) {
+			Session session = (Session) iterator.next();
+			if (session.getExpirationDate().before(now))
+				iterator.remove();
+		}
 	}
 }
