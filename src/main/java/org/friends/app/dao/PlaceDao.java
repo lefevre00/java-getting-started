@@ -1,11 +1,11 @@
 package org.friends.app.dao;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.friends.app.model.Place;
 
@@ -46,7 +46,7 @@ SELECT 23, null, DATE('31/03/2016')
 //		return listFree;
 //	}
 
-	public List<Place> findAllFreeByDate(LocalDate date) throws ParseException {
+	public List<Place> findAllFreeByDate(LocalDate date) {
 		List<Place> listFree = new ArrayList<Place>();
 		String strDateRecherche = date.format(formatter);
 
@@ -58,5 +58,10 @@ SELECT 23, null, DATE('31/03/2016')
 		}
 		
 		return listFree;
+	}
+
+	public Place findFirst(Predicate<Place> predicate) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

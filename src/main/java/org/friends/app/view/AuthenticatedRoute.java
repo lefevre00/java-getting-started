@@ -2,6 +2,8 @@ package org.friends.app.view;
 
 import java.security.AccessControlException;
 
+import org.friends.app.model.User;
+
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -18,8 +20,11 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 	protected abstract ModelAndView doHandle(Request request, Response response);
 
 	private void checkAuthenticated(Request req) {
-		if (req.session().attribute("user") == null)
+		if (getUser(req) == null)
 			throw new AccessControlException("This page can only be accessed by authenticated user.");
 	}
 
+	protected User getUser(Request request) {
+		return request.session().attribute("user");
+	}
 }

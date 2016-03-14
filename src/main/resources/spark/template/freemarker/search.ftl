@@ -23,7 +23,7 @@
       </div>
       <div class="col-sm-10">
       	<#list places as place>
-      	    <span class="col-sm-1"> <a class="label label-success" href="/protected/book/${place.placeNumber}">${place.placeNumber}</a></span>
+      	    <span class="col-sm-1"> <a class="label label-success" href="/protected/book/${dateBook}/${place.placeNumber}">${place.placeNumber}</a></span>
         </#list>
       </div>
 
