@@ -14,7 +14,7 @@ import java.security.AccessControlException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import org.friends.app.Constants;
+import org.friends.app.Configuration;
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.UserServiceBean;
@@ -70,7 +70,7 @@ public class Application {
 				} else {
 					
 					// 2. Try to find user using cookie
-					String cookie = request.cookie(Constants.COOKIE);
+					String cookie = request.cookie(Configuration.COOKIE);
 					if (!StringUtils.isEmpty(cookie)) {
 						
 						User user = userService.findUserByCookie(cookie);
@@ -79,7 +79,7 @@ public class Application {
 							userFound = true;
 						} else {
 							// Clean cookie if no user
-							response.removeCookie(Constants.COOKIE);
+							response.removeCookie(Configuration.COOKIE);
 						}
 					}
 				}
@@ -108,7 +108,7 @@ public class Application {
 		 */
 		get(Routes.LOGOUT, (req, res) -> {
 			removeAuthenticatedUser(req);
-			res.removeCookie(Constants.COOKIE);
+			res.removeCookie(Configuration.COOKIE);
 			return null;
 		});
 
@@ -148,10 +148,10 @@ public class Application {
 		Filter setCookieFilter = (request, response) -> {
 			User authUser = getAuthenticatedUser(request); 
 			if (authUser != null) {
-				String cookie = request.cookie(Constants.COOKIE);
+				String cookie = request.cookie(Configuration.COOKIE);
 				if (cookie == null) {
 					Session session = userService.createSession(authUser);
-					response.cookie("/", Constants.COOKIE, session.getCookie(), Constants.COOKIE_DURATION, false);
+					response.cookie("/", Configuration.COOKIE, session.getCookie(), Configuration.COOKIE_DURATION, false);
 				}
 			}
 		};

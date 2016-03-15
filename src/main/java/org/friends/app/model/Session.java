@@ -3,7 +3,7 @@ package org.friends.app.model;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.friends.app.Constants;
+import org.friends.app.Configuration;
 
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
@@ -26,7 +26,7 @@ public class Session {
 		creationDate = cal.getTime();
 		cookie = Hashing.sha1().hashString(user.getEmailAMDM() + creationDate.toString(), Charsets.UTF_8).toString();
 		
-		cal.add(Calendar.SECOND, Constants.COOKIE_DURATION);
+		cal.add(Calendar.SECOND, Configuration.COOKIE_DURATION);
 		expirationDate = cal.getTime();
 	}
 
