@@ -85,7 +85,7 @@ public class User {
 	}
 	
 	public void setToken(String token) {
-		this.token = token.replace("-", "");
+		this.token = (token != null ? token.replace("-", "") : null);
 	}
 	
 	public String getToken() {

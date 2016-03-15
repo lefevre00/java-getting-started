@@ -48,9 +48,9 @@ public class MailServiceBean {
 		sb.append("Bonjour\n\n")
 		.append("Vous venez de vous enregistrer sur le site de partage du parking Mezzo.\n")
 		.append("Afin de finaliser votre inscription, vous devez vous rendre à l'adresse indiquée ci-dessous pour valider votre email.\n");
-		
-		String url = applicationUrl + Routes.TOKEN_VALIDATION + "?token=" + user.getToken();
-		
+
+		String url = applicationUrl + Routes.TOKEN_VALIDATION + "?" + Routes.TOKEN_PARAM + "=" + user.getToken();
+
 		sb.append(url)
 		.append("\n\nCordialement,\nL'équipe TakeMyPlace.");
 		email.setText(sb.toString());

@@ -24,4 +24,5 @@ public interface Routes {
 	String CHOICE_ACTION = "/protected/choice";
 	String PLACE_BOOK = "/protected/book/:date/:place_id";
 	String TOKEN_VALIDATION = "/user/validate";
+	String TOKEN_PARAM = "tok";
 }

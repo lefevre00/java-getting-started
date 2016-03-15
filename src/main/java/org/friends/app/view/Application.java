@@ -118,6 +118,7 @@ public class Application {
 		RegisterRoute registerRoute = new RegisterRoute();
 		get(Routes.REGISTER, registerRoute, new FreeMarkerEngine());
 		post(Routes.REGISTER, registerRoute, new FreeMarkerEngine());
+		get(Routes.TOKEN_VALIDATION, new ValidTokenRoute(), new FreeMarkerEngine());
 
 		/*
 		 * Forgot password
@@ -140,6 +141,7 @@ public class Application {
 		get(Routes.PLACE_SHARE, shareRoute, new FreeMarkerEngine()); 
 		post(Routes.PLACE_SHARE, shareRoute, new FreeMarkerEngine());//(req, res) -> "Vous libérez la place   " + req.queryParams("number") +" du " + req.queryParams("dateDebut") +" du " + req.queryParams("dateFin"));
 
+		
 		/*
 		 * Set cookie if needed
 		 */

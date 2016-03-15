@@ -1,6 +1,7 @@
 package org.friends.app.service.impl;
 
 import java.util.UUID;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -125,6 +126,26 @@ public class UserServiceBean implements UserService{
 		if(StringUtils.isEmpty(pwd)) 
 			throw new Exception(PWD_REQUIRED);
 
+	}
+
+	public boolean activate(String token) {
+		Assert.notNull(token);
+		
+		User user = userDao.findFirst(new Predicate<User>() {
+			@Override
+			public boolean test(User u) {
+				return token.equals(u.getToken());
+			}
+		});
+		
+		boolean success = false;
+		if (user != null) {
+			success = true;
+			user.setToken(null);
+			userDao.persist(user);
+		}
+		
+		return success;
 	}
 	
 }
