@@ -40,7 +40,7 @@ public class RegisterRoute implements TemplateViewRoute {
 		try {
 
 			userService.parametersValidator(email, pwd);
-			User user = new User(email, pwd, StringUtils.isEmpty(placeNumber)? 0 : Integer.parseInt(placeNumber));
+			User user = new User(email, pwd, StringUtils.isEmpty(placeNumber) ? null : Integer.parseInt(placeNumber));
 			
 			User userExiste = userService.findUserByEmail(user.getEmailAMDM());
 			if(userExiste == null) {
