@@ -12,6 +12,8 @@ public interface UserService {
 	
 	public static String EMAIL_ERROR = "errEmail";
 	
+	public static String USER_DISABLE = "userDisable";
+	
 	public User userAuthentication (String email, String pwd) throws Exception;
 	
 	public User findUserByEmail(String email);

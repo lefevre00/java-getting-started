@@ -3,8 +3,8 @@ package org.friends.app.view;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.friends.app.Messages;
 import org.friends.app.model.User;
-import org.friends.app.service.UserService;
 import org.friends.app.service.impl.UserServiceBean;
 
 import spark.ModelAndView;
@@ -53,24 +53,12 @@ public class LoginRoute implements TemplateViewRoute {
 
 		} catch (Exception e) {
 			
-			if(UserService.EMAIL_REQUIRED.equals(e.getMessage()))
-				map.put(ERROR, "Vous devez saisir une adresse email !");	
-			
-			if(UserService.PWD_REQUIRED.equals(e.getMessage()))
-				map.put(ERROR, "Vous devez saisir un mot de passe !");	
-			
-			if (UserService.EMAIL_ERROR.equals(e.getMessage()))
-				map.put(ERROR, "L'email saisi est invalide !");
-			
-			if(UserService.PWD_ERROR.equals(e.getMessage()))
-				map.put(ERROR, "Le mot de passe saisi est incorrect !");
-
+			map.put(ERROR, Messages.get(e.getMessage()));	
 			map.put(EMAIL, email);
-			
 			
 		}
 	}
-	
+
 	private void addAuthenticatedUser(Request request, User user) {
 		request.session().attribute("user", user);
 	}

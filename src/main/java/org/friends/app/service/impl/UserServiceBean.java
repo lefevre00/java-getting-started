@@ -35,7 +35,11 @@ public class UserServiceBean implements UserService{
 		parametersValidator(email, pwd);
 		
 		User user = findUserByEmail(email);
-		if (user!=null && !pwd.equals(user.getPwd()))
+		
+		if (user.getToken() != null)
+			throw new Exception(USER_DISABLE);
+		
+		if (user != null && !pwd.equals(user.getPwd()))
 			throw new Exception(PWD_ERROR);
 		
 		return user;
