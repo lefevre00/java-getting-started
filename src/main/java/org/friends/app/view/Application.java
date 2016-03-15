@@ -119,6 +119,9 @@ public class Application {
 		get(Routes.REGISTER, registerRoute, new FreeMarkerEngine());
 		post(Routes.REGISTER, registerRoute, new FreeMarkerEngine());
 		get(Routes.TOKEN_VALIDATION, new ValidTokenRoute(), new FreeMarkerEngine());
+		get(Routes.REGISTRED, (req, res) -> {
+			return new ModelAndView(null, "registred.ftl");
+		}, new FreeMarkerEngine());
 
 		/*
 		 * Forgot password

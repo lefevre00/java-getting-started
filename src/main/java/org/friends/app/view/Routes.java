@@ -25,4 +25,5 @@ public interface Routes {
 	String PLACE_BOOK = "/protected/book/:date/:place_id";
 	String TOKEN_VALIDATION = "/user/validate";
 	String TOKEN_PARAM = "tok";
+	String REGISTRED = "/user/registred";
 }
