@@ -76,7 +76,7 @@ public class UserServiceBean implements UserService{
 	 * @throws Exception 
 	 */
 	@Override
-	public User create(User user) throws Exception {
+	public User create(User user, String applicationUrl) throws Exception {
 		Assert.notNull(user);
 		Assert.notNull(user.getEmailAMDM());
 		Assert.notNull(user.getPwd());
@@ -88,12 +88,12 @@ public class UserServiceBean implements UserService{
 		user.setToken(UUID.randomUUID().toString());
 		
 		User back = userDao.persist(user);
-		mailService.sendWelcome(back);
+		mailService.sendWelcome(back, applicationUrl);
 		return back;
 	}
 	
 	public void update(User user) {}
-	public void delete(User user) {}
+	
 	public void reset(User user) {}
 	
 	/**

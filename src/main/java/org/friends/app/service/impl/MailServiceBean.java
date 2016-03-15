@@ -5,6 +5,7 @@ import static org.friends.app.Configuration.getMailServicePassword;
 
 import org.friends.app.Configuration;
 import org.friends.app.model.User;
+import org.friends.app.view.Routes;
 
 import com.sendgrid.SendGrid;
 import com.sendgrid.SendGridException;
@@ -33,14 +34,26 @@ public class MailServiceBean {
 			for (int i = 0; i < dests.length; i++) {
 				System.out.println("\t " + dests[i]);
 			}
+			System.out.println("-- Text start");
+			System.out.println(email.getText());
+			System.out.println("-- Text end");
 		}
 	}
 
-	public void sendWelcome(User user) {
+	public void sendWelcome(User user, String applicationUrl) {
 		SendGrid.Email email = new SendGrid.Email();
 		email.addTo(Configuration.get("MAIL_TEST", "foo@bar.null"));
 		email.setSubject("Bienvenue @ TakeMyPlace");
-		email.setText("Texte de bienvenue avec le token qu'il faut mettre dedans.");
+		StringBuilder sb = new StringBuilder();
+		sb.append("Bonjour\n\n")
+		.append("Vous venez de vous enregistrer sur le site de partage du parking Mezzo.\n")
+		.append("Afin de finaliser votre inscription, vous devez vous rendre à l'adresse indiquée ci-dessous pour valider votre email.\n");
+		
+		String url = applicationUrl + Routes.TOKEN_VALIDATION + "?token=" + user.getToken();
+		
+		sb.append(url)
+		.append("\n\nCordialement,\nL'équipe TakeMyPlace.");
+		email.setText(sb.toString());
 		sendMail(email);
 	}
 

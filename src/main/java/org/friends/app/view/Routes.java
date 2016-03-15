@@ -23,4 +23,5 @@ public interface Routes {
 	String PLACE_SHARE = "/protected/sharePlace";
 	String CHOICE_ACTION = "/protected/choice";
 	String PLACE_BOOK = "/protected/book/:date/:place_id";
+	String TOKEN_VALIDATION = "/user/validate";
 }

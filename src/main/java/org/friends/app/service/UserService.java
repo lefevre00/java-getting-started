@@ -18,5 +18,5 @@ public interface UserService {
 	
 	public User findUserByCookie(String cookie);
 	
-	public User create(User user) throws Exception;
+	public User create(User user, String applicationHost) throws Exception;
 }

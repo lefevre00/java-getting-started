@@ -44,8 +44,7 @@ public class RegisterRoute implements TemplateViewRoute {
 			
 			User userExiste = userService.findUserByEmail(user.getEmailAMDM());
 			if(userExiste == null) {
-
-				user = userService.create(user);
+				user = userService.create(user, getAppUrl(request));
 				request.session().attribute("user", user);
 				Routes.redirect(user, response);
 
@@ -69,7 +68,11 @@ public class RegisterRoute implements TemplateViewRoute {
 			
 			map.put(EMAIL, email);
 		}
-		
-		
+	}
+
+	private String getAppUrl(Request req) {
+		String url = req.url();
+		String back = url.substring(0, url.length() - req.uri().length());
+		return back;
 	}
 }
