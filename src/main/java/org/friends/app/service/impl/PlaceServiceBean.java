@@ -44,7 +44,7 @@ public class PlaceServiceBean {
 		Place place = placedao.findFirst(new Predicate<Place>() {
 			@Override
 			public boolean test(Place t) {
-				return (t.getOccupationDate().equals(date) && t.getOccupiedBy().equals(user.getEmailAMDM()));
+				return (t.getOccupationDate().equals(date) && t.getOccupiedBy() != null && t.getOccupiedBy().equals(user.getEmailAMDM()));
 			}
 		});
 		
@@ -71,5 +71,15 @@ public class PlaceServiceBean {
 		}
 			
 		return booked;
+	}
+
+	public List<Place> getReservations(User user) {
+		Assert.notNull(user);
+		return placedao.findAll(new Predicate<Place>() {
+			@Override
+			public boolean test(Place p) {
+				return p.getOccupiedBy() != null && p.getOccupiedBy().equals(user.getEmailAMDM());
+			}
+		});
 	}
 }

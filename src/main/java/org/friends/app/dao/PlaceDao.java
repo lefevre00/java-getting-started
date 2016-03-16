@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.friends.app.model.Place;
 
@@ -34,18 +35,6 @@ SELECT 23, null, DATE('31/03/2016')
 		return place;
 	}
 
-//	public List<Integer> findAllFree() {
-//		List<Integer> listFree = new ArrayList<Integer>();
-//		for (Iterator<Place> iterator = placeCache.iterator(); iterator.hasNext();) {
-//			Place place = (Place) iterator.next();
-//			if(place.isFree())	listFree.add(place.getPlaceNumber());
-//		}
-//		
-//		
-//		
-//		return listFree;
-//	}
-
 	public List<Place> findAllFreeByDate(LocalDate date) {
 		List<Place> listFree = new ArrayList<Place>();
 		String strDateRecherche = date.format(formatter);
@@ -61,7 +50,10 @@ SELECT 23, null, DATE('31/03/2016')
 	}
 
 	public Place findFirst(Predicate<Place> predicate) {
-		// TODO Auto-generated method stub
-		return null;
+		return placeCache.stream().filter(predicate).findFirst().orElse(null);
+	}
+
+	public List<Place> findAll(Predicate<Place> predicate) {
+		return placeCache.stream().filter(predicate).collect(Collectors.toList());
 	}
 }

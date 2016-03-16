@@ -136,6 +136,7 @@ public class Application {
 		 */
 		get(Routes.PLACE_SEARCH, new SearchRoute(), new FreeMarkerEngine());
 		get(Routes.PLACE_BOOK, new BookRoute(), new FreeMarkerEngine());
+		get(Routes.RESERVATIONS, new BookedRoute(), new FreeMarkerEngine());
 
 		/*
 		 * Share a place
