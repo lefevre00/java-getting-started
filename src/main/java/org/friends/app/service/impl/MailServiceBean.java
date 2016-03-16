@@ -42,7 +42,7 @@ public class MailServiceBean {
 
 	public void sendWelcome(User user, String applicationUrl) {
 		SendGrid.Email email = new SendGrid.Email();
-		email.addTo(Configuration.get("MAIL_TEST", "foo@bar.null"));
+		email.addTo(user.getEmailAMDM());
 		email.setSubject("Bienvenue @ TakeMyPlace");
 		StringBuilder sb = new StringBuilder();
 		sb.append("Bonjour\n\n")
