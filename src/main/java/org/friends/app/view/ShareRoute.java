@@ -20,7 +20,7 @@ import spark.Request;
 import spark.Response;
 import spark.TemplateViewRoute;
 
-public class SharePlace implements TemplateViewRoute {
+public class ShareRoute implements TemplateViewRoute {
 	
 	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	static DateTimeFormatter formatterDatePicker = DateTimeFormatter.ofPattern("dd/MM/yyyy");
