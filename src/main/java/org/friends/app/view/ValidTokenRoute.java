@@ -18,8 +18,9 @@ public class ValidTokenRoute implements TemplateViewRoute {
 	@Override
 	public ModelAndView handle(Request request, Response response) throws Exception {
 		Map<String, Object> map = new HashMap<>();
-
-		String token = request.queryParams(Routes.TOKEN_PARAM);
+		map.put("title", "Validation de l'adresse email");
+		
+		String token = request.queryParams(Routes.PARAM_TOKEN_VALUE);
 		String message = "Aucun code de validation fournit.";
 		boolean success = false;
 
@@ -33,7 +34,7 @@ public class ValidTokenRoute implements TemplateViewRoute {
 		if (success)
 			map.put("ok", "ok");
 
-		return new ModelAndView(map, "token.ftl");
+		return new ModelAndView(map, Templates.MESSAGE_OK_KO);
 	}
 
 }

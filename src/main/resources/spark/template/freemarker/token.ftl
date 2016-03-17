@@ -8,7 +8,7 @@
 
   <div class="container">
     <div class="jumbotron">
-    	<h2>Validation de l'adresse email</h2>
+    	<h2>${title}</h2>
     	<br/>
 
 		<#if ok??>

@@ -4,15 +4,14 @@ import org.friends.app.model.User;
 
 public interface UserService {
 	
-	public static String EMAIL_REQUIRED = "requiredEmail";
+	public static String EMAIL_ERROR = "email.error";
+	public static String EMAIL_REQUIRED = "email.required";
+	public static String EMAIL_UNKNOWN = "email.unknown";
 	
-	public static String PWD_REQUIRED = "requiredPwd";
+	public static String PWD_ERROR = "password.error";
+	public static String PWD_REQUIRED = "passwor.required";
 	
-	public static String PWD_ERROR = "errPwd";
-	
-	public static String EMAIL_ERROR = "errEmail";
-	
-	public static String USER_DISABLE = "userDisable";
+	public static String USER_DISABLE = "user.disable";
 	
 	public User userAuthentication (String email, String pwd) throws Exception;
 	

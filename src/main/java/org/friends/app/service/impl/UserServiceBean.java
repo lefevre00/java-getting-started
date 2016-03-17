@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.bind.ValidationException;
+
 import org.friends.app.dao.SessionDao;
 import org.friends.app.dao.UserDao;
 import org.friends.app.model.Session;
@@ -36,7 +38,7 @@ public class UserServiceBean implements UserService{
 		
 		User user = findUserByEmail(email);
 		
-		if (user.getToken() != null)
+		if (user.getTokenMail() != null)
 			throw new Exception(USER_DISABLE);
 		
 		if (user != null && !pwd.equals(user.getPwd()))
@@ -90,9 +92,9 @@ public class UserServiceBean implements UserService{
 		if (!emailAMDMValidator(user.getEmailAMDM()))
 			throw new Exception("L'email saisi est incorrect !");
 		
-		user.setToken(UUID.randomUUID().toString());
-		
+		user.setTokenMail(UUID.randomUUID().toString());
 		User back = userDao.persist(user);
+		
 		mailService.sendWelcome(back, applicationUrl);
 		return back;
 	}
@@ -138,18 +140,56 @@ public class UserServiceBean implements UserService{
 		User user = userDao.findFirst(new Predicate<User>() {
 			@Override
 			public boolean test(User u) {
-				return token.equals(u.getToken());
+				return token.equals(u.getTokenMail());
 			}
 		});
 		
 		boolean success = false;
 		if (user != null) {
 			success = true;
-			user.setToken(null);
+			user.setTokenMail(null);
 			userDao.persist(user);
 		}
 		
 		return success;
 	}
-	
+
+	public void resetPassword(String email, String appUrl) throws Exception {
+		if (StringUtils.isEmpty(email))
+			throw new IllegalArgumentException("Email required");
+		
+		User user = findUserByEmail(email);
+		if (user == null)
+			throw new ValidationException(EMAIL_UNKNOWN);
+		
+		user.setTokenPwd(UUID.nameUUIDFromBytes(user.getEmailAMDM().getBytes()).toString());
+		user = userDao.persist(user);
+
+		mailService.sendLostPassword(user, appUrl);
+	}
+
+	public boolean setPassword(String email, String token, String hash) {
+		if (StringUtils.isEmpty(email))
+			throw new IllegalArgumentException("Email required");
+		if (StringUtils.isEmpty(token))
+			throw new IllegalArgumentException("token required");
+		if (StringUtils.isEmpty(hash))
+			throw new IllegalArgumentException("Hashed password required");
+		
+		User user = userDao.findFirst(new Predicate<User>() {
+			@Override
+			public boolean test(User u) {
+				return email.equalsIgnoreCase(u.getEmailAMDM()) && token.equalsIgnoreCase(u.getTokenPwd());
+			}
+		});
+
+		if (user != null) {
+			user.setTokenPwd(null);
+			user.setPwd(hash);
+			userDao.persist(user);
+			return true;
+		}
+		
+		return false;
+	}
 }

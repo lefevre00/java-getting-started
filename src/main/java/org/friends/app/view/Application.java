@@ -13,6 +13,8 @@ import java.net.URISyntaxException;
 import java.security.AccessControlException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.friends.app.Configuration;
 import org.friends.app.model.Session;
@@ -120,7 +122,10 @@ public class Application {
 		post(Routes.REGISTER, registerRoute, new FreeMarkerEngine());
 		get(Routes.TOKEN_VALIDATION, new ValidTokenRoute(), new FreeMarkerEngine());
 		get(Routes.REGISTRED, (req, res) -> {
-			return new ModelAndView(null, "registred.ftl");
+			Map<String, String> map = new HashMap<>();
+			map.put("title", "Utilisateur enregistré");
+			map.put("message", "Veuillez suivre les indications qu'il comporte pour activer votre compte.");
+			return new ModelAndView(map, "mail_send.ftl");
 		}, new FreeMarkerEngine());
 
 		/*
@@ -129,8 +134,18 @@ public class Application {
 		ForgottenPwdRoute forgottenPwdRoute = new ForgottenPwdRoute();
 		get(Routes.PASSWORD_LOST, forgottenPwdRoute, new FreeMarkerEngine());
 		post(Routes.PASSWORD_LOST, forgottenPwdRoute, new FreeMarkerEngine());
-
-
+		get(Routes.PASSWORD_RESET, (req, res) -> {
+			Map<String, String> map = new HashMap<>();
+			map.put("title", "Mot de passe en cours de modification");
+			map.put("message", "Veuillez suivre les indications qu'il comporte pour définir un nouveau mot de passe.");
+			return new ModelAndView(map, "mail_send.ftl");
+		}, new FreeMarkerEngine());
+		get(Routes.PASSWORD_NEW, (req, res) -> {
+			Map<String, String> map = new HashMap<>();
+			map.put("token", req.queryParams("tok"));
+			return new ModelAndView(map, "pwd_new.ftl");
+		}, new FreeMarkerEngine());
+		post(Routes.PASSWORD_NEW, new PasswordTokenRoute(), new FreeMarkerEngine());
 		/*
 		 * Places booking 
 		 */

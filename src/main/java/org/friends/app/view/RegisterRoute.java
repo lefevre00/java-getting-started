@@ -44,7 +44,7 @@ public class RegisterRoute implements TemplateViewRoute {
 			
 			User userExiste = userService.findUserByEmail(user.getEmailAMDM());
 			if(userExiste == null) {
-				user = userService.create(user, getAppUrl(request));
+				user = userService.create(user, RequestHelper.getAppUrl(request));
 				response.redirect(Routes.REGISTRED);
 			} else {
 				map.put(ERROR, "Un compte existe déjà avec cette adresse email !");
@@ -66,11 +66,5 @@ public class RegisterRoute implements TemplateViewRoute {
 			
 			map.put(EMAIL, email);
 		}
-	}
-
-	private String getAppUrl(Request req) {
-		String url = req.url();
-		String back = url.substring(0, url.length() - req.uri().length());
-		return back;
 	}
 }

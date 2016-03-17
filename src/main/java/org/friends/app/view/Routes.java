@@ -14,17 +14,20 @@ public interface Routes {
 		response.redirect(dest);
 	}
 
-	String TOKEN_PARAM = "tok";
+	String PARAM_TOKEN_VALUE = "tok";
 
 	/*
 	 * Accessible for everyone
 	 */
+	String LOGIN = "/user/login";
 	String LOGOUT = "/user/logout";
 	String REGISTER = "/user/new";
-	String LOGIN = "/user/login";
-	String PASSWORD_LOST = "/user/forget";
 	String TOKEN_VALIDATION = "/user/validate";
 	String REGISTRED = "/user/registred";
+	String PASSWORD_LOST = "/user/forget";
+	String PASSWORD_RESET = "/user/reset";
+	String PASSWORD_NEW = "/user/pwd";
+	String PASSWORD_SETTED = "/user/setted";
 	
 	/*
 	 * Accessible if authenticated
@@ -34,4 +37,7 @@ public interface Routes {
 	String CHOICE_ACTION = "/protected/choice";
 	String PLACE_BOOK = "/protected/book/:date/:place_id";
 	String RESERVATIONS = "/protected/booked";
+
+
+
 }

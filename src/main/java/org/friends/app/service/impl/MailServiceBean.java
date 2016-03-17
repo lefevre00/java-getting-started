@@ -12,6 +12,9 @@ import com.sendgrid.SendGridException;
 
 public class MailServiceBean {
 
+	private static final String MAIL_BONJOUR = "Bonjour\n\n";
+	private static final String MAIL_SIGNATURE = "\n\nCordialement,\nL'équipe TakeMyPlace.";
+
 	private void sendMail(SendGrid.Email email) {
 		String value = Configuration.get(Configuration.MAIL_ENABLE, "false");
 
@@ -45,19 +48,27 @@ public class MailServiceBean {
 		email.addTo(user.getEmailAMDM());
 		email.setSubject("Bienvenue @ TakeMyPlace");
 		StringBuilder sb = new StringBuilder();
-		sb.append("Bonjour\n\n")
-		.append("Vous venez de vous enregistrer sur le site de partage du parking Mezzo.\n")
-		.append("Afin de finaliser votre inscription, vous devez vous rendre à l'adresse indiquée ci-dessous pour valider votre email.\n");
-
-		String url = applicationUrl + Routes.TOKEN_VALIDATION + "?" + Routes.TOKEN_PARAM + "=" + user.getToken();
-
-		sb.append(url)
-		.append("\n\nCordialement,\nL'équipe TakeMyPlace.");
+		sb.append(MAIL_BONJOUR).append("Vous venez de vous enregistrer sur le site de partage du parking Mezzo.\n")
+				.append("Afin de finaliser votre inscription, vous devez vous rendre à l'adresse indiquée ci-dessous pour valider votre email.\n")
+				.append(applicationUrl).append(Routes.TOKEN_VALIDATION).append('?').append(Routes.PARAM_TOKEN_VALUE)
+				.append('=').append(user.getTokenMail()).append(MAIL_SIGNATURE);
 		email.setText(sb.toString());
+
 		sendMail(email);
 	}
 
-	public void sendLostPassword(User user) {
-		throw new UnsupportedOperationException("TODO");
+	public void sendLostPassword(User user, String applicationUrl) {
+		SendGrid.Email email = new SendGrid.Email();
+		email.addTo(user.getEmailAMDM());
+		email.setSubject("TakeMyPlace, problème de connexion");
+		StringBuilder sb = new StringBuilder();
+		sb.append(MAIL_BONJOUR)
+		.append("Vous venez de demander la modification de votre mot de passe.\n")
+		.append("Pour cela, nous vous invitons à vous rendre à l'adresse ci-dessous pour définir votre nouveau mot de passe.\n")
+		.append(applicationUrl).append(Routes.PASSWORD_NEW).append('?').append(Routes.PARAM_TOKEN_VALUE)
+		.append('=').append(user.getTokenPwd()).append(MAIL_SIGNATURE);
+		email.setText(sb.toString());
+
+		sendMail(email);
 	}
 }

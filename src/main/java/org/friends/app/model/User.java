@@ -1,11 +1,8 @@
 package org.friends.app.model;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * A user of the application.
- * @author michael
+ * @author michael lefevre
  */
 public class User {
 	
@@ -13,7 +10,8 @@ public class User {
 	private String emailAMDM;
 	private Integer placeNumber;
 	private String pwd;
-	private String token;
+	private String tokenMail;
+	private String tokenPwd;
 	
 	public User() {}
 	
@@ -84,29 +82,23 @@ public class User {
 		this.pwd = pwd;
 	}
 	
-	public void setToken(String token) {
-		this.token = (token != null ? token.replace("-", "") : null);
-	}
-	
-	public String getToken() {
-		return token;
+	public void setTokenMail(String token) {
+		this.tokenMail = cleanToken(token);
 	}
 
-	/**
-	 * On valide le format de l'email saisi qui doit être celui de l'AMDM
-	 * L'email doit avoir le format prenom.nom@amdm.fr (un '-' dans le prénom et le nom sont possibles)
-	 * 
-	 * @param email
-	 * @return
-	 */
-	public static boolean emailAMDMValidate(final String email){
-
-		String EMAIL_PATTERN = "^([A-Za-z]+\\-?)+\\.([A-Za-z]+\\-?)+@amdm.fr$";
-	    Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-	    
-	    Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-		
-	}		
+	private String cleanToken(String token) {
+		return token != null ? token.replace("-", "") : null;
+	}
 	
+	public String getTokenMail() {
+		return tokenMail;
+	}
+
+	public String getTokenPwd() {
+		return tokenPwd;
+	}
+
+	public void setTokenPwd(String token) {
+		this.tokenPwd = cleanToken(token);
+	}
 }
