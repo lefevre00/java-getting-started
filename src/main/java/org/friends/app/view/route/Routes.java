@@ -1,4 +1,4 @@
-package org.friends.app.view;
+package org.friends.app.view.route;
 
 import org.friends.app.model.User;
 

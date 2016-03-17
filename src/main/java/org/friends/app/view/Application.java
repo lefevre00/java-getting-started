@@ -20,6 +20,16 @@ import org.friends.app.Configuration;
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.UserServiceBean;
+import org.friends.app.view.route.BookRoute;
+import org.friends.app.view.route.BookedRoute;
+import org.friends.app.view.route.ForgottenPwdRoute;
+import org.friends.app.view.route.LoginRoute;
+import org.friends.app.view.route.PasswordTokenRoute;
+import org.friends.app.view.route.RegisterRoute;
+import org.friends.app.view.route.Routes;
+import org.friends.app.view.route.SearchRoute;
+import org.friends.app.view.route.ShareRoute;
+import org.friends.app.view.route.ValidTokenRoute;
 
 import com.heroku.sdk.jdbc.DatabaseUrl;
 

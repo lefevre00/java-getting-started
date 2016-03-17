@@ -5,7 +5,7 @@ import static org.friends.app.Configuration.getMailServicePassword;
 
 import org.friends.app.Configuration;
 import org.friends.app.model.User;
-import org.friends.app.view.Routes;
+import org.friends.app.view.route.Routes;
 
 import com.sendgrid.SendGrid;
 import com.sendgrid.SendGridException;

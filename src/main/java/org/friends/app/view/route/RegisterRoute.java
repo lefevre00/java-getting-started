@@ -1,4 +1,4 @@
-package org.friends.app.view;
+package org.friends.app.view.route;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,6 +6,7 @@ import java.util.Map;
 import org.friends.app.model.User;
 import org.friends.app.service.UserService;
 import org.friends.app.service.impl.UserServiceBean;
+import org.friends.app.view.RequestHelper;
 
 import spark.ModelAndView;
 import spark.Request;
