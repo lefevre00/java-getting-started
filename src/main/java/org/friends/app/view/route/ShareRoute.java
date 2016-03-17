@@ -1,6 +1,5 @@
 package org.friends.app.view.route;
 
-import java.security.AccessControlException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,9 +17,8 @@ import org.friends.app.service.impl.PlaceServiceBean;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import spark.TemplateViewRoute;
 
-public class ShareRoute implements TemplateViewRoute {
+public class ShareRoute extends AuthenticatedRoute {
 	
 	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	static DateTimeFormatter formatterDatePicker = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -28,18 +26,15 @@ public class ShareRoute implements TemplateViewRoute {
 	private PlaceServiceBean placeService = new PlaceServiceBean();
 
 	@Override
-	public ModelAndView handle(Request paramRequest, Response paramResponse)
-			throws Exception {
+	public ModelAndView doHandle(Request request, Response response) {
 
 		ModelAndView model = null;
 		Map<String, Object> map = new HashMap<>();
-		User user = (User) paramRequest.session().attribute("user");
-		if (user == null)
-			throw new AccessControlException("An unauthenticated user cannont share a place");
+		User user = getUser(request);
 
-		if ("POST".equalsIgnoreCase(paramRequest.requestMethod())) {
-			LocalDate dateDebut = paramRequest.queryParams("dateDebut") != null ? LocalDate.parse(paramRequest.queryParams("dateDebut"), formatterDatePicker) : null;
-			LocalDate dateFin = paramRequest.queryParams("dateFin") != null ? LocalDate.parse(paramRequest.queryParams("dateFin"), formatterDatePicker) : null;
+		if ("POST".equalsIgnoreCase(request.requestMethod())) {
+			LocalDate dateDebut = request.queryParams("dateDebut") != null ? LocalDate.parse(request.queryParams("dateDebut"), formatterDatePicker) : null;
+			LocalDate dateFin = request.queryParams("dateFin") != null ? LocalDate.parse(request.queryParams("dateFin"), formatterDatePicker) : null;
 				
 			if((dateDebut != null) && (dateFin != null)){
 				List<String> lesDates = getDaysBetweenDates(dateDebut, dateFin);
@@ -48,7 +43,7 @@ public class ShareRoute implements TemplateViewRoute {
 					placeService.releasePlace(user.getPlaceNumber().intValue(), leJour);
 				}
 				
-		        paramResponse.redirect("/protected/search");
+		        response.redirect("/protected/search");
 		        map.put("dateRecherche", "");
 		        map.put("nextDay", "?nextDay="+ LocalDate.now().format(formatter));
 		        map.put("yesteday", "?previousDay="+null);

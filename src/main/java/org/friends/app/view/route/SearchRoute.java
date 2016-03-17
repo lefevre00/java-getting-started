@@ -1,6 +1,5 @@
 package org.friends.app.view.route;
 
-import java.text.ParseException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,9 +14,8 @@ import org.friends.app.service.impl.PlaceServiceBean;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import spark.TemplateViewRoute;
 
-public class SearchRoute implements TemplateViewRoute {
+public class SearchRoute extends AuthenticatedRoute {
 	
 	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN);
 	static DateTimeFormatter formatterDatePicker = DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy");
@@ -25,7 +23,7 @@ public class SearchRoute implements TemplateViewRoute {
 	private PlaceServiceBean placeService = new PlaceServiceBean();
 	
 	@Override
-	public ModelAndView handle(Request req, Response resp) throws Exception {
+	public ModelAndView doHandle(Request req, Response resp) {
     	Map<String, Object> map = new HashMap<>();
     	
     	LocalDate now = LocalDate.now();
@@ -72,7 +70,7 @@ public class SearchRoute implements TemplateViewRoute {
 		return dateRecherche.format(formatter);
 	}
 
-	private List<Place> getPlaces(LocalDate dateRecherche) throws ParseException {
+	private List<Place> getPlaces(LocalDate dateRecherche) {
 		return placeService.getAvailableByDate(dateRecherche);
 	}
 }
