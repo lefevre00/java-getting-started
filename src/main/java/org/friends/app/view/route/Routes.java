@@ -37,7 +37,4 @@ public interface Routes {
 	String CHOICE_ACTION = "/protected/choice";
 	String PLACE_BOOK = "/protected/book/:date/:place_id";
 	String RESERVATIONS = "/protected/booked";
-
-
-
 }

@@ -43,7 +43,7 @@ public class ShareRoute extends AuthenticatedRoute {
 					placeService.releasePlace(user.getPlaceNumber().intValue(), leJour);
 				}
 				
-		        response.redirect("/protected/search");
+		        response.redirect(Routes.PLACE_SEARCH);
 		        map.put("dateRecherche", "");
 		        map.put("nextDay", "?nextDay="+ LocalDate.now().format(formatter));
 		        map.put("yesteday", "?previousDay="+null);
