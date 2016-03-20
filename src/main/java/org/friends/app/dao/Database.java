@@ -28,7 +28,7 @@ public class Database {
 	
 	public static String sqlUSERFindByEmail = "SELECT * FROM Users WHERE email=':email'";
 
-	public static String sqlUSERCreate = "INSERT INTO Users (id, email, place_id, password, tokenMail, tokenPassword) values ('next_value', ? , ?, ? ,?, null)";
+	public static String sqlUSERCreate = "INSERT INTO Users (id, email, place_id, password, token_mail, token_password) values ('next_value', ? , ?, ? ,?, null)";
 	
 
 }
