@@ -4,7 +4,8 @@ CREATE TABLE users
   email character varying(255) NOT NULL,
   place_id integer,
   password character varying(50) NOT NULL,
-  token character varying(100),
+  token_mail character varying(100),
+  token_password character varying(100),
   CONSTRAINT prim_key_users PRIMARY KEY (id),
   CONSTRAINT uniq_email UNIQUE (email)
 )
