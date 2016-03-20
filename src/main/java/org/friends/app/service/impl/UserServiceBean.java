@@ -1,5 +1,7 @@
 package org.friends.app.service.impl;
 
+import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
@@ -48,25 +50,25 @@ public class UserServiceBean implements UserService{
 	}
 	
 	@Override
-	public User findUserByEmail(String email) {
+	public User findUserByEmail(String email) throws SQLException, URISyntaxException {
 		return userDao.findFirst(user -> user.getEmailAMDM().equals(email));
 	}
 
 	@Override
-	public User findUserByCookie(String cookie) {
+	public User findUserByCookie(String cookie) throws SQLException, URISyntaxException {
 		Session session = sessionDao.findFirst(s -> s.getCookie().equals(cookie));
 		if (session == null)
 			return null;
 		return userDao.findFirst(u -> u.getId().equals(session.getUserId())); 
 	}
 	
-	public Session createSession(User user) {
+	public Session createSession(User user) throws SQLException, URISyntaxException {
 		Assert.notNull(user);
 		cleanExpiredSession();
 		return sessionDao.persist(new Session(user));
 	}
 	
-	private void cleanExpiredSession() {
+	private void cleanExpiredSession() throws SQLException, URISyntaxException {
 		sessionDao.deleteExpired();
 	}
 
@@ -134,7 +136,7 @@ public class UserServiceBean implements UserService{
 
 	}
 
-	public boolean activate(String token) {
+	public boolean activate(String token) throws SQLException, URISyntaxException {
 		Assert.notNull(token);
 		
 		User user = userDao.findFirst(new Predicate<User>() {
@@ -168,7 +170,7 @@ public class UserServiceBean implements UserService{
 		mailService.sendLostPassword(user, appUrl);
 	}
 
-	public boolean setPassword(String email, String token, String hash) {
+	public boolean setPassword(String email, String token, String hash) throws SQLException, URISyntaxException {
 		if (StringUtils.isEmpty(email))
 			throw new IllegalArgumentException("Email required");
 		if (StringUtils.isEmpty(token))

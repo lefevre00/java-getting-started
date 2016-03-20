@@ -2,6 +2,8 @@ package org.friends.app.service.impl;
 
 import static java.lang.String.format;
 
+import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -18,7 +20,7 @@ public class PlaceServiceBean {
 	
 	PlaceDao placedao = new PlaceDao();
 	
-	public List<Place> getAvailableByDate(LocalDate date) {
+	public List<Place> getAvailableByDate(LocalDate date) throws SQLException, URISyntaxException {
 		return placedao.findAllFreeByDate(date);
 	}
 	
@@ -34,8 +36,10 @@ public class PlaceServiceBean {
 	 * @param placeNumber, place asked, could be null. If so, we provide the first available place.
 	 * @return A place occupied by the user, if one is available.
 	 * @throws BookingException When a user try to book while he already booked a place.
+	 * @throws URISyntaxException 
+	 * @throws SQLException 
 	 */
-	public Place book(String date, User user, String placeNumber) throws BookingException {
+	public Place book(String date, User user, String placeNumber) throws BookingException, SQLException, URISyntaxException {
 		
 		Assert.notNull(date);
 		Assert.notNull(user);
@@ -73,7 +77,7 @@ public class PlaceServiceBean {
 		return booked;
 	}
 
-	public List<Place> getReservations(User user) {
+	public List<Place> getReservations(User user) throws SQLException, URISyntaxException {
 		Assert.notNull(user);
 		return placedao.findAll(new Predicate<Place>() {
 			@Override

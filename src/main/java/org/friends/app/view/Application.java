@@ -254,7 +254,8 @@ public class Application {
 		});
 	}
 
-	protected Connection getConnection() throws SQLException, URISyntaxException {
+
+	public Connection getConnection() throws SQLException, URISyntaxException {
 		return DatabaseUrl.extract().getConnection();
 	}
 
