@@ -15,6 +15,8 @@ public class UserDao {
     
 	public User persist(User user) {
 		Assert.notNull(user);
+		if (user.getId() == null)
+			user.setId(userCache.size()+1);
 		userCache.add(user);
 		return user;
 	}

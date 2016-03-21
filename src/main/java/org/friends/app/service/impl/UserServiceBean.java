@@ -99,7 +99,11 @@ public class UserServiceBean implements UserService{
 		return back;
 	}
 	
-	public void update(User user) {}
+	public User update(User user) {
+		Assert.notNull(user);
+		Assert.notNull(user.getId()); // User must already have an id
+		return userDao.persist(user);
+	}
 	
 	public void reset(User user) {}
 	

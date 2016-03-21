@@ -110,11 +110,12 @@ public class Application {
 			
 		get(Routes.DEFAULT, (request, response) -> {
 			String dest = Routes.RESERVATIONS;
-			if (!StringUtils.isEmpty(getAuthenticatedUser(request).getPlaceNumber())) {
+			User user = getAuthenticatedUser(request);
+			if (user != null && user.getPlaceNumber() != null) {
 				dest = Routes.CHOICE_ACTION;
 			}
 			response.redirect(dest);
-			return null;
+			return new ModelAndView(null, "index.ftl");
 		}, new FreeMarkerEngine());
 
 		/*
