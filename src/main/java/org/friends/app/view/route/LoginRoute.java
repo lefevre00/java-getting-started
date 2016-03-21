@@ -1,6 +1,5 @@
 package org.friends.app.view.route;
 
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +20,7 @@ public class LoginRoute implements TemplateViewRoute {
 
 	private static final String ERROR = "error";
 	private static final String EMAIL = "email";
+	
 	UserServiceBean userService = new UserServiceBean();
 	
 	@Override

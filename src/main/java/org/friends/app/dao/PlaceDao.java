@@ -1,8 +1,5 @@
 package org.friends.app.dao;
 
-import java.net.URISyntaxException;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -20,12 +17,8 @@ public class PlaceDao {
 	public static final String DATE_PATTERN = "yyyy-MM-dd";
 	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
 	private static List<Place> placeCache = new ArrayList<Place>();
-
-	
 	
 	public Place persist(Place place) {
-		
-		
 		/*En sql faire : 
 		 * INSERT INTO reservations (placeNumber, occupiedBy, occupationDate)
 SELECT 23, null, DATE('31/03/2016')
@@ -42,11 +35,9 @@ SELECT 23, null, DATE('31/03/2016')
 		return place;
 	}
 
-
-	public List<Place> findAllFreeByDate(LocalDate date) throws SQLException, URISyntaxException {
+	public List<Place> findAllFreeByDate(LocalDate date) {
 		List<Place> listFree = new ArrayList<Place>();
 		String strDateRecherche = date.format(formatter);
-		Connection conn = Database.getConnection();
 
 		for (Iterator<Place> iterator = placeCache.iterator(); iterator.hasNext();) {
 			Place place = (Place) iterator.next();
@@ -58,13 +49,11 @@ SELECT 23, null, DATE('31/03/2016')
 		return listFree;
 	}
 
-	public Place findFirst(Predicate<Place> predicate) throws SQLException, URISyntaxException {
-		Connection conn = Database.getConnection();
+	public Place findFirst(Predicate<Place> predicate) {
 		return placeCache.stream().filter(predicate).findFirst().orElse(null);
 	}
 
-	public List<Place> findAll(Predicate<Place> predicate) throws SQLException, URISyntaxException {
-		Connection conn = Database.getConnection();
+	public List<Place> findAll(Predicate<Place> predicate) {
 		return placeCache.stream().filter(predicate).collect(Collectors.toList());
 	}
 }

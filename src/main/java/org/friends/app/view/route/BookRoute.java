@@ -1,7 +1,5 @@
 package org.friends.app.view.route;
 
-import java.net.URISyntaxException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -48,12 +46,6 @@ public class BookRoute extends AuthenticatedRoute {
 				map.put("message", "Place n°" + booked.getPlaceNumber() + " reservée.");
 			} catch (BookingException e) {
 				map.put("message", "Vous avez déjà réservé une place pour le jour demandée.");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 

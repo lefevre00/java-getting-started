@@ -24,8 +24,7 @@ public class StartParking {
 		System.setProperty("MAIL_DEST", "lefevre00@yahoo.fr");
 
 		new Application() {
-			@Override
-			public Connection getConnection() throws java.sql.SQLException, java.net.URISyntaxException {
+			protected Connection getConnection() throws java.sql.SQLException, java.net.URISyntaxException {
 				try {
 					Class.forName("org.h2.Driver");
 				} catch (ClassNotFoundException e) {
@@ -37,8 +36,8 @@ public class StartParking {
 			
 			public void start() throws SQLException, URISyntaxException {
 				super.start();
-				//Connection connexion = getConnection();
-				Statement stmt = getConnection().createStatement();
+				Connection connexion = getConnection();
+				Statement stmt = connexion.createStatement();
 				// A décommenter quand on touche la structure d'une des 3 tables
 				//stmt.executeUpdate("DROP TABLE users");
 				stmt.executeUpdate("CREATE TABLE IF NOT EXISTS users (id INT NOT NULL, email VARCHAR(255) NOT NULL, place_id INT, pwd varchar(255) NOT NULL, token varchar(100), PRIMARY KEY (id))");
@@ -71,12 +70,12 @@ public class StartParking {
 				
 				initData();
 				stmt.close();
-				getConnection().close();
+				connexion.close();
 			}
 		}.start();
 	}
 
-	private static void initData() throws SQLException, URISyntaxException {
+	private static void initData() {
 		UserDao userDao = new UserDao();
 		userDao.persist(new User("abdel.tamditi@amdm.fr", "at" , 133));
 		userDao.persist(new User("william.verdeil@amdm.fr", "wv", 141));
