@@ -32,9 +32,11 @@ public interface Routes {
 	/*
 	 * Accessible if authenticated
 	 */
+	String DEFAULT = "/protected/";
 	String PLACE_SEARCH = "/protected/search";
 	String PLACE_SHARE = "/protected/sharePlace";
 	String CHOICE_ACTION = "/protected/choice";
 	String PLACE_BOOK = "/protected/book/:date/:place_id";
 	String RESERVATIONS = "/protected/booked";
+	String SETTINGS = "/protected/setting";
 }

@@ -104,8 +104,17 @@ public class Application {
 		before("/protected/*", checkLoggedIn); 
 		before("/", checkLoggedIn);
 
-		get("/", (request, response) -> {
+		get(Routes.CHOICE_ACTION, (request, response) -> {
 			return new ModelAndView(null, "index.ftl");
+		}, new FreeMarkerEngine());
+			
+		get(Routes.DEFAULT, (request, response) -> {
+			String dest = Routes.RESERVATIONS;
+			if (!StringUtils.isEmpty(getAuthenticatedUser(request).getPlaceNumber())) {
+				dest = Routes.CHOICE_ACTION;
+			}
+			response.redirect(dest);
+			return null;
 		}, new FreeMarkerEngine());
 
 		/*
@@ -170,6 +179,13 @@ public class Application {
 		get(Routes.PLACE_SHARE, shareRoute, new FreeMarkerEngine()); 
 		post(Routes.PLACE_SHARE, shareRoute, new FreeMarkerEngine());//(req, res) -> "Vous libérez la place   " + req.queryParams("number") +" du " + req.queryParams("dateDebut") +" du " + req.queryParams("dateFin"));
 
+		/*
+		 * User settings
+		 */
+		SettingRoute setting = new SettingRoute(); 
+		get(Routes.SETTINGS, setting, new FreeMarkerEngine()); 
+		post(Routes.SETTINGS, setting, new FreeMarkerEngine()); 
+		
 		
 		/*
 		 * Set cookie if needed

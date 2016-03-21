@@ -11,28 +11,18 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<span class="navbar-brand">Parking partage</span>
+		<span class="navbar-brand">TakeMyPlace</span>
 	</div>
 	<!-- Collection of nav links, forms, and other content for toggling -->
 	<div id="navbarCollapse" class="collapse navbar-collapse">
 		<ul class="nav navbar-nav">
-			<li class="active"><a href="/"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
-			<li><a href="#">Compte</a></li>
-			<li class="dropdown">
-				<a data-toggle="dropdown" class="dropdown-toggle" href="#">Menus <b class="caret"></b></a>
-				<ul role="menu" class="dropdown-menu">
-					<li><a href="#">Sous menu 1</a></li>
-					<li><a href="#">Sous menu 2</a></li>
-					<li><a href="#">Sous menu 3</a></li>
-					<li class="divider"></li>
-					<li><a href="#">Sous menu 4</a></li>
-				</ul>
-			</li>
+			<li class="active"><a href="/protected/"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
+			<li><a href="/protected/setting"><span class="glyphicon glyphicon-cog"></span> Compte</a></li>
 		</ul>
 			
 		<ul class="nav navbar-nav navbar-right">
       		<li>
-        		<a href="/user/signout"><span class="glyphicon glyphicon-user"></span> Se déconnecter</a>
+        		<a href="/user/signout"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a>
      		</li>				
 		</ul>
 	</div>

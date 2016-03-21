@@ -9,7 +9,7 @@ public interface UserService {
 	public static String EMAIL_UNKNOWN = "email.unknown";
 	
 	public static String PWD_ERROR = "password.error";
-	public static String PWD_REQUIRED = "passwor.required";
+	public static String PWD_REQUIRED = "password.required";
 	
 	public static String USER_DISABLE = "user.disable";
 	
