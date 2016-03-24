@@ -2,12 +2,10 @@ package org.friends.app.view;
 
 import static org.friends.app.Configuration.getPort;
 import static spark.Spark.after;
-import static spark.Spark.before;
-import static spark.Spark.exception;
 import static spark.Spark.get;
 import static spark.Spark.port;
 import static spark.Spark.post;
-import static spark.Spark.staticFileLocation;
+import static spark.Spark.*;
 
 import java.net.URISyntaxException;
 import java.security.AccessControlException;
@@ -20,6 +18,7 @@ import org.friends.app.Configuration;
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.UserServiceBean;
+import org.friends.app.view.route.AuthenticatedRoute;
 import org.friends.app.view.route.BookRoute;
 import org.friends.app.view.route.BookedRoute;
 import org.friends.app.view.route.ForgottenPwdRoute;
@@ -38,7 +37,6 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.template.freemarker.FreeMarkerEngine;
-import spark.utils.StringUtils;
 
 public class Application {
 
@@ -55,67 +53,36 @@ public class Application {
 
 		/*
 		 * Auto compress response 
+		 * Warning : commented because this break images
 		 */
-		after((request, response) -> {
-			String header = request.raw().getHeader("Accept-Encoding");
-			if (header != null && header.contains("gzip"))
-				response.header("Content-Encoding", "gzip");
-		});
-		
+		//		after((request, response) -> {
+		//			String header = request.raw().getHeader("Accept-Encoding");
+		//			if (header != null && header.contains("gzip"))
+		//				response.header("Content-Encoding", "gzip");
+		//		});
+
 		exception(AccessControlException.class, (e, request, response) -> {
-		    response.status(401);
-		    response.body("User not authenticated");
+			response.redirect(Routes.LOGIN);
 		});
-		
-		/*
-		 * Controle that user first logged in
-		 */
-		Filter checkLoggedIn = new Filter() {
+
+		get(Routes.CHOICE_ACTION, new AuthenticatedRoute() {
 			@Override
-			public void handle(Request request, Response response) throws Exception {
-				boolean userFound = false;
-
-				// 1 : try to find user in session
-				User authenticatedUser = getAuthenticatedUser(request);
-				if (authenticatedUser != null) {
-					userFound = true;
-				} else {
-					
-					// 2. Try to find user using cookie
-					String cookie = request.cookie(Configuration.COOKIE);
-					if (!StringUtils.isEmpty(cookie)) {
-						
-						User user = userService.findUserByCookie(cookie);
-						if (user != null) {
-							request.session().attribute("user", user);
-							userFound = true;
-						} else {
-							// Clean cookie if no user
-							response.removeCookie(Configuration.COOKIE);
-						}
-					}
-				}
-				
-				if (!userFound) {
-					response.redirect(Routes.LOGIN);
-				}
+			protected ModelAndView doHandle(Request request, Response response) {
+				return new ModelAndView(null, "index.ftl");
 			}
-		};
-		before("/protected/*", checkLoggedIn); 
-		before("/", checkLoggedIn);
-
-		get(Routes.CHOICE_ACTION, (request, response) -> {
-			return new ModelAndView(null, "index.ftl");
 		}, new FreeMarkerEngine());
-			
-		get(Routes.DEFAULT, (request, response) -> {
-			String dest = Routes.RESERVATIONS;
-			User user = getAuthenticatedUser(request);
-			if (user != null && user.getPlaceNumber() != null) {
-				dest = Routes.CHOICE_ACTION;
+
+		get(Routes.DEFAULT, new AuthenticatedRoute() {
+			@Override
+			protected ModelAndView doHandle(Request request, Response response) {
+				String dest = Routes.RESERVATIONS;
+				User user = getAuthenticatedUser(request);
+				if (user != null && user.getPlaceNumber() != null) {
+					dest = Routes.CHOICE_ACTION;
+				}
+				response.redirect(dest);
+				return new ModelAndView(null, "index.ftl");
 			}
-			response.redirect(dest);
-			return new ModelAndView(null, "index.ftl");
 		}, new FreeMarkerEngine());
 
 		/*
@@ -124,15 +91,19 @@ public class Application {
 		LoginRoute loginRoute = new LoginRoute();
 		get(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
 		post(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
+		get("/", loginRoute, new FreeMarkerEngine());
 
 		/*
 		 * Déconnexion
 		 */
-		get(Routes.LOGOUT, (req, res) -> {
-			removeAuthenticatedUser(req);
-			res.removeCookie(Configuration.COOKIE);
-			return null;
-		});
+		get(Routes.LOGOUT, new AuthenticatedRoute() {
+			@Override
+			protected ModelAndView doHandle(Request request, Response response) {
+				removeAuthenticatedUser(request);
+				response.removeCookie(Configuration.COOKIE);
+				return new ModelAndView(null, "logout.ftl");
+			}
+		}, new FreeMarkerEngine());
 
 		/* 
 		 * User register 
@@ -166,6 +137,7 @@ public class Application {
 			return new ModelAndView(map, "pwd_new.ftl");
 		}, new FreeMarkerEngine());
 		post(Routes.PASSWORD_NEW, new PasswordTokenRoute(), new FreeMarkerEngine());
+
 		/*
 		 * Places booking 
 		 */
@@ -186,8 +158,8 @@ public class Application {
 		SettingRoute setting = new SettingRoute(); 
 		get(Routes.SETTINGS, setting, new FreeMarkerEngine()); 
 		post(Routes.SETTINGS, setting, new FreeMarkerEngine()); 
-		
-		
+
+
 		/*
 		 * Set cookie if needed
 		 */
@@ -204,12 +176,6 @@ public class Application {
 		after(Routes.PLACE_SEARCH, setCookieFilter);
 		after(Routes.PLACE_SHARE, setCookieFilter);
 		after("/", setCookieFilter);
-		
-		/* Intercept 404 */
-		get("*", (request, response) -> {
-			response.redirect(Routes.LOGIN);
-			return "404";
-		});
 	}
 
 	protected Connection getConnection() throws SQLException, URISyntaxException {
@@ -219,7 +185,7 @@ public class Application {
 	public static Application instance() {
 		return instance;
 	}
-	
+
 	private User getAuthenticatedUser(Request request) {
 		return request.session().attribute("user");
 	}

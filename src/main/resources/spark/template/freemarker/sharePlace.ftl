@@ -3,10 +3,12 @@
 <head>
   <#include "header.ftl">
   
-  <script src="/js/bootstrap-datepicker.js" charset="UTF-8"></script>
+  <script src="/js/bootstrap-datepicker.js"></script>
   <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
   <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+  <!--
   <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
+  -->
 </head>
 
 <body>

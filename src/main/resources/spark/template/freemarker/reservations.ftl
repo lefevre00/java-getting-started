@@ -13,7 +13,7 @@
 
     <div class="panel panel-default col-sm-8 col-sm-offset-2">
     	<div class="panel-heading">
-			<h2>Voici les places que vous avez réservez :
+			<h2>Voici les places que vous avez réservées :
 				<a class="btn btn-primary btn-lg pull-right" href="/protected/search" role="button">R&eacute;server une place</a>
 			</h2>
 		</div>

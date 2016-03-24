@@ -22,7 +22,7 @@
 			
 		<ul class="nav navbar-nav navbar-right">
       		<li>
-        		<a href="/user/signout"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a>
+        		<a href="/user/logout"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a>
      		</li>				
 		</ul>
 	</div>
