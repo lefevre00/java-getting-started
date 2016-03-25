@@ -8,7 +8,9 @@ public interface Routes {
 	
 	public static void redirect(User user, Response response) {
 		String dest = RESERVATIONS;
-		if (user.getPlaceNumber() != null)
+		if (user == null)
+			dest = Routes.LOGIN;
+		else if (user.getPlaceNumber() != null)
 			dest = PLACE_SHARE;
 		response.redirect(dest);
 	}

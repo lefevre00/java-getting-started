@@ -1,11 +1,12 @@
 package org.friends.app.view;
 
 import static org.friends.app.Configuration.getPort;
-import static spark.Spark.after;
+import static spark.Spark.before;
+import static spark.Spark.exception;
 import static spark.Spark.get;
 import static spark.Spark.port;
 import static spark.Spark.post;
-import static spark.Spark.*;
+import static spark.Spark.staticFileLocation;
 
 import java.net.URISyntaxException;
 import java.security.AccessControlException;
@@ -91,7 +92,10 @@ public class Application {
 		LoginRoute loginRoute = new LoginRoute();
 		get(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
 		post(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
-		get("/", loginRoute, new FreeMarkerEngine());
+		get("/", (req, res) -> {
+			Routes.redirect(null, res);
+			return null;
+		});
 
 		/*
 		 * Déconnexion
@@ -173,10 +177,11 @@ public class Application {
 				}
 			}
 		};
-		after(Routes.PLACE_SEARCH, setCookieFilter);
-		after(Routes.PLACE_SHARE, setCookieFilter);
-		after("/", setCookieFilter);
+		before(Routes.PLACE_SEARCH, setCookieFilter);
+		before(Routes.PLACE_SHARE, setCookieFilter);
+		before("/", setCookieFilter);
 	}
+
 
 	protected Connection getConnection() throws SQLException, URISyntaxException {
 		return DatabaseUrl.extract().getConnection();
@@ -185,7 +190,7 @@ public class Application {
 	public static Application instance() {
 		return instance;
 	}
-
+	
 	private User getAuthenticatedUser(Request request) {
 		return request.session().attribute("user");
 	}
