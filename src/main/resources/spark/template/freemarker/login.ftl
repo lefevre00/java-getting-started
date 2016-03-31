@@ -1,46 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
   <#include "header.ftl">
 </head>
 
 <body>
   
-    <div class="container">
-	  <div class="jumbotron">
-	      <h2>Veuillez vous authentifier</h2>
-	      <form method="post" role="form">
-			      
-		  <#if error??>
-			  <div class="alert alert-danger">
-			  	<strong>Erreur : </strong>${error}
-			  </div>
-		  </#if>
-		  
-	        <div class="form-group">
-	        	<div class="input-group">
-		        	<div class="input-group-addon"><i class="fa fa-envelope-o"></i></div>
+	<!-- navigation section -->
+	<#include "nav.ftl">
+	
+	<!-- home section -->
+	<section id="home">
+		
+		<div id="wrapper">
+		
+			<#if error??>
+				<div class="alert alert-danger">
+					<strong>Erreur : </strong>${error}
+				</div>
+			</#if>
+
+			<form method="post" role="form" name="login-form" class="login-form">
+			
+				<div class="header">
+					<h1>Authentification</h1>
+					<span>Veuillez renseigner les champs ci-dessous.</span>
+				</div>
+
+				<div class="content">
 			        <#if email??>
-	  		          <input type="email" class="form-control" name="email" placeholder="adresse@email.fr" value="${email}" required/>
+						<input class="input" name="email" type="email" placeholder="adresse@email.fr" value="${email}" required/>
 			        <#else>
-			          <input type="email" class="form-control" name="email" placeholder="adresse@email.fr" required/>
+			          	<input class="input" name="email" type="email" placeholder="adresse@email.fr" required/>
 	                </#if>
-                </div>
-	        </div>
-	        <div class="form-group">
-	        	<div class="input-group">
-	        		<div class="input-group-addon"><i class="fa fa-key"></i></div>
-			        <input type="password" class="form-control" name="pwd" id="pwd" placeholder="motdepasse" required/>
-			    </div>
-	        </div>
-	        <div class="form-group">
-				<a class="btn btn-primary pull-right" href="/user/new">Cr&eacute;er un compte</a>
-				<input type="submit" class="btn btn-success" value="Se connecter"/>
-				<a href="/user/forget">Mot de passe perdu ?</a>
-	        </div>
-	      </form>
-      </div>
-    </div>
+					<div class="email-icon emailX1"></div>
+
+					<input class="input password" name="pwd" id="pwd" type="password" placeholder="mot de passe" required/>
+					<div class="pass-icon passX1"></div>
+				</div>
+				
+				<div class="footer">
+					<input type="submit" name="submit" value="Se connecter" class="login" />
+					<a href="/user/new" class="register">S'inscrire</a>
+					<br><br><br>
+					<a href="/user/forget">Mot de passe oublié ?</a>
+				</div>
+
+			</form>
+
+		</div>
+
+	</section>
   
 </body>
 </html>
