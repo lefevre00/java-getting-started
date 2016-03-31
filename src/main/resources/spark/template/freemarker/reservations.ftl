@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content=""> 
-	<#include "header.ftl">
+  <#include "header.ftl">
 </head>
 
 <body>
+  
+	<!-- navigation section -->
 	<#include "nav.ftl">
-
+	
     <div class="panel panel-default col-sm-8 col-sm-offset-2">
     	<div class="panel-heading">
 			<h2>Voici les places que vous avez réservées :
@@ -28,6 +26,7 @@
 	  		</#if>
         </div>
     </div>
+    
   
 </body>
 </html>
