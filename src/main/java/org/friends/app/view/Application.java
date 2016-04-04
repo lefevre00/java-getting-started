@@ -69,7 +69,8 @@ public class Application {
 		get(Routes.CHOICE_ACTION, new AuthenticatedRoute() {
 			@Override
 			protected ModelAndView doHandle(Request request, Response response) {
-				return new ModelAndView(null, "index.ftl");
+//				return new ModelAndView(null, "index.ftl");
+				return new ModelAndView(null, "default.ftl");
 			}
 		}, new FreeMarkerEngine());
 
@@ -92,11 +93,19 @@ public class Application {
 		LoginRoute loginRoute = new LoginRoute();
 		get(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
 		post(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
+//		get("/", (req, res) -> {
+//			Routes.redirect(null, res);
+//			return null;
+//		});
 		get("/", (req, res) -> {
-			Routes.redirect(null, res);
-			return null;
-		});
-
+			Map<String, String> map = new HashMap<>();
+			return new ModelAndView(map, "index.ftl");
+		}, new FreeMarkerEngine());
+		
+		
+		
+		
+		
 		/*
 		 * Déconnexion
 		 */

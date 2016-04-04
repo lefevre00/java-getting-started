@@ -7,7 +7,7 @@
 				<span class="icon icon-bar"></span>
 				<span class="icon icon-bar"></span>
 			</button>
-			<a href="/protected/" class="navbar-brand" >
+			<a href="/" class="navbar-brand" >
 				<img src="/images/logo.png" class="hidden-xs" alt="CoParking">
 			</a>			
 		</div>
