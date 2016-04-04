@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <#include "header.ftl">
+	<#include "header.ftl">
 </head>
 
 <body>
@@ -9,20 +9,23 @@
 	<!-- navigation section -->
 	<#include "nav.ftl">
 
-	<div class="container">
-		<div class="text-center">
-	    	<h2>Réserver une place de parking</h2>
+    <section class="content-section">
+		<div class="container containerAttr">
+			<h1>Réservation de place de parking</h1>
+
+			<div class="row " style="margin:0px auto;max-width:700px; padding-top:20px;">					
+				<h4>Vous avez demandé une place pour le ${dateRecherche}.</h4>
+			</div>						
+			
+			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
+				<div>
+					<center>
+						${message}
+					</center>
+				</div>
+			</div>
 		</div>
-		<br/>
-	  	
-	    <div class="row">
-	    	<center>
-	    		Vous avez demandez une place pour le ${dateRecherche}.
-	    		<br/>
-	    		${message}
-	    	</center>
-	    </div>
-	</div>
+	</section>
 
 </body>
 </html>

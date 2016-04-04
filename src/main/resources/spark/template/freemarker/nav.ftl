@@ -15,8 +15,8 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="/protected/">ACCUEIL</a></li>
 				<li><a href="/protected/setting">COMPTE</a></li>
-				<li><a href="">CONTACT</a></li>
 				<li><a href="">AIDE</a></li>
+				<li><a href="">CONTACT</a></li>
 				<li><a href="/user/logout">DECONNEXION</a></li>
 			</ul>
 		</div>

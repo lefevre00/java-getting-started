@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <#include "header.ftl">
+	<#include "header.ftl">
+	<link rel="stylesheet" href="/css/login.css">
 </head>
 
 <body>
@@ -31,11 +32,11 @@
 			        <#if email??>
 						<input class="input" name="email" type="email" placeholder="adresse@email.fr" value="${email}" required/>
 			        <#else>
-			          	<input class="input" name="email" type="email" placeholder="adresse@email.fr" required/>
+			          	<input class="input" name="email" type="email" placeholder="adresse@email.fr"  value="abdel.tamditi@amdm.fr" required/>
 	                </#if>
 					<div class="email-icon emailX1"></div>
 
-					<input class="input password" name="pwd" id="pwd" type="password" placeholder="mot de passe" required/>
+					<input class="input password" name="pwd" id="pwd" type="password" placeholder="mot de passe" value="at" required/>
 					<div class="pass-icon passX1"></div>
 				</div>
 				

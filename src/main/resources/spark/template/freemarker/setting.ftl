@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <#include "header.ftl">
+	<#include "header.ftl">
+	<link rel="stylesheet" href="/css/login.css">
 </head>
 
 <body>
@@ -9,36 +10,45 @@
 	<!-- navigation section -->
 	<#include "nav.ftl">
 
-	<#if error??>
-		<div class="alert alert-danger">
-			<strong>Erreur : </strong>${error}
+	<!-- home section -->
+	<section id="home">
+		
+		<div id="wrapper">
+	
+			<#if error??>
+				<div class="alert alert-danger">
+					<strong>Erreur : </strong>${error}
+				</div>
+			</#if>
+			<#if info??>
+				<div class="alert alert-info">
+					<strong>Information : </strong>${info}
+				</div>
+			</#if>
+	
+			<form method="post" role="form" name="login-form" class="login-form">
+			
+				<div class="header">
+					<h1>Attribution N° place</h1>
+					<span>Veuillez saisir le n° de place (si attribué).</span>
+				</div>
+	
+				<div class="content">
+					<input type="text" class="form-control" name="placeNumber" id="placeNumber" placeholder="110" size="3" maxlength="3"
+						<#if placeNumber??>
+							value="${placeNumber}"
+						</#if>
+>
+				</div>
+				<div class="footer">
+					<input type="submit" name="submit" value="Valider" class="valider" />
+				</div>
+			
+			</form>	
+	
 		</div>
-	</#if>  
-	<#if info??>
-		<div class="alert alert-info">
-			<strong>Information : </strong>${info}
-		</div>
-	</#if>  
-	  
-	<div class="jumbotron">
-		<div class="container">
-			<div class="form-container">
-				<form method="post" role="form">
-					<div class="form-group">
-						<label for="pwd">Num&eacute;ro de place (si attribu&eacute;)</label>
-						<input type="text" class="form-control" name="placeNumber" id="placeNumber" placeholder="110" size="3" maxlength="3"
-							<#if placeNumber??>
-								value="${placeNumber}"
-							</#if>
->						
-					</div>
-					<div class="form-group">
-						<input type="submit" class="btn btn-success" value="Valider"/>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div> 
+	
+	</section>
   
 </body>
 </html>

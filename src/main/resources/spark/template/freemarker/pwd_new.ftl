@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <#include "header.ftl">
+	<#include "header.ftl">
+	<link rel="stylesheet" href="/css/login.css">
 </head>
 
 <body>
@@ -15,29 +16,41 @@
 		</div>
 	</#if>
     
-	<div class="container">
-	  	<div class="jumbotron">
-			<form method="post" role="form">
+	<section id="home">
+	
+		<div id="wrapper">
+
+			<form method="post" role="form" name="login-form" class="login-form">
 				<input type="hidden" name="token" value="${token}">
-				<div class="form-group">Nous allons redéfinir le mot de passe pour votre compte. Veuillez compléter les champs ci-dessous.</div>	
-			    <div class="form-group">
-				    <label for="email">Email</label>
-				    <#if email??>
-						<input type="email" class="form-control" name="email" placeholder="adresse@email.fr" value="${email}" required/>
-				    <#else>
-				        <input type="email" class="form-control" name="email" placeholder="adresse@email.fr" required/>
-		            </#if>
-				</div>			
-			    <div class="form-group">
-				    <label for="mdp">Nouveau mot de passe</label>
-			        <input type="password" class="form-control" name="mdp" placeholder="motdepasse" required/>
-				</div>			
-				<div class="form-group">
-					<input type="submit" class="btn btn-success" value="Valider"/>
+				<div class="header">
+					<h1>Ré-initialisation du mot de passe</h1>
+					<span>Veuillez compléter les champs ci-dessous.</span>
 				</div>
+
+				<div class="content">
+			        <#if email??>
+						<input class="input" name="email" type="email" placeholder="adresse@email.fr" value="${email}" required/>
+			        <#else>
+			          	<input class="input" name="email" type="email" placeholder="adresse@email.fr" required/>
+	                </#if>
+					<div class="email-icon emailX2"></div>
+					
+					<input class="input password" name="pwd1" id="pwd1" type="password" placeholder="nouveau mot de passe" required/>
+					<div class="pass-icon passX2"></div>
+					
+					<input class="input password" name="pwd2" id="pwd2" type="password"  placeholder="re-saisir le mot de passe" required/>
+					<div class="pass-icon passX3"></div>
+				</div>
+				
+				<div class="footer">
+					<input type="submit" name="submit" value="Valider" class="valider" />
+				</div>
+			
 			</form>
-	    </div>
-	</div>
+
+		</div>
+		
+	</section>
   
 </body>
 </html>

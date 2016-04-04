@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <#include "header.ftl">
+	<#include "header.ftl">
 </head>
 
 <body>
@@ -9,19 +9,21 @@
 	<!-- navigation section -->
 	<#include "nav.ftl">
 	
-	<div class="container">
-		<div class="jumbotron">
-			<h2>${title}</h2>
-			<br/>
+    <section class="content-section">
+		<div class="container containerAttr">
+				
+			<h1>${title}</h1>
 
-			<#if ok??>
-				<div class="alert alert-success" role="alert">${message}</div>
-				<p><a class="btn btn-primary btn-lg" href="/user/login" role="button">Se connecter</a></p>
-			<#else>
-				<div class="alert alert-warning" role="alert">${message}</div>
-			</#if>
+			<div class="row" style="padding-top:20px;">
+				<#if ok??>
+					<div class="alert alert-success" role="alert">${message}</div>
+					<p><a class="btn btn-primary btn-lg" href="/user/login" role="button">Se connecter</a></p>
+				<#else>
+					<div class="alert alert-warning" role="alert">${message}</div>
+				</#if>
+			</div>
 		</div>
-	</div>
+	</section>
 
 </body>
 </html>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <#include "header.ftl">
+	<#include "header.ftl">
+	<link rel="stylesheet" href="/css/login.css">
 </head>
 
 <body>
@@ -15,26 +16,35 @@
 	  	</div>
   	</#if>
     
-	<div class="jumbotron">
-		<div class="container">
-			<div class="row">
-				<form method="post" role="form">
-					<div class="form-group">Nous allons r&eacute;initialiser votre compte. Vous recevrez par mail un lien afin de red&eacute;finir votre mot de passe.</div>	
-					<div class="form-group">
-						<label for="email">Email</label>
-						<#if email??>
-							<input type="email" class="form-control" name="email" placeholder="adresse@email.fr" value="${email}"/>
-						<#else>
-							<input type="email" class="form-control" name="email" placeholder="adresse@email.fr"/>
-						</#if>
-					</div>			
-					<div class="form-group">
-						<input type="submit" class="btn btn-success" value="R&eacute;initialiser"/>
-					</div>
-				</form>
-			</div>
+	<!-- home section -->
+	<section id="home">
+		
+		<div id="wrapper">
+
+			<form method="post" role="form" name="login-form" class="login-form">	
+
+				<div class="header">
+					<h1>Réinitialisation du compte</h1>
+					<span>Vous recevrez par mail un lien afin de red&eacute;finir votre mot de passe.</span>
+				</div>
+
+				<div class="content">
+			        <#if email??>
+						<input class="input" name="email" type="email" placeholder="adresse@email.fr" value="${email}" required/>
+			        <#else>
+			          	<input class="input" name="email" type="email" placeholder="adresse@email.fr"  value="damien.urvoix@amdm.fr" required/>
+	                </#if>
+					<div class="email-icon emailX1"></div>
+				</div>
+				<div class="footer">
+					<input type="submit" name="submit" value="Réinitialiser" class="valider" />
+				</div>
+
+			</form>
+			
 		</div>
-	</div>
-  
+		
+	</section>
+	  
 </body>
 </html>

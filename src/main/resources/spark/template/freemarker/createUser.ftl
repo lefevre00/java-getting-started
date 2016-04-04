@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <#include "header.ftl">
+	<#include "header.ftl">
+	<link rel="stylesheet" href="/css/login.css">
 </head>
 
 <body>

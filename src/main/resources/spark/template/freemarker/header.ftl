@@ -12,11 +12,16 @@
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/animate.min.css">
 <link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/nivo-lightbox.css">
+<link rel="stylesheet" href="/css/nivo_themes/default/default.css">
 <link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="/css/login.css">
+
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
 	
 <script src="/js/jquery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/wow.min.js"></script>
 <script src="/js/custom.js"></script>
+<script src="/js/jquery.parallax.js"></script>
+<script src="/js/smoothscroll.js"></script>
+<script src="/js/nivo-lightbox.min.js"></script>

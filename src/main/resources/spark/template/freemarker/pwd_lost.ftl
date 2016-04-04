@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <#include "header.ftl">
+	<#include "header.ftl">
+	<link rel="stylesheet" href="/css/login.css">
 </head>
 
 <body>
@@ -34,7 +35,6 @@
 			          	<input class="input" name="email" type="email" placeholder="adresse@email.fr" required/>
 	                </#if>				
 					<div class="email-icon emailX3"></div>
-
 				</div>
 
 				<div class="footer">
