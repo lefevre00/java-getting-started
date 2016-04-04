@@ -1,8 +1,13 @@
 package org.friends.app.view.route;
 
+import java.net.URISyntaxException;
 import java.security.AccessControlException;
+import java.sql.SQLException;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 
 import org.friends.app.Configuration;
+import org.friends.app.dao.PlaceDao;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.UserServiceBean;
 
@@ -24,7 +29,7 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 
 	protected abstract ModelAndView doHandle(Request request, Response response);
 
-	private void checkAuthenticated(Request request, Response response) {
+	private void checkAuthenticated(Request request, Response response) throws SQLException, URISyntaxException {
 		User user = getUser(request);
 		
 		// 1 : try to find user in session
@@ -53,5 +58,33 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 
 	protected User getUser(Request request) {
 		return request.session().attribute("user");
+	}
+	
+	protected String rechercherLejourSuivant(LocalDate dateRecherche) {
+		if(DayOfWeek.FRIDAY.equals(dateRecherche.getDayOfWeek())){
+			dateRecherche = dateRecherche.plusDays(3);
+		}else if(DayOfWeek.SATURDAY.equals(dateRecherche.getDayOfWeek())){
+			dateRecherche = dateRecherche.plusDays(2);
+		}else{
+			dateRecherche = dateRecherche.plusDays(1);
+		}
+		return dateRecherche.format(PlaceDao.formatter);
+	}
+	
+	protected String rechercherLejourPrecedent(LocalDate dateRecherche) {
+		if(DayOfWeek.MONDAY.equals(dateRecherche.getDayOfWeek())){
+			dateRecherche = dateRecherche.minusDays(3);
+		}else{
+			dateRecherche = dateRecherche.minusDays(1);
+		}
+		return dateRecherche.compareTo(LocalDate.now()) <0 ? null : dateRecherche.format(PlaceDao.formatter);
+	}
+	/**
+	 * Retourne la prochaine date de réservation
+	 * @return
+	 */
+	protected String rechercheLaProchaineDateUtilisable(){
+		return rechercherLejourSuivant(LocalDate.now());
+		
 	}
 }

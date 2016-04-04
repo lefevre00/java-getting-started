@@ -1,13 +1,23 @@
 package org.friends.app.service;
 
+import org.friends.app.dao.UserDao;
 import org.friends.app.model.User;
+import org.friends.app.service.impl.MailServiceBean;
 import org.friends.app.service.impl.UserServiceBean;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-
+@RunWith(MockitoJUnitRunner.class)
 public class UserService_Create_Test {
 	
+	@InjectMocks
 	UserServiceBean service = new UserServiceBean();
+	
+	@Mock UserDao dao;
+	@Mock MailServiceBean mailServiceBean;
 	
 	/*
 	 * Test avec user null
@@ -156,6 +166,6 @@ public class UserService_Create_Test {
 	@Test()
 	public void un_user_doit_avoir_un_email_valide_et_un_mdp() throws Exception {
 		User user = UserBuilder.unUser().build("prenom.nom@amdm.fr", "mdp");
-		service.create(user, null);
+		service.create(user, "http://localhost:8080/");
 	}	
 }

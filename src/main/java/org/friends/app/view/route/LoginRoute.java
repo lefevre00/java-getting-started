@@ -20,7 +20,6 @@ public class LoginRoute implements TemplateViewRoute {
 
 	private static final String ERROR = "error";
 	private static final String EMAIL = "email";
-	
 	UserServiceBean userService = new UserServiceBean();
 	
 	@Override

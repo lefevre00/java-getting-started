@@ -1,6 +1,7 @@
 package org.friends.app.view;
 
 import static org.friends.app.Configuration.getPort;
+import static spark.Spark.after;
 import static spark.Spark.before;
 import static spark.Spark.exception;
 import static spark.Spark.get;
@@ -42,6 +43,7 @@ import spark.template.freemarker.FreeMarkerEngine;
 public class Application {
 
 	private static Application instance;
+	
 	UserServiceBean userService = new UserServiceBean();
 
 	public Application() {
@@ -186,6 +188,7 @@ public class Application {
 				}
 			}
 		};
+		after(Routes.RESERVATIONS, setCookieFilter);
 		before(Routes.PLACE_SEARCH, setCookieFilter);
 		before(Routes.PLACE_SHARE, setCookieFilter);
 		before("/", setCookieFilter);

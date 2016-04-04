@@ -1,5 +1,8 @@
 package org.friends.app;
 
+import org.hibernate.dialect.H2Dialect;
+import org.hibernate.dialect.PostgreSQL92Dialect;
+
 import spark.utils.StringUtils;
 
 public class Configuration {
@@ -28,6 +31,10 @@ public class Configuration {
 
 	public static boolean development() {
 		return System.getProperty(DEPLOY_MODE) != null;
+	}
+	
+	public static String dialect() {
+		return development() ? H2Dialect.class.getName() : PostgreSQL92Dialect.class.getName();
 	}
 	
 	/**

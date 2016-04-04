@@ -1,7 +1,8 @@
 package org.friends.app.service.impl;
 
+import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.UUID;
-import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +13,7 @@ import org.friends.app.dao.UserDao;
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
 import org.friends.app.service.UserService;
+import org.hibernate.criterion.Restrictions;
 
 import spark.utils.Assert;
 import spark.utils.StringUtils;
@@ -48,25 +50,27 @@ public class UserServiceBean implements UserService{
 	}
 	
 	@Override
-	public User findUserByEmail(String email) {
-		return userDao.findFirst(user -> user.getEmailAMDM().equals(email));
+	public User findUserByEmail(String email) throws SQLException, URISyntaxException {
+		Assert.notNull(email);
+		return userDao.findUserByEmail(email);
+		//return userDao.findFirst(user -> user.getEmailAMDM().equals(email));
 	}
 
 	@Override
-	public User findUserByCookie(String cookie) {
-		Session session = sessionDao.findFirst(s -> s.getCookie().equals(cookie));
+	public User findUserByCookie(String cookie) throws SQLException, URISyntaxException {
+		Session session = sessionDao.findByCookie(cookie);
 		if (session == null)
 			return null;
-		return userDao.findFirst(u -> u.getId().equals(session.getUserId())); 
+		return userDao.findById(session.getUserId()); 
 	}
 	
-	public Session createSession(User user) {
+	public Session createSession(User user) throws SQLException, URISyntaxException {
 		Assert.notNull(user);
 		cleanExpiredSession();
 		return sessionDao.persist(new Session(user));
 	}
 	
-	private void cleanExpiredSession() {
+	private void cleanExpiredSession() throws SQLException, URISyntaxException {
 		sessionDao.deleteExpired();
 	}
 
@@ -99,11 +103,12 @@ public class UserServiceBean implements UserService{
 		return back;
 	}
 	
-	public User update(User user) {
+	public User update(User user) throws SQLException, URISyntaxException {
 		Assert.notNull(user);
 		Assert.notNull(user.getId()); // User must already have an id
 		return userDao.persist(user);
 	}
+	
 	
 	public void reset(User user) {}
 	
@@ -138,15 +143,10 @@ public class UserServiceBean implements UserService{
 
 	}
 
-	public boolean activate(String token) {
+	public boolean activate(String token) throws SQLException, URISyntaxException {
 		Assert.notNull(token);
 		
-		User user = userDao.findFirst(new Predicate<User>() {
-			@Override
-			public boolean test(User u) {
-				return token.equals(u.getTokenMail());
-			}
-		});
+		User user = userDao.findByTokenMail(token);
 		
 		boolean success = false;
 		if (user != null) {
@@ -172,7 +172,7 @@ public class UserServiceBean implements UserService{
 		mailService.sendLostPassword(user, appUrl);
 	}
 
-	public boolean setPassword(String email, String token, String hash) {
+	public boolean setPassword(String email, String token, String hash) throws SQLException, URISyntaxException {
 		if (StringUtils.isEmpty(email))
 			throw new IllegalArgumentException("Email required");
 		if (StringUtils.isEmpty(token))
@@ -180,12 +180,7 @@ public class UserServiceBean implements UserService{
 		if (StringUtils.isEmpty(hash))
 			throw new IllegalArgumentException("Hashed password required");
 		
-		User user = userDao.findFirst(new Predicate<User>() {
-			@Override
-			public boolean test(User u) {
-				return email.equalsIgnoreCase(u.getEmailAMDM()) && token.equalsIgnoreCase(u.getTokenPwd());
-			}
-		});
+		User user = userDao.findUserByCriterions(Restrictions.eq("email", email), Restrictions.eq("tokenPassword", token));
 
 		if (user != null) {
 			user.setTokenPwd(null);
