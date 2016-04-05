@@ -2,8 +2,6 @@ package org.friends.app.dao;
 
 
 import java.io.Serializable;
-import java.net.URISyntaxException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -33,7 +31,7 @@ public class PlaceDao {
 
 
 	@SuppressWarnings("unchecked")
-	public List<Place> findAllFreeByDate(LocalDate date) throws SQLException, URISyntaxException {
+	public List<Place> findAllFreeByDate(LocalDate date) {
 			Assert.notNull(date);
 			String strDateRecherche = date.format(formatter);
 
@@ -45,7 +43,7 @@ public class PlaceDao {
 		}
 	
 	@SuppressWarnings("unchecked")
-	public Place findPlaceisFreeAtTheDate(Integer place_number, LocalDate date) throws SQLException, URISyntaxException {
+	public Place findPlaceisFreeAtTheDate(Integer place_number, LocalDate date) {
 		Assert.notNull(place_number);
 		Assert.notNull(date);
 		

@@ -1,6 +1,5 @@
 package org.friends.app.dao;
 
-import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,11 +14,13 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class PlaceDaoTest {
 	
 
+	private static String MAIL_RESERVANT = "damien.urvoix@amdm.fr";
 	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN);
 	static LocalDate timePoint = LocalDate.now();
 	static String strDateToday  = timePoint.format(formatter);
@@ -27,37 +28,33 @@ public class PlaceDaoTest {
 	static String strApresDemain = timePoint.plusDays(2).format(formatter);
 	static String strYearsteday = timePoint.minusDays(1).format(formatter);
 	
-	
-	private PlaceDao placeDao = new PlaceDao();
-    
-    private static String MAIL_RESERVANT = "damien.urvoix@amdm.fr";
+	private PlaceDao placeDao;
     
     @BeforeClass
     public static void beforeClass() throws SQLException {
     	System.setProperty(Configuration.DEPLOY_MODE, "dev");
     	HibernateUtil.getSession();
-    	
-    }
-    
-    @Before
-    public void createDatabase() throws SQLException {
-    	placeDao = new PlaceDao();
-    	
-    }
-    
-    @After
-    public void clearDataBase() throws SQLException {
-    	placeDao.clearAllPlacesBeforeDate(timePoint);
     }
     
     @AfterClass
     public static void close(){
     	HibernateUtil.closeSession();
     }
+    
+    @Before
+    public void createDatabase() throws SQLException {
+    	placeDao = new PlaceDao();
+    }
+    
+    @After
+    public void clearPlaces() throws SQLException {
+    	placeDao.clearAllPlacesBeforeDate(timePoint);
+    }
 
-	private void init() {
-		placeDao.persist(new Place(new Integer(3), MAIL_RESERVANT, strTomorrow));
+	private void initDb() {
 		placeDao.clearAllPlacesBeforeDate(timePoint.plusDays(40)); // suppresion de toutes les réservations
+		
+		placeDao.persist(new Place(new Integer(3), MAIL_RESERVANT, strTomorrow));
 		placeDao.persist(new Place(new Integer(1), strDateToday)); //Place libre aujourd'hui free = true
 		placeDao.persist(new Place(new Integer(141), strDateToday));
 		placeDao.persist(new Place(new Integer(2), MAIL_RESERVANT, strDateToday));//place occupée aujourd'hui
@@ -69,11 +66,25 @@ public class PlaceDaoTest {
     	placeDao.persist(new Place(new Integer(37), strTomorrow)); //Place libre demain
 	}
 	
+    @Test(expected=IllegalArgumentException.class)
+    public void findAllFreeByDate_sans_date() {
+    	placeDao.findAllFreeByDate(null);
+    }
+    
     @Test
-    public void testMethodesDAO() throws SQLException, URISyntaxException {
-    	init();
+    public void findAllFreeByDate_avec_date() {
+    	initDb();
     	List<Place> lesPlacesLibresAujourdhui = placeDao.findAllFreeByDate(LocalDate.now());
     	Assert.assertEquals("On attend 2 places libres aujourd'hui", 2, lesPlacesLibresAujourdhui.size());
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void findReleaseHistoryByPlace_sans_param() {
+    	placeDao.findReleaseHistoryByPlace(null);
+    }
+
+    @Ignore
+    public void testMethodesDAO() {
     	List<Place> historiquePlace35 = placeDao.findReleaseHistoryByPlace(new Integer(35));
     	Assert.assertEquals("On attend n places", 2, historiquePlace35.size());
     	Assert.assertEquals( MAIL_RESERVANT+ " a réservé une place Aujourd'hui", true, placeDao.userAsDejaReserveUnePlaceAcetteDate(timePoint, MAIL_RESERVANT));
@@ -104,7 +115,7 @@ public class PlaceDaoTest {
     	}
     	
     	placeDao.clearAllPlacesBeforeDate(timePoint.plusDays(40));
-    	lesPlacesLibresAujourdhui = placeDao.findAllFreeByDate(timePoint);
+    	List<Place> lesPlacesLibresAujourdhui = placeDao.findAllFreeByDate(timePoint);
     	Assert.assertEquals("On attend 0 places libres aujourd'hui", 0, lesPlacesLibresAujourdhui.size());
     	
     	lesPlacesLibresAujourdhui = placeDao.findAllFreeByDate(timePoint.plusDays(1));
