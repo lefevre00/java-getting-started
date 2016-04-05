@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.friends.app.Configuration;
 import org.friends.app.HibernateUtil;
+import org.friends.app.ParkingTest;
 import org.friends.app.model.Place;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,7 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class PlaceDaoTest {
+public class PlaceDaoTest extends ParkingTest {
 	
 
 	private static String MAIL_RESERVANT = "damien.urvoix@amdm.fr";
@@ -32,7 +33,6 @@ public class PlaceDaoTest {
     
     @BeforeClass
     public static void beforeClass() throws SQLException {
-    	System.setProperty(Configuration.DEPLOY_MODE, "dev");
     	HibernateUtil.getSession();
     }
     

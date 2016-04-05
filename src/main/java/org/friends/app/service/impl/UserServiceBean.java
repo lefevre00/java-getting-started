@@ -40,6 +40,9 @@ public class UserServiceBean implements UserService{
 		
 		User user = findUserByEmail(email);
 		
+		if (user == null)
+			throw new Exception(USER_UNKNOWN);
+
 		if (user.getTokenMail() != null)
 			throw new Exception(USER_DISABLE);
 		

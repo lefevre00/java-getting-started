@@ -1,5 +1,6 @@
 package org.friends.app.service;
 
+import org.friends.app.ParkingTest;
 import org.friends.app.dao.UserDao;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.MailServiceBean;
@@ -11,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserService_Create_Test {
+public class UserService_Create_Test extends ParkingTest {
 	
 	@InjectMocks
 	UserServiceBean service = new UserServiceBean();

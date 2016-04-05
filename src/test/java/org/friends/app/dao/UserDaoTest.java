@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.friends.app.Configuration;
 import org.friends.app.HibernateUtil;
+import org.friends.app.ParkingTest;
 import org.friends.app.model.User;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,7 +16,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class UserDaoTest {
+public class UserDaoTest extends ParkingTest {
 	
 
 	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN);
@@ -32,9 +33,7 @@ public class UserDaoTest {
     
     @BeforeClass
     public static void beforeClass() throws SQLException {
-    	System.setProperty(Configuration.DEPLOY_MODE, "dev");
     	HibernateUtil.getSession();
-    	
     }
     
     @Before

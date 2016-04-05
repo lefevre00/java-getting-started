@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import org.friends.app.ParkingTest;
 import org.friends.app.dao.PlaceDao;
 import org.friends.app.model.Place;
 import org.friends.app.service.impl.BookingException;
@@ -16,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PlaceService_Create_Test {
+public class PlaceService_Create_Test extends ParkingTest {
 	
 	static String uneDateAuBonFormat = "2006-03-01";
 	static String uneDateAuMauvaisFormat = "pasbien";

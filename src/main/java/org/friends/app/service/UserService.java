@@ -15,6 +15,7 @@ public interface UserService {
 	public static String PWD_REQUIRED = "password.required";
 	
 	public static String USER_DISABLE = "user.disable";
+	public static String USER_UNKNOWN = "user.unknown";
 	
 	public User userAuthentication (String email, String pwd) throws Exception;
 	
