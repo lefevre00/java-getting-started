@@ -14,7 +14,14 @@
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="/protected/">ACCUEIL</a></li>
-				<li><a href="/protected/setting">COMPTE</a></li>
+				<li class="dropdown dropdown-submenu">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">ACTIONS</a>
+					<ul class="dropdown-menu">
+						<li><a href="/protected/sharePlace">Partage</a></li>
+						<li><a href="/protected/search">Réservation</a></li>
+						<li><a href="/protected/setting">Paramètres</a></li>
+					</ul>
+				</li>
 				<li><a href="/#aide">AIDE</a></li>
 				<li><a href="/#contact">CONTACT</a></li>
 				<li><a href="/user/logout">DECONNEXION</a></li>

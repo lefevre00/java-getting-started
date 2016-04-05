@@ -14,7 +14,7 @@
 			<h1>Confirmation de réservation</h1>
 
 			<div class="row " style="margin:0px auto;max-width:700px; padding-top:20px;">					
-				<h4>La place numéro ${numeroPlace} vous est réservée pour le ${dateRecherche}.</h4>
+				<h4>La place numéro XXX vous est réservée pour le ${dateRecherche}.</h4>
 			</div>						
 			
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
