@@ -103,9 +103,6 @@ public class Application {
 		}, new FreeMarkerEngine());
 		
 		
-		
-		
-		
 		/*
 		 * Déconnexion
 		 */

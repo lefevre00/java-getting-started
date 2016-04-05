@@ -40,4 +40,5 @@ public interface Routes {
 	String PLACE_BOOK = "/protected/book/:date/:place_id";
 	String RESERVATIONS = "/protected/booked";
 	String SETTINGS = "/protected/setting";
+	
 }
