@@ -37,8 +37,7 @@ public class HibernateUtil {
     private static SessionFactory createSessionFactory() {
         try {
             Configuration configuration = configuration();
-            String url = configuration.getProperty(AvailableSettings.URL);
-            configuration.setProperty(AvailableSettings.URL, url.replace("{db-host}", "localhost"));
+            configuration.setProperty(AvailableSettings.URL, org.friends.app.Configuration.get("DATABASE_URL", "jdbc:h2:~/test;AUTO_SERVER=TRUE"));
 			configuration.setProperty(AvailableSettings.DIALECT, org.friends.app.Configuration.dialect());
             configuration.setProperty(AvailableSettings.USE_QUERY_CACHE, "false");
             configuration.setProperty(AvailableSettings.SHOW_SQL, "true");
