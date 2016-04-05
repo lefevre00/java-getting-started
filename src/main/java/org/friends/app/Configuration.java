@@ -1,7 +1,11 @@
 package org.friends.app;
 
+import java.net.URISyntaxException;
+
 import org.hibernate.dialect.H2Dialect;
 import org.hibernate.dialect.PostgreSQL92Dialect;
+
+import com.heroku.sdk.jdbc.DatabaseUrl;
 
 import spark.utils.StringUtils;
 
@@ -54,5 +58,17 @@ public class Configuration {
 
 	public static String databaseUrl() {
 		return development() ? H2Dialect.class.getName() : PostgreSQL92Dialect.class.getName();
+	}
+
+	public static String dbUrl() {
+		String url = "jdbc:h2:~/test;AUTO_SERVER=TRUE"; 
+		if (!development()) {
+			try {
+				url = DatabaseUrl.extract().jdbcUrl();
+			} catch (URISyntaxException e) {
+				throw new RuntimeException("unable to get Datasource url", e);
+			}
+		}
+		return url;
 	}
 }
