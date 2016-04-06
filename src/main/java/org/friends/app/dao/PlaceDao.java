@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -31,19 +30,6 @@ public class PlaceDao {
 		Serializable id = session.save( place );
 		session.getTransaction().commit();
 		return (Place) session.get(Place.class, id);
-	}
-
-	@SuppressWarnings("unchecked")
-	public boolean userAsDejaReserveUnePlaceAcetteDate_(LocalDate dateAsDate, String mailUser) {
-		Assert.notNull(dateAsDate);
-		Assert.notNull(mailUser);
-		String strDateRecherche = dateAsDate.format(formatter);
-		List<Place> listFree = new ArrayList<Place>();
-		listFree = session.getNamedQuery(Place.QUERY_USER_HAS_BOOK_AT_THE_DATE)
-				.setString("date", strDateRecherche)
-				.setString("mailOccupant", mailUser)
-				.list();
-		return listFree.size() > 0 ? true : false;
 	}
 
 	@SuppressWarnings("unchecked")
