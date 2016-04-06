@@ -37,9 +37,10 @@ public class PlaceServiceBean implements PlaceService{
 	public void releasePlace(Integer numberPlace, LocalDate dateReservation) throws SQLException, URISyntaxException, BookingException {
 		Assert.notNull(numberPlace);
 		Assert.notNull(dateReservation);
-			if(placedao.findPlaceisFreeAtTheDate(numberPlace.intValue(), dateReservation) != null) 
+		List<Place> listPlaceReserve = placedao.findPlacesByCriterions(Restrictions.eq("occupationDate", dateReservation.format(DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN))), Restrictions.eq("placeNumber", numberPlace));
+		if(listPlaceReserve!= null && listPlaceReserve.size()>0){
 				throw new BookingException(format("The place %s can't be book on %s", numberPlace.intValue(), dateReservation));
-			else  {
+		}else  {
 				placedao.persist(new Place(numberPlace.intValue(), dateReservation.format(PlaceDao.formatter)));
 			}
 	}
@@ -61,16 +62,12 @@ public class PlaceServiceBean implements PlaceService{
 		LocalDate dateAsDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN));
 		Assert.notNull(user);
 		
-		// Check double booking
-//		Place place = placedao.findFirst(new Predicate<Place>() {
-//			@Override
-//			public boolean test(Place t) {
-//				return (t.getOccupationDate().equals(date) && t.getOccupiedBy() != null && t.getOccupiedBy().equals(user.getEmailAMDM()));
-//			}
-//		});
+		List<Place> listPlaceReserve = placedao.findPlacesByCriterions(Restrictions.eq("occupationDate", dateAsDate.format(DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN))), Restrictions.eq("placeNumber", placeNumber));
+
+		Place booked = (listPlaceReserve!= null && listPlaceReserve.size()>0) ? listPlaceReserve.get(0) : null;//!placedao.findPlaceisFreeAtTheDate(Integer.valueOf(placeNumber),dateAsDate);
+		if (booked==null)
+			throw new BookingException(format("The place %s can't be booked  by the user %s on %d", placeNumber, user.getEmailAMDM(), date));
 		
-		Place booked = placedao.findPlaceisFreeAtTheDate(Integer.valueOf(placeNumber),dateAsDate);
-		System.out.println("Booked-" + booked.toString());
 		if (booked.getOccupiedBy() != null)
 			throw new BookingException(format("The place %s already booked the user %d on %s", booked.getPlaceNumber(), booked.getOccupiedBy()+"@amdm.fr", date));
 		else{

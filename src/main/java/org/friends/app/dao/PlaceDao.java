@@ -33,21 +33,6 @@ public class PlaceDao {
 		return (Place) session.get(Place.class, id);
 	}
 
-	
-	@SuppressWarnings("unchecked")
-	public Place findPlaceisFreeAtTheDate(Integer place_number, LocalDate date) {
-		Assert.notNull(place_number);
-		Assert.notNull(date);
-		
-		String strDateRecherche = date.format(formatter);
-		List<Place> listFree = new ArrayList<Place>();
-		listFree = session.getNamedQuery(Place.QUERY_AVAILABLE_PLACE_AT_THE_DATE)
-				.setString("date", strDateRecherche)
-				.setInteger("place_number", place_number)
-				.list();
-		return listFree.size() > 0 ? listFree.get(0) : null;
-	}
-
 	@SuppressWarnings("unchecked")
 	public boolean userAsDejaReserveUnePlaceAcetteDate(LocalDate dateAsDate, String mailUser) {
 		Assert.notNull(dateAsDate);
