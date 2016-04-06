@@ -5,15 +5,16 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import org.friends.app.Configuration;
 import org.friends.app.HibernateUtil;
 import org.friends.app.ParkingTest;
 import org.friends.app.model.User;
+import org.hibernate.criterion.Restrictions;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class UserDaoTest extends ParkingTest {
@@ -38,13 +39,12 @@ public class UserDaoTest extends ParkingTest {
     
     @Before
     public void createDatabase() throws SQLException, URISyntaxException {
-    	userDao = new UserDao();
-    	
+    	init();
     }
     
     @After
     public void clearDataBase() throws SQLException {
-    	//userDao.clearAllUsers();
+    	userDao.clearAllUsers();
     }
     
     @AfterClass
@@ -66,7 +66,15 @@ public class UserDaoTest extends ParkingTest {
 		userDao.persist(jpc);
 	}
 	
-    @Test
+	@Test
+	public void findByEmail() throws SQLException, URISyntaxException{
+		
+    	User damien = userDao.findUserByCriterions(Restrictions.eq("emailAMDM", MAIL_RESERVANT));
+    	Assert.assertNotNull("Damien devrait être trouvé", damien);
+	}
+	
+	
+    @Ignore
     public void testMethodesDAO() throws SQLException, URISyntaxException {
     	init();
     	User damien = userDao.findUserByEmail(MAIL_RESERVANT);
