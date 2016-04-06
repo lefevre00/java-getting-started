@@ -93,7 +93,7 @@ public class PlaceServiceBean implements PlaceService{
 		if(user.getPlaceNumber() == null){
 			listRetour = placedao.findAllBookedPlaceByUser(user.getEmailAMDM());
 		}else{
-			listRetour = placedao.findReleaseHistoryByPlace(user.getPlaceNumber());
+			listRetour = placedao.findPlacesByCriterions(Restrictions.eq("placeNumber", user.getPlaceNumber()));
 			List<Place> listPourAffichage = new ArrayList<Place>();
 			for (Iterator<Place> iterator = listRetour.iterator(); iterator.hasNext();) {
 				Place place = (Place) iterator.next();

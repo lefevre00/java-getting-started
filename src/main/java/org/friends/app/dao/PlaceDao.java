@@ -40,14 +40,6 @@ public class PlaceDao {
 				.setString("date", LocalDateTime.now().getHour()>Place.HEURE_CHANGEMENT_JOUR_RECHERCHE ? LocalDate.now().plusDays(1).format(PlaceDao.formatter) : LocalDate.now().format(PlaceDao.formatter))
 				.list();
 	}
-
-	@SuppressWarnings("unchecked")
-	public List<Place> findReleaseHistoryByPlace(Integer placeNumber) {
-		Assert.notNull(placeNumber);
-		return session.getNamedQuery(Place.QUERY_RELEASE_HISTORY_BY_PLACE)
-				.setInteger("place_number", placeNumber)
-				.list();
-	}
 	
 	public void clearAllPlacesBeforeDate(LocalDate date) {
 		String strDateRecherche = date.format(formatter);
