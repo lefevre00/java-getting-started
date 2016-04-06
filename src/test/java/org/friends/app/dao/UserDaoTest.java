@@ -14,7 +14,6 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class UserDaoTest extends ParkingTest {
@@ -73,24 +72,27 @@ public class UserDaoTest extends ParkingTest {
     	Assert.assertNotNull("Damien devrait être trouvé", damien);
 	}
 	
+	@Test
+	public void findByEmailNonTrouve() throws SQLException, URISyntaxException{
+		
+    	User gerard = userDao.findUserByCriterions(Restrictions.eq("emailAMDM", "gerard.mambu@amdm.fr"));
+    	Assert.assertNull("Damien devrait être trouvé", gerard);
+	}
 	
-    @Ignore
-    public void testMethodesDAO() throws SQLException, URISyntaxException {
-    	init();
-    	User damien = userDao.findUserByEmail(MAIL_RESERVANT);
-    	Assert.assertNotNull("Damien devrait être trouvé", damien);
-    	
-    	User gerard = userDao.findUserByEmail("gerard.mambu@amdm.fr");
-    	Assert.assertNull("Gérard n'est pas à la Mutuelle", gerard);
-    	
-    	User mick =  userDao.findByTokenMail("mick");
+	@Test
+	public void findByTokenMail() throws SQLException, URISyntaxException{
+		
+    	User mick = userDao.findUserByCriterions(Restrictions.eq("tokenMail", "mick"));
     	Assert.assertNotNull("Le token Mail Mick est ok", mick);
     	Assert.assertEquals("Mick a la place 87", Integer.valueOf(87), mick.getPlaceNumber());
     	Assert.assertEquals("Mick a le mot de passe : ", "ml", mick.getPwd());
-    	
-    	User jp =  userDao.findUserByEmail("jean-pierre.cluzel@amdm.fr");
+	}
+	
+	@Test
+	public void findByJPC() throws SQLException, URISyntaxException{
+		
+    	User jp = userDao.findUserByCriterions(Restrictions.eq("emailAMDM", "jean-pierre.cluzel@amdm.fr"));
     	Assert.assertNotNull("Jp  devrait être trouvé", jp);
-    	Assert.assertEquals("Le token Password de jpc doit être correct", "passjpc", jp.getTokenPwd());    	
-    }
- 
+    	Assert.assertEquals("Le token Password de jpc doit être correct", "passjpc", jp.getTokenPwd());    
+	}
 }
