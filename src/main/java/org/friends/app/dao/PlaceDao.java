@@ -33,18 +33,6 @@ public class PlaceDao {
 		return (Place) session.get(Place.class, id);
 	}
 
-
-	@SuppressWarnings("unchecked")
-	public List<Place> findAllFreeByDate_(LocalDate date) {
-			Assert.notNull(date);
-			String strDateRecherche = date.format(formatter);
-
-			List<Place> listFree = session.getNamedQuery(Place.QUERY_AVAILABLE_AT_DATE)
-					.setString("date", strDateRecherche)
-					.list();
-
-			return listFree;
-		}
 	
 	@SuppressWarnings("unchecked")
 	public Place findPlaceisFreeAtTheDate(Integer place_number, LocalDate date) {
