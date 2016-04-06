@@ -31,12 +31,6 @@ public class UserDao {
 		return (User) HibernateUtil.getSession().get(User.class,userId);
 	}
 
-	public User findByTokenMail(String token) {
-		Assert.notNull(token);
-		return (User) HibernateUtil.getSession().getNamedQuery(User.QUERY_FIND_USER_BY_TOKEN_MAIL)
-				.setString("token", token)
-				.uniqueResult();
-	}
 
 	public User findUserByCriterions(Criterion ... criterions) {
 		Assert.notNull(criterions);

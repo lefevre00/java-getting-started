@@ -148,7 +148,7 @@ public class UserServiceBean implements UserService{
 	public boolean activate(String token) throws SQLException, URISyntaxException {
 		Assert.notNull(token);
 		
-		User user = userDao.findByTokenMail(token);
+		User user = userDao.findUserByCriterions(Restrictions.eq("tokenMail", token));
 		
 		boolean success = false;
 		if (user != null) {
