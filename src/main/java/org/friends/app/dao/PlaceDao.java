@@ -34,7 +34,7 @@ public class PlaceDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public boolean userAsDejaReserveUnePlaceAcetteDate(LocalDate dateAsDate, String mailUser) {
+	public boolean userAsDejaReserveUnePlaceAcetteDate_(LocalDate dateAsDate, String mailUser) {
 		Assert.notNull(dateAsDate);
 		Assert.notNull(mailUser);
 		String strDateRecherche = dateAsDate.format(formatter);

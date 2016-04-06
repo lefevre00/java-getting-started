@@ -59,10 +59,9 @@ public class PlaceServiceBean implements PlaceService{
 		
 		Assert.notNull(date);
 		Assert.notNull(placeNumber);
-		LocalDate dateAsDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN));
 		Assert.notNull(user);
 		
-		List<Place> listPlaceReserve = placedao.findPlacesByCriterions(Restrictions.eq("occupationDate", dateAsDate.format(DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN))), Restrictions.eq("placeNumber", placeNumber));
+		List<Place> listPlaceReserve = placedao.findPlacesByCriterions(Restrictions.eq("occupationDate", date), Restrictions.eq("placeNumber", placeNumber));
 
 		Place booked = (listPlaceReserve!= null && listPlaceReserve.size()>0) ? listPlaceReserve.get(0) : null;//!placedao.findPlaceisFreeAtTheDate(Integer.valueOf(placeNumber),dateAsDate);
 		if (booked==null)
@@ -72,38 +71,17 @@ public class PlaceServiceBean implements PlaceService{
 			throw new BookingException(format("The place %s already booked the user %d on %s", booked.getPlaceNumber(), booked.getOccupiedBy()+"@amdm.fr", date));
 		else{
 			// TODO Tester que l'user n'a pas déjà reservé de place pour cette date
-			boolean asDejaReserveUneplace = placedao.userAsDejaReserveUnePlaceAcetteDate(dateAsDate, user.getEmailAMDM());
+			List<Place> lesPlacesReserveeParLeUserACetteDate = placedao.findPlacesByCriterions(Restrictions.eq("occupationDate", date), Restrictions.eq("mailOccupant",user.getEmailAMDM()));
+			boolean asDejaReserveUneplace = (lesPlacesReserveeParLeUserACetteDate!=null && lesPlacesReserveeParLeUserACetteDate.size()>1);
 			if(asDejaReserveUneplace) 
 				throw new BookingException(format("The user %s already booked the place %d on %s", booked.getOccupiedBy()+"@amdm.fr", booked.getPlaceNumber(), date));
 			else {
 			// la place n'est pas pas réservée
-			//booked = new Place(Integer.valueOf(placeNumber), user.getEmailAMDM(), date);
 			booked.setOccupiedBy(user.getEmailAMDM());
 			booked = placedao.persist(booked);
 			}
 		}
 
-		/*
-		List<Place> places = getAvailableByDate(dateAsDate);
-		boolean isFree
-		while (condition) {
-			
-		}
-
-		Optional<Place> optPlace = null;
-		if (placeNumber != null) {
-			optPlace = places.stream().filter(p -> p.getPlaceNumber().toString().equals(placeNumber)).findFirst();
-		}
-		if (!optPlace.isPresent()) {
-			optPlace = places.stream().findAny();
-		}
-		
-		Place booked = null;
-		if (optPlace.isPresent()) {
-			booked = optPlace.get();
-			booked.setOccupiedBy(user.getEmailAMDM());
-			booked = placedao.persist(booked);
-		}*/
 			
 		return booked;
 	}
