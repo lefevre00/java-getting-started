@@ -34,7 +34,7 @@ public class UserServiceBean implements UserService{
 	 * @throws Exception
 	 */
 	@Override
-	public User userAuthentication (String email, String pwd) throws Exception{
+	public User authenticate (String email, String pwd) throws Exception{
 		
 		parametersValidator(email, pwd);
 		

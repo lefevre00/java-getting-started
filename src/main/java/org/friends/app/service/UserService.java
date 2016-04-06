@@ -17,7 +17,7 @@ public interface UserService {
 	public static String USER_DISABLE = "user.disable";
 	public static String USER_UNKNOWN = "user.unknown";
 	
-	public User userAuthentication (String email, String pwd) throws Exception;
+	public User authenticate (String email, String pwd) throws Exception;
 	
 	public User findUserByEmail(String email) throws SQLException, URISyntaxException;
 	

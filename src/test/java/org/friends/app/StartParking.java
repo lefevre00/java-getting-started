@@ -1,6 +1,7 @@
 package org.friends.app;
 
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,6 +12,10 @@ import org.friends.app.dao.UserDao;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.view.Application;
+
+import com.google.common.hash.HashCode;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
 
 public class StartParking {
 
@@ -31,11 +36,11 @@ public class StartParking {
 
 	private static void initData() throws SQLException, URISyntaxException {
 		UserDao userDao = new UserDao();
-		userDao.persist(new User("abdel.tamditi@amdm.fr", "at" , 133));
-		userDao.persist(new User("william.verdeil@amdm.fr", "wv", 141));
-		userDao.persist(new User("michael.lefevre@amdm.fr", "ml", 87));
-		userDao.persist(new User("damien.urvoix@amdm.fr", "du"));
-		userDao.persist(new User("jean-pierre.cluzel@amdm.fr", "jpc"));
+		userDao.persist(new User("abdel.tamditi@amdm.fr", md5("at"), 133));
+		userDao.persist(new User("william.verdeil@amdm.fr", md5("wv"), 141));
+		userDao.persist(new User("michael.lefevre@amdm.fr", md5("ml"), 87));
+		userDao.persist(new User("damien.urvoix@amdm.fr", md5("du")));
+		userDao.persist(new User("jean-pierre.cluzel@amdm.fr", md5("jpc")));
 		
 		LocalDate timePoint = LocalDate.now();
 		String strDateToday  = timePoint.format(formatter);
@@ -52,5 +57,11 @@ public class StartParking {
 
 		SessionDao sessionDao = new SessionDao();
 		sessionDao.deleteExpired();
+	}
+
+	private static String md5(String pwd) {
+		HashFunction hf = Hashing.md5();
+		HashCode hc = hf.newHasher().putString(pwd, Charset.defaultCharset()).hash();
+		return hc.toString();
 	}
 }

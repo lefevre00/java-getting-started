@@ -8,4 +8,5 @@ public class ParkingTest {
 	public static void setup() {
     	System.setProperty(Configuration.DEPLOY_MODE, "dev");
 	}
+
 }
