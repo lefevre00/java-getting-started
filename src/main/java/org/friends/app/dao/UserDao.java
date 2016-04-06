@@ -58,7 +58,6 @@ public class UserDao {
 	}
 
 	public void clearAllUsers() {
-		// TODO Auto-generated method stub
 		List<User> listeDesUsersAsupprimer = findAllUserByCriterions(Restrictions.isNotNull("id"));
 		for (Iterator<User> iterator = listeDesUsersAsupprimer.iterator(); iterator.hasNext();) {
 			User user = iterator.next();
