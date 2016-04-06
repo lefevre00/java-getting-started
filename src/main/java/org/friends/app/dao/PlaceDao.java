@@ -35,7 +35,7 @@ public class PlaceDao {
 
 
 	@SuppressWarnings("unchecked")
-	public List<Place> findAllFreeByDate(LocalDate date) {
+	public List<Place> findAllFreeByDate_(LocalDate date) {
 			Assert.notNull(date);
 			String strDateRecherche = date.format(formatter);
 

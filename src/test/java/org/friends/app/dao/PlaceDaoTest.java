@@ -66,11 +66,6 @@ public class PlaceDaoTest extends ParkingTest {
     	placeDao.persist(new Place(new Integer(36), MAIL_RESERVANT, strYearsteday)); //Place occupee hier
     	placeDao.persist(new Place(new Integer(37), strTomorrow)); //Place libre demain
 	}
-	
-    @Test(expected=IllegalArgumentException.class)
-    public void findAllFreeByDate_sans_date() {
-    	placeDao.findAllFreeByDate(null);
-    }
     
     @Test
     public void findAllFreeByDate_avec_date() {

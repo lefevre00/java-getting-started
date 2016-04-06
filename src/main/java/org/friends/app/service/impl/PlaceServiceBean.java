@@ -14,6 +14,7 @@ import org.friends.app.dao.PlaceDao;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.PlaceService;
+import org.hibernate.criterion.Restrictions;
 
 import spark.utils.Assert;
 
@@ -22,7 +23,7 @@ public class PlaceServiceBean implements PlaceService{
 	PlaceDao placedao = new PlaceDao();
 	
 	public List<Place> getAvailableByDate(LocalDate date) throws SQLException, URISyntaxException {
-		return placedao.findAllFreeByDate(date);
+		return placedao.findPlacesByCriterions(Restrictions.eq("occupationDate", date.format(DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN))), Restrictions.isNull("mailOccupant"));
 	}
 	
 	/**
