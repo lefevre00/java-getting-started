@@ -55,8 +55,7 @@ public class UserServiceBean implements UserService{
 	@Override
 	public User findUserByEmail(String email) throws SQLException, URISyntaxException {
 		Assert.notNull(email);
-		return userDao.findUserByEmail(email);
-		//return userDao.findFirst(user -> user.getEmailAMDM().equals(email));
+		return userDao.findUserByCriterions(Restrictions.eq("emailAMDM", email));
 	}
 
 	@Override

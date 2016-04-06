@@ -27,13 +27,6 @@ public class UserDao {
 		return (User) session.get(User.class, id);
 	}
 
-	public User findUserByEmail(String email) {
-		Assert.notNull(email);
-		return (User) HibernateUtil.getSession().getNamedQuery(User.QUERY_FIND_USER_BY_MAIL)
-				.setString("email", email)
-				.uniqueResult();
-	}
-
 	public User findById(Integer userId) {
 		return (User) HibernateUtil.getSession().get(User.class,userId);
 	}
