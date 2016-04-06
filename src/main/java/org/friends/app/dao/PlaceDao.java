@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.friends.app.HibernateUtil;
@@ -13,6 +14,7 @@ import org.friends.app.model.Place;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 import spark.utils.Assert;
 
@@ -90,8 +92,12 @@ public class PlaceDao {
 	
 	public void clearAllPlacesBeforeDate(LocalDate date) {
 		String strDateRecherche = date.format(formatter);
-		session.getNamedQuery(Place.QUERY_DELETE_ALL_PLACE_BEFORE)
-		.setString("date", strDateRecherche).executeUpdate();
+		List<Place> listeDesPlacesAsupprimer = findPlacesByCriterions(Restrictions.le("occupationDate", strDateRecherche));
+		for (Iterator<Place> iterator = listeDesPlacesAsupprimer.iterator(); iterator.hasNext();) {
+			Place place = iterator.next();
+			session.delete(place);	
+		}
+		
 	}
 
 	@SuppressWarnings("unchecked")
