@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import org.friends.app.Configuration;
 import org.friends.app.HibernateUtil;
 import org.friends.app.ParkingTest;
 import org.friends.app.model.Place;
+import org.hibernate.criterion.Restrictions;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -44,16 +44,16 @@ public class PlaceDaoTest extends ParkingTest {
     @Before
     public void createDatabase() throws SQLException {
     	placeDao = new PlaceDao();
+    	initDb();
     }
     
     @After
     public void clearPlaces() throws SQLException {
-    	placeDao.clearAllPlacesBeforeDate(timePoint);
+    	placeDao.clearAllPlacesBeforeDate(LocalDate.now().plusDays(40));
     }
 
 	private void initDb() {
-		placeDao.clearAllPlacesBeforeDate(timePoint.plusDays(40)); // suppresion de toutes les réservations
-		
+		placeDao.clearAllPlacesBeforeDate(LocalDate.now().plusDays(40)); // suppresion de toutes les réservations
 		placeDao.persist(new Place(new Integer(3), MAIL_RESERVANT, strTomorrow));
 		placeDao.persist(new Place(new Integer(1), strDateToday)); //Place libre aujourd'hui free = true
 		placeDao.persist(new Place(new Integer(141), strDateToday));
@@ -73,56 +73,85 @@ public class PlaceDaoTest extends ParkingTest {
     
     @Test
     public void findAllFreeByDate_avec_date() {
-    	initDb();
-    	List<Place> lesPlacesLibresAujourdhui = placeDao.findAllFreeByDate(LocalDate.now());
+    	List<Place> lesPlacesLibresAujourdhui = placeDao.findPlacesByCriterions(Restrictions.eq("occupationDate", strDateToday), Restrictions.isNull("mailOccupant"));
     	Assert.assertEquals("On attend 2 places libres aujourd'hui", 2, lesPlacesLibresAujourdhui.size());
     }
 
-    @Test(expected=IllegalArgumentException.class)
-    public void findReleaseHistoryByPlace_sans_param() {
-    	placeDao.findReleaseHistoryByPlace(null);
+//    @Test(expected=IllegalArgumentException.class)
+//    public void findReleaseHistoryByPlace_sans_param() {
+//    	placeDao.findReleaseHistoryByPlace(null);
+//    }
+    
+    @Test
+    public void findReleaseHistoryByPlace() {
+    	List<Place> historiquePlace35 = placeDao.findPlacesByCriterions(Restrictions.eq("placeNumber", new Integer(35)));
+    	Assert.assertEquals("On attend n places", 2, historiquePlace35.size());
+    }
+    
+    @Test
+    public void UserADejaUnePlaceReserveAujoudhui() {
+    	List<Place> listPlaceReserve = placeDao.findPlacesByCriterions(Restrictions.eq("occupationDate", strDateToday), Restrictions.eq("mailOccupant",MAIL_RESERVANT));
+    	Assert.assertEquals( MAIL_RESERVANT+ " a réservé une place Aujourd'hui", true, (listPlaceReserve!= null && listPlaceReserve.size()>0) ? true : false);
+    	
+    }  
+    
+    @Test
+    public void UserAPasDejaUnePlaceReserveDans4jours() {
+    	List<Place> listPlaceReserve = placeDao.findPlacesByCriterions(Restrictions.eq("occupationDate", timePoint.plusDays(4).format(formatter)), Restrictions.eq("mailOccupant",MAIL_RESERVANT));
+    	Assert.assertEquals( MAIL_RESERVANT+ " n'a pas réservé une place dans 4 jours", false, (listPlaceReserve!= null && listPlaceReserve.size()>0) ? true : false);
+    }  
+    
+    @Test
+    public void unePlaceEstLibreAujourdhui(){
+    	List<Place> listPlaceReserve = placeDao.findPlacesByCriterions(Restrictions.eq("occupationDate", strDateToday), Restrictions.eq("placeNumber", new Integer(1)));
+    	Assert.assertEquals( "La place 1 est libre aujourd'hui", true, (listPlaceReserve!= null && listPlaceReserve.size()>0) ? true : false);
+    }
+    
+    
+    @Test
+    public void unePlaceNEstLibreAujourdhui(){
+    	List<Place> listPlaceReserve = placeDao.findPlacesByCriterions(Restrictions.eq("occupationDate", strDateToday), Restrictions.eq("placeNumber", new Integer(200)), Restrictions.isNull("mailOccupant"));
+    	Assert.assertEquals( "La place 200 n'est libre aujourd'hui", false, (listPlaceReserve!= null && listPlaceReserve.size()>0) ? true : false);
+    }
+    
+    @Test
+    public void unePlaceNEstPasLibreAujourdhui(){
+    	List<Place> listPlaceReserve = placeDao.findPlacesByCriterions(Restrictions.eq("occupationDate", strDateToday), Restrictions.eq("placeNumber", new Integer(2)), Restrictions.isNull("mailOccupant"));
+    	Assert.assertEquals( "La place 2 n'est libre aujourd'hui", false, (listPlaceReserve!= null && listPlaceReserve.size()>0) ? true : false);
+    }
+    
+    
+    @Test
+    public void changementHeure(){
+    	int nbPlace = 2;
+    	int idPremierePlace = 3;
+    	String dateReservation = strTomorrow;
+    	if(LocalDateTime.now().getHour()<=Place.HEURE_CHANGEMENT_JOUR_RECHERCHE){
+    		nbPlace = 1;
+    		idPremierePlace = 2;
+    		dateReservation = strDateToday;
+    	}
+    	List<Place> lesPlacesReserveesParDamien = placeDao.findAllBookedPlaceByUser(MAIL_RESERVANT);
+    	Assert.assertEquals("On attend n places", nbPlace, lesPlacesReserveesParDamien.size());
+    	Place premier = (Place) lesPlacesReserveesParDamien.get(0);
+    	Assert.assertEquals("Damien a réservé la place "+premier.getPlaceNumber().intValue(), idPremierePlace , premier.getPlaceNumber().intValue());
+    	Assert.assertEquals("Damien a réservé la place "+premier.getPlaceNumber().intValue()+" le " + dateReservation, dateReservation , premier.getOccupationDate());
     }
 
     @Ignore
-    public void testMethodesDAO() {
-    	List<Place> historiquePlace35 = placeDao.findReleaseHistoryByPlace(new Integer(35));
-    	Assert.assertEquals("On attend n places", 2, historiquePlace35.size());
-    	Assert.assertEquals( MAIL_RESERVANT+ " a réservé une place Aujourd'hui", true, placeDao.userAsDejaReserveUnePlaceAcetteDate(timePoint, MAIL_RESERVANT));
-    	Assert.assertEquals( MAIL_RESERVANT+ " n'a pas réservé une place Aujourd'hui", false, placeDao.userAsDejaReserveUnePlaceAcetteDate(timePoint.plusDays(4), MAIL_RESERVANT));
-    	Place isFreeToday = placeDao.findPlaceisFreeAtTheDate(new Integer(1), timePoint);
-
+    public void suppression() {
     	
-    	Assert.assertNotNull(isFreeToday);
-    	if(LocalDateTime.now().getHour()<=Place.HEURE_CHANGEMENT_JOUR_RECHERCHE){
-    		// On est avant 20h, on affiche les places disponibles du jour,
-	    	List<Place> lesPlacesReserveesParDamien = placeDao.findAllBookedPlaceByUser(MAIL_RESERVANT);
-	    	Assert.assertEquals("On attend n places", 2, lesPlacesReserveesParDamien.size());
-	    	Place premier = (Place) lesPlacesReserveesParDamien.get(0);
-	    	Assert.assertEquals("Damien a réservé la place "+premier.getPlaceNumber().intValue(), 2 , premier.getPlaceNumber().intValue());
-	    	Assert.assertEquals("Damien a réservé la place "+premier.getPlaceNumber().intValue()+" le " + strDateToday, strDateToday , premier.getOccupationDate());
-	    	
-	    	isFreeToday = placeDao.findPlaceisFreeAtTheDate(new Integer(2), timePoint);
-	    	Assert.assertNull(isFreeToday);
-	    	
-    	}else{
-    		// Après 20H, on affiche les places disponibles demain
-    		List<Place> lesPlacesReserveesParDamien = placeDao.findAllBookedPlaceByUser(MAIL_RESERVANT);
-        	Assert.assertEquals("On attend n places", 1, lesPlacesReserveesParDamien.size());
-        	Place premier = (Place) lesPlacesReserveesParDamien.get(0);
-	    	Assert.assertEquals("Damien a réservé la place "+premier.getPlaceNumber().intValue(), 35 , premier.getPlaceNumber().intValue());
-	    	Assert.assertEquals("Damien a réservé la place "+premier.getPlaceNumber().intValue()+" le " + strApresDemain, strApresDemain , premier.getOccupationDate());
-
-    	}
+    	placeDao.clearAllPlacesBeforeDate(LocalDate.now().plusDays(40));
     	
-    	placeDao.clearAllPlacesBeforeDate(timePoint.plusDays(40));
-    	List<Place> lesPlacesLibresAujourdhui = placeDao.findAllFreeByDate(timePoint);
+    	List<Place> lesPlacesLibresAujourdhui = placeDao.findPlacesByCriterions(Restrictions.eq("occupationDate", strDateToday), Restrictions.isNull("mailOccupant"));
+    	//List<Place> lesPlacesLibresAujourdhui = placeDao.findAllFreeByDate(timePoint);
     	Assert.assertEquals("On attend 0 places libres aujourd'hui", 0, lesPlacesLibresAujourdhui.size());
     	
-    	lesPlacesLibresAujourdhui = placeDao.findAllFreeByDate(timePoint.plusDays(1));
-    	Assert.assertEquals("On attend 0 places libres aujourd'hui", 0, lesPlacesLibresAujourdhui.size());
+    	lesPlacesLibresAujourdhui = placeDao.findPlacesByCriterions(Restrictions.eq("occupationDate", strTomorrow), Restrictions.isNull("mailOccupant"));
+    	Assert.assertEquals("On attend 0 places libres demain", 0, lesPlacesLibresAujourdhui.size());
     	
-    	lesPlacesLibresAujourdhui = placeDao.findAllFreeByDate(timePoint.minusDays(2));
-    	Assert.assertEquals("On attend 0 places libres aujourd'hui", 0, lesPlacesLibresAujourdhui.size());
+    	lesPlacesLibresAujourdhui = placeDao.findPlacesByCriterions(Restrictions.eq("occupationDate", strApresDemain), Restrictions.isNull("mailOccupant"));
+    	Assert.assertEquals("On attend 0 places libres apres demain", 0, lesPlacesLibresAujourdhui.size());
     }
  
 }
