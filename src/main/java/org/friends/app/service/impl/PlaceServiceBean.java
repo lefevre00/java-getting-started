@@ -79,7 +79,6 @@ public class PlaceServiceBean implements PlaceService{
 			else {
 			// la place n'est pas pas réservée
 			booked.setOccupiedBy(user.getEmailAMDM());
-			
 			booked = placedao.persist(booked);
 			}
 		}

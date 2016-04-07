@@ -84,16 +84,10 @@ public class PlaceDaoTest extends ParkingTest {
     	Assert.assertEquals("On attend n places", 2, historiquePlace35.size());
     }
     
-    @Test
-    public void UserADejaUnePlaceReserveAujoudhui() {
-    	List<Place> listPlaceReserve = placeDao.findPlacesByCriterions(Restrictions.eq("occupationDate", strDateToday), Restrictions.eq("mailOccupant",MAIL_RESERVANT));
-    	Assert.assertEquals( MAIL_RESERVANT+ " a réservé une place Aujourd'hui", true, (listPlaceReserve!= null && listPlaceReserve.size()>0) ? true : false);
-    	
-    }  
     
     @Test
-    public void UserAPasDejaUnePlaceReserveDans4jours() {
-    	List<Place> listPlaceReserve = placeDao.findPlacesByCriterions(Restrictions.eq("occupationDate", timePoint.plusDays(4).format(formatter)), Restrictions.eq("mailOccupant",MAIL_RESERVANT));
+    public void UserAPasDejaUnePlaceReserveDans10jours() {
+    	List<Place> listPlaceReserve = placeDao.findPlacesByCriterions(Restrictions.eq("occupationDate", timePoint.plusDays(10).format(formatter)), Restrictions.eq("mailOccupant",MAIL_RESERVANT));
     	Assert.assertEquals( MAIL_RESERVANT+ " n'a pas réservé une place dans 4 jours", false, (listPlaceReserve!= null && listPlaceReserve.size()>0) ? true : false);
     }  
     
@@ -110,12 +104,6 @@ public class PlaceDaoTest extends ParkingTest {
     	Assert.assertEquals( "La place 200 n'est libre aujourd'hui", false, (listPlaceReserve!= null && listPlaceReserve.size()>0) ? true : false);
     }
     
-    @Test
-    public void unePlaceNEstPasLibreAujourdhui(){
-    	List<Place> listPlaceReserve = placeDao.findPlacesByCriterions(Restrictions.eq("occupationDate", strDateToday), Restrictions.eq("placeNumber", new Integer(2)), Restrictions.isNull("mailOccupant"));
-    	Assert.assertEquals( "La place 2 n'est libre aujourd'hui", false, (listPlaceReserve!= null && listPlaceReserve.size()>0) ? true : false);
-    }
-    
     
     @Test
     public void changementHeure(){
@@ -123,7 +111,7 @@ public class PlaceDaoTest extends ParkingTest {
     	int idPremierePlace = 3;
     	String dateReservation = strTomorrow;
     	if(LocalDateTime.now().getHour()<=Place.HEURE_CHANGEMENT_JOUR_RECHERCHE){
-    		nbPlace = 1;
+    		nbPlace = 3;
     		idPremierePlace = 2;
     		dateReservation = strDateToday;
     	}
