@@ -5,6 +5,7 @@ import static java.lang.String.format;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -61,7 +62,7 @@ public class PlaceServiceBean implements PlaceService{
 		Assert.notNull(placeNumber);
 		Assert.notNull(user);
 		
-		List<Place> listPlaceReserve = placedao.findPlacesByCriterions(Restrictions.eq("occupationDate", date), Restrictions.eq("placeNumber", placeNumber));
+		List<Place> listPlaceReserve = placedao.findPlacesByCriterions(Restrictions.eq("occupationDate", date), Restrictions.eq("placeNumber", Integer.valueOf(placeNumber)));
 
 		Place booked = (listPlaceReserve!= null && listPlaceReserve.size()>0) ? listPlaceReserve.get(0) : null;//!placedao.findPlaceisFreeAtTheDate(Integer.valueOf(placeNumber),dateAsDate);
 		if (booked==null)
@@ -78,6 +79,7 @@ public class PlaceServiceBean implements PlaceService{
 			else {
 			// la place n'est pas pas réservée
 			booked.setOccupiedBy(user.getEmailAMDM());
+			
 			booked = placedao.persist(booked);
 			}
 		}
@@ -91,7 +93,9 @@ public class PlaceServiceBean implements PlaceService{
 		Assert.notNull(user.getEmailAMDM());
 		List<Place> listRetour = new ArrayList<Place>();
 		if(user.getPlaceNumber() == null){
-			listRetour = placedao.findAllBookedPlaceByUser(user.getEmailAMDM());
+			String dateDeRecherche = LocalDateTime.now().getHour()>Place.HEURE_CHANGEMENT_JOUR_RECHERCHE ? LocalDate.now().plusDays(1).format(PlaceDao.formatter) : LocalDate.now().format(PlaceDao.formatter);
+			listRetour = placedao.findPlacesByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()),Restrictions.ge("occupationDate", dateDeRecherche));
+			//listRetour = placedao.findAllBookedPlaceByUser(user.getEmailAMDM());
 		}else{
 			listRetour = placedao.findPlacesByCriterions(Restrictions.eq("placeNumber", user.getPlaceNumber()));
 			List<Place> listPourAffichage = new ArrayList<Place>();

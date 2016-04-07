@@ -32,14 +32,14 @@ public class PlaceDao {
 		return (Place) session.get(Place.class, id);
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Place> findAllBookedPlaceByUser(String emailAMDM) {
-		Assert.notNull(emailAMDM);
-		return session.getNamedQuery(Place.QUERY_ALL_PLACE_BY_USER)
-				.setString("mailOccupant", emailAMDM)
-				.setString("date", LocalDateTime.now().getHour()>Place.HEURE_CHANGEMENT_JOUR_RECHERCHE ? LocalDate.now().plusDays(1).format(PlaceDao.formatter) : LocalDate.now().format(PlaceDao.formatter))
-				.list();
-	}
+//	@SuppressWarnings("unchecked")
+//	public List<Place> findAllBookedPlaceByUse_r(String emailAMDM) {
+//		Assert.notNull(emailAMDM);
+//		return session.getNamedQuery(Place.QUERY_ALL_PLACE_BY_USER)
+//				.setString("mailOccupant", emailAMDM)
+//				.setString("date", LocalDateTime.now().getHour()>Place.HEURE_CHANGEMENT_JOUR_RECHERCHE ? LocalDate.now().plusDays(1).format(PlaceDao.formatter) : LocalDate.now().format(PlaceDao.formatter))
+//				.list();
+//	}
 	
 	public void clearAllPlacesBeforeDate(LocalDate date) {
 		String strDateRecherche = date.format(formatter);

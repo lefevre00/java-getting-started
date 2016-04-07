@@ -127,7 +127,7 @@ public class PlaceDaoTest extends ParkingTest {
     		idPremierePlace = 2;
     		dateReservation = strDateToday;
     	}
-    	List<Place> lesPlacesReserveesParDamien = placeDao.findAllBookedPlaceByUser(MAIL_RESERVANT);
+    	List<Place> lesPlacesReserveesParDamien = placeDao.findPlacesByCriterions(Restrictions.eq("mailOccupant", MAIL_RESERVANT),Restrictions.ge("occupationDate", dateReservation));
     	Assert.assertEquals("On attend n places", nbPlace, lesPlacesReserveesParDamien.size());
     	Place premier = (Place) lesPlacesReserveesParDamien.get(0);
     	Assert.assertEquals("Damien a réservé la place "+premier.getPlaceNumber().intValue(), idPremierePlace , premier.getPlaceNumber().intValue());
