@@ -25,6 +25,11 @@ p {
 	line-height: 28px;
 }
 
+.titre{
+	font-size: 2.2em;
+	font-weight: bold; 	
+}
+
 /***********************************
  *
  * preloader section 

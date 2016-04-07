@@ -16,7 +16,7 @@
     <section class="content-section">
 		<div class="container containerAttr">
 		
-			<h1>Réservations</h1>
+			<h1 class="titre">Réservations</h1>
 			
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
 				<div class="col-sm-8" style="text-align:left;"><h4>Voici les places que vous avez réservées :</h4></div>

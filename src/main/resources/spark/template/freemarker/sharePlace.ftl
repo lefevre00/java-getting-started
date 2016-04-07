@@ -19,7 +19,7 @@
     <section class="content-section">
 		<div class="container containerAttr">
 
-			<h1>Proposer une place de parking</h1>
+			<h1 class="titre">Proposer une place de parking</h1>
 
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">					
 				<form method="post" role="form">
