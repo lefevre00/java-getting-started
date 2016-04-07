@@ -1,7 +1,7 @@
 
 body {
 	padding:0;
-	margin: 0px 10px 0px 0px;
+	margin: 10px 10px 10px 10px;
 	background: url(../images/bg/bg0.jpg) no-repeat center fixed; 
 	-webkit-background-size: cover; /* pour anciens Chrome et Safari */
 	background-size: cover; 		/* version standardisée */	
@@ -327,3 +327,8 @@ p {
 	background-color:#fff;
 	cursor: pointer;
 }  	
+
+#datepicker1, #datepicker2{
+	margin-left: auto;
+	margin-right: auto;
+}	

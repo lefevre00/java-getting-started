@@ -8,11 +8,6 @@
   	<!--script src="/js/bootstrap-datepicker.js" charset="UTF-8"></script-->
   	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
   	<script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
-  	
-  	<style>
-
-  	</style>
-  	
 </head>
 
 <body>
@@ -33,7 +28,7 @@
 						<div class="text-center"> 
 									 
 							<div class="col-md-6 col-sm-6">
-								<div class="input-group date" id="datetimepicker1">
+								<div class="input-group date" id="datepicker1">
 									<label>du&nbsp;&nbsp;</labdel>
 									<input type="text" class="shareInput" name="dateDebut"/>
 									<span class="input-group-addon">
@@ -43,7 +38,7 @@
 							</div>
 
 							<div class="col-md-6 col-sm-6">
-								<div class="input-group date" id="datetimepicker2">
+								<div class="input-group date" id="datepicker2">
 									<label>au&nbsp;&nbsp;</labdel>
 									<input type="text" class="shareInput" name="dateFin"/>
 									<span class="input-group-addon">
@@ -67,22 +62,22 @@
 
 	<script type="text/javascript">
 	    $( document ).ready(function() {
-	        $('#datetimepicker1').datetimepicker({
+	        $('#datepicker1').datetimepicker({
 	        	locale: 'FR',
 	        	daysOfWeekDisabled: [0, 6],
 	               format: 'DD/MM/YYYY'
 	        });
-	        $('#datetimepicker2').datetimepicker({
+	        $('#datepicker2').datetimepicker({
 	        	daysOfWeekDisabled: [0, 6],
 	            useCurrent: true,
 	            format: 'DD/MM/YYYY',
 	            locale: 'FR' //Important! See issue #1075
 	        });
-	        $("#datetimepicker1").on("dp.change", function (e) {
-	            $('#datetimepicker2').data("DateTimePicker").minDate(e.date);
+	        $("#datepicker1").on("dp.change", function (e) {
+	            $('#datepicker2').data("DateTimePicker").minDate(e.date);
 	        });
-	        $("#datetimepicker2").on("dp.change", function (e) {
-	            $('#datetimepicker1').data("DateTimePicker").maxDate(e.date);
+	        $("#datepicker2").on("dp.change", function (e) {
+	            $('#datepicker1').data("DateTimePicker").maxDate(e.date);
 	        });
 	    });
 	</script>	
