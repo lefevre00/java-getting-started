@@ -1,5 +1,11 @@
 package org.friends.app;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import org.hibernate.dialect.H2Dialect;
+import org.hibernate.dialect.PostgreSQL92Dialect;
+
 import spark.utils.StringUtils;
 
 public class Configuration {
@@ -30,6 +36,10 @@ public class Configuration {
 		return System.getProperty(DEPLOY_MODE) != null;
 	}
 	
+	public static String dialect() {
+		return development() ? H2Dialect.class.getName() : PostgreSQL92Dialect.class.getName();
+	}
+	
 	/**
 	 * Get configuration, first in environment, then in property.
 	 * @param propertyName
@@ -43,4 +53,26 @@ public class Configuration {
 
 	public final static String COOKIE = "takemyplace";
 	public final static int COOKIE_DURATION = 86400 ; // One day
+
+
+	public static String databaseUrl() {
+		return development() ? H2Dialect.class.getName() : PostgreSQL92Dialect.class.getName();
+	}
+
+	public static String dbUrl() {
+		String url = "jdbc:h2:~/test;AUTO_SERVER=TRUE"; 
+		if (!development()) {
+			try {
+				URI dbUri = new URI(System.getenv("DATABASE_URL"));
+
+				String username = dbUri.getUserInfo().split(":")[0];
+				String password = dbUri.getUserInfo().split(":")[1];
+				url = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath()
+				+ "?user=" + username + "&password=" + password;
+			} catch (URISyntaxException e) {
+				throw new RuntimeException("unable to get Datasource url", e);
+			}
+		}
+		return url;
+	}
 }

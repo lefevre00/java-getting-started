@@ -38,10 +38,12 @@
 
 					<input class="input password" name="pwd" id="pwd" type="password" placeholder="mot de passe" value="at" required/>
 					<div class="pass-icon passX1"></div>
+					
+					<div id="dvValue"></div>
 				</div>
 				
 				<div class="footer">
-					<input type="submit" name="submit" value="Se connecter" class="login" />
+					<input type="submit" name="submit" value="Se connecter" class="login" id="log"/>
 					<a href="/user/new" class="register">S'inscrire</a>
 					<br><br><br>
 					<a href="/user/forget">Mot de passe oublié ?</a>
@@ -50,6 +52,21 @@
 			</form>
 
 		</div>
+		
+		<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/md5.js"></script>
+		<script>
+		$(document).ready(function() {
+		
+          $('form').submit(function(e) {
+			var fieldPwd = $('#pwd');
+            var strVal = fieldPwd.val();
+            var strMD5 = CryptoJS.MD5(strVal).toString();
+            fieldPwd.val( strMD5 );
+            return true;
+		  });
+  	    });
+  		</script>
+  
 
 	</section>
   

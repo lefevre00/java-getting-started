@@ -1,16 +1,51 @@
 package org.friends.app.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * A user of the application.
  * @author michael lefevre
  */
+@Entity
+@Table(name = "USERS")
+@NamedQueries(value = {
+		@NamedQuery(name=User.QUERY_FIND_USER_BY_MAIL, query="select p from User p where emailAMDM = :email"),
+		@NamedQuery(name=User.QUERY_FIND_USER_BY_TOKEN_MAIL, query="select p from User p where tokenMail = :token"),
+		@NamedQuery(name=User.QUERY_FIND_USER_BY_TOKEN_PASSWORD, query="select p from User p where tokenPassword = :token")
+})
 public class User {
 	
+	public static final String QUERY_FIND_USER_BY_MAIL = "findUserByEmail";
+	public static final String QUERY_FIND_USER_BY_TOKEN_MAIL = "findUserByTokenMail";
+	public static final String QUERY_FIND_USER_BY_TOKEN_PASSWORD = "findUserByTokenPassword";
+	
+	@Id 
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
+	@Column(name="ID")
 	private Integer id;
+	
+	@Column(name="EMAIL")
 	private String emailAMDM;
+	
+	@Column(name="PLACE_ID")
 	private Integer placeNumber;
+	
+	@Column(name="PASSWORD")
 	private String pwd;
+	
+	@Column(name="TOKEN_MAIL")
 	private String tokenMail;
+	
+	@Column(name="TOKEN_PASSWORD")
 	private String tokenPwd;
 	
 	public User() {}

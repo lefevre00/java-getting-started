@@ -1,5 +1,7 @@
 package org.friends.app.view;
 
+import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +47,12 @@ public class SettingRoute extends AuthenticatedRoute {
 			
 			if (doUpdate) {
 				user.setPlaceNumber(i);
-				user = userService .update(user);
+				try {
+					user = userService.update(user);
+				} catch (SQLException | URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				request.session().attribute("user", user);
 				map.put(INFO, Messages.get("update.ok"));
 			}

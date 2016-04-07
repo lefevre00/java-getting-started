@@ -1,35 +1,35 @@
 package org.friends.app.dao;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
 
+import org.friends.app.HibernateUtil;
 import org.friends.app.model.Session;
 
+import spark.utils.Assert;
+
 public class SessionDao {
-	
-	private static List<Session> cache = new ArrayList<>();
-	
-	public Session findFirst(Predicate<Session> p) {
-		Optional<Session> o = cache.stream().filter(p).findFirst();
-		return o.isPresent() ? o.get() : null;
-	}
 
 	public Session persist(Session session) {
-		cache.add(session);
-		return session;
+		Assert.notNull(session);
+		org.hibernate.Session sessionHibernate = HibernateUtil.getSession();
+		sessionHibernate.beginTransaction();
+		Serializable id = sessionHibernate.save(session);
+		sessionHibernate.getTransaction().commit();
+		return (Session) sessionHibernate.get(Session.class, id);
 	}
 
 	public void deleteExpired() {
 		Date now = Calendar.getInstance().getTime();
-		for (Iterator<Session> iterator = cache.iterator(); iterator.hasNext();) {
-			Session session = (Session) iterator.next();
-			if (session.getExpirationDate().before(now))
-				iterator.remove();
-		}
+		org.hibernate.Session sessionHibernate = HibernateUtil.getSession();
+		sessionHibernate.beginTransaction();
+		sessionHibernate.getNamedQuery(Session.DELETE_EXPIRED).setDate("date", now).executeUpdate();
+		sessionHibernate.getTransaction().commit();
+	}
+
+	public Session findByCookie(String cookie) {
+		return (Session) HibernateUtil.getSession().getNamedQuery(Session.QUERY_FIND_BY_COOKIE)
+				.setString("cookie", cookie).uniqueResult();
 	}
 }

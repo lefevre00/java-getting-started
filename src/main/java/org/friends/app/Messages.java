@@ -10,7 +10,7 @@ public class Messages {
 	private static final String MESSAGES_PROPERTIES = "/messages.properties";
 	static Properties properties;
 
-	public static String get(String error) {
+	public static synchronized String get(String error) {
 		if (properties == null)
 			loadProperties();
 		return properties.getProperty(error);

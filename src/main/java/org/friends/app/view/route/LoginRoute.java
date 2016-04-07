@@ -20,7 +20,6 @@ public class LoginRoute implements TemplateViewRoute {
 
 	private static final String ERROR = "error";
 	private static final String EMAIL = "email";
-	
 	UserServiceBean userService = new UserServiceBean();
 	
 	@Override
@@ -38,24 +37,23 @@ public class LoginRoute implements TemplateViewRoute {
 		
 		String email = request.queryParams("email");
 		String pwd = request.queryParams("pwd");
-		
+
+		// En cas d'erreur
+		map.put(EMAIL, email);
+
 		User user = null;
 		try {
-			user = userService.userAuthentication(email, pwd);
+			user = userService.authenticate(email, pwd);
 
 			if (user != null) {
 				addAuthenticatedUser(request, user);
 				Routes.redirect(user, response);
 			} else {
 				map.put(ERROR, "Utilisateur introuvable !");
-				map.put(EMAIL, email);
 			}
 
 		} catch (Exception e) {
-			
 			map.put(ERROR, Messages.get(e.getMessage()));	
-			map.put(EMAIL, email);
-			
 		}
 	}
 
