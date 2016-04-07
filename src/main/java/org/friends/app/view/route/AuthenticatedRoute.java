@@ -84,7 +84,13 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 	 * @return
 	 */
 	protected String rechercheLaProchaineDateUtilisable(){
-		return rechercherLejourSuivant(LocalDate.now());
+		LocalDate dateUtilisable = LocalDate.now();
+		if(DayOfWeek.SUNDAY.equals(dateUtilisable.getDayOfWeek())){
+			dateUtilisable = dateUtilisable.plusDays(3);
+		}else if(DayOfWeek.SATURDAY.equals(dateUtilisable.getDayOfWeek())){
+			dateUtilisable = dateUtilisable.plusDays(2);
+		}
+		return dateUtilisable.format(PlaceDao.formatter);
 		
 	}
 }

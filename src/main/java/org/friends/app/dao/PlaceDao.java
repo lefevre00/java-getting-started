@@ -30,6 +30,16 @@ public class PlaceDao {
 		session.getTransaction().commit();
 		return (Place) session.get(Place.class, id);
 	}
+	
+	public void update(Place place){
+		session.beginTransaction();
+		session.getNamedQuery(Place.QUERY_RESERVE_PLACE)
+		.setString("date", place.getOccupationDate())
+		.setInteger("placeNumber", place.getPlaceNumber())
+		.setString("email", place.getOccupiedBy())
+		.executeUpdate();
+		session.getTransaction().commit();
+	}
 
 	
 	public void clearAllPlacesBeforeDate(LocalDate date) {
@@ -52,6 +62,17 @@ public class PlaceDao {
 			criteria.add(criterions[i]);
 		}
 		return (List<Place>) criteria.list();
+	}
+	
+	public Place findPlaceByCriterions(Criterion ... criterions) {
+		Assert.notNull(criterions);
+		Assert.notEmpty(criterions, "restrictions must not be empty");
+		
+		Criteria criteria = HibernateUtil.getSession().createCriteria(Place.class);
+		for (int i = 0; i < criterions.length; i++) {
+			criteria.add(criterions[i]);
+		}
+		return (Place) criteria.uniqueResult();
 	}
 }
 

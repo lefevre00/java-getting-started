@@ -66,7 +66,7 @@ public class PlaceServiceBean implements PlaceService{
 
 		Place booked = (listPlaceReserve!= null && listPlaceReserve.size()>0) ? listPlaceReserve.get(0) : null;//!placedao.findPlaceisFreeAtTheDate(Integer.valueOf(placeNumber),dateAsDate);
 		if (booked==null)
-			throw new BookingException(format("The place %s can't be booked  by the user %s on %d", placeNumber, user.getEmailAMDM(), date));
+			throw new BookingException(format("The place %s can't be booked  by the user %s on %s", placeNumber, user.getEmailAMDM(), date));
 		
 		if (booked.getOccupiedBy() != null)
 			throw new BookingException(format("The place %s already booked the user %d on %s", booked.getPlaceNumber(), booked.getOccupiedBy()+"@amdm.fr", date));
@@ -79,7 +79,8 @@ public class PlaceServiceBean implements PlaceService{
 			else {
 			// la place n'est pas pas réservée
 			booked.setOccupiedBy(user.getEmailAMDM());
-			booked = placedao.persist(booked);
+			placedao.update(booked);
+			//booked = placedao.persist(booked);
 			}
 		}
 
