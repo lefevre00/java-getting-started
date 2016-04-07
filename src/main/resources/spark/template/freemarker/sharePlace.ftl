@@ -5,9 +5,14 @@
   	<!--link rel="stylesheet" href="/stylesheets/datepicker.css"-->
   	<link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
   
-  	<script src="/js/bootstrap-datepicker.js" charset="UTF-8"></script>
+  	<!--script src="/js/bootstrap-datepicker.js" charset="UTF-8"></script-->
   	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
   	<script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
+  	
+  	<style>
+
+  	</style>
+  	
 </head>
 
 <body>
@@ -23,13 +28,14 @@
 
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">					
 				<form method="post" role="form">
+					
 						Je lib&egrave;re la place n&deg;<strong>${placeNumber}</strong> pour la (ou les) journ&eacute;e(s) <br><br/>
 						<div class="text-center"> 
 									 
 							<div class="col-md-6 col-sm-6">
 								<div class="input-group date" id="datetimepicker1">
 									<label>du&nbsp;&nbsp;</labdel>
-									<input type="text" name="dateDebut"/>
+									<input type="text" class="shareInput" name="dateDebut"/>
 									<span class="input-group-addon">
 										<i class="fa fa-calendar-o"></i>
 									</span>
@@ -39,7 +45,7 @@
 							<div class="col-md-6 col-sm-6">
 								<div class="input-group date" id="datetimepicker2">
 									<label>au&nbsp;&nbsp;</labdel>
-									<input type="text" name="dateFin"/>
+									<input type="text" class="shareInput" name="dateFin"/>
 									<span class="input-group-addon">
 										<i class="fa fa-calendar-o"></i>
 									</span>
@@ -48,7 +54,9 @@
 						<div/>
 
 						<br clear="both"/>
+						<br clear="both"/>
 						<input type="submit" class="btn btn-primary btn-lg" value="Valider"/>
+					
 				</form>
 			</div>	
 

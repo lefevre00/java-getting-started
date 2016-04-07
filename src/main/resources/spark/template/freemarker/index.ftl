@@ -85,10 +85,10 @@
 					<form action="#" method="post">
 						<div class="col-md-6 col-sm-6">
 							<input name="nom" type="text" class="form-control" id="nom" placeholder="Nom">
-					  </div>
+					  	</div>
 						<div class="col-md-6 col-sm-6">
 							<input name="email" type="email" class="form-control" id="email" placeholder="Email">
-					  </div>
+					  	</div>
 						<div class="col-md-12 col-sm-12">
 							<textarea name="message" rows="8" class="form-control" id="message" placeholder="Message"></textarea>
 						</div>
