@@ -13,7 +13,7 @@
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/protected/">ACCUEIL</a></li>
+				<li><a href="/">ACCUEIL</a></li>
 				<li class="dropdown dropdown-submenu">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">ACTIONS</a>
 					<ul class="dropdown-menu">
