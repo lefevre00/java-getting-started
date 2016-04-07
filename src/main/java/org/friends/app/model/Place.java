@@ -7,8 +7,6 @@ import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -17,20 +15,20 @@ import org.friends.app.model.Place.PlacePK;
 @Entity
 @IdClass(PlacePK.class)
 @Table(name = "PLACES", uniqueConstraints = {@UniqueConstraint(columnNames={"EMAIL_OCCUPANT", "OCCUPATION_DATE"})})
-@NamedQueries(value = {@NamedQuery(name=Place.QUERY_AVAILABLE_AT_DATE, query="select p from Place p where occupationDate = :date and mailOccupant is null"),
-		@NamedQuery(name=Place.QUERY_AVAILABLE_PLACE_AT_THE_DATE, query="select p from Place p where occupationDate = :date and placeNumber = :place_number"),// and mailOccupant is null
-		@NamedQuery(name=Place.QUERY_USER_HAS_BOOK_AT_THE_DATE, query="select p from Place p where occupationDate = :date and  mailOccupant = :mailOccupant"),
-		@NamedQuery(name=Place.QUERY_ALL_PLACE_BY_USER, query="select p from Place p where  mailOccupant = :mailOccupant AND occupationDate >= :date"),
-		@NamedQuery(name=Place.QUERY_RELEASE_HISTORY_BY_PLACE, query="select p from Place p where placeNumber = :place_number order by occupationDate asc"),
-		@NamedQuery(name=Place.QUERY_DELETE_ALL_PLACE_BEFORE, query="delete from Place where occupationDate <= :date")})
+//@NamedQueries(value = {@NamedQuery(name=Place.QUERY_AVAILABLE_AT_DATE_, query="select p from Place p where occupationDate = :date and mailOccupant is null"),
+//		@NamedQuery(name=Place.QUERY_AVAILABLE_PLACE_AT_THE_DATE_, query="select p from Place p where occupationDate = :date and placeNumber = :place_number"),// and mailOccupant is null
+//		@NamedQuery(name=Place.QUERY_USER_HAS_BOOK_AT_THE_DATE_, query="select p from Place p where occupationDate = :date and  mailOccupant = :mailOccupant"),
+//		@NamedQuery(name=Place.QUERY_ALL_PLACE_BY_USER_, query="select p from Place p where  mailOccupant = :mailOccupant AND occupationDate >= :date"),
+//		@NamedQuery(name=Place.QUERY_RELEASE_HISTORY_BY_PLACE_, query="select p from Place p where placeNumber = :place_number order by occupationDate asc"),
+//		@NamedQuery(name=Place.QUERY_DELETE_ALL_PLACE_BEFORE_, query="delete from Place where occupationDate <= :date")})
 public class Place {
 	
-	public static final String QUERY_AVAILABLE_AT_DATE = "availableAtDate";
-	public static final String QUERY_AVAILABLE_PLACE_AT_THE_DATE = "NotavailablePlaceAtTheDate";
-	public static final String QUERY_USER_HAS_BOOK_AT_THE_DATE = "UserHasBookAtTheDate";
-	public static final String QUERY_ALL_PLACE_BY_USER = "AllPlaceByUser";
-	public static final String QUERY_RELEASE_HISTORY_BY_PLACE = "ReleaseHystoryByPlace";
-	public static final String QUERY_DELETE_ALL_PLACE_BEFORE = "DeleteAllPlaceBefore";
+//	public static final String QUERY_AVAILABLE_AT_DATE_ = "availableAtDate";
+//	public static final String QUERY_AVAILABLE_PLACE_AT_THE_DATE_ = "NotavailablePlaceAtTheDate";
+//	public static final String QUERY_USER_HAS_BOOK_AT_THE_DATE_ = "UserHasBookAtTheDate";
+//	public static final String QUERY_ALL_PLACE_BY_USER_ = "AllPlaceByUser";
+//	public static final String QUERY_RELEASE_HISTORY_BY_PLACE_ = "ReleaseHystoryByPlace";
+//	public static final String QUERY_DELETE_ALL_PLACE_BEFORE_ = "DeleteAllPlaceBefore";
 	public static final int HEURE_CHANGEMENT_JOUR_RECHERCHE = 18;
 	
 
