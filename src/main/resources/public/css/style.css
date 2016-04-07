@@ -1,8 +1,8 @@
 
 body {
-	margin:0;
 	padding:0;
-	background: url(../images/home-bg.jpg) no-repeat center fixed; 
+	margin: 10px 10px 10px 10px;
+	background: url(../images/bg/bg0.jpg) no-repeat center fixed; 
 	-webkit-background-size: cover; /* pour anciens Chrome et Safari */
 	background-size: cover; 		/* version standardisée */	
 	background-position: center;
@@ -14,8 +14,6 @@ body {
 	position: relative;
 }
 
-
-
 p {
 	color: #848484;
 	font-weight: 400;
@@ -24,12 +22,11 @@ p {
 	line-height: 28px;
 }
 
-hr {
-	border-top: 2px solid #828282;
-	width: 120px;
-}
-
-/* preloader section */
+/***********************************
+ *
+ * preloader section 
+ *
+ ***********************************/
 .preloader  {
     position: fixed;
     top: 0;
@@ -79,7 +76,11 @@ hr {
     opacity: 0; } }
 
 
-/* start navigation */
+/***********************************
+ *
+ * start navigation 
+ *
+ ***********************************/
 .navbar-default {
 	background: #ffffff;
 	box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.04);
@@ -100,7 +101,12 @@ hr {
 	letter-spacing: 1px;
 }
 
-/* home section */
+
+/***********************************
+ *
+ *  home section
+ *
+ ***********************************/
 #home {
 	color: #ffffff;
 	display: -webkit-box;
@@ -125,7 +131,6 @@ hr {
 	border-radius: 10px;
 	border: 2px solid #ffffff;
 	color: #ffffff;
-	font-weight: bold;
 	letter-spacing: 4px;
 	padding: 16px 42px;
 	margin-top: 40px;
@@ -148,47 +153,60 @@ hr {
 	padding-bottom: 60px;
 }
 
-#aide {
-	padding-top: 100px;
-	padding-bottom: 300px;
-}
-
-#aide {
-	background: #ffffff;
-}
-
-#contact {
-	background: #f0f0f0;
-}
-
 .parallax-section {
 	background-attachment: fixed !important;
 	background-size: cover !important;
 }
 
 
-/* aide section */
+/***********************************
+ *
+ *  aide section
+ *
+ ***********************************/
+#aide {
+	padding-top: 100px;
+	padding-bottom: 300px;
+	background: #ffffff;
+}
+
 #aide h4 {
 	line-height: 1.5;
 }
+
 #aide .col-md-8 {
 	padding-bottom: 42px;
 }
+
 #aide .col-md-6 {
 	padding-bottom: 18px;
 }
+
 #aide span {
 	color: #5C5C5C;
 }
 
-/* contact section */
+#aide hr {
+	border-top: 2px solid #828282;
+	width: 265px;
+}
+
+
+/***********************************
+ *
+ *  contact section
+ *
+ ***********************************/
 #contact {
 	padding-top: 80px;
 	padding-bottom: 100px;
+	background: #f0f0f0;
 }
+
 #contact .col-md-8 {
 	margin-bottom: 32px;
 }
+
 #contact .form-control {
 	background: #ffffff;
 	border: none;
@@ -198,12 +216,15 @@ hr {
 	margin-bottom: 10px;
 	transition: all 0.4s ease-in-out;
 }
+
 #contact .form-control:focus {
 	border-color: #5c5c5c;
 }
+
 #contact input {
 	height: 48px;
 }
+
 #contact input[type="submit"] {
 	background: transparent;
 	border: 2px solid #5c5c5c;
@@ -212,12 +233,22 @@ hr {
 	margin-top: 12px;
 	height: 50px;
 }
+
 #contact input[type="submit"]:hover {
 	background: #5c5c5c;
 	color: #ffffff;
 }
 
-/* copyright section */
+#contact hr {
+	border-top: 2px solid #828282;
+	width: 205px;
+}
+
+/***********************************
+ *
+ *  copyright section
+ *
+ ***********************************/
 #copyright {
 	background: #5c5c5c;
 	color: #ffffff;
@@ -225,15 +256,26 @@ hr {
 	padding-bottom: 20px;
 	text-align: center;
 }
+
 #copyright p {
 	color: #ffffff;
 }
+
 #copyright a {
 	color: #ffffff;
 }
+
 #copyright a:hover {
 	color: #FF0;
 }
+
+
+
+/***********************************
+ *
+ *  
+ *
+ ***********************************/
 
 .containerAttr{
 	background-color:white;
@@ -250,3 +292,43 @@ hr {
 .padding20 {
 	padding: 20px;
 }
+
+.shareInput {
+	display:inline-block;
+	height:30px;
+	width: 120px;
+	padding:4px 6px;
+	font-size:14px;
+	line-height:20px;
+	color:#555;
+	border: solid 1px gainsboro;			
+	-webkit-transition: box-shadow 0.3s, border 0.3s;
+	-moz-transition: box-shadow 0.3s, border 0.3s;
+	-o-transition: box-shadow 0.3s, border 0.3s;
+	transition: box-shadow 0.3s, border 0.3s;
+}
+		
+.shareInput:focus {
+  	border: solid 1px #707070;
+  	-webkit-box-shadow: 0 0 5px 1px #969696;
+  	-moz-box-shadow: 0 0 5px 1px #969696;
+  	box-shadow: 0 0 5px 1px #969696;
+}
+		
+.input-group-addon {
+	display:inline-block;
+	height:30px;
+	width:30px;
+	padding:4px 6px;
+	font-size:14px;
+	line-height:20px;
+	color:#555;
+	border: solid 1px gainsboro;
+	background-color:#fff;
+	cursor: pointer;
+}  	
+
+#datepicker1, #datepicker2{
+	margin-left: auto;
+	margin-right: auto;
+}	
