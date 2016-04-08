@@ -11,7 +11,8 @@
 
     <section class="content-section">
 		<div class="container containerAttr">
-			<h1>Confirmation de réservation</h1>
+		
+			<h1 class="titre">Confirmation de réservation</h1>
 
 			<div class="row " style="margin:0px auto;max-width:700px; padding-top:20px;">					
 				<h4>La place numéro ${numeroPlace} vous est réservée pour le ${dateRecherche}.</h4>
@@ -24,6 +25,7 @@
 					</center>
 				</div>
 			</div>
+			
 		</div>
 	</section>
 

@@ -41,13 +41,17 @@ public class BookRoute extends AuthenticatedRoute {
 		if (StringUtils.isEmpty(place)) {
 			map.put("dateRecherche", "N/C");
 			map.put("message", "Merci de sélectionner une place et une date pour compléter la réservation.");
+			map.put("numeroPlace", "N/C");
 		} else {
 			try {
 				map.put("dateRecherche", date);
 				Place booked = service.book(date, getUser(request), place);
 				map.put("message", "Place n°" + booked.getPlaceNumber() + " reservée.");
+				map.put("numeroPlace", booked.getPlaceNumber().toString());
 			} catch (BookingException e) {
 				map.put("message", "Vous avez déjà réservé une place pour le jour demandée.");
+				map.put("numeroPlace", "");
+				map.put("dateRecherche", "");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

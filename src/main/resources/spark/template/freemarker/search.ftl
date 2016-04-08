@@ -13,7 +13,7 @@
 	
 		<div class="container containerAttr">
 		
-			<h1>Trouver une place de parking</h1>
+			<h1 class="titre">Trouver une place de parking</h1>
 
 			<div class="row " style="margin:0px auto;max-width:700px; padding-top:20px;">					
 				<h4>Places disponibles le ${dateRecherche}</h4>

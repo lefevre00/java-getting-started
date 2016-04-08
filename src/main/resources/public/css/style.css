@@ -1,13 +1,16 @@
+@import url(http://fonts.googleapis.com/css?family=Varela+Round|Open+Sans:400,300,600,400italic,700);
+@import url(http://fonts.googleapis.com/css?family=Great+Vibes);
 
 body {
 	padding:0;
 	margin: 10px 10px 10px 10px;
-	background: url(../images/bg/bg0.jpg) no-repeat center fixed; 
+	background: url(../images/bg/bg1.jpg) no-repeat center fixed; 
 	-webkit-background-size: cover; /* pour anciens Chrome et Safari */
 	background-size: cover; 		/* version standardisée */	
 	background-position: center;
 
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    /*font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
+    font-family: 'Varela Round', sans-serif; font-size:14px;
     font-weight: 400;
     text-align: center;
 	text-decoration: none;
@@ -20,6 +23,11 @@ p {
 	font-size: 16px;
 	letter-spacing: 0.4px;
 	line-height: 28px;
+}
+
+.titre{
+	font-size: 2.2em;
+	font-weight: bold; 	
 }
 
 /***********************************
@@ -120,12 +128,14 @@ p {
 	height: 100vh;
 	text-align: center;
 }
+
 #home h1 {
 	font-size: 20px;
 	letter-spacing: 8px;
 	font-style: normal;
 	padding-top: 10px;
 }
+
 #home .btn {
 	background: #f69b0c;
 	border-radius: 10px;
@@ -138,6 +148,7 @@ p {
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 }
+
 #home .btn:hover {
 	background: #ffffff;
 	color: #202020;
@@ -255,15 +266,14 @@ p {
 	padding-top: 30px;
 	padding-bottom: 20px;
 	text-align: center;
+
 }
 
-#copyright p {
+#copyright p, a {
 	color: #ffffff;
+	font-size: 12px;
 }
 
-#copyright a {
-	color: #ffffff;
-}
 
 #copyright a:hover {
 	color: #FF0;
@@ -298,7 +308,7 @@ p {
 	height:30px;
 	width: 120px;
 	padding:4px 6px;
-	font-size:14px;
+	font-size:12px;
 	line-height:20px;
 	color:#555;
 	border: solid 1px gainsboro;			
@@ -320,7 +330,7 @@ p {
 	height:30px;
 	width:30px;
 	padding:4px 6px;
-	font-size:14px;
+	font-size:12px;
 	line-height:20px;
 	color:#555;
 	border: solid 1px gainsboro;

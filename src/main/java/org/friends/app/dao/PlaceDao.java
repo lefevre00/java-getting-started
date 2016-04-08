@@ -3,7 +3,6 @@ package org.friends.app.dao;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
@@ -31,15 +30,17 @@ public class PlaceDao {
 		session.getTransaction().commit();
 		return (Place) session.get(Place.class, id);
 	}
-
-	@SuppressWarnings("unchecked")
-	public List<Place> findAllBookedPlaceByUser(String emailAMDM) {
-		Assert.notNull(emailAMDM);
-		return session.getNamedQuery(Place.QUERY_ALL_PLACE_BY_USER)
-				.setString("mailOccupant", emailAMDM)
-				.setString("date", LocalDateTime.now().getHour()>Place.HEURE_CHANGEMENT_JOUR_RECHERCHE ? LocalDate.now().plusDays(1).format(PlaceDao.formatter) : LocalDate.now().format(PlaceDao.formatter))
-				.list();
+	
+	public void update(Place place){
+		session.beginTransaction();
+		session.getNamedQuery(Place.QUERY_RESERVE_PLACE)
+		.setString("date", place.getOccupationDate())
+		.setInteger("placeNumber", place.getPlaceNumber())
+		.setString("email", place.getOccupiedBy())
+		.executeUpdate();
+		session.getTransaction().commit();
 	}
+
 	
 	public void clearAllPlacesBeforeDate(LocalDate date) {
 		String strDateRecherche = date.format(formatter);
@@ -61,6 +62,17 @@ public class PlaceDao {
 			criteria.add(criterions[i]);
 		}
 		return (List<Place>) criteria.list();
+	}
+	
+	public Place findPlaceByCriterions(Criterion ... criterions) {
+		Assert.notNull(criterions);
+		Assert.notEmpty(criterions, "restrictions must not be empty");
+		
+		Criteria criteria = HibernateUtil.getSession().createCriteria(Place.class);
+		for (int i = 0; i < criterions.length; i++) {
+			criteria.add(criterions[i]);
+		}
+		return (Place) criteria.uniqueResult();
 	}
 }
 
