@@ -4,7 +4,7 @@
 body {
 	padding:0;
 	margin: 10px 10px 10px 10px;
-	background: url(../images/bg/bg0.jpg) no-repeat center fixed; 
+	background: url(../images/bg/bg1.jpg) no-repeat center fixed; 
 	-webkit-background-size: cover; /* pour anciens Chrome et Safari */
 	background-size: cover; 		/* version standardisée */	
 	background-position: center;
