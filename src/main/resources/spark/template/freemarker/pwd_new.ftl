@@ -35,11 +35,12 @@
 	                </#if>
 					<div class="email-icon emailX2"></div>
 					
-					<input class="input password" name="pwd1" id="pwd1" type="password" placeholder="nouveau mot de passe" required/>
+					<input class="input password" name="pwd1" id="pwd" type="password" placeholder="nouveau mot de passe" required/>
 					<div class="pass-icon passX2"></div>
-					
+					<!--
 					<input class="input password" name="pwd2" id="pwd2" type="password"  placeholder="re-saisir le mot de passe" required/>
 					<div class="pass-icon passX3"></div>
+					-->
 				</div>
 				
 				<div class="footer">
@@ -52,5 +53,7 @@
 		
 	</section>
   
+	<!-- cryptage md5 -->
+	<#include "md5.ftl">
 </body>
 </html>

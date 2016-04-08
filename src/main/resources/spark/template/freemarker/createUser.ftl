@@ -53,6 +53,7 @@
 			
 	</section>
 
-  
+	<!-- cryptage md5 -->
+	<#include "md5.ftl">
 </body>
 </html>

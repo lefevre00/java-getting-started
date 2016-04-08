@@ -52,23 +52,9 @@
 			</form>
 
 		</div>
-		
-		<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/md5.js"></script>
-		<script>
-		$(document).ready(function() {
-		
-          $('form').submit(function(e) {
-			var fieldPwd = $('#pwd');
-            var strVal = fieldPwd.val();
-            var strMD5 = CryptoJS.MD5(strVal).toString();
-            fieldPwd.val( strMD5 );
-            return true;
-		  });
-  	    });
-  		</script>
-  
-
 	</section>
-  
+
+	<!-- cryptage md5 -->
+	<#include "md5.ftl">
 </body>
 </html>

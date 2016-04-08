@@ -14,7 +14,7 @@ import spark.utils.StringUtils;
 
 public class PasswordTokenRoute implements TemplateViewRoute {
 
-	private static final String FIELD_PASSWORD = "mdp";
+	private static final String FIELD_PASSWORD = "pwd";
 	private static final String FIELD_EMAIL = "email";
 	private static final String FIELD_TOKEN = "token";
 	UserServiceBean userService = new UserServiceBean();
