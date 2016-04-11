@@ -26,8 +26,8 @@ public class PlaceServiceBean implements PlaceService {
 		return placedao.findPlacesByCriterions(Restrictions.eq("occupationDate", DateUtil.dateAsString(date)),
 				Restrictions.isNull("mailOccupant"));
 	}
-
 	/**
+	 * dqsdqsd
 	 * Release a place at date
 	 * 
 	 * @param numberPlace
