@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Map;
 
 import org.friends.app.model.Place;
+import org.friends.app.model.User;
 import org.friends.app.service.impl.BookingException;
 import org.friends.app.service.impl.PlaceServiceBean;
 import org.friends.app.util.DateUtil;
@@ -22,13 +23,13 @@ public class BookRoute extends AuthenticatedRoute {
 
 	@Override
 	public ModelAndView doHandle(Request request, Response response) {
-		
+		User user = getUser(request);
 		Map<String, String> params = request.params();
 		Map<String, Object> map = getMap();
-
+		
 		String place = params.get(PARAM_PLACE);
 		String date = params.get(PARAM_DATE);
-		
+		map.put("shared", user.getPlaceNumber()==null ? null : true);
 		if (StringUtils.isEmpty(date)) {
 		    date = DateUtil.dateAsString(LocalDate.now());
 		}
@@ -40,7 +41,7 @@ public class BookRoute extends AuthenticatedRoute {
 		} else {
 			try {
 				map.put("dateRecherche", date);
-				Place booked = service.book(date, getUser(request), place);
+				Place booked = service.book(date, user, place);
 				map.put("message", "");
 				map.put("numeroPlace", booked.getPlaceNumber().toString());
 			} catch (BookingException e) {

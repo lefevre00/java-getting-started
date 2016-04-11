@@ -51,6 +51,7 @@ public class SearchRoute extends AuthenticatedRoute {
     	
     	map.put("dateRecherche", dateRechercheeAsDate.format(formatterDatePicker));
     	map.put("dateBook", dateRecherchee);
+    	map.put("shared", user.getPlaceNumber()==null ? null : true);
     	Place placeReserveeParleUSer = placeReservedByUserAtTheDate(user, dateRechercheeAsDate);
     	List<Place> places = new ArrayList<Place>();
     	

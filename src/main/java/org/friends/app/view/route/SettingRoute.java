@@ -29,7 +29,7 @@ public class SettingRoute extends AuthenticatedRoute {
 		Map<String, Object> map = getMap();
 		
 		User user = getUser(request);
-
+		map.put("shared", user.getPlaceNumber()==null ? null : true);
 		if ("POST".equalsIgnoreCase(request.requestMethod())) {
 			Integer i = null;
 			boolean doUpdate = true;
