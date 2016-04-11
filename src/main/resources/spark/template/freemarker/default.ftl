@@ -18,7 +18,7 @@
       	</div>
       	<div class="col-md-6">
         	<h3>
-          		<a type="button" class="btn btn-lg btn-default" href="/protected/sharePlace">
+          		<a type="button" class="btn btn-lg btn-default" href="/protected/share">
             	<span class="glyphicon glyphicon-log-out"></span>
             	Je lib&egrave;re ma place</a>
         	</h3>
@@ -41,7 +41,7 @@
 				</div>
 				<div class="col-md-6">
 					<h3>
-						<a type="button" class="btn btn-lg btn-default" href="/protected/sharePlace">
+						<a type="button" class="btn btn-lg btn-default" href="/protected/share">
 						<span class="glyphicon glyphicon-log-out"></span>
 						Je libère ma place</a>
 					</h3>

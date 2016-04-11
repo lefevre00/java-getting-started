@@ -17,8 +17,8 @@
 				<li class="dropdown dropdown-submenu">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">ACTIONS</a>
 					<ul class="dropdown-menu">
-						<li><a href="/protected/sharePlace">Partage</a></li>
-						<li><a href="/protected/search">Réservation</a></li>
+						<li><a href="/protected/share">Partage</a></li>
+						<li><a href="/protected/booked">Réservation</a></li>
 						<li><a href="/protected/setting">Paramètres</a></li>
 					</ul>
 				</li>

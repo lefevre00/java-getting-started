@@ -35,7 +35,7 @@ public interface Routes {
 	 */
 	String DEFAULT = "/protected/";
 	String PLACE_SEARCH = "/protected/search";
-	String PLACE_SHARE = "/protected/sharePlace";
+	String PLACE_SHARE = "/protected/share";
 	String CHOICE_ACTION = "/protected/choice";
 	String PLACE_BOOK = "/protected/book/:date/:place_id";
 	String RESERVATIONS = "/protected/booked";
