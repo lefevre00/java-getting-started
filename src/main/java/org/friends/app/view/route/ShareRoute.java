@@ -57,6 +57,7 @@ public class ShareRoute extends AuthenticatedRoute {
 		} else {
 			if (user.getPlaceNumber() == null)
 				throw new RuntimeException("A user without place cannot share a place");
+			
 
 	        map.put("placeNumber", user.getPlaceNumber());
 			model = new ModelAndView(map, "sharePlace.ftl");

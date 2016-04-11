@@ -50,13 +50,14 @@ public class SearchRoute extends AuthenticatedRoute {
     	
     	map.put("dateRecherche", dateRechercheeAsDate.format(formatterDatePicker));
     	map.put("dateBook", dateRecherchee);
+    	map.put("shared", user.getPlaceNumber()==null ? null : true);
     	Place placeReserveeParleUSer = placeReservedByUserAtTheDate(user, dateRechercheeAsDate);
     	List<Place> places = new ArrayList<Place>();
     	
     	
     	if(placeReserveeParleUSer != null){
-    		// L'utilisateur a déjà réservé une place ce jour là
-    		map.put("message", "Vous avez déjà réservé la place " + placeReserveeParleUSer.getPlaceNumber());
+    		// L'utilisateur a dï¿½jï¿½ rï¿½servï¿½ une place ce jour lï¿½
+    		map.put("message", "Vous avez dï¿½jï¿½ rï¿½servï¿½ la place " + placeReserveeParleUSer.getPlaceNumber());
     	}else{
 			try {
 				places = getPlaces(dateRechercheeAsDate);
@@ -82,7 +83,7 @@ public class SearchRoute extends AuthenticatedRoute {
 	}
 
 	/**
-	 * Retourne la prochaine date de réservation
+	 * Retourne la prochaine date de rï¿½servation
 	 * @return
 	 */
 	protected String rechercheLaProchaineDateUtilisable(){
@@ -100,8 +101,8 @@ public class SearchRoute extends AuthenticatedRoute {
 	}
 	
 	/**
-	 * Retourne la place réservée par une utilisateur à une date donnée
-	 * retourne null si il n'a pas réservé de place
+	 * Retourne la place rï¿½servï¿½e par une utilisateur ï¿½ une date donnï¿½e
+	 * retourne null si il n'a pas rï¿½servï¿½ de place
 	 * @param user
 	 * @param dateRecherche
 	 * @return
