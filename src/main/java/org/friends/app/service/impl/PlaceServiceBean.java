@@ -88,14 +88,30 @@ public class PlaceServiceBean implements PlaceService{
 		return booked;
 	}
 
+	/**
+	 * Recherche places réservées par :  
+	 * <li> un utilisateur sans place attribuée, pour les jours j et j+1
+	 * 
+	 */
 	public List<Place> getReservationsOrRelease(User user) throws SQLException, URISyntaxException {
 		Assert.notNull(user);
 		Assert.notNull(user.getEmailAMDM());
 		List<Place> listRetour = new ArrayList<Place>();
+		// utilisateur sans place attribuée
 		if(user.getPlaceNumber() == null){
-			String dateDeRecherche = LocalDateTime.now().getHour()>Place.HEURE_CHANGEMENT_JOUR_RECHERCHE ? LocalDate.now().plusDays(1).format(PlaceDao.formatter) : LocalDate.now().format(PlaceDao.formatter);
-			listRetour = placedao.findPlacesByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()),Restrictions.ge("occupationDate", dateDeRecherche));
-			//listRetour = placedao.findAllBookedPlaceByUser(user.getEmailAMDM());
+			List<Place> places = new ArrayList<>();
+			// Recherche réservation pour le jour j	
+			places = placedao.findPlacesByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()),Restrictions.ge("occupationDate", LocalDate.now().format(PlaceDao.formatter)));
+			if (!places.isEmpty()){
+				listRetour.add(places.get(0));	
+			}
+			
+			// Recherche réservation pour le jour j+1
+			places = placedao.findPlacesByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()),Restrictions.ge("occupationDate", LocalDate.now().plusDays(1).format(PlaceDao.formatter)));
+			if (!places.isEmpty()){
+				listRetour.add(places.get(0));
+			}
+			
 		}else{
 			listRetour = placedao.findPlacesByCriterions(Restrictions.eq("placeNumber", user.getPlaceNumber()));
 			List<Place> listPourAffichage = new ArrayList<Place>();

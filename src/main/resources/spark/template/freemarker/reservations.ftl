@@ -19,8 +19,15 @@
 			<h1 class="titre">Réservations</h1>
 			
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
-				<div class="col-sm-8" style="text-align:left;"><h4>Voici les places que vous avez réservées :</h4></div>
-				<div class="col-sm-4" style="text-align:right;"><a href="/protected/search" class="btn btn-primary btn-lg">Réserver une place</a></div>
+				<div class="col-sm-8" style="text-align:left;"><h4>${presentation}</h4></div>
+				
+				<#if dateReservation != "">
+					<div class="col-sm-4" style="text-align:right;">
+						<a href="/protected/search?day=${dateReservation}" class="btn btn-primary btn-lg">Réserver une place</a><br>
+						pour le ${dateReservation}
+					</div>
+				</#if>
+
 			</div>
 			<div class="row table-responsive" style="margin:0px auto;max-width:700px; padding-top:20px;">
 				<#if places??>
@@ -31,13 +38,12 @@
 						</tr>
 						<#list places as place>
 							<tr> 
-								<#if placenumber == "">
+								<#if placenumber != "">
 					  	    		<td>Le ${place.occupationDate}</td>
-						  	     	<td>(${place.occupiedBy})</td>
-						  	     	<td>place n° ${place.placeNumber}</td>
+						  	     	<td>${place.occupiedBy}</td>
 						  	    <#else>
 						  	    	<td>Le ${place.occupationDate}</td>
-						  	     	<td>place n° ${place.placeNumber}</td>
+						  	     	<td>${place.placeNumber}</td>
 					  	    	</#if>
 							</tr>
 						</#list>

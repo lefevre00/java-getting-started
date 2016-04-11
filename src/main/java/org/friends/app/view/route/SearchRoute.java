@@ -53,9 +53,9 @@ public class SearchRoute extends AuthenticatedRoute {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	if (!places.isEmpty())
-    		map.put("places", places);
-    	
+    	if (!places.isEmpty()){
+    		map.put("place", places.get(0));
+    	}
         return new ModelAndView(map, "search.ftl");
 	}
 

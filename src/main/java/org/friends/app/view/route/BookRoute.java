@@ -46,7 +46,7 @@ public class BookRoute extends AuthenticatedRoute {
 			try {
 				map.put("dateRecherche", date);
 				Place booked = service.book(date, getUser(request), place);
-				map.put("message", "Place n°" + booked.getPlaceNumber() + " reservée.");
+				map.put("message", "");
 				map.put("numeroPlace", booked.getPlaceNumber().toString());
 			} catch (BookingException e) {
 				map.put("message", "Vous avez déjà réservé une place pour le jour demandée.");

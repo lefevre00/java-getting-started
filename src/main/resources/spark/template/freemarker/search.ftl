@@ -13,33 +13,20 @@
 	
 		<div class="container containerAttr">
 		
-			<h1 class="titre">Trouver une place de parking</h1>
+			<h1 class="titre">Confirmation de réservation</h1>
 
 			<div class="row " style="margin:0px auto;max-width:700px; padding-top:20px;">					
-				<h4>Places disponibles le ${dateRecherche}</h4>
+				<#if place??>
+					<h4>La place n° <strong>${place.placeNumber}</strong> est disponible pour le ${dateRecherche}</h4>
+					Souhaitez-vous valider la réservation ?
+					<br clear="both"/>
+					<br clear="both"/>
+					<a href="/protected/book/${dateBook}/${place.placeNumber}" class="btn btn-primary btn-lg">Valider</a>
+				<#else>
+					<h4>Aucune place n'est disponible pour le ${dateRecherche}</h4>
+				</#if>
 			</div>
 			
-			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
-				<div>
-					<div class="col-sm-1">
-						<#if previous??>
-							<a href="/protected/search?day=${previous}" alt="jour précédent" title="jour précédent"><span class="glyphicon glyphicon-menu-left">&nbsp;</span></a>
-						</#if>
-					</div>
-					<div class="col-sm-10">
-						<#if places??>
-							<#list places as place>
-								<span class="col-sm-1"> <a class="label label-success" href="/protected/book/${dateBook}/${place.placeNumber}">${place.placeNumber}</a></span>
-							</#list>
-						<#else>
-							Aucune place disponible à cette date.
-						</#if>
-					</div>
-					<div class="col-sm-1">
-						<a href="/protected/search?day=${next}" alt="jour suivant" title="jour suivant"><span class="glyphicon glyphicon-menu-right">&nbsp;</span></a>
-					</div>
-				</div>
-			</div>
 		</div>
 	
 	</section>
