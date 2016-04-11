@@ -72,7 +72,7 @@ public class Application {
 		get(Routes.CHOICE_ACTION, new AuthenticatedRoute() {
 			@Override
 			protected ModelAndView doHandle(Request request, Response response) {
-				return new ModelAndView(null, "actions.ftl");
+				return new ModelAndView(getMap(), "actions.ftl");
 			}
 		}, new FreeMarkerEngine());
 
