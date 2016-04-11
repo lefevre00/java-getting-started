@@ -29,6 +29,7 @@ import org.friends.app.view.route.PasswordTokenRoute;
 import org.friends.app.view.route.RegisterRoute;
 import org.friends.app.view.route.Routes;
 import org.friends.app.view.route.SearchRoute;
+import org.friends.app.view.route.SettingRoute;
 import org.friends.app.view.route.ShareRoute;
 import org.friends.app.view.route.ValidTokenRoute;
 
@@ -71,8 +72,7 @@ public class Application {
 		get(Routes.CHOICE_ACTION, new AuthenticatedRoute() {
 			@Override
 			protected ModelAndView doHandle(Request request, Response response) {
-//				return new ModelAndView(null, "index.ftl");
-				return new ModelAndView(null, "default.ftl");
+				return new ModelAndView(null, "actions.ftl");
 			}
 		}, new FreeMarkerEngine());
 

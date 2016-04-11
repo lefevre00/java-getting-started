@@ -4,7 +4,6 @@ import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.friends.app.dao.PlaceDao;
@@ -29,7 +28,7 @@ public class BookRoute extends AuthenticatedRoute {
 	public ModelAndView doHandle(Request request, Response response) {
 		
 		Map<String, String> params = request.params();
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = getMap();
 
 		String place = params.get(PARAM_PLACE);
 		String date = params.get(PARAM_DATE);

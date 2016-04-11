@@ -2,10 +2,10 @@ package org.friends.app.view.route;
 
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +25,7 @@ public class SearchRoute extends AuthenticatedRoute {
 	
 	@Override
 	public ModelAndView doHandle(Request req, Response resp) {
-    	Map<String, Object> map = new HashMap<>();
+    	Map<String, Object> map = getMap();
     	
     	LocalDate now = LocalDate.now();
     	String paramDate = req.queryParams("day");
@@ -59,7 +59,28 @@ public class SearchRoute extends AuthenticatedRoute {
         return new ModelAndView(map, "search.ftl");
 	}
 
-	
+	protected String rechercherLejourPrecedent(LocalDate dateRecherche) {
+		if(DayOfWeek.MONDAY.equals(dateRecherche.getDayOfWeek())){
+			dateRecherche = dateRecherche.minusDays(3);
+		}else{
+			dateRecherche = dateRecherche.minusDays(1);
+		}
+		return dateRecherche.compareTo(LocalDate.now()) <0 ? null : dateRecherche.format(PlaceDao.formatter);
+	}
+
+	/**
+	 * Retourne la prochaine date de réservation
+	 * @return
+	 */
+	protected String rechercheLaProchaineDateUtilisable(){
+		LocalDate dateUtilisable = LocalDate.now();
+		if(DayOfWeek.SUNDAY.equals(dateUtilisable.getDayOfWeek())){
+			dateUtilisable = dateUtilisable.plusDays(3);
+		}else if(DayOfWeek.SATURDAY.equals(dateUtilisable.getDayOfWeek())){
+			dateUtilisable = dateUtilisable.plusDays(2);
+		}
+		return dateUtilisable.format(PlaceDao.formatter);
+	}
 
 	private List<Place> getPlaces(LocalDate dateRecherche) throws SQLException, URISyntaxException {
 		return placeService.getAvailableByDate(dateRecherche);

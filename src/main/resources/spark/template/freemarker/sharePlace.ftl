@@ -24,7 +24,7 @@
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">					
 				<form method="post" role="form">
 					
-						Je lib&egrave;re la place n&deg;<strong>${placeNumber}</strong> pour la (ou les) journ&eacute;e(s) <br><br/>
+						Je lib&egrave;re la place n&deg;<strong>${placeNumber}</strong> <br><br/>
 						<div class="text-center"> 
 									 
 							<div class="col-md-6 col-sm-6">
@@ -71,7 +71,7 @@
 	        	daysOfWeekDisabled: [0, 6],
 	            useCurrent: true,
 	            format: 'DD/MM/YYYY',
-	            locale: 'FR' //Important! See issue #1075
+	            locale: 'FR' //Important!
 	        });
 	        $("#datepicker1").on("dp.change", function (e) {
 	            $('#datepicker2').data("DateTimePicker").minDate(e.date);

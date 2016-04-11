@@ -5,6 +5,8 @@ import java.security.AccessControlException;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.friends.app.Configuration;
 import org.friends.app.dao.PlaceDao;
@@ -71,26 +73,13 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 		return dateRecherche.format(PlaceDao.formatter);
 	}
 	
-	protected String rechercherLejourPrecedent(LocalDate dateRecherche) {
-		if(DayOfWeek.MONDAY.equals(dateRecherche.getDayOfWeek())){
-			dateRecherche = dateRecherche.minusDays(3);
-		}else{
-			dateRecherche = dateRecherche.minusDays(1);
-		}
-		return dateRecherche.compareTo(LocalDate.now()) <0 ? null : dateRecherche.format(PlaceDao.formatter);
-	}
 	/**
-	 * Retourne la prochaine date de réservation
+	 * Build the default map object to tell the template that the user is logged in.
 	 * @return
 	 */
-	protected String rechercheLaProchaineDateUtilisable(){
-		LocalDate dateUtilisable = LocalDate.now();
-		if(DayOfWeek.SUNDAY.equals(dateUtilisable.getDayOfWeek())){
-			dateUtilisable = dateUtilisable.plusDays(3);
-		}else if(DayOfWeek.SATURDAY.equals(dateUtilisable.getDayOfWeek())){
-			dateUtilisable = dateUtilisable.plusDays(2);
-		}
-		return dateUtilisable.format(PlaceDao.formatter);
-		
+	protected Map<String, Object> getMap() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("logged", "true");
+		return map ;
 	}
 }

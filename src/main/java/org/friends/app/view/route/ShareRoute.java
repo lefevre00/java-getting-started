@@ -6,13 +6,11 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.friends.app.dao.PlaceDao;
-import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.BookingException;
 import org.friends.app.service.impl.PlaceServiceBean;
@@ -31,7 +29,7 @@ public class ShareRoute extends AuthenticatedRoute {
 	public ModelAndView doHandle(Request request, Response response) {
 
 		ModelAndView model = null;
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = getMap();
 		User user = getUser(request);
         map.put("dateRecherche", LocalDate.now().format(formatterDatePicker));
         String next = rechercherLejourSuivant(LocalDate.now());
@@ -60,12 +58,8 @@ public class ShareRoute extends AuthenticatedRoute {
 			if (user.getPlaceNumber() == null)
 				throw new RuntimeException("A user without place cannot share a place");
 
-			Place place = new Place(user.getPlaceNumber(), user.getEmailAMDM(), LocalDate.now().format(DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN)));
-//			map.put("dateRecherche", "");
-//	        map.put("nextDay", "?nextDay="+ nextDayWithOutWeekEnd());
-//	        map.put("yesteday", "?previousDay="+null);
-	        map.put("places", new ArrayList<>());
-			model = new ModelAndView(place, "sharePlace.ftl");
+	        map.put("placeNumber", user.getPlaceNumber());
+			model = new ModelAndView(map, "sharePlace.ftl");
 		}
 
 		return model;

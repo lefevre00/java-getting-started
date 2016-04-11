@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,9 +30,7 @@ public class BookedRoute extends AuthenticatedRoute {
 		} catch (SQLException | URISyntaxException e) {
 			e.printStackTrace();
 		}
-		Map<String, Object> map = new HashMap<>();
-
-		
+		Map<String, Object> map = getMap();
 		
 		map.put("places", reservations);
 		map.put("placenumber", user.getPlaceNumber() == null ? "" : user.getPlaceNumber());
