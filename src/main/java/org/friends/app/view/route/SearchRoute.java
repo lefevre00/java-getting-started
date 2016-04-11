@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.friends.app.dao.PlaceDao;
 import org.friends.app.model.Place;
+import org.friends.app.model.User;
 import org.friends.app.service.impl.PlaceServiceBean;
 
 import spark.ModelAndView;
@@ -26,12 +27,13 @@ public class SearchRoute extends AuthenticatedRoute {
 	@Override
 	public ModelAndView doHandle(Request req, Response resp) {
     	Map<String, Object> map = getMap();
+    	User user = getUser(req);
     	
     	LocalDate now = LocalDate.now();
     	String paramDate = req.queryParams("day");
 		String dateRecherchee = paramDate != null ? paramDate : rechercheLaProchaineDateUtilisable();
 		LocalDate dateRechercheeAsDate = LocalDate.parse(dateRecherchee, PlaceDao.formatter);
-
+		
     	// Previous date
     	String previous = null;
 		if (paramDate != null) {
@@ -44,17 +46,28 @@ public class SearchRoute extends AuthenticatedRoute {
     	String next = rechercherLejourSuivant(nextDate);
     	map.put("next", next);
     	
+    	
+    	
     	map.put("dateRecherche", dateRechercheeAsDate.format(formatterDatePicker));
     	map.put("dateBook", dateRecherchee);
+    	Place placeReserveeParleUSer = placeReservedByUserAtTheDate(user, dateRechercheeAsDate);
     	List<Place> places = new ArrayList<Place>();
-		try {
-			places = getPlaces(dateRechercheeAsDate);
-		} catch (SQLException | URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	if (!places.isEmpty()){
-    		map.put("place", places.get(0));
+    	
+    	
+    	if(placeReserveeParleUSer != null){
+    		// L'utilisateur a déjà réservé une place ce jour là
+    		map.put("message", "Vous avez déjà réservé la place " + placeReserveeParleUSer.getPlaceNumber());
+    	}else{
+			try {
+				places = getPlaces(dateRechercheeAsDate);
+			} catch (SQLException | URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	if (!places.isEmpty()){
+	    		map.put("place", places.get(0));
+	    	}
+	    	
     	}
         return new ModelAndView(map, "search.ftl");
 	}
@@ -69,7 +82,7 @@ public class SearchRoute extends AuthenticatedRoute {
 	}
 
 	/**
-	 * Retourne la prochaine date de rÃ©servation
+	 * Retourne la prochaine date de réservation
 	 * @return
 	 */
 	protected String rechercheLaProchaineDateUtilisable(){
@@ -84,5 +97,16 @@ public class SearchRoute extends AuthenticatedRoute {
 
 	private List<Place> getPlaces(LocalDate dateRecherche) throws SQLException, URISyntaxException {
 		return placeService.getAvailableByDate(dateRecherche);
+	}
+	
+	/**
+	 * Retourne la place réservée par une utilisateur à une date donnée
+	 * retourne null si il n'a pas réservé de place
+	 * @param user
+	 * @param dateRecherche
+	 * @return
+	 */
+	private Place placeReservedByUserAtTheDate(User user, LocalDate dateRecherche){
+		return placeService.getPlaceReservedByUserAtTheDate(user, dateRecherche);
 	}
 }
