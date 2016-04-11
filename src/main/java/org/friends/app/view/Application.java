@@ -95,17 +95,10 @@ public class Application {
 		LoginRoute loginRoute = new LoginRoute();
 		get(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
 		post(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
-//		get("/", (req, res) -> {
-//			Routes.redirect(null, res);
-//			return null;
-//		});
 		get("/", (req, res) -> {
 			Map<String, String> map = new HashMap<>();
 			return new ModelAndView(map, "index.ftl");
 		}, new FreeMarkerEngine());
-		
-		
-		
 		
 		
 		/*
