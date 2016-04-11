@@ -4,13 +4,13 @@ import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import org.friends.app.dao.PlaceDao;
 import org.friends.app.dao.SessionDao;
 import org.friends.app.dao.UserDao;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
+import org.friends.app.util.DateUtil;
 import org.friends.app.view.Application;
 
 import com.google.common.hash.HashCode;
@@ -18,8 +18,6 @@ import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 
 public class StartParking {
-
-	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN);
 
 	public static void main(String[] args) throws SQLException, URISyntaxException {
 		System.setProperty("PORT", "8080");
@@ -43,9 +41,9 @@ public class StartParking {
 		userDao.persist(new User("jean-pierre.cluzel@amdm.fr", md5("jpc")));
 		
 		LocalDate timePoint = LocalDate.now();
-		String strDateToday  = timePoint.format(formatter);
-		String strTomorrow = timePoint.plusDays(1).format(formatter);
-		String strYearsteday = timePoint.minusDays(1).format(formatter);
+		String strDateToday  = DateUtil.dateAsString(timePoint);
+		String strTomorrow = DateUtil.dateAsString(timePoint.plusDays(1));
+		String strYearsteday = DateUtil.dateAsString(timePoint.minusDays(1));
 		PlaceDao placeDao = new PlaceDao();
 		
     	placeDao.persist(new Place(1, strDateToday)); //Place libre aujourd'hui free = true

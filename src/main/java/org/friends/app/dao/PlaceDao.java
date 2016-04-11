@@ -3,12 +3,12 @@ package org.friends.app.dao;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
 
 import org.friends.app.HibernateUtil;
 import org.friends.app.model.Place;
+import org.friends.app.util.DateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
@@ -18,8 +18,6 @@ import spark.utils.Assert;
 
 public class PlaceDao {
 
-	public static final String DATE_PATTERN = "yyyy-MM-dd";
-	public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN);
 	Session sessionHibernate = HibernateUtil.getSession();
 	
 	private final static Session session =  HibernateUtil.getSession();
@@ -43,7 +41,7 @@ public class PlaceDao {
 
 	
 	public void clearAllPlacesBeforeDate(LocalDate date) {
-		String strDateRecherche = date.format(formatter);
+		String strDateRecherche = DateUtil.dateAsString(date);
 		List<Place> listeDesPlacesAsupprimer = findPlacesByCriterions(Restrictions.le("occupationDate", strDateRecherche));
 		for (Iterator<Place> iterator = listeDesPlacesAsupprimer.iterator(); iterator.hasNext();) {
 			Place place = iterator.next();

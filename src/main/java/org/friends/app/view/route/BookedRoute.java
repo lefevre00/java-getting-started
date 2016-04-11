@@ -1,21 +1,24 @@
 package org.friends.app.view.route;
 
-import java.net.URISyntaxException;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.PlaceServiceBean;
+import org.friends.app.util.DateUtil;
 
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+/**
+ * Page listing the booked places for days starting today.
+ * Give access to booking page.
+ * @author michael
+ *
+ */
 public class BookedRoute extends AuthenticatedRoute {
 
 	private PlaceServiceBean service = new PlaceServiceBean();
@@ -24,16 +27,10 @@ public class BookedRoute extends AuthenticatedRoute {
 	public ModelAndView doHandle(Request request, Response response) {
 		
 		User user = getUser(request);
-		List<Place> reservations = new ArrayList<Place>();
-		try {
-			reservations = service.getReservationsOrRelease(user);
-		} catch (SQLException | URISyntaxException e) {
-			e.printStackTrace();
-		}
-		Map<String, Object> map = getMap();
+		List<Place> reservations = service.getReservationsOrRelease(user);
 		
+		Map<String, Object> map = getMap();
 		map.put("places", reservations);
-		map.put("placenumber", user.getPlaceNumber() == null ? "" : user.getPlaceNumber());
 		map.put("dateReservation", getDateReservation(reservations));
 		map.put("presentation", user.getPlaceNumber() == null ? "Voici les places que vous avez réservées :" : "Voici les dates de libération de la place " + user.getPlaceNumber().toString() + " :");
 
@@ -45,10 +42,10 @@ public class BookedRoute extends AuthenticatedRoute {
 		
 		String dateReservation="";
 		if (reservations.isEmpty()){
-			dateReservation = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			dateReservation = DateUtil.dateAsString(LocalDate.now());
 		}
 		else if (reservations.size() == 1 ) {
-			dateReservation = LocalDate.now().plusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			dateReservation = DateUtil.dateAsString(LocalDate.now().plusDays(1));
 		}
 		return dateReservation;
 	}

@@ -1,15 +1,12 @@
 package org.friends.app.view.route;
 
-import java.net.URISyntaxException;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-import org.friends.app.dao.PlaceDao;
 import org.friends.app.model.Place;
 import org.friends.app.service.impl.BookingException;
 import org.friends.app.service.impl.PlaceServiceBean;
+import org.friends.app.util.DateUtil;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -20,7 +17,6 @@ public class BookRoute extends AuthenticatedRoute {
 
 	public final static String PARAM_PLACE = ":place_id";
 	public final static String PARAM_DATE = ":date";
-	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN);
 
 	PlaceServiceBean service = new PlaceServiceBean();
 
@@ -34,7 +30,7 @@ public class BookRoute extends AuthenticatedRoute {
 		String date = params.get(PARAM_DATE);
 		
 		if (StringUtils.isEmpty(date)) {
-		    date = LocalDate.now().format(formatter);
+		    date = DateUtil.dateAsString(LocalDate.now());
 		}
 		
 		if (StringUtils.isEmpty(place)) {
@@ -51,12 +47,6 @@ public class BookRoute extends AuthenticatedRoute {
 				map.put("message", "Vous avez déjà réservé une place pour le jour demandée.");
 				map.put("numeroPlace", "");
 				map.put("dateRecherche", "");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 

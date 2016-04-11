@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.friends.app.dao.PlaceDao;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.PlaceServiceBean;
+import org.friends.app.util.DateUtil;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -20,6 +20,7 @@ import spark.Response;
 
 public class SearchRoute extends AuthenticatedRoute {
 	
+	@Deprecated // Move to DateUtil
 	static DateTimeFormatter formatterDatePicker = DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy");
 
 	private PlaceServiceBean placeService = new PlaceServiceBean();
@@ -32,7 +33,7 @@ public class SearchRoute extends AuthenticatedRoute {
     	LocalDate now = LocalDate.now();
     	String paramDate = req.queryParams("day");
 		String dateRecherchee = paramDate != null ? paramDate : rechercheLaProchaineDateUtilisable();
-		LocalDate dateRechercheeAsDate = LocalDate.parse(dateRecherchee, PlaceDao.formatter);
+		LocalDate dateRechercheeAsDate = DateUtil.stringToDate(dateRecherchee);
 		
     	// Previous date
     	String previous = null;
@@ -55,8 +56,8 @@ public class SearchRoute extends AuthenticatedRoute {
     	
     	
     	if(placeReserveeParleUSer != null){
-    		// L'utilisateur a déjà réservé une place ce jour là
-    		map.put("message", "Vous avez déjà réservé la place " + placeReserveeParleUSer.getPlaceNumber());
+    		// L'utilisateur a dï¿½jï¿½ rï¿½servï¿½ une place ce jour lï¿½
+    		map.put("message", "Vous avez dÃ©jÃ  rÃ©servÃ© la place " + placeReserveeParleUSer.getPlaceNumber());
     	}else{
 			try {
 				places = getPlaces(dateRechercheeAsDate);
@@ -78,11 +79,11 @@ public class SearchRoute extends AuthenticatedRoute {
 		}else{
 			dateRecherche = dateRecherche.minusDays(1);
 		}
-		return dateRecherche.compareTo(LocalDate.now()) <0 ? null : dateRecherche.format(PlaceDao.formatter);
+		return dateRecherche.compareTo(LocalDate.now()) <0 ? null : DateUtil.dateAsString(dateRecherche);
 	}
 
 	/**
-	 * Retourne la prochaine date de réservation
+	 * Retourne la prochaine date de reservation
 	 * @return
 	 */
 	protected String rechercheLaProchaineDateUtilisable(){
@@ -92,7 +93,7 @@ public class SearchRoute extends AuthenticatedRoute {
 		}else if(DayOfWeek.SATURDAY.equals(dateUtilisable.getDayOfWeek())){
 			dateUtilisable = dateUtilisable.plusDays(2);
 		}
-		return dateUtilisable.format(PlaceDao.formatter);
+		return DateUtil.dateAsString(dateUtilisable);
 	}
 
 	private List<Place> getPlaces(LocalDate dateRecherche) throws SQLException, URISyntaxException {
@@ -100,8 +101,8 @@ public class SearchRoute extends AuthenticatedRoute {
 	}
 	
 	/**
-	 * Retourne la place réservée par une utilisateur à une date donnée
-	 * retourne null si il n'a pas réservé de place
+	 * Retourne la place rÃ©servÃ©e par une utilisateur Ã  une date donnÃ©e
+	 * retourne null si il n'a pas rÃ©servÃ© de place
 	 * @param user
 	 * @param dateRecherche
 	 * @return

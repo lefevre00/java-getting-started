@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.friends.app.Configuration;
-import org.friends.app.dao.PlaceDao;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.UserServiceBean;
+import org.friends.app.util.DateUtil;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -70,7 +70,7 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 		}else{
 			dateRecherche = dateRecherche.plusDays(1);
 		}
-		return dateRecherche.format(PlaceDao.formatter);
+		return DateUtil.dateAsString(dateRecherche);
 	}
 	
 	/**

@@ -1,8 +1,9 @@
 package org.friends.app.service;
 
+import static org.friends.app.util.DateUtil.stringToDate;
+
 import java.net.URISyntaxException;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import org.friends.app.ParkingTest;
@@ -41,7 +42,7 @@ public class PlaceService_Create_Test extends ParkingTest {
 	@Test(expected=IllegalArgumentException.class)
 	public void une_place_doit_avoir_un_id() throws SQLException, URISyntaxException, BookingException {
 		Place unePlace = PlaceBuilder.unePlace().build(null, uneDateAuBonFormat);
-		service.releasePlace(unePlace.getPlaceNumber(), LocalDate.parse(unePlace.getOccupationDate(), PlaceDao.formatter));
+		service.releasePlace(unePlace.getPlaceNumber(), stringToDate(unePlace.getOccupationDate()));
 	}
 	
 
@@ -62,7 +63,7 @@ public class PlaceService_Create_Test extends ParkingTest {
 	@Test(expected=DateTimeParseException.class)
 	public void une_place_doit_avoir_une_date_valide() throws SQLException, URISyntaxException, BookingException {
 		Place unePlace = PlaceBuilder.unePlace().build(Integer.valueOf(1), uneDateAuMauvaisFormat);
-		service.releasePlace(unePlace.getPlaceNumber(), LocalDate.parse(unePlace.getOccupationDate(), PlaceDao.formatter));
+		service.releasePlace(unePlace.getPlaceNumber(), stringToDate(unePlace.getOccupationDate()));
 	}
 	
 }

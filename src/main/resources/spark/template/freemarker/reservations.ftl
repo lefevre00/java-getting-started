@@ -38,13 +38,8 @@
 						</tr>
 						<#list places as place>
 							<tr> 
-								<#if placenumber != "">
-					  	    		<td>Le ${place.occupationDate}</td>
-						  	     	<td>${place.occupiedBy}</td>
-						  	    <#else>
-						  	    	<td>Le ${place.occupationDate}</td>
-						  	     	<td>${place.placeNumber}</td>
-					  	    	</#if>
+				  	    		<td>Le ${place.occupationDate}</td>
+					  	     	<td>${place.occupiedBy}</td>
 							</tr>
 						</#list>
 					</table>

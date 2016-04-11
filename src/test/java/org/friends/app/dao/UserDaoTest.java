@@ -3,11 +3,11 @@ package org.friends.app.dao;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import org.friends.app.HibernateUtil;
 import org.friends.app.ParkingTest;
 import org.friends.app.model.User;
+import org.friends.app.util.DateUtil;
 import org.hibernate.criterion.Restrictions;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,13 +18,11 @@ import org.junit.Test;
 
 public class UserDaoTest extends ParkingTest {
 	
-
-	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PlaceDao.DATE_PATTERN);
 	static LocalDate timePoint = LocalDate.now();
-	static String strDateToday  = timePoint.format(formatter);
-	static String strTomorrow = timePoint.plusDays(1).format(formatter);
-	static String strApresDemain = timePoint.plusDays(2).format(formatter);
-	static String strYearsteday = timePoint.minusDays(1).format(formatter);
+	static String strDateToday = DateUtil.dateAsString(timePoint);
+	static String strTomorrow = DateUtil.dateAsString(timePoint.plusDays(1));
+	static String strApresDemain = DateUtil.dateAsString(timePoint.plusDays(2));
+	static String strYearsteday = DateUtil.dateAsString(timePoint.minusDays(1));
 	
 	
 	private UserDao userDao = new UserDao();
