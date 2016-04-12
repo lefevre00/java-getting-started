@@ -19,20 +19,19 @@ import spark.Response;
 
 public class ShareRoute extends AuthenticatedRoute {
 	
+	private static LocalDate shareDate = null;
 	private PlaceServiceBean placeService = new PlaceServiceBean();
 
 	@Override
 	public ModelAndView doHandle(Request request, Response response) {
+		
+    	Map<String, Object> map = getMap();
+    	User user = getUser(request);		
 
 		ModelAndView model = null;
-		Map<String, Object> map = getMap();
-		User user = getUser(request);
-        map.put("dateRecherche", DateUtil.dateToString(LocalDate.now(), Locale.FRANCE));
-        String next = rechercherLejourSuivant(LocalDate.now());
-    	map.put("next", next);
-    	map.put("previous", null);
-    	map.put("dateBook", DateUtil.dateToString(LocalDate.now()));
+		
 		if ("POST".equalsIgnoreCase(request.requestMethod())) {
+			
 			LocalDate dateDebut = request.queryParams("dateDebut") != null ? DateUtil.stringToDate(request.queryParams("dateDebut"), Locale.FRANCE) : null;
 			LocalDate dateFin = request.queryParams("dateFin") != null ? DateUtil.stringToDate(request.queryParams("dateFin"), Locale.FRANCE) : null;
 
@@ -43,18 +42,18 @@ public class ShareRoute extends AuthenticatedRoute {
 					try {
 						placeService.releasePlace(user.getPlaceNumber().intValue(), DateUtil.stringToDate(leJour));
 					} catch (BookingException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						map.put("placeNumber", user.getPlaceNumber());
+						map.put("message", "Vous avez déjà partagé votre place pour le " + DateUtil.dateToFullString(ShareRoute.shareDate));
+				        return new ModelAndView(map, "error.ftl");	
 					}
 				}
-				
-				// TODO : il ne faut pas pointer vers search, mais rester sur la page share 
-		        model = new ModelAndView(map, "search.ftl");
-		        response.redirect(Routes.PLACE_SEARCH);
+		        model = new ModelAndView(map, "actions.ftl");
+	
 			}
 		} else {
-			if (user.getPlaceNumber() == null)
+			if (user.getPlaceNumber() == null){
 				throw new RuntimeException("A user without place cannot share a place");
+			}
 
 	        map.put("placeNumber", user.getPlaceNumber());
 			model = new ModelAndView(map, "sharePlace.ftl");
@@ -68,9 +67,9 @@ public class ShareRoute extends AuthenticatedRoute {
 		
 	    List<String> dates = new ArrayList<String>();
 	    LocalDate dateToAdd = startdate;
+	    System.out.println("\n\n");
 	    while (dateToAdd.isBefore(enddate.plusDays(1)))
 	    {
-	    	System.out.println(dateToAdd.toString() + " / " + startdate.toString() + " - " + enddate.toString());
 	    	if((DayOfWeek.SATURDAY.equals(dateToAdd.getDayOfWeek())) || (DayOfWeek.SUNDAY.equals(dateToAdd.getDayOfWeek()))){
 	        	
 	        }else{
@@ -78,6 +77,8 @@ public class ShareRoute extends AuthenticatedRoute {
 
 	        }
 	    	dateToAdd= dateToAdd.plusDays(1);
+	    	shareDate = dateToAdd;
+	    	System.out.println("date : " + dateToAdd.toString() + " - shareDate : " + shareDate.toString() );
 	    }
 	    return dates;
 	}

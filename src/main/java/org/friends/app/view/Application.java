@@ -113,6 +113,28 @@ public class Application {
 			}
 		}, new FreeMarkerEngine());
 
+
+		/*
+		 * Error page
+		 */		
+//		get(Routes.ERROR_PAGE, new AuthenticatedRoute() {
+//			@Override
+//			protected ModelAndView doHandle(Request request, Response response) {
+//				return new ModelAndView(null, "error.ftl");
+//			}
+//		}, new FreeMarkerEngine());		
+		
+		
+		
+		
+		
+		get(Routes.ERROR_PAGE, (req, res) -> {
+			Map<String, String> map = new HashMap<>();
+			return new ModelAndView(map, "error.ftl");
+		}, new FreeMarkerEngine());		
+		
+		
+		
 		/* 
 		 * User register 
 		 */

@@ -30,6 +30,7 @@ public interface Routes {
 	String PASSWORD_NEW = "/user/pwd";
 	String PASSWORD_SETTED = "/user/setted";
 	
+	String ERROR_PAGE = "/user/error";
 	/*
 	 * Accessible if authenticated
 	 */
