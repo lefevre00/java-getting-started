@@ -155,4 +155,45 @@ public class PlaceServiceBean implements PlaceService {
 		places = placedao.findPlacesByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()),Restrictions.eq("occupationDate", DateUtil.dateToString(dateRecherche)));
 		return places.size() == 0 ? null : places.get(0);
 	}
+	
+	/**
+	 * 
+	 */
+	@Override
+	public List<String> getAllsharedDatesByPlaceNumber(Integer placeNumber)  {
+		Assert.notNull(placeNumber);
+		List<Place> places = new ArrayList<Place>();
+		places = placedao.findPlacesByCriterions(Restrictions.eq("placeNumber", placeNumber));
+		List<String> listeDates = new ArrayList<String>();
+		for (Place place : places){
+			if (place.getOccupiedBy() == null){
+				listeDates.add(place.getOccupationDate());	
+			}
+			
+		}
+		
+		return listeDates;
+		
+		
+		
+		
+//		listRetour = placedao.findPlacesByCriterions(Restrictions.eq("placeNumber", placeNumber));
+//		List<Place> listPourAffichage = new ArrayList<Place>();
+//		for (Iterator<Place> iterator = listRetour.iterator(); iterator.hasNext();) {
+//			Place place = (Place) iterator.next();
+//			if (place.getOccupiedBy() == null) {
+//				place.setOccupiedBy(" ");
+//			}
+//			listPourAffichage.add(place);
+//		}
+//		listRetour.clear();
+//		listRetour.addAll(listPourAffichage);		
+		
+		
+		
+	}
+	
+	
+	
+	
 }

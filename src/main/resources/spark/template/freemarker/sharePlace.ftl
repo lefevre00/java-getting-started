@@ -52,6 +52,27 @@
 						<br clear="both"/>
 						<input type="submit" class="btn btn-primary btn-lg" value="Valider"/>
 					
+					
+						<!--=============================== liste des dates de partage ============================-->
+						
+						<div class="row table-responsive" style="margin:0px auto;max-width:550px; padding-top:20px;">
+							<#if partages??>
+								<table class="table table-bordered table-striped table-condensed padding20">
+									<tr style="background-color: #337ab7; color: white;">
+										<th style="text-align:center;">Date de partage</th> 
+										<th style="text-align:center;">Annuler</th>
+									</tr>
+									<#list places as place>
+										<tr> 
+							  	    		<td>Le ${place.occupationDate}</td>
+								  	     	<td><img src="/images/cancel.png"/></td>
+										</tr>
+									</#list>
+								</table>
+							</#if>
+						</div>					
+					
+					
 				</form>
 			</div>	
 

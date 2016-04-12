@@ -72,5 +72,7 @@ public class PlaceDao {
 		}
 		return (Place) criteria.uniqueResult();
 	}
+
+	
 }
 

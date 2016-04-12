@@ -20,5 +20,7 @@ public interface PlaceService {
 	public Place book(String date, User user, String placeNumber) throws SQLException, URISyntaxException, BookingException;
 	
 	public List<Place> getReservationsOrRelease(User user) throws SQLException, URISyntaxException;
+	
+	public List<String> getAllsharedDatesByPlaceNumber(Integer placeNumber);
 
 }
