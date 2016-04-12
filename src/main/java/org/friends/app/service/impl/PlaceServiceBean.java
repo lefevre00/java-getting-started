@@ -23,7 +23,7 @@ public class PlaceServiceBean implements PlaceService {
 	PlaceDao placedao = new PlaceDao();
 
 	public List<Place> getAvailableByDate(LocalDate date) {
-		return placedao.findPlacesByCriterions(Restrictions.eq("occupationDate", DateUtil.dateAsString(date)),
+		return placedao.findPlacesByCriterions(Restrictions.eq("occupationDate", DateUtil.dateToString(date)),
 				Restrictions.isNull("mailOccupant"));
 	}
 	/**
@@ -39,7 +39,7 @@ public class PlaceServiceBean implements PlaceService {
 	public void releasePlace(Integer numberPlace, LocalDate dateReservation) throws BookingException {
 		Assert.notNull(numberPlace);
 		Assert.notNull(dateReservation);
-		String dateAsString = DateUtil.dateAsString(dateReservation);
+		String dateAsString = DateUtil.dateToString(dateReservation);
 		List<Place> listPlaceReserve = placedao.findPlacesByCriterions(
 				Restrictions.eq("occupationDate", dateAsString),
 				Restrictions.eq("placeNumber", numberPlace));
@@ -111,14 +111,14 @@ public class PlaceServiceBean implements PlaceService {
 		if (user.getPlaceNumber() == null) {
 			List<Place> places = new ArrayList<>();
 			// Recherche r�servation pour le jour j	
-			places = placedao.findPlacesByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()),Restrictions.ge("occupationDate", DateUtil.dateAsString(LocalDate.now())));
+			places = placedao.findPlacesByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()),Restrictions.ge("occupationDate", DateUtil.dateToString(LocalDate.now())));
 			if (!places.isEmpty()){
 				listRetour.add(places.get(0));	
 			}
 
 			// Recherche r�servation pour le jour j+1
 			places = placedao.findPlacesByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()),
-					Restrictions.ge("occupationDate", DateUtil.dateAsString(LocalDate.now().plusDays(1))));
+					Restrictions.ge("occupationDate", DateUtil.dateToString(LocalDate.now().plusDays(1))));
 			if (!places.isEmpty()) {
 				listRetour.add(places.get(0));
 			}
@@ -152,7 +152,7 @@ public class PlaceServiceBean implements PlaceService {
 		Assert.notNull(user.getEmailAMDM());
 		List<Place> places = new ArrayList<>();
 		// Recherche r�servation pour le jour j	
-		places = placedao.findPlacesByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()),Restrictions.eq("occupationDate", DateUtil.dateAsString(dateRecherche)));
+		places = placedao.findPlacesByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()),Restrictions.eq("occupationDate", DateUtil.dateToString(dateRecherche)));
 		return places.size() == 0 ? null : places.get(0);
 	}
 }

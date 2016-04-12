@@ -4,7 +4,6 @@ import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,9 +19,6 @@ import spark.Response;
 
 public class SearchRoute extends AuthenticatedRoute {
 	
-	@Deprecated // Move to DateUtil
-	static DateTimeFormatter formatterDatePicker = DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy");
-
 	private PlaceServiceBean placeService = new PlaceServiceBean();
 	
 	@Override
@@ -49,7 +45,7 @@ public class SearchRoute extends AuthenticatedRoute {
     	
     	
     	
-    	map.put("dateRecherche", dateRechercheeAsDate.format(formatterDatePicker));
+    	map.put("dateRecherche", DateUtil.dateToFullString(dateRechercheeAsDate));
     	map.put("dateBook", dateRecherchee);
     	map.put("shared", user.getPlaceNumber()==null ? null : true);
     	Place placeReserveeParleUSer = placeReservedByUserAtTheDate(user, dateRechercheeAsDate);
@@ -80,7 +76,7 @@ public class SearchRoute extends AuthenticatedRoute {
 		}else{
 			dateRecherche = dateRecherche.minusDays(1);
 		}
-		return dateRecherche.compareTo(LocalDate.now()) <0 ? null : DateUtil.dateAsString(dateRecherche);
+		return dateRecherche.compareTo(LocalDate.now()) <0 ? null : DateUtil.dateToString(dateRecherche);
 	}
 
 	/**
@@ -94,7 +90,7 @@ public class SearchRoute extends AuthenticatedRoute {
 		}else if(DayOfWeek.SATURDAY.equals(dateUtilisable.getDayOfWeek())){
 			dateUtilisable = dateUtilisable.plusDays(2);
 		}
-		return DateUtil.dateAsString(dateUtilisable);
+		return DateUtil.dateToString(dateUtilisable);
 	}
 
 	private List<Place> getPlaces(LocalDate dateRecherche) throws SQLException, URISyntaxException {

@@ -23,10 +23,10 @@ public class PlaceDaoTest extends ParkingTest {
 
 	private static String MAIL_RESERVANT = "damien.urvoix@amdm.fr";
 	static LocalDate timePoint = LocalDate.now();
-	static String strDateToday  = DateUtil.dateAsString(timePoint);
-	static String strTomorrow = DateUtil.dateAsString(timePoint.plusDays(1));
-	static String strApresDemain = DateUtil.dateAsString(timePoint.plusDays(2));
-	static String strYearsteday = DateUtil.dateAsString(timePoint.minusDays(1));
+	static String strDateToday  = DateUtil.dateToString(timePoint);
+	static String strTomorrow = DateUtil.dateToString(timePoint.plusDays(1));
+	static String strApresDemain = DateUtil.dateToString(timePoint.plusDays(2));
+	static String strYearsteday = DateUtil.dateToString(timePoint.minusDays(1));
 	
 	private PlaceDao placeDao;
     
@@ -85,7 +85,7 @@ public class PlaceDaoTest extends ParkingTest {
     
     @Test
     public void UserAPasDejaUnePlaceReserveDans10jours() {
-    	String dans10jours = DateUtil.dateAsString(timePoint.plusDays(10));
+    	String dans10jours = DateUtil.dateToString(timePoint.plusDays(10));
     	List<Place> listPlaceReserve = placeDao.findPlacesByCriterions(Restrictions.eq("occupationDate", dans10jours), Restrictions.eq("mailOccupant",MAIL_RESERVANT));
     	Assert.assertEquals( MAIL_RESERVANT+ " n'a pas réservé une place dans 4 jours", false, (listPlaceReserve!= null && listPlaceReserve.size()>0) ? true : false);
     }  

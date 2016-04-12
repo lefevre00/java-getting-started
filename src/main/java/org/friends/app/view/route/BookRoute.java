@@ -31,7 +31,7 @@ public class BookRoute extends AuthenticatedRoute {
 		String date = params.get(PARAM_DATE);
 		map.put("shared", user.getPlaceNumber()==null ? null : true);
 		if (StringUtils.isEmpty(date)) {
-		    date = DateUtil.dateAsString(LocalDate.now());
+		    date = DateUtil.dateToString(LocalDate.now());
 		}
 		
 		if (StringUtils.isEmpty(place)) {

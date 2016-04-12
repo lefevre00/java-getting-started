@@ -2,10 +2,10 @@ package org.friends.app.view.route;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.friends.app.model.User;
@@ -18,8 +18,6 @@ import spark.Request;
 import spark.Response;
 
 public class ShareRoute extends AuthenticatedRoute {
-	@Deprecated // Move to DateUtil
-	static DateTimeFormatter formatterDatePicker = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
 	private PlaceServiceBean placeService = new PlaceServiceBean();
 
@@ -29,15 +27,15 @@ public class ShareRoute extends AuthenticatedRoute {
 		ModelAndView model = null;
 		Map<String, Object> map = getMap();
 		User user = getUser(request);
-        map.put("dateRecherche", LocalDate.now().format(formatterDatePicker));
+        map.put("dateRecherche", DateUtil.dateToString(LocalDate.now(), Locale.FRANCE));
         String next = rechercherLejourSuivant(LocalDate.now());
     	map.put("next", next);
     	map.put("previous", null);
-    	map.put("dateBook", DateUtil.dateAsString(LocalDate.now()));
+    	map.put("dateBook", DateUtil.dateToString(LocalDate.now()));
 		if ("POST".equalsIgnoreCase(request.requestMethod())) {
-			LocalDate dateDebut = request.queryParams("dateDebut") != null ? LocalDate.parse(request.queryParams("dateDebut"), formatterDatePicker) : null;
-			LocalDate dateFin = request.queryParams("dateFin") != null ? LocalDate.parse(request.queryParams("dateFin"), formatterDatePicker) : null;
-				
+			LocalDate dateDebut = request.queryParams("dateDebut") != null ? DateUtil.stringToDate(request.queryParams("dateDebut"), Locale.FRANCE) : null;
+			LocalDate dateFin = request.queryParams("dateFin") != null ? DateUtil.stringToDate(request.queryParams("dateFin"), Locale.FRANCE) : null;
+
 			if((dateDebut != null) && (dateFin != null)){
 				List<String> lesDates = getDaysBetweenDates(dateDebut, dateFin);
 				for (Iterator<String> iterator = lesDates.iterator(); iterator.hasNext();) {
@@ -49,13 +47,14 @@ public class ShareRoute extends AuthenticatedRoute {
 						e.printStackTrace();
 					}
 				}
+				
+				// TODO : il ne faut pas pointer vers search, mais rester sur la page share 
 		        model = new ModelAndView(map, "search.ftl");
 		        response.redirect(Routes.PLACE_SEARCH);
 			}
 		} else {
 			if (user.getPlaceNumber() == null)
 				throw new RuntimeException("A user without place cannot share a place");
-			
 
 	        map.put("placeNumber", user.getPlaceNumber());
 			model = new ModelAndView(map, "sharePlace.ftl");
@@ -75,7 +74,7 @@ public class ShareRoute extends AuthenticatedRoute {
 	    	if((DayOfWeek.SATURDAY.equals(dateToAdd.getDayOfWeek())) || (DayOfWeek.SUNDAY.equals(dateToAdd.getDayOfWeek()))){
 	        	
 	        }else{
-	        	dates.add(DateUtil.dateAsString(dateToAdd));
+	        	dates.add(DateUtil.dateToString(dateToAdd));
 
 	        }
 	    	dateToAdd= dateToAdd.plusDays(1);
@@ -84,7 +83,7 @@ public class ShareRoute extends AuthenticatedRoute {
 	}
 	
 	public String nextDayWithOutWeekEnd(){
-		String retour = DateUtil.dateAsString(LocalDate.now());
+		String retour = DateUtil.dateToString(LocalDate.now());
 		return retour;
 	}
 }

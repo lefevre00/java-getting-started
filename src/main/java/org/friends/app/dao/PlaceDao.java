@@ -41,7 +41,7 @@ public class PlaceDao {
 
 	
 	public void clearAllPlacesBeforeDate(LocalDate date) {
-		String strDateRecherche = DateUtil.dateAsString(date);
+		String strDateRecherche = DateUtil.dateToString(date);
 		List<Place> listeDesPlacesAsupprimer = findPlacesByCriterions(Restrictions.le("occupationDate", strDateRecherche));
 		for (Iterator<Place> iterator = listeDesPlacesAsupprimer.iterator(); iterator.hasNext();) {
 			Place place = iterator.next();

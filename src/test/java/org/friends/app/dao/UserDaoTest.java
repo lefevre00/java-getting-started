@@ -19,10 +19,10 @@ import org.junit.Test;
 public class UserDaoTest extends ParkingTest {
 	
 	static LocalDate timePoint = LocalDate.now();
-	static String strDateToday = DateUtil.dateAsString(timePoint);
-	static String strTomorrow = DateUtil.dateAsString(timePoint.plusDays(1));
-	static String strApresDemain = DateUtil.dateAsString(timePoint.plusDays(2));
-	static String strYearsteday = DateUtil.dateAsString(timePoint.minusDays(1));
+	static String strDateToday = DateUtil.dateToString(timePoint);
+	static String strTomorrow = DateUtil.dateToString(timePoint.plusDays(1));
+	static String strApresDemain = DateUtil.dateToString(timePoint.plusDays(2));
+	static String strYearsteday = DateUtil.dateToString(timePoint.minusDays(1));
 	
 	
 	private UserDao userDao = new UserDao();

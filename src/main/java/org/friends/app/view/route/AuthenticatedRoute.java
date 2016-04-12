@@ -70,7 +70,7 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 		}else{
 			dateRecherche = dateRecherche.plusDays(1);
 		}
-		return DateUtil.dateAsString(dateRecherche);
+		return DateUtil.dateToString(dateRecherche);
 	}
 	
 	/**

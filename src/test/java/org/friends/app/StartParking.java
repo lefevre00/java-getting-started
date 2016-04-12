@@ -41,9 +41,9 @@ public class StartParking {
 		userDao.persist(new User("jean-pierre.cluzel@amdm.fr", md5("jpc")));
 		
 		LocalDate timePoint = LocalDate.now();
-		String strDateToday  = DateUtil.dateAsString(timePoint);
-		String strTomorrow = DateUtil.dateAsString(timePoint.plusDays(1));
-		String strYearsteday = DateUtil.dateAsString(timePoint.minusDays(1));
+		String strDateToday  = DateUtil.dateToString(timePoint);
+		String strTomorrow = DateUtil.dateToString(timePoint.plusDays(1));
+		String strYearsteday = DateUtil.dateToString(timePoint.minusDays(1));
 		PlaceDao placeDao = new PlaceDao();
 		
     	placeDao.persist(new Place(1, strDateToday)); //Place libre aujourd'hui free = true

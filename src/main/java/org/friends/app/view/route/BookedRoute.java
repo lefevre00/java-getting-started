@@ -44,10 +44,10 @@ public class BookedRoute extends AuthenticatedRoute {
 		
 		String dateReservation="";
 		if (reservations.isEmpty()){
-			dateReservation = DateUtil.dateAsString(LocalDate.now());
+			dateReservation = DateUtil.dateToString(LocalDate.now());
 		}
 		else if (reservations.size() == 1 ) {
-			dateReservation = DateUtil.dateAsString(LocalDate.now().plusDays(1));
+			dateReservation = DateUtil.dateToString(LocalDate.now().plusDays(1));
 		}
 		return dateReservation;
 	}
