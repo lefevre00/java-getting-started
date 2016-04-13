@@ -23,7 +23,7 @@ public class PlaceServiceBean implements PlaceService {
 	PlaceDao placedao = new PlaceDao();
 
 	public List<Place> getAvailableByDate(LocalDate date) {
-		return placedao.findPlacesByCriterions(Restrictions.eq("occupationDate", DateUtil.dateToString(date)),
+		return placedao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", DateUtil.dateToString(date)),
 				Restrictions.isNull("mailOccupant"));
 	}
 	/**
