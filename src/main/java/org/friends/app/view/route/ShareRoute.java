@@ -10,18 +10,17 @@ import java.util.Map;
 
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
-import org.friends.app.service.impl.BookingException;
 import org.friends.app.service.impl.PlaceServiceBean;
 import org.friends.app.util.DateUtil;
 
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.utils.StringUtils;
 
 public class ShareRoute extends AuthenticatedRoute {
 	
 	private PlaceServiceBean placeService = new PlaceServiceBean();
-	private static List<String> datesInseres = new ArrayList<>();
 	
 	@Override
 	public ModelAndView doHandle(Request request, Response response) {
@@ -31,7 +30,25 @@ public class ShareRoute extends AuthenticatedRoute {
 
 		ModelAndView model = null;
 		
-		List<Place> partages = placeService.getReservationsOrRelease(user);
+		// Annulation d'un partage
+		String unshareDate = request.queryParams("unshareDate");
+		if (!StringUtils.isEmpty(unshareDate)){
+			
+			try {
+				placeService.unsharePlaceByDate(unshareDate, user.getPlaceNumber());
+			} catch (Exception e) {
+				map.put("placeNumber", user.getPlaceNumber());
+				map.put("message", "Une erreur est survenue lors de l'annulation !"); 
+		        return new ModelAndView(map, "error.ftl");	
+			}
+			
+		}
+		
+		// Liste des dates partagées
+		List<Place> datesPartages = placeService.getReservationsOrRelease(user);
+		if (!datesPartages.isEmpty()){
+			map.put("datesPartages", datesPartages);
+		}
 		
 		if ("POST".equalsIgnoreCase(request.requestMethod())) {
 			
@@ -40,30 +57,26 @@ public class ShareRoute extends AuthenticatedRoute {
 
 			if((dateDebut != null) && (dateFin != null)){
 				List<String> lesDates = getDaysBetweenDates(dateDebut, dateFin);
-				int i=0;
 				for (Iterator<String> iterator = lesDates.iterator(); iterator.hasNext();) {
 					String leJour = (String) iterator.next();
 					try {
 						placeService.releasePlace(user.getPlaceNumber().intValue(), DateUtil.stringToDate(leJour));
-					} catch (BookingException e) {
+					} catch (Exception e) {
 						map.put("placeNumber", user.getPlaceNumber());
-						map.put("message", "Vous avez déjà partagé votre place pour le " + datesInseres.get(i));
+						map.put("message", "Vous avez déjà partagé votre place pour le " + leJour);
 				        return new ModelAndView(map, "error.ftl");	
 					}
-					i++;
 				}
 				
-
-				map.put("datesPartage", partages);
 				map.put("placeNumber", user.getPlaceNumber());
 		        model = new ModelAndView(map, "sharePlace.ftl");
+		        response.redirect(Routes.PLACE_SHARE);
 
 			}
 		} else {
 			if (user.getPlaceNumber() == null){
 				throw new RuntimeException("A user without place cannot share a place");
 			}
-			map.put("datesPartage", partages);
 	        map.put("placeNumber", user.getPlaceNumber());
 			model = new ModelAndView(map, "sharePlace.ftl");
 		}
@@ -82,8 +95,6 @@ public class ShareRoute extends AuthenticatedRoute {
 	        	
 	        }else{
 	        	dates.add(DateUtil.dateToString(dateToAdd));
-	        	datesInseres.add(DateUtil.dateToString(dateToAdd, Locale.FRANCE));
-
 	        }
 	    	dateToAdd= dateToAdd.plusDays(1);
 	    }

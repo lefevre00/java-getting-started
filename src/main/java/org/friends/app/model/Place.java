@@ -4,19 +4,15 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
-import org.friends.app.model.Place.PlacePK;
 
 @Entity
-@IdClass(PlacePK.class)
-@Table(name = "PLACES", uniqueConstraints = {@UniqueConstraint(columnNames={"EMAIL_OCCUPANT", "OCCUPATION_DATE"})})
+@Table(name = "PLACES")
 @NamedQueries(value = {
 		@NamedQuery(name=Place.QUERY_RESERVE_PLACE, query="update Place p set mailOccupant = :email where placeNumber = :placeNumber and occupationDate = :date")
 })
@@ -25,42 +21,36 @@ public class Place {
 	public static final int HEURE_CHANGEMENT_JOUR_RECHERCHE = 18;
 	public static final String QUERY_RESERVE_PLACE = "reservePlace";
 
-	@Id 
-	@Column(name="ID")
-	private Integer placeNumber;
+	@Id
+	@Embedded
+	private PlacePK id;
 	
 	@Column(name="EMAIL_OCCUPANT")
 	private String mailOccupant;
 
-	@Id
-	@Column(name="OCCUPATION_DATE")
-	private String occupationDate;
-	
 	// Hibernate
 	public Place() {}
 	
 	public Place(Integer number, String date) {
-		placeNumber = number;
-		occupationDate = date;
+		id = new PlacePK(number, date);
 	}	
 	
 	public Place(Integer number, String emailOccupant, String date) {
-		placeNumber = number;
+		this(number, date);
 		mailOccupant = emailOccupant;
-		occupationDate = date;
 	}	
 	
 	/**
 	 * @return the placeNumber
 	 */
 	public Integer getPlaceNumber() {
-		return placeNumber;
+		return id.placeNumber;
 	}
 	
 	@Override
 	public String toString() {
-		return "Place [placeNumber=" + placeNumber + ", mailOccupant=" + mailOccupant + ", occupationDate="
-				+ occupationDate + "]";
+		return "Place [placeNumber=" + getPlaceNumber() + ", mailOccupant=" + mailOccupant + ", occupationDate="
+				+ getOccupationDate() + "]";
 	}
 
 	/**
@@ -81,13 +71,17 @@ public class Place {
 	 * @return the occupationDate
 	 */
 	public String getOccupationDate() {
-		return occupationDate;
+		return id.occupationDate;
 	}
 	
 	@Embeddable
 	public static class PlacePK implements Serializable {
 		private static final long serialVersionUID = 1L;
+
+		@Column(name="ID")
 		protected Integer placeNumber;
+
+		@Column(name="OCCUPATION_DATE")
 	    protected String occupationDate;
 
 	    public PlacePK() {}

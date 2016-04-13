@@ -21,6 +21,6 @@ public interface PlaceService {
 	
 	public List<Place> getReservationsOrRelease(User user) throws SQLException, URISyntaxException;
 	
-	public List<String> getAllsharedDatesByPlaceNumber(Integer placeNumber);
+	public void unsharePlaceByDate(String date, Integer placeNumber);
 
 }

@@ -39,10 +39,19 @@ public class PlaceDao {
 		session.getTransaction().commit();
 	}
 
+	public void delete(String date, Integer placeNumber){
+		session.beginTransaction();
+		Place item = session.get(Place.class, new Place.PlacePK(placeNumber, date));
+		if (item != null) {
+			session.delete(item);	
+		}
+		session.getTransaction().commit();
+	}
+
 	
 	public void clearAllPlacesBeforeDate(LocalDate date) {
 		String strDateRecherche = DateUtil.dateToString(date);
-		List<Place> listeDesPlacesAsupprimer = findPlacesByCriterions(Restrictions.le("occupationDate", strDateRecherche));
+		List<Place> listeDesPlacesAsupprimer = findPlacesByCriterions(Restrictions.le("id.occupationDate", strDateRecherche));
 		for (Iterator<Place> iterator = listeDesPlacesAsupprimer.iterator(); iterator.hasNext();) {
 			Place place = iterator.next();
 			session.delete(place);	

@@ -11,8 +11,8 @@
 
     <section class="content-section">
 		<div class="container containerAttr" style="padding-bottom:80px;">
-			<h2>Erreur !</h2>
-			<br><br>
+			<h2>Oups !</h2>
+			<br>
 			<img src="/images/error_image.png"/>
 			<br><br>
 			${message}

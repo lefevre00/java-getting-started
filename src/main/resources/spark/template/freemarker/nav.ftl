@@ -8,31 +8,33 @@
 				<span class="icon icon-bar"></span>
 			</button>
 			<#if logged??>
-			<a href="/protected/" class="navbar-brand" >
+				<a href="/protected/" class="navbar-brand" >
 			<#else>
-			<a href="/" class="navbar-brand" >
+				<a href="/" class="navbar-brand" >
 			</#if>
-				<img src="/images/logo.png" class="hidden-xs" alt="CoParking">
+			<img src="/images/logo.png" class="hidden-xs" alt="CoParking">
 			</a>			
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<#if logged??>
-				<li class="dropdown dropdown-submenu">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">ACTIONS</a>
-					<ul class="dropdown-menu">
-						<#if shared??><li><a href="/protected/share">Partage</a></li></#if>
-						<li><a href="/protected/booked">Réservation</a></li>
-						<li><a href="/protected/setting">Paramètres</a></li>
-					</ul>
-				</li>
+					<li class="dropdown dropdown-submenu">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">ACTIONS</a>
+						<ul class="dropdown-menu">
+							<#if shared??>
+								<li><a href="/protected/share">Partage</a></li>
+							</#if>
+							<li><a href="/protected/booked">Réservation</a></li>
+							<li><a href="/protected/setting">Paramètres</a></li>
+						</ul>
+					</li>
 				<#else>
-				<li><a href="/">ACCUEIL</a></li>
+					<li><a href="/">ACCUEIL</a></li>
 				</#if>
 				<li><a href="/#aide">AIDE</a></li>
 				<li><a href="/#contact">CONTACT</a></li>
 				<#if logged??>
-				<li><a href="/user/logout">DECONNEXION</a></li>
+					<li><a href="/user/logout">DECONNEXION</a></li>
 				</#if>
 			</ul>
 		</div>

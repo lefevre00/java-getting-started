@@ -29,7 +29,7 @@
 				</#if>
 
 			</div>
-			<div class="row table-responsive" style="margin:0px auto;max-width:700px; padding-top:20px;">
+			<div class="row table-responsive" style="margin:0px auto;max-width:550px; padding-top:20px;">
 				<#if places??>
 					<table class="table table-bordered table-striped table-condensed padding20">
 						<tr style="background-color: #337ab7; color: white;">

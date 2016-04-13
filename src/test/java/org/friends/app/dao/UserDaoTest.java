@@ -10,7 +10,6 @@ import org.friends.app.model.User;
 import org.friends.app.util.DateUtil;
 import org.hibernate.criterion.Restrictions;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -42,11 +41,6 @@ public class UserDaoTest extends ParkingTest {
     @After
     public void clearDataBase() throws SQLException {
     	userDao.clearAllUsers();
-    }
-    
-    @AfterClass
-    public static void close(){
-    	HibernateUtil.closeSession();
     }
 
 	private void init() throws SQLException, URISyntaxException {

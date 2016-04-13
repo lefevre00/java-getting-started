@@ -53,7 +53,7 @@ public class SearchRoute extends AuthenticatedRoute {
     	
     	
     	if(placeReserveeParleUSer != null){
-    		// L'utilisateur a d�j� r�serv� une place ce jour l�
+    		// L'utilisateur a déjà réservé une place ce jour là
     		map.put("message", "Vous avez déjà réservé la place " + placeReserveeParleUSer.getPlaceNumber());
     	}else{
 			try {
