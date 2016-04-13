@@ -32,10 +32,22 @@ public class ShareRoute extends AuthenticatedRoute {
 		
 		// Annulation d'un partage
 		String unshareDate = request.queryParams("unshareDate");
+		String placeNumber = request.queryParams("placeNumber");
 		if (!StringUtils.isEmpty(unshareDate)){
+			Place placeReservee= null;
+			if(user.getPlaceNumber() != null){
+					placeReservee = new Place(user.getPlaceNumber(), unshareDate);
+			}else{
+				if(StringUtils.isEmpty(placeNumber)){
+					map.put("placeNumber", placeNumber);
+					map.put("message", "Une erreur est survenue lors de l'annulation !"); 
+			        return new ModelAndView(map, "error.ftl");
+				}
+				placeReservee = placeService.getPlaceReservedByUserAtTheDate(user, DateUtil.stringToDate(unshareDate));
+			}
 			
 			try {
-				placeService.unsharePlaceByDate(unshareDate, user.getPlaceNumber());
+				placeService.unsharePlaceByDate(placeReservee, user);
 			} catch (Exception e) {
 				map.put("placeNumber", user.getPlaceNumber());
 				map.put("message", "Une erreur est survenue lors de l'annulation !"); 
@@ -74,11 +86,22 @@ public class ShareRoute extends AuthenticatedRoute {
 
 			}
 		} else {
-			if (user.getPlaceNumber() == null){
-				throw new RuntimeException("A user without place cannot share a place");
+			if (StringUtils.isEmpty(unshareDate) && (user.getPlaceNumber() == null)){
+					throw new RuntimeException("A user without place cannot share a place");
 			}
-	        map.put("placeNumber", user.getPlaceNumber());
-			model = new ModelAndView(map, "sharePlace.ftl");
+			map.put("placeNumber", user.getPlaceNumber());
+			String viewName = "sharePlace.ftl";
+			if (!StringUtils.isEmpty(unshareDate) && !StringUtils.isEmpty(placeNumber)) {
+				map.put("presentation", user.getPlaceNumber() == null ? "Voici les places que vous avez réservées :" : "Voici les dates de libération de la place " + user.getPlaceNumber().toString() + " :");
+				List<Place> reservations = placeService.getReservationsOrRelease(user);
+				map.put("shared", user.getPlaceNumber()==null ? null : true);
+				map.put("places", reservations);
+				map.put("placenumber", user.getPlaceNumber() == null ? "" : user.getPlaceNumber());
+				map.put("dateReservation",  DateUtil.stringToDate(getDateReservation(reservations)));
+				viewName = "reservations.ftl";
+			}
+	        
+			model = new ModelAndView(map, viewName);
 		}
 
 		return model;

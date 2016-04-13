@@ -157,14 +157,24 @@ public class PlaceServiceBean implements PlaceService {
 	}
 	
 	/**
-	 * 
+	 * Annulation d'une réservation d'un utilisateur ayant réservé ou libéré une place 
+	 * @param date
+	 * @param user
 	 */
 	@Override
-	public void unsharePlaceByDate(String date, Integer placeNumber)  {
-		Assert.notNull(date);
-		Assert.notNull(placeNumber);
-		placedao.delete(date, placeNumber);
-		
+	public void unsharePlaceByDate(Place place, User user)  {
+		Assert.notNull(place);
+		Assert.notNull(user);
+		if(user.getPlaceNumber() != null){
+			if(place.getOccupiedBy()!=null){
+				System.out.println("envoyer un mail à " + place.getOccupiedBy());
+			}
+			placedao.delete(place.getOccupationDate(), user.getPlaceNumber());
+		}else{
+			place.setOccupiedBy(null);
+			placedao.update(place);
+		}
 	}
+
 	
 }

@@ -39,6 +39,8 @@ public class PlaceDao {
 	}
 
 	public void delete(String date, Integer placeNumber){
+		Assert.notNull(date);
+		Assert.notNull(placeNumber);
 		session.beginTransaction();
 		Place item = session.get(Place.class, new Place.PlacePK(placeNumber, date));
 		if (item != null) {
@@ -49,6 +51,7 @@ public class PlaceDao {
 
 	
 	public void clearAllPlacesBeforeDate(LocalDate date) {
+		Assert.notNull(date);
 		String strDateRecherche = DateUtil.dateToString(date);
 		List<Place> listeDesPlacesAsupprimer = findPlacesByCriterions(Restrictions.le("id.occupationDate", strDateRecherche));
 		for (Iterator<Place> iterator = listeDesPlacesAsupprimer.iterator(); iterator.hasNext();) {

@@ -1,13 +1,11 @@
 package org.friends.app.view.route;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.PlaceServiceBean;
-import org.friends.app.util.DateUtil;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -39,16 +37,4 @@ public class BookedRoute extends AuthenticatedRoute {
 		return new ModelAndView(map, "reservations.ftl");
 	}
 
-	
-	private String getDateReservation(List<Place> reservations){
-		
-		String dateReservation="";
-		if (reservations.isEmpty()){
-			dateReservation = DateUtil.dateToString(LocalDate.now());
-		}
-		else if (reservations.size() == 1 ) {
-			dateReservation = DateUtil.dateToString(LocalDate.now().plusDays(1));
-		}
-		return dateReservation;
-	}
 }

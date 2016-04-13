@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.friends.app.Configuration;
+import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.UserServiceBean;
 import org.friends.app.util.DateUtil;
@@ -81,5 +83,19 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 		Map<String, Object> map = new HashMap<>();
 		map.put("logged", "true");
 		return map ;
+	}
+	
+	
+	
+	protected String getDateReservation(List<Place> reservations){
+		
+		String dateReservation="";
+		if (reservations.isEmpty()){
+			dateReservation = DateUtil.dateToString(LocalDate.now());
+		}
+		else if (reservations.size() == 1 ) {
+			dateReservation = DateUtil.dateToString(LocalDate.now().plusDays(1));
+		}
+		return dateReservation;
 	}
 }

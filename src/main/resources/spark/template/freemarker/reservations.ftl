@@ -35,11 +35,15 @@
 						<tr style="background-color: #337ab7; color: white;">
 							<th style="text-align:center;">Date</th> 
 							<th style="text-align:center;">N° place</th>
+							<th style="text-align:center;">Annuler</th>
 						</tr>
 						<#list places as place>
 							<tr> 
 				  	    		<td>Le ${place.occupationDate}</td>
-					  	     	<td>${place.occupiedBy}</td>
+					  	     	<td>${place.placeNumber}</td>
+					  	     	<td>
+					  	     		<a href="/protected/share?unshareDate=${place.occupationDate}&placeNumber=${place.placeNumber}" data-confirm='Annuler le partage de votre place du <strong> ${dateReservation} </strong> ?' ><img src="/images/cancel.png"/></a>							  	     		
+					  	     	</td>
 							</tr>
 						</#list>
 					</table>
