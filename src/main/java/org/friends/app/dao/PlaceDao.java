@@ -32,8 +32,7 @@ public class PlaceDao {
 	public void update(Place place){
 		session.beginTransaction();
 		session.getNamedQuery(Place.QUERY_RESERVE_PLACE)
-		.setString("date", place.getOccupationDate())
-		.setInteger("placeNumber", place.getPlaceNumber())
+		.setEntity("id", new Place(place.getPlaceNumber(), place.getOccupationDate()))
 		.setString("email", place.getOccupiedBy())
 		.executeUpdate();
 		session.getTransaction().commit();

@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "PLACES")
 @NamedQueries(value = {
-		@NamedQuery(name=Place.QUERY_RESERVE_PLACE, query="update Place p set mailOccupant = :email where placeNumber = :placeNumber and occupationDate = :date")
+		@NamedQuery(name=Place.QUERY_RESERVE_PLACE, query="update Place p set mailOccupant = :email where id = :id")
 })
 public class Place {
 	
