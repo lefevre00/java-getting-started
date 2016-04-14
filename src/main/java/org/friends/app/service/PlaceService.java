@@ -8,6 +8,7 @@ import java.util.List;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.BookingException;
+import org.friends.app.service.impl.UnshareException;
 
 public interface PlaceService {
 
@@ -21,6 +22,6 @@ public interface PlaceService {
 	
 	public List<Place> getReservationsOrRelease(User user) throws SQLException, URISyntaxException;
 
-	void unsharePlaceByDate(Place place, User user);
+	void unsharePlaceByDate(User user, String date) throws UnshareException;
 
 }

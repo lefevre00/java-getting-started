@@ -33,28 +33,16 @@ public class ShareRoute extends AuthenticatedRoute {
 		
 		// Annulation d'un partage
 		String unshareDate = request.queryParams("unshareDate");
-		String placeNumber = request.queryParams("placeNumber");
+		String placeNumber = "";
+		
 		if (!StringUtils.isEmpty(unshareDate)){
-			Place placeReservee= null;
-			if(user.getPlaceNumber() != null){
-					placeReservee = new Place(user.getPlaceNumber(), unshareDate);
-			}else{
-				if(StringUtils.isEmpty(placeNumber)){
-					map.put("placeNumber", placeNumber);
-					map.put("message", "Une erreur est survenue lors de l'annulation !"); 
-			        return new ModelAndView(map, "error.ftl");
-				}
-				placeReservee = placeService.getPlaceReservedByUserAtTheDate(user, DateUtil.stringToDate(unshareDate));
-			}
-			
 			try {
-				placeService.unsharePlaceByDate(placeReservee, user);
+				placeService.unsharePlaceByDate(user, unshareDate);
 			} catch (Exception e) {
 				map.put("placeNumber", user.getPlaceNumber());
 				map.put("message", "Une erreur est survenue lors de l'annulation !"); 
 		        return new ModelAndView(map, "error.ftl");	
 			}
-			
 		}
 		
 		// Liste des dates partagées

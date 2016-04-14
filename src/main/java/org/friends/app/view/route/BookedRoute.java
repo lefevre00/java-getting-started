@@ -25,9 +25,9 @@ public class BookedRoute extends AuthenticatedRoute {
 	@Override
 	public ModelAndView doHandle(Request request, Response response) {
 
-		String release = request.queryParams("release");
 		User user = getUser(request);
 		
+		String release = request.queryParams("release");
 		if (StringUtils.isNotEmpty(release)) {
 			service.release(user, release);
 		}

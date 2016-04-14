@@ -11,10 +11,12 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import spark.utils.StringUtils;
+
 @Entity
 @Table(name = "PLACES")
 @NamedQueries(value = {
-		@NamedQuery(name=Place.QUERY_RESERVE_PLACE, query="update Place p set mailOccupant = :email where id = :id")
+		@NamedQuery(name=Place.QUERY_RESERVE_PLACE, query="update Place p set usedBy = :email where id = :id")
 })
 public class Place {
 	
@@ -26,7 +28,7 @@ public class Place {
 	private PlacePK id;
 	
 	@Column(name="EMAIL_OCCUPANT")
-	private String mailOccupant;
+	private String usedBy;
 
 	// Hibernate
 	public Place() {}
@@ -35,9 +37,9 @@ public class Place {
 		id = new PlacePK(number, date);
 	}	
 	
-	public Place(Integer number, String emailOccupant, String date) {
+	public Place(Integer number, String eusedBy, String date) {
 		this(number, date);
-		mailOccupant = emailOccupant;
+		usedBy = eusedBy;
 	}	
 	
 	/**
@@ -49,22 +51,22 @@ public class Place {
 	
 	@Override
 	public String toString() {
-		return "Place [placeNumber=" + getPlaceNumber() + ", mailOccupant=" + mailOccupant + ", occupationDate="
+		return "Place [placeNumber=" + getPlaceNumber() + ", usedBy=" + usedBy + ", occupationDate="
 				+ getOccupationDate() + "]";
 	}
 
 	/**
 	 * @return the occupiedBy
 	 */
-	public String getOccupiedBy() {
-		return mailOccupant;
+	public String getUsedBy() {
+		return usedBy;
 	}
 	
 	/**
 	 * @param occupiedBy the occupiedBy to set
 	 */
-	public void setOccupiedBy(String occupiedBy) {
-		this.mailOccupant = occupiedBy;
+	public void setUsedBy(String occupiedBy) {
+		this.usedBy = occupiedBy;
 	}
 	
 	/**
@@ -137,5 +139,9 @@ public class Place {
 		public void setOccupationDate(String occupationDate) {
 			this.occupationDate = occupationDate;
 		}
+	}
+	
+	public boolean isFree() {
+		return StringUtils.isEmpty(usedBy);
 	}
 }

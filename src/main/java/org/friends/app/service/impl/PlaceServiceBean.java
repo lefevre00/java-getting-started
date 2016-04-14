@@ -17,6 +17,7 @@ import org.friends.app.util.DateUtil;
 import org.hibernate.criterion.Restrictions;
 
 import spark.utils.Assert;
+import spark.utils.StringUtils;
 
 public class PlaceServiceBean implements PlaceService {
 
@@ -24,7 +25,7 @@ public class PlaceServiceBean implements PlaceService {
 
 	public List<Place> getAvailableByDate(LocalDate date) {
 		return placedao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", DateUtil.dateToString(date)),
-				Restrictions.isNull("mailOccupant"));
+				Restrictions.isNull("usedBy"));
 	}
 	/**
 	 * dqsdqsd
@@ -79,17 +80,17 @@ public class PlaceServiceBean implements PlaceService {
 			throw new BookingException(format("The place %s can't be booked by the user %s on %s", placeNumber,
 					user.getEmailAMDM(), date));
 
-		if (booked.getOccupiedBy() != null)
-			throw new BookingException(format("The place %s already booked the user %d on %s", booked.getPlaceNumber(), booked.getOccupiedBy()+"@amdm.fr", date));
+		if (booked.getUsedBy() != null)
+			throw new BookingException(format("The place %s already booked the user %d on %s", booked.getPlaceNumber(), booked.getUsedBy()+"@amdm.fr", date));
 		else{
 			// TODO Tester que l'user n'a pas d�j� reserv� de place pour cette date
-			List<Place> lesPlacesReserveeParLeUserACetteDate = placedao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", date), Restrictions.eq("mailOccupant",user.getEmailAMDM()));
+			List<Place> lesPlacesReserveeParLeUserACetteDate = placedao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", date), Restrictions.eq("usedBy",user.getEmailAMDM()));
 			boolean asDejaReserveUneplace = (lesPlacesReserveeParLeUserACetteDate!=null && lesPlacesReserveeParLeUserACetteDate.size()>=1);
 			if(asDejaReserveUneplace) 
-				throw new BookingException(format("The user %s already booked the place %d on %s", booked.getOccupiedBy()+"@amdm.fr", booked.getPlaceNumber(), date));
+				throw new BookingException(format("The user %s already booked the place %d on %s", booked.getUsedBy()+"@amdm.fr", booked.getPlaceNumber(), date));
 			else {
 			// la place n'est pas pas r�serv�e
-			booked.setOccupiedBy(user.getEmailAMDM());
+			booked.setUsedBy(user.getEmailAMDM());
 			placedao.update(booked);
 			//booked = placedao.persist(booked);
 			}
@@ -111,13 +112,13 @@ public class PlaceServiceBean implements PlaceService {
 		if (user.getPlaceNumber() == null) {
 			List<Place> places = new ArrayList<>();
 			// Recherche réservation pour le jour j	
-			places = placedao.findPlacesByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()),Restrictions.ge("id.occupationDate", DateUtil.dateToString(LocalDate.now())));
+			places = placedao.findPlacesByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()),Restrictions.ge("id.occupationDate", DateUtil.dateToString(LocalDate.now())));
 			if (!places.isEmpty()){
 				listRetour.add(places.get(0));	
 			}
 
 			// Recherche réservation pour le jour j+1
-			places = placedao.findPlacesByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()),
+			places = placedao.findPlacesByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()),
 					Restrictions.ge("id.occupationDate", DateUtil.dateToString(LocalDate.now().plusDays(1))));
 			if (!places.isEmpty()) {
 				listRetour.add(places.get(0));
@@ -128,8 +129,8 @@ public class PlaceServiceBean implements PlaceService {
 			List<Place> listPourAffichage = new ArrayList<Place>();
 			for (Iterator<Place> iterator = listRetour.iterator(); iterator.hasNext();) {
 				Place place = (Place) iterator.next();
-				if (place.getOccupiedBy() == null) {
-					place.setOccupiedBy(" ");
+				if (place.getUsedBy() == null) {
+					place.setUsedBy(" ");
 				}
 				listPourAffichage.add(place);
 			}
@@ -152,7 +153,7 @@ public class PlaceServiceBean implements PlaceService {
 		Assert.notNull(user.getEmailAMDM());
 		List<Place> places = new ArrayList<>();
 		// Recherche réservation pour le jour j	
-		places = placedao.findPlacesByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()),Restrictions.eq("id.occupationDate", DateUtil.dateToString(dateRecherche)));
+		places = placedao.findPlacesByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()),Restrictions.eq("id.occupationDate", DateUtil.dateToString(dateRecherche)));
 		return places.size() == 0 ? null : places.get(0);
 	}
 	
@@ -160,31 +161,28 @@ public class PlaceServiceBean implements PlaceService {
 	 * Annulation d'une réservation d'un utilisateur ayant réservé ou libéré une place 
 	 * @param date
 	 * @param user
+	 * @throws UnshareException 
 	 */
 	@Override
-	public void unsharePlaceByDate(Place place, User user)  {
-		Assert.notNull(place);
+	public void unsharePlaceByDate(User user, String unshareDate) throws UnshareException  {
 		Assert.notNull(user);
-		if(user.getPlaceNumber() != null){
-			if(place.getOccupiedBy()!=null){
-				System.out.println("envoyer un mail à " + place.getOccupiedBy());
-			}
-			placedao.delete(place.getOccupationDate(), user.getPlaceNumber());
-		}else{
-			place.setOccupiedBy(null);
-			placedao.update(place);
+		Assert.notNull(unshareDate);
+		Place place = placedao.findPlaceByCriterions(Restrictions.eq("id.placeNumber", user.getPlaceNumber()),Restrictions.eq("id.occupationDate", unshareDate));
+		if (StringUtils.isNotEmpty(place.getUsedBy())) {
+			throw new UnshareException();
 		}
+		placedao.delete(unshareDate, user.getPlaceNumber());
 	}
 	
 	public void release(User user, String dateToRelease) {
 		Assert.notNull(user);
 		Assert.notNull(dateToRelease);
-		Place place = placedao.findPlaceByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()),Restrictions.eq("id.occupationDate", dateToRelease));
-		place.setOccupiedBy(null);
+		Place place = placedao.findPlaceByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()),Restrictions.eq("id.occupationDate", dateToRelease));
+		place.setUsedBy(null);
 		placedao.update(place);
 	}
 	
 	public List<Place> getReservations(User user) {
-		return placedao.findPlacesByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()));
+		return placedao.findPlacesByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()));
 	}
 }

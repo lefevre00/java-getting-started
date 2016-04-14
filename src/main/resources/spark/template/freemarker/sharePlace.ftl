@@ -82,7 +82,10 @@
 									<!tr> 
 						  	    		<td>${place.occupationDate}</td>
 							  	     	<td>
-							  	     		<a href="/protected/share?unshareDate=${place.occupationDate}" data-confirm='Annuler le partage de votre place du <strong> ${place.occupationDate} </strong> ?' ><img src="/images/cancel.png"/></a>							  	     		
+							  	     		<#assign show = place.usedBy>
+							  	     	 	<#if show == "" || show == " ">
+							  	     			<a href="/protected/share?unshareDate=${place.occupationDate}" data-confirm='Annuler le partage de votre place du <strong> ${place.occupationDate} </strong> ?' ><img src="/images/cancel.png"/></a>
+							  	     		</#if>
 							  	     	</td>
 									</tr>
 								</#list>

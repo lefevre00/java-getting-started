@@ -62,7 +62,7 @@ public class PlaceDaoTest extends ParkingTest {
     
     @Test
     public void findAllFreeByDate_avec_date() {
-    	List<Place> lesPlacesLibresAujourdhui = placeDao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", strDateToday), Restrictions.isNull("mailOccupant"));
+    	List<Place> lesPlacesLibresAujourdhui = placeDao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", strDateToday), Restrictions.isNull("usedBy"));
     	Assert.assertEquals("On attend 2 places libres aujourd'hui", 2, lesPlacesLibresAujourdhui.size());
     }
 
@@ -81,7 +81,7 @@ public class PlaceDaoTest extends ParkingTest {
     @Test
     public void UserAPasDejaUnePlaceReserveDans10jours() {
     	String dans10jours = DateUtil.dateToString(timePoint.plusDays(10));
-    	List<Place> listPlaceReserve = placeDao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", dans10jours), Restrictions.eq("mailOccupant",MAIL_RESERVANT));
+    	List<Place> listPlaceReserve = placeDao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", dans10jours), Restrictions.eq("usedBy",MAIL_RESERVANT));
     	Assert.assertEquals( MAIL_RESERVANT+ " n'a pas réservé une place dans 4 jours", false, (listPlaceReserve!= null && listPlaceReserve.size()>0) ? true : false);
     }  
     
@@ -94,7 +94,7 @@ public class PlaceDaoTest extends ParkingTest {
     
     @Test
     public void unePlaceNEstLibreAujourdhui(){
-    	List<Place> listPlaceReserve = placeDao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", strDateToday), Restrictions.eq("id.placeNumber", new Integer(200)), Restrictions.isNull("mailOccupant"));
+    	List<Place> listPlaceReserve = placeDao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", strDateToday), Restrictions.eq("id.placeNumber", new Integer(200)), Restrictions.isNull("usedBy"));
     	Assert.assertEquals( "La place 200 n'est libre aujourd'hui", false, (listPlaceReserve!= null && listPlaceReserve.size()>0) ? true : false);
     }
     
@@ -109,7 +109,7 @@ public class PlaceDaoTest extends ParkingTest {
     		idPremierePlace = 2;
     		dateReservation = strDateToday;
     	}
-    	List<Place> lesPlacesReserveesParDamien = placeDao.findPlacesByCriterions(Restrictions.eq("mailOccupant", MAIL_RESERVANT),Restrictions.ge("id.occupationDate", dateReservation));
+    	List<Place> lesPlacesReserveesParDamien = placeDao.findPlacesByCriterions(Restrictions.eq("usedBy", MAIL_RESERVANT),Restrictions.ge("id.occupationDate", dateReservation));
     	Assert.assertEquals("On attend n places", nbPlace, lesPlacesReserveesParDamien.size());
     	Place premier = (Place) lesPlacesReserveesParDamien.get(0);
     	Assert.assertEquals("Damien a réservé la place "+premier.getPlaceNumber().intValue(), idPremierePlace , premier.getPlaceNumber().intValue());
@@ -121,14 +121,14 @@ public class PlaceDaoTest extends ParkingTest {
     	
     	placeDao.clearAllPlacesBeforeDate(LocalDate.now().plusDays(40));
     	
-    	List<Place> lesPlacesLibresAujourdhui = placeDao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", strDateToday), Restrictions.isNull("mailOccupant"));
+    	List<Place> lesPlacesLibresAujourdhui = placeDao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", strDateToday), Restrictions.isNull("usedBy"));
     	//List<Place> lesPlacesLibresAujourdhui = placeDao.findAllFreeByDate(timePoint);
     	Assert.assertEquals("On attend 0 places libres aujourd'hui", 0, lesPlacesLibresAujourdhui.size());
     	
-    	lesPlacesLibresAujourdhui = placeDao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", strTomorrow), Restrictions.isNull("mailOccupant"));
+    	lesPlacesLibresAujourdhui = placeDao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", strTomorrow), Restrictions.isNull("usedBy"));
     	Assert.assertEquals("On attend 0 places libres demain", 0, lesPlacesLibresAujourdhui.size());
     	
-    	lesPlacesLibresAujourdhui = placeDao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", strApresDemain), Restrictions.isNull("mailOccupant"));
+    	lesPlacesLibresAujourdhui = placeDao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", strApresDemain), Restrictions.isNull("usedBy"));
     	Assert.assertEquals("On attend 0 places libres apres demain", 0, lesPlacesLibresAujourdhui.size());
     }
  
