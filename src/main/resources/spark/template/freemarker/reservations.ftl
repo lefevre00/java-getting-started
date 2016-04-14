@@ -42,7 +42,7 @@
 				  	    		<td>Le ${place.occupationDate}</td>
 					  	     	<td>${place.placeNumber}</td>
 					  	     	<td>
-					  	     		<a href="/protected/share?unshareDate=${place.occupationDate}&placeNumber=${place.placeNumber}" data-confirm='Annuler la réservation de votre place du <strong> ${place.occupationDate} </strong> ?' ><img src="/images/cancel.png"/></a>							  	     		
+					  	     		<a href="?release=${place.occupationDate}" data-confirm='Annuler la réservation du <strong> ${place.occupationDate} </strong> ?' ><img src="/images/cancel.png"/></a>							  	     		
 					  	     	</td>
 							</tr>
 						</#list>

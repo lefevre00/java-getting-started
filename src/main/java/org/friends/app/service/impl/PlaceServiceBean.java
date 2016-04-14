@@ -175,6 +175,16 @@ public class PlaceServiceBean implements PlaceService {
 			placedao.update(place);
 		}
 	}
-
 	
+	public void release(User user, String dateToRelease) {
+		Assert.notNull(user);
+		Assert.notNull(dateToRelease);
+		Place place = placedao.findPlaceByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()),Restrictions.eq("id.occupationDate", dateToRelease));
+		place.setOccupiedBy(null);
+		placedao.update(place);
+	}
+	
+	public List<Place> getReservations(User user) {
+		return placedao.findPlacesByCriterions(Restrictions.eq("mailOccupant", user.getEmailAMDM()));
+	}
 }

@@ -10,6 +10,7 @@ import org.friends.app.service.impl.PlaceServiceBean;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.utils.StringUtils;
 
 /**
  * Page listing the booked places for days starting today.
@@ -23,9 +24,15 @@ public class BookedRoute extends AuthenticatedRoute {
 
 	@Override
 	public ModelAndView doHandle(Request request, Response response) {
-		
+
+		String release = request.queryParams("release");
 		User user = getUser(request);
-		List<Place> reservations = service.getReservationsOrRelease(user);
+		
+		if (StringUtils.isNotEmpty(release)) {
+			service.release(user, release);
+		}
+		
+		List<Place> reservations = service.getReservations(user);
 		
 		Map<String, Object> map = getMap();
 		map.put("shared", user.getPlaceNumber()==null ? null : true);
