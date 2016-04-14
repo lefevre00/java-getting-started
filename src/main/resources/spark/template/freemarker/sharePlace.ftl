@@ -47,7 +47,7 @@
 						<div class="col-md-6 col-sm-6">
 							<div class="input-group date" id="datepicker1">
 								<label>du&nbsp;&nbsp;</labdel>
-								<input type="text" class="shareInput" name="dateDebut"/>
+								<input type="text" class="shareInput" name="dateDebut" required />
 								<span class="input-group-addon">
 									<i class="fa fa-calendar-o"></i>
 								</span>
@@ -57,7 +57,7 @@
 						<div class="col-md-6 col-sm-6">
 							<div class="input-group date" id="datepicker2">
 								<label>au&nbsp;&nbsp;</labdel>
-								<input type="text" class="shareInput" name="dateFin"/>
+								<input type="text" class="shareInput" name="dateFin" required/>
 								<span class="input-group-addon">
 									<i class="fa fa-calendar-o"></i>
 								</span>

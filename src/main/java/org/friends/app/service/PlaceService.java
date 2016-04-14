@@ -24,4 +24,5 @@ public interface PlaceService {
 
 	void unsharePlaceByDate(User user, String date) throws UnshareException;
 
+	public boolean sharePlaces(User user, LocalDate dateDebut, LocalDate dateFin) throws Exception;
 }

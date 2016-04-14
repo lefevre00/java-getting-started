@@ -4,6 +4,7 @@ import static java.lang.String.format;
 
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,7 +29,6 @@ public class PlaceServiceBean implements PlaceService {
 				Restrictions.isNull("usedBy"));
 	}
 	/**
-	 * dqsdqsd
 	 * Release a place at date
 	 * 
 	 * @param numberPlace
@@ -51,6 +51,32 @@ public class PlaceServiceBean implements PlaceService {
 			placedao.persist(new Place(numberPlace.intValue(), dateAsString));
 		}
 	}
+	
+	
+	/**
+	 * Release a place at date
+	 * 
+	 * @param placeNumber
+	 * @param dateReservation
+	 * @throws SQLException
+	 * @throws URISyntaxException
+	 * @throws BookingException
+	 */
+	public boolean sharePlaces(User user, LocalDate dateDebut, LocalDate dateFin) throws Exception  {
+		Assert.notNull(user);
+		Assert.notNull(dateDebut);
+		Assert.notNull(dateFin);
+		List<String> listeDates = getDaysBetweenDates(user.getPlaceNumber(), dateDebut, dateFin);
+		if (!listeDates.isEmpty()){
+			for (Iterator<String> iterator = listeDates.iterator(); iterator.hasNext();) {
+				String leJour = (String) iterator.next();
+				placedao.persist(new Place(user.getPlaceNumber().intValue(), leJour));
+			}
+			return true;
+		}
+		return false;
+	}	
+		
 
 	/**
 	 * Book a place for a user, on the given date.
@@ -83,13 +109,13 @@ public class PlaceServiceBean implements PlaceService {
 		if (booked.getUsedBy() != null)
 			throw new BookingException(format("The place %s already booked the user %d on %s", booked.getPlaceNumber(), booked.getUsedBy()+"@amdm.fr", date));
 		else{
-			// TODO Tester que l'user n'a pas d�j� reserv� de place pour cette date
+			// TODO Tester que l'user n'a pas déjà réservé de place pour cette date
 			List<Place> lesPlacesReserveeParLeUserACetteDate = placedao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", date), Restrictions.eq("usedBy",user.getEmailAMDM()));
 			boolean asDejaReserveUneplace = (lesPlacesReserveeParLeUserACetteDate!=null && lesPlacesReserveeParLeUserACetteDate.size()>=1);
 			if(asDejaReserveUneplace) 
 				throw new BookingException(format("The user %s already booked the place %d on %s", booked.getUsedBy()+"@amdm.fr", booked.getPlaceNumber(), date));
 			else {
-			// la place n'est pas pas r�serv�e
+			// la place n'est pas pas réservée
 			booked.setUsedBy(user.getEmailAMDM());
 			placedao.update(booked);
 			//booked = placedao.persist(booked);
@@ -100,17 +126,19 @@ public class PlaceServiceBean implements PlaceService {
 	}
 
 	/**
-	 * Recherche places r�serv�es par :  
-	 * <li> un utilisateur sans place attribu�e, pour les jours j et j+1
+	 * Recherche places réservées par :  
+	 * <li> un utilisateur sans place attribuée, pour les jours j et j+1
 	 * 
 	 */
 	public List<Place> getReservationsOrRelease(User user) {
 		Assert.notNull(user);
 		Assert.notNull(user.getEmailAMDM());
 		List<Place> listRetour = new ArrayList<Place>();
+		
 		// utilisateur sans place attribuée
 		if (user.getPlaceNumber() == null) {
 			List<Place> places = new ArrayList<>();
+		
 			// Recherche réservation pour le jour j	
 			places = placedao.findPlacesByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()),Restrictions.ge("id.occupationDate", DateUtil.dateToString(LocalDate.now())));
 			if (!places.isEmpty()){
@@ -141,7 +169,7 @@ public class PlaceServiceBean implements PlaceService {
 	}
 
 	/**
-	 * Retourne la place d'un user r�serv�e � une date d�finie
+	 * Retourne la place d'un user réservée à une date définie
 	 * sinon retourne null
 	 * @param user
 	 * @param dateRecherche
@@ -185,4 +213,26 @@ public class PlaceServiceBean implements PlaceService {
 	public List<Place> getReservations(User user) {
 		return placedao.findPlacesByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()));
 	}
+	
+	/*
+	 * Retourne la liste des dates entre 2 dates
+	 */
+	private List<String> getDaysBetweenDates(Integer placeNumber, LocalDate startdate, LocalDate enddate){
+	    List<String> dates = new ArrayList<String>();
+	    LocalDate dateToAdd = startdate;
+	    
+	    while (dateToAdd.isBefore(enddate.plusDays(1))){
+	    	if((DayOfWeek.SATURDAY.equals(dateToAdd.getDayOfWeek())) || (DayOfWeek.SUNDAY.equals(dateToAdd.getDayOfWeek()))){
+
+	    	}else{
+	    		// Si place non partagée, on l'ajoute dans la liste
+	    		String dateAsString = DateUtil.dateToString(dateToAdd);
+				if ( placedao.findPlaceByCriterions(Restrictions.eq("id.occupationDate", dateAsString), Restrictions.eq("id.placeNumber", placeNumber)) == null){
+					dates.add(dateAsString);
+				}	    	    		
+	        }
+	    	dateToAdd= dateToAdd.plusDays(1);
+	    }	    
+	    return dates;
+	}	
 }
