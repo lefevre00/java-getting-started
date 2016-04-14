@@ -57,6 +57,7 @@ public class ShareRoute extends AuthenticatedRoute {
 			LocalDate dateFin = request.queryParams("dateFin") != null ? DateUtil.stringToDate(request.queryParams("dateFin"), Locale.FRANCE) : null;
 
 			if((dateDebut != null) && (dateFin != null)){
+				// TODO : boucle a deplacer dans le service
 				List<String> lesDates = getDaysBetweenDates(dateDebut, dateFin);
 				for (Iterator<String> iterator = lesDates.iterator(); iterator.hasNext();) {
 					String leJour = (String) iterator.next();
