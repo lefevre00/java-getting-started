@@ -62,6 +62,9 @@ public class ShareRoute extends AuthenticatedRoute {
 		} 
 		else {
 
+			/*
+			 * Annulation d'un partage
+			 */			
 			String unshareDate = request.queryParams("unshareDate");
 			if (!StringUtils.isEmpty(unshareDate)){
 				try {
