@@ -33,24 +33,6 @@ public class ShareRoute extends AuthenticatedRoute {
 		map.put("placeHolder", true);
 		map.put("placeNumber", user.getPlaceNumber());
 		
-		
-		/*
-		 * Annulation d'un partage
-		 */
-		String unshareDate = request.queryParams("unshareDate");
-		if (!StringUtils.isEmpty(unshareDate)){
-			try {
-				placeService.unsharePlaceByDate(user, unshareDate);
-			} catch (Exception e) {
-				map.put("message", "Une erreur est survenue lors de l'annulation !"); 
-		        return new ModelAndView(map, "error.ftl");	
-			}
-			// Force le redirect pour supprimer la valeur de la variable unshareDate passée par url
-			response.redirect(Routes.PLACE_SHARE);
-			return null;
-		}
-		
-		
 		/*
 		 * Partage de places
 		 */
@@ -78,6 +60,19 @@ public class ShareRoute extends AuthenticatedRoute {
 			}
 
 		} 
+		else {
+
+			String unshareDate = request.queryParams("unshareDate");
+			if (!StringUtils.isEmpty(unshareDate)){
+				try {
+					placeService.unsharePlaceByDate(user, unshareDate);
+				} catch (Exception e) {
+					map.put("message", "Une erreur est survenue lors de l'annulation !"); 
+			        return new ModelAndView(map, "error.ftl");	
+				}
+			}			
+			
+		}
 
 
 		/*
@@ -89,7 +84,7 @@ public class ShareRoute extends AuthenticatedRoute {
 		}
 
 
-		return new ModelAndView(map, "sharePlace.ftl");
+		return new ModelAndView(map, "sharePlace.ftl");	
 	}
 	
 
