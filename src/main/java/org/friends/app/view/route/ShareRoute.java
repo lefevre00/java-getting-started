@@ -61,12 +61,10 @@ public class ShareRoute extends AuthenticatedRoute {
 				retour = placeService.sharePlaces(user, dateDebut, dateFin);
 			} catch (Exception e) {
 				e.printStackTrace();
-				
 				map.put("message", "Une erreur est survenue lors de l'enregistrement de données !"); 
 		        return new ModelAndView(map, "error.ftl");
 			}
 			if (!retour){
-				
 				if (dateDebut.equals(dateFin)){
 					map.put("message", "Vous avez déjà partagé votre place pour le " + DateUtil.dateToString(dateDebut, Locale.FRANCE));	
 				}
