@@ -1,20 +1,20 @@
 <!-- navigation section -->
 <section class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="container">
+		
+		<!-- =============================== Logo ================================-->
 		<div class="navbar-header">
 			<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 				<span class="icon icon-bar"></span>
 				<span class="icon icon-bar"></span>
 				<span class="icon icon-bar"></span>
 			</button>
-			<#if logged??>
-				<a href="/protected/" class="navbar-brand" >
-			<#else>
-				<a href="/" class="navbar-brand" >
-			</#if>
-			<img src="/images/logo.png" class="hidden-xs" alt="CoParking">
+			<a href="/" class="navbar-brand" >
+				<img src="/images/logo.png" class="hidden-xs" alt="CoParking">
 			</a>			
 		</div>
+		
+		<!-- =============================== Menus ================================-->
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<#if logged??>
@@ -28,8 +28,6 @@
 							<li><a href="/protected/setting">Paramètres</a></li>
 						</ul>
 					</li>
-				<#else>
-					<li><a href="/">ACCUEIL</a></li>
 				</#if>
 				<li><a href="/#aide">AIDE</a></li>
 				<li><a href="/#contact">CONTACT</a></li>
@@ -38,5 +36,6 @@
 				</#if>
 			</ul>
 		</div>
+		
 	</div>
 </section>
