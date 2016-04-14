@@ -21,7 +21,7 @@
 					<li class="dropdown dropdown-submenu">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">ACTIONS</a>
 						<ul class="dropdown-menu">
-							<#if shared??>
+							<#if placeHolder??>
 								<li><a href="/protected/share">Partage</a></li>
 							</#if>
 							<li><a href="/protected/booked">Réservation</a></li>

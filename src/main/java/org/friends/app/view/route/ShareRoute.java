@@ -29,7 +29,7 @@ public class ShareRoute extends AuthenticatedRoute {
     	User user = getUser(request);		
 
 		ModelAndView model = null;
-		map.put("shared", user.getPlaceNumber()==null ? null : true);
+		map.put("placeHolder", user.getPlaceNumber()==null ? null : true);
 		
 		// Annulation d'un partage
 		String unshareDate = request.queryParams("unshareDate");

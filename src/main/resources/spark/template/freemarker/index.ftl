@@ -110,8 +110,8 @@
 
 
 
-	<!-- copyright section -->
-	<section id="copyright">
+	<!-- footer section -->
+	<section id="footer">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 col-sm-12">

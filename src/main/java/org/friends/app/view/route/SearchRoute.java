@@ -47,7 +47,7 @@ public class SearchRoute extends AuthenticatedRoute {
     	
     	map.put("dateRecherche", DateUtil.dateToFullString(dateRechercheeAsDate));
     	map.put("dateBook", dateRecherchee);
-    	map.put("shared", user.getPlaceNumber()==null ? null : true);
+    	map.put("placeHolder", user.getPlaceNumber()==null ? null : true);
     	Place placeReserveeParleUSer = placeReservedByUserAtTheDate(user, dateRechercheeAsDate);
     	List<Place> places = new ArrayList<Place>();
     	

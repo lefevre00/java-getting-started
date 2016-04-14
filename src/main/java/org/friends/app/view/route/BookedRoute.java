@@ -35,7 +35,7 @@ public class BookedRoute extends AuthenticatedRoute {
 		List<Place> reservations = service.getReservations(user);
 		
 		Map<String, Object> map = getMap();
-		map.put("shared", user.getPlaceNumber()==null ? null : true);
+		map.put("placeHolder", user.getPlaceNumber()==null ? null : true);
 		map.put("places", reservations);
 		map.put("placenumber", user.getPlaceNumber() == null ? "" : user.getPlaceNumber());
 		map.put("dateReservation", getDateReservation(reservations));

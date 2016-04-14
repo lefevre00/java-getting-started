@@ -257,10 +257,10 @@ p {
 
 /***********************************
  *
- *  copyright section
+ *  footer section
  *
  ***********************************/
-#copyright {
+#footer {
 	background: #5c5c5c;
 	color: #ffffff;
 	padding-top: 30px;
@@ -269,13 +269,13 @@ p {
 
 }
 
-#copyright p, a {
+#footer p, a {
 	color: #ffffff;
 	font-size: 12px;
 }
 
 
-#copyright a:hover {
+#footer a:hover {
 	color: #FF0;
 }
 
