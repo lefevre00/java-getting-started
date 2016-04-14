@@ -12,6 +12,7 @@ import org.friends.app.util.DateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import spark.utils.Assert;
@@ -70,6 +71,7 @@ public class PlaceDao {
 		for (int i = 0; i < criterions.length; i++) {
 			criteria.add(criterions[i]);
 		}
+		criteria.addOrder(Order.asc("id.occupationDate"));	
 		return (List<Place>) criteria.list();
 	}
 	

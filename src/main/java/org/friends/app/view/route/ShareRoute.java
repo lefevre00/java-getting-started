@@ -45,6 +45,9 @@ public class ShareRoute extends AuthenticatedRoute {
 				map.put("message", "Une erreur est survenue lors de l'annulation !"); 
 		        return new ModelAndView(map, "error.ftl");	
 			}
+			// Force le redirect pour supprimer la valeur de la variable unshareDate passée par url
+			response.redirect(Routes.PLACE_SHARE);
+			return null;
 		}
 		
 		
