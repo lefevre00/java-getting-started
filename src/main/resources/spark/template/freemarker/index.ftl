@@ -19,12 +19,17 @@
 		<div class="container">
 			<div class="row">
 				<div class="wow bounceIn col-md-12 col-sm-12">
-					<h2>BIENVENUE !</h2>
-					<h3>Site de partage des places de parking</h3>
-					<h1>destiné aux salariés de la Mutuelle Des Motards</h1>
+				
+					<#if logged??>
 					
-					<a href="/user/login" class="btn btn-default">SE CONNECTER</a>&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="/user/new" class="btn btn-default">S'INSCRIRE</a>
+					<#else>
+						<h2>BIENVENUE !</h2>
+						<h3>Site de partage des places de parking</h3>
+						<h1>destiné aux salariés de la Mutuelle Des Motards</h1>
+						<a href="/user/login" class="btn btn-default">SE CONNECTER</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/user/new" class="btn btn-default">S'INSCRIRE</a>
+					</#if>
+					
 				</div>
 			</div>
 		</div>		

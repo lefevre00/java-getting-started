@@ -97,6 +97,10 @@ public class Application {
 		post(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
 		get("/", (req, res) -> {
 			Map<String, String> map = new HashMap<>();
+			User user = getAuthenticatedUser(req);
+			if (user != null){
+				map.put("logged", "true");
+			}
 			return new ModelAndView(map, "index.ftl");
 		}, new FreeMarkerEngine());
 		

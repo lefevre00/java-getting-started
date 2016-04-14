@@ -29,6 +29,7 @@ public class ShareRoute extends AuthenticatedRoute {
     	User user = getUser(request);		
 
 		ModelAndView model = null;
+		map.put("shared", user.getPlaceNumber()==null ? null : true);
 		
 		// Annulation d'un partage
 		String unshareDate = request.queryParams("unshareDate");
@@ -94,7 +95,6 @@ public class ShareRoute extends AuthenticatedRoute {
 			if (!StringUtils.isEmpty(unshareDate) && !StringUtils.isEmpty(placeNumber)) {
 				map.put("presentation", user.getPlaceNumber() == null ? "Voici les places que vous avez réservées :" : "Voici les dates de libération de la place " + user.getPlaceNumber().toString() + " :");
 				List<Place> reservations = placeService.getReservationsOrRelease(user);
-				map.put("shared", user.getPlaceNumber()==null ? null : true);
 				map.put("places", reservations);
 				map.put("placenumber", user.getPlaceNumber() == null ? "" : user.getPlaceNumber());
 				map.put("dateReservation",  DateUtil.stringToDate(getDateReservation(reservations)));
