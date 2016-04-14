@@ -135,12 +135,14 @@ public class PlaceServiceBean implements PlaceService {
 		Assert.notNull(user.getEmailAMDM());
 		List<Place> listRetour = new ArrayList<Place>();
 		
+		LocalDate today = LocalDate.now();
+		
 		// utilisateur sans place attribuée
 		if (user.getPlaceNumber() == null) {
 			List<Place> places = new ArrayList<>();
 		
 			// Recherche réservation pour le jour j	
-			places = placedao.findPlacesByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()),Restrictions.ge("id.occupationDate", DateUtil.dateToString(LocalDate.now())));
+			places = placedao.findPlacesByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()),Restrictions.ge("id.occupationDate", DateUtil.dateToString(today)));
 			if (!places.isEmpty()){
 				listRetour.add(places.get(0));	
 			}
@@ -153,7 +155,7 @@ public class PlaceServiceBean implements PlaceService {
 			}
 
 		} else {
-			listRetour = placedao.findPlacesByCriterions(Restrictions.eq("id.placeNumber", user.getPlaceNumber()));
+			listRetour = placedao.findPlacesByCriterions(Restrictions.eq("id.placeNumber", user.getPlaceNumber()), Restrictions.ge("id.occupationDate", DateUtil.dateToString(today)));
 			List<Place> listPourAffichage = new ArrayList<Place>();
 			for (Iterator<Place> iterator = listRetour.iterator(); iterator.hasNext();) {
 				Place place = (Place) iterator.next();
@@ -211,7 +213,7 @@ public class PlaceServiceBean implements PlaceService {
 	}
 	
 	public List<Place> getReservations(User user) {
-		return placedao.findPlacesByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()));
+		return placedao.findPlacesByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()), Restrictions.ge("id.occupationDate", DateUtil.dateToString(LocalDate.now())));
 	}
 	
 	/*
