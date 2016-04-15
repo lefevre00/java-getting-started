@@ -94,7 +94,17 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 			dateReservation = DateUtil.dateToString(LocalDate.now());
 		}
 		else if (reservations.size() == 1 ) {
-			dateReservation = DateUtil.dateToString(LocalDate.now().plusDays(1));
+			
+			if (DayOfWeek.FRIDAY.equals(LocalDate.now().getDayOfWeek())){
+				dateReservation = DateUtil.dateToString(LocalDate.now().plusDays(3));
+			}
+			else if (DayOfWeek.SATURDAY.equals(LocalDate.now().getDayOfWeek())){
+				dateReservation = DateUtil.dateToString(LocalDate.now().plusDays(2));
+			}
+			else{
+				dateReservation = DateUtil.dateToString(LocalDate.now().plusDays(1));
+			}
+			
 		}
 		return dateReservation;
 	}
