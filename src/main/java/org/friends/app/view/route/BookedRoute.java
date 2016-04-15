@@ -1,11 +1,13 @@
 package org.friends.app.view.route;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.PlaceServiceBean;
+import org.friends.app.util.DateUtil;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -41,10 +43,69 @@ public class BookedRoute extends AuthenticatedRoute {
 		}
 		map.put("placeHolder", user.getPlaceNumber()==null ? null : true);
 		map.put("placenumber", user.getPlaceNumber() == null ? "" : user.getPlaceNumber());
-		map.put("dateReservation", getDateReservation(reservations));
+		if (user.getPlaceNumber()==null){
+			map.put("dateReservation", getDateReservation(reservations));
+		}
+		else{
+			map.put("dateReservation", getDateReservation4UserPlaceHolder(reservations, user.getPlaceNumber()));
+		}
 //		map.put("presentation", user.getPlaceNumber() == null ? "Voici les places que vous avez réservées :" : "Voici les dates de libération de la place " + user.getPlaceNumber().toString() + " :");
 
 		return new ModelAndView(map, "reservations.ftl");
 	}
 
+	protected String getDateReservation(List<Place> reservations){
+		
+		String dateReservation="";
+		if (reservations.isEmpty()){
+			dateReservation = DateUtil.dateToString(LocalDate.now());
+		}
+		else if (reservations.size() == 1 ) {
+			rechercherLejourSuivant(LocalDate.now());
+		}
+		return dateReservation;
+	}
+	
+	/*
+	 * Liste reservations contient au maximum 2 dates de réservations
+	 */
+	public String getDateReservation4UserPlaceHolder(List<Place> reservations, Integer placeNumber) {
+		
+		// user a réservé des places
+		String retour = "";
+		if (!reservations.isEmpty()){
+				
+			// user a réservé 2 dates
+			if (reservations.size() == 2){
+				retour = "";
+			}
+			// user a réservé 1 date ( date du jour)
+			else{
+					
+				// on vérifie si place est partagé pour j+1
+				retour = isPlaceSharedAndOccupiedAtDate(placeNumber, rechercherLejourSuivant(LocalDate.now().plusDays(1)));
+				
+			}
+		}
+		// user n'a pas réservé de places
+		else{
+				
+			// on vérifie si place est partagé pour j
+			retour = isPlaceSharedAndOccupiedAtDate(placeNumber, DateUtil.dateToString(LocalDate.now()));
+				
+		}
+			
+		
+		return retour;
+	}	
+	
+	private String isPlaceSharedAndOccupiedAtDate(Integer placeNumber, String date){
+		
+		Place place = service.isPlaceShared(placeNumber, date);					
+		if (place!=null && StringUtils.isNotEmpty(place.getUsedBy())){
+			return place.getOccupationDate();
+		}
+		return "";
+	}	
+	
 }

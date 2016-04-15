@@ -197,7 +197,7 @@ public class PlaceServiceBean implements PlaceService {
 	public void unsharePlaceByDate(User user, String unshareDate) throws UnshareException  {
 		Assert.notNull(user);
 		Assert.notNull(unshareDate);
-		Place place = placedao.findPlaceByCriterions(Restrictions.eq("id.placeNumber", user.getPlaceNumber()),Restrictions.eq("id.occupationDate", unshareDate));
+		Place place = isPlaceShared(user.getPlaceNumber(), unshareDate);
 		if (StringUtils.isNotEmpty(place.getUsedBy())) {
 			throw new UnshareException();
 		}
@@ -229,12 +229,16 @@ public class PlaceServiceBean implements PlaceService {
 	    	}else{
 	    		// Si place non partagée, on l'ajoute dans la liste
 	    		String dateAsString = DateUtil.dateToString(dateToAdd);
-				if ( placedao.findPlaceByCriterions(Restrictions.eq("id.occupationDate", dateAsString), Restrictions.eq("id.placeNumber", placeNumber)) == null){
+	    		if (isPlaceShared(placeNumber, dateAsString) == null){
 					dates.add(dateAsString);
 				}	    	    		
 	        }
 	    	dateToAdd= dateToAdd.plusDays(1);
 	    }	    
 	    return dates;
+	}
+
+	public Place isPlaceShared(Integer placeNumber, String date){
+		return placedao.findPlaceByCriterions(Restrictions.eq("id.occupationDate", date), Restrictions.eq("id.placeNumber", placeNumber));
 	}	
 }
