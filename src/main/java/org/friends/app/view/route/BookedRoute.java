@@ -68,34 +68,19 @@ public class BookedRoute extends AuthenticatedRoute {
 	
 	/*
 	 * Liste reservations contient au maximum 2 dates de réservations
+	 * Si 2 réservations, pas de nouvelles réservations possibles 
 	 */
 	public String getDateReservation4UserPlaceHolder(List<Place> reservations, Integer placeNumber) {
 		
-		// user a réservé des places
 		String retour = "";
-		if (!reservations.isEmpty()){
-				
-			// user a réservé 2 dates
-			if (reservations.size() == 2){
-				retour = "";
-			}
-			// user a réservé 1 date ( date du jour)
-			else{
-					
-				// on vérifie si place est partagé pour j+1
-				retour = isPlaceSharedAndOccupiedAtDate(placeNumber, rechercherLejourSuivant(LocalDate.now().plusDays(1)));
-				
-			}
-		}
-		// user n'a pas réservé de places
-		else{
-				
-			// on vérifie si place est partagé pour j
+		if (reservations.isEmpty()){
+			// on vérifie si place est partagée pour j
 			retour = isPlaceSharedAndOccupiedAtDate(placeNumber, DateUtil.dateToString(LocalDate.now()));
-				
 		}
-			
-		
+		else if (reservations.size() == 1){
+			// on vérifie si place est partagée pour j+1
+			retour = isPlaceSharedAndOccupiedAtDate(placeNumber, rechercherLejourSuivant(LocalDate.now().plusDays(1)));
+		}
 		return retour;
 	}	
 	
