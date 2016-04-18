@@ -23,6 +23,7 @@ import org.friends.app.service.impl.UserServiceBean;
 import org.friends.app.view.route.AuthenticatedRoute;
 import org.friends.app.view.route.BookRoute;
 import org.friends.app.view.route.BookedRoute;
+import org.friends.app.view.route.ContactRoute;
 import org.friends.app.view.route.ForgottenPwdRoute;
 import org.friends.app.view.route.LoginRoute;
 import org.friends.app.view.route.PasswordTokenRoute;
@@ -192,6 +193,12 @@ public class Application {
 		SettingRoute setting = new SettingRoute(); 
 		get(Routes.SETTINGS, setting, new FreeMarkerEngine()); 
 		post(Routes.SETTINGS, setting, new FreeMarkerEngine()); 
+		
+		/*
+		 * User Contact
+		 */
+		ContactRoute contactRoute = new ContactRoute();
+		post(Routes.MESSAGE_CONTACT, contactRoute, new FreeMarkerEngine());
 
 
 		/*

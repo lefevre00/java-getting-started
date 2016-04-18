@@ -71,4 +71,19 @@ public class MailServiceBean {
 
 		sendMail(email);
 	}
+	
+	public void sendContact(String nom, String mail, String message){
+		SendGrid.Email email = new SendGrid.Email();
+		email.addTo(Configuration.EMAIL_CONTACT);
+		email.setSubject("Message depuis le formulaire de contact");
+		StringBuilder sb = new StringBuilder();
+		sb.append("Nom : ")
+		.append(nom)
+		.append("\n Mail :")
+		.append(mail)
+		.append("\n Message : \n")
+		.append(message);
+		email.setText(sb.toString());
+		sendMail(email);
+	}
 }

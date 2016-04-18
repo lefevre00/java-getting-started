@@ -31,6 +31,7 @@ public interface Routes {
 	String PASSWORD_SETTED = "/user/setted";
 	
 	String ERROR_PAGE = "/user/error";
+	String MESSAGE_CONTACT = "/user/contact";
 	/*
 	 * Accessible if authenticated
 	 */
