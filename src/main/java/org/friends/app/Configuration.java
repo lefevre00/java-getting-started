@@ -22,6 +22,10 @@ public class Configuration {
 	public static String getMailServicePassword() {
 		return System.getenv("SENDGRID_PASSWORD");
 	}
+	
+	public static String getMailTeam(){
+		return System.getProperty("MAIL_TEAM");
+	}
 
 	public static Integer getPort() {
 		String port = System.getenv(PORT);

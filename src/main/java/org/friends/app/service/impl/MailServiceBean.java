@@ -2,6 +2,7 @@ package org.friends.app.service.impl;
 
 import static org.friends.app.Configuration.getMailServiceLogin;
 import static org.friends.app.Configuration.getMailServicePassword;
+import static org.friends.app.Configuration.getMailTeam;
 
 import org.friends.app.Configuration;
 import org.friends.app.model.User;
@@ -74,7 +75,7 @@ public class MailServiceBean {
 	
 	public void sendContact(String nom, String mail, String message){
 		SendGrid.Email email = new SendGrid.Email();
-		email.addTo(Configuration.EMAIL_CONTACT);
+		email.addTo(getMailTeam());
 		email.setSubject("Message depuis le formulaire de contact");
 		StringBuilder sb = new StringBuilder();
 		sb.append("Nom : ")

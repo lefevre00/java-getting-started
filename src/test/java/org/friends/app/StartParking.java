@@ -22,7 +22,7 @@ public class StartParking {
 	public static void main(String[] args) throws SQLException, URISyntaxException {
 		System.setProperty("PORT", "8080");
 		System.setProperty(Configuration.DEPLOY_MODE, "dev");
-		System.setProperty("MAIL_DEST", "lefevre00@yahoo.fr");
+		System.setProperty("MAIL_TEAM", "contact@takemyplace.fr");
 
 		new Application() {
 			public void start() throws SQLException, URISyntaxException {
