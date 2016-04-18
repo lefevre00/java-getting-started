@@ -49,8 +49,7 @@ public class BookedRoute extends AuthenticatedRoute {
 		else{
 			map.put("dateReservation", getDateReservation4UserPlaceHolder(reservations, user.getPlaceNumber()));
 		}
-//		map.put("presentation", user.getPlaceNumber() == null ? "Voici les places que vous avez réservées :" : "Voici les dates de libération de la place " + user.getPlaceNumber().toString() + " :");
-
+		map.put("presentation", reservations.isEmpty() ? "Aucune réservation enregistrée." : "Voici les places que vous avez réservées :");
 		return new ModelAndView(map, "reservations.ftl");
 	}
 

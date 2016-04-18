@@ -11,7 +11,7 @@
   
     <section class="content-section">
 		<div class="container containerAttr" style="padding-bottom:80px;">
-			<h2>Vous êtes maintenant déconnecté.</h2>
+			<h2>Vous êtes déconnecté.</h2>
 			<br><br>
 			<img src="/images/deconnexion.png"/>
 		</div>

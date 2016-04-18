@@ -2,6 +2,15 @@
 <html lang="fr">
 <head>
   	<#include "header.ftl">
+
+	<link href='https://fonts.googleapis.com/css?family=Poiret+One|Yanone+Kaffeesatz|Lobster|Ubuntu+Condensed|Pacifico|Shadows+Into+Light|Comfortaa|Architects+Daughter|BenchNine|Tangerine|Playball|Great+Vibes|Bad+Script|Marck+Script|Niconne|Damion|Michroma|Allerta+Stencil|Marcellus+SC|Coda|Quantico|Alex+Brush|Julius+Sans+One|Syncopate|Teko|Fredericka+the+Great|PT+Mono|Ubuntu+Mono|Advent+Pro|Gruppo|Italianno|Mountains+of+Christmas|Federo|Henny+Penny|Dynalight|Caveat|Sarina|Montserrat+Subrayada|Krona+One|Ruthie|Open+Sans+Condensed:300|Khand|Wire+One|Oswald|Roboto+Condensed|Montserrat' rel='stylesheet' type='text/css'>
+	
+	<style>
+		.ShadowsIntoLight {
+			font-family: 'Shadows Into Light', cursive;
+		}
+	</style>	
+	
 </head>
 
 <body>
@@ -21,11 +30,14 @@
 				<div class="wow bounceIn col-md-12 col-sm-12">
 				
 					<#if logged??>
-					
+						<img src="/images/logo_accueil.png"/>
 					<#else>
-						<h2>BIENVENUE !</h2>
-						<h3>Site de partage des places de parking</h3>
-						<h1>destiné aux salariés de la Mutuelle Des Motards</h1>
+						
+						<img src="/images/logo_accueil.png"/>
+						<br clear="both"/>
+						<span class="ShadowsIntoLight" style="font-size: 28px;">Site de partage des places de parking</span>
+						<br clear="both"/>
+						<br clear="both"/>
 						<a href="/user/login" class="btn btn-default">SE CONNECTER</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="/user/new" class="btn btn-default">S'INSCRIRE</a>
 					</#if>
@@ -46,7 +58,7 @@
 				</div>
 				<div class="col-md-6 col-sm-6">
 					<h4>Vous êtes titulaire d'une place</h4>
-					<h5>Sous-titre</h5>
+					<h5>Faites-en profiter les autres en votre absence</h5>
 					<div style="text-align:justify;">
 					Quam ob rem ut ii qui superiores sunt submittere se debent in amicitia, sic quodam modo inferiores extollere. Sunt enim quidam qui molestas amicitias faciunt, cum ipsi se contemni putant; quod non fere contingit nisi iis qui etiam contemnendos se arbitrantur; qui hac opinione non modo verbis sed etiam opere levandi sunt.<br>
 
@@ -59,7 +71,7 @@
 				</div>
 				<div class="col-md-6 col-sm-6">
 					<h4>Vous êtes à la recherche d'une place</h4>
-					<h5>Sous-titre</h5>
+					<h5>Des places sont peut-être libres !</h5>
 					<div style="text-align:justify;">
 					Sed laeditur hic coetuum magnificus splendor levitate paucorum incondita, ubi nati sunt non reputantium, sed tamquam indulta licentia vitiis ad errores lapsorum ac lasciviam. ut enim Simonides lyricus docet, beate perfecta ratione vieturo ante alia patriam esse convenit gloriosam.<br>
 
