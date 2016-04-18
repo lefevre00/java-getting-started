@@ -11,12 +11,10 @@
 
     <section class="content-section">
 		<div class="container containerAttr">
-			<h1><i class="fa fa-thumbs-o-up"></i> ${title}</h1>
+			<h1><i class="fa fa-thumbs-o-up"></i>CONTACT</h1>
 			<div class="row">
 				<div class="alert alert-success" role="alert">
-					Un mail vient d'être envoyé à l'équipe gérant ce site.
-					<br/>
-					${message}
+					Votre message a été envoyé à l'équipe du site.
 				</div>
 			</div>
 		</div>

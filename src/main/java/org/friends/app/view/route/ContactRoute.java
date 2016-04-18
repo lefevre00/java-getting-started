@@ -17,18 +17,17 @@ public class ContactRoute  implements TemplateViewRoute {
 
 	@Override
 	public ModelAndView handle(Request request, Response response) throws Exception {
-		Map<String, String> params = request.params();
 		Map<String, Object> map = new HashMap<>();
+		
 		if ("POST".equalsIgnoreCase(request.requestMethod())) {
-			String nom = params.get("nom");
-			String mail = params.get("email");
-			String message = params.get("message");
+			String mail = request.queryParams("mail");
+			String nom = request.queryParams("nom");
+			String message = request.queryParams("message");
 			if (StringUtils.isEmpty(nom) ||
 					StringUtils.isEmpty(mail) ||
 					StringUtils.isEmpty(message) ) throw new RuntimeException("Erreur saisie formulaire contact");
 				sendContact(nom, mail, message);
 		}
-
 		return new ModelAndView(map, "contactSend.ftl");
 	}
 	
