@@ -22,6 +22,7 @@ import spark.utils.StringUtils;
  */
 public class BookedRoute extends AuthenticatedRoute {
 
+	private static final String URL_BASE = "/protected/booked";
 	private PlaceServiceBean service = new PlaceServiceBean();
 
 	@Override
@@ -38,6 +39,7 @@ public class BookedRoute extends AuthenticatedRoute {
 		List<Place> reservations = service.getReservations(user);
 		
 		Map<String, Object> map = getMap();
+		map.put("urlBase", URL_BASE);
 		if (!reservations.isEmpty()){
 			map.put("places", reservations);
 		}

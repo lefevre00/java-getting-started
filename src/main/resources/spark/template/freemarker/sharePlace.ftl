@@ -101,6 +101,9 @@
 
 	</section>
 	
+	<#include "footer.ftl">
+
+	
 
 	<script type="text/javascript">
 	    $( document ).ready(function() {

@@ -27,10 +27,11 @@
 							<li><a href="/protected/booked">Réservation</a></li>
 							<li><a href="/protected/setting">Paramètres</a></li>
 						</ul>
+						
 					</li>
 				</#if>
-				<li><a href="/#aide">AIDE</a></li>
-				<li><a href="/#contact">CONTACT</a></li>
+				<li><a href="<#if urlBase??>${urlBase}<#else>/</#if>#aide">AIDE</a></li>
+				<li><a href="<#if urlBase??>${urlBase}<#else>/</#if>#contact">CONTACT</a></li>
 				<#if logged??>
 					<li><a href="/user/logout">DECONNEXION</a></li>
 				</#if>

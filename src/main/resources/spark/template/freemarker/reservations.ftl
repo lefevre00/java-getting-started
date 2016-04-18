@@ -51,6 +51,10 @@
 			</div>
 		</div>
 	</section>
+	
+	<#include "footer.ftl">
+	
+	
 	<script type="text/javascript">
 		$(function() {
 			$('a[data-confirm]').click(function(ev) {

@@ -18,11 +18,13 @@ import spark.utils.StringUtils;
 public class ShareRoute extends AuthenticatedRoute {
 	
 	private PlaceServiceBean placeService = new PlaceServiceBean();
+	public static String URL_BASE = "/protected/share";
 	
 	@Override
 	public ModelAndView doHandle(Request request, Response response) {
 		
 		Map<String, Object> map = getMap();
+		map.put("urlBase", URL_BASE);
     	User user = getUser(request);		
     	
 		if (user.getPlaceNumber() == null){
@@ -89,7 +91,7 @@ public class ShareRoute extends AuthenticatedRoute {
 
 		return new ModelAndView(map, "sharePlace.ftl");	
 	}
-	
+
 
 	public String nextDayWithOutWeekEnd(){
 		String retour = DateUtil.dateToString(LocalDate.now());
