@@ -1,6 +1,5 @@
 package org.friends.app.view.route;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.friends.app.service.impl.UserServiceBean;
@@ -24,7 +23,7 @@ public class PasswordTokenRoute implements TemplateViewRoute {
 
 		String template = "pwd_new.ftl";
 
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = Routes.getMap(request);
 		String token = request.queryParams(FIELD_TOKEN);
 		String email = request.queryParams(FIELD_EMAIL);
 		String mdp = request.queryParams(FIELD_PASSWORD);

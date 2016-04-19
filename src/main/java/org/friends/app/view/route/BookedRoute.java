@@ -38,7 +38,7 @@ public class BookedRoute extends AuthenticatedRoute {
 		// on récupère les réservations pour des dates égales/postérieures à la date du jour  
 		List<Place> reservations = service.getReservations(user);
 		
-		Map<String, Object> map = getMap();
+		Map<String, Object> map = Routes.getMap(request);
 		map.put("urlBase", URL_BASE);
 		if (!reservations.isEmpty()){
 			map.put("places", reservations);
@@ -62,7 +62,7 @@ public class BookedRoute extends AuthenticatedRoute {
 			dateReservation = DateUtil.dateToString(LocalDate.now());
 		}
 		else if (reservations.size() == 1 ) {
-			rechercherLejourSuivant(LocalDate.now());
+			dateReservation = rechercherLejourSuivant(LocalDate.now());
 		}
 		return dateReservation;
 	}

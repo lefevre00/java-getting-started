@@ -2,7 +2,6 @@ package org.friends.app.view.route;
 
 import static org.friends.app.view.RequestHelper.getAppUrl;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.bind.ValidationException;
@@ -22,7 +21,7 @@ public class ForgottenPwdRoute implements TemplateViewRoute {
 	@Override
 	public ModelAndView handle(Request request, Response response) throws Exception {
 
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = Routes.getMap(request);
 		if ("POST".equalsIgnoreCase(request.requestMethod())) {
 			try {
 				onLogin(request, response, map);

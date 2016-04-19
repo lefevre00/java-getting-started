@@ -1,6 +1,5 @@
 package org.friends.app.view.route;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.friends.app.service.impl.MailServiceBean;
@@ -17,7 +16,7 @@ public class ContactRoute  implements TemplateViewRoute {
 
 	@Override
 	public ModelAndView handle(Request request, Response response) throws Exception {
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = Routes.getMap(request);
 		
 		if ("POST".equalsIgnoreCase(request.requestMethod())) {
 			String mail = request.queryParams("mail");

@@ -23,7 +23,7 @@ public class ShareRoute extends AuthenticatedRoute {
 	@Override
 	public ModelAndView doHandle(Request request, Response response) {
 		
-		Map<String, Object> map = getMap();
+		Map<String, Object> map = Routes.getMap(request);
 		map.put("urlBase", URL_BASE);
     	User user = getUser(request);		
     	

@@ -25,7 +25,7 @@ public class BookRoute extends AuthenticatedRoute {
 	public ModelAndView doHandle(Request request, Response response) {
 		User user = getUser(request);
 		Map<String, String> params = request.params();
-		Map<String, Object> map = getMap();
+		Map<String, Object> map = Routes.getMap(request);
 		
 		String place = params.get(PARAM_PLACE);
 		String date = params.get(PARAM_DATE);

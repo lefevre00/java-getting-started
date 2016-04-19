@@ -11,29 +11,31 @@
 			</button>
 			<a href="/" class="navbar-brand" >
 				<img src="/images/logo.png" class="hidden-xs" alt="CoParking">
-			</a>			
+			</a>
+			<#if mail??>
+				<p class="navbar-text">${mail}</p>
+			</#if>
 		</div>
 		
 		<!-- =============================== Menus ================================-->
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<#if logged??>
-					<li class="dropdown dropdown-submenu">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">ACTIONS</a>
+				<#if mail??>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">ACTIONS <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<#if placeHolder??>
+							<#if canShare??>
 								<li><a href="/protected/share">Partage</a></li>
 							</#if>
 							<li><a href="/protected/booked">Réservation</a></li>
 							<li><a href="/protected/setting">Paramètres</a></li>
 						</ul>
-						
 					</li>
 				</#if>
 				<li><a href="<#if urlBase??>${urlBase}<#else>/</#if>#aide">AIDE</a></li>
 				<li><a href="<#if urlBase??>${urlBase}<#else>/</#if>#contact">CONTACT</a></li>
-				<#if logged??>
-					<li><a href="/user/logout">DECONNEXION</a></li>
+				<#if mail??>
+					<li><a href="/user/logout">DECONNECTER</a></li>
 				</#if>
 			</ul>
 		</div>

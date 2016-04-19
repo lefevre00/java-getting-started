@@ -13,7 +13,6 @@ import java.net.URISyntaxException;
 import java.security.AccessControlException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.friends.app.Configuration;
@@ -73,7 +72,7 @@ public class Application {
 		get(Routes.CHOICE_ACTION, new AuthenticatedRoute() {
 			@Override
 			protected ModelAndView doHandle(Request request, Response response) {
-				return new ModelAndView(getMap(), "actions.ftl");
+				return new ModelAndView(Routes.getMap(request), "actions.ftl");
 			}
 		}, new FreeMarkerEngine());
 
@@ -97,12 +96,7 @@ public class Application {
 		get(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
 		post(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
 		get("/", (req, res) -> {
-			Map<String, String> map = new HashMap<>();
-			User user = getAuthenticatedUser(req);
-			if (user != null){
-				map.put("logged", "true");
-			}
-			return new ModelAndView(map, "index.ftl");
+			return new ModelAndView(Routes.getMap(req), "index.ftl");
 		}, new FreeMarkerEngine());
 		
 		
@@ -134,8 +128,7 @@ public class Application {
 		
 		
 		get(Routes.ERROR_PAGE, (req, res) -> {
-			Map<String, String> map = new HashMap<>();
-			return new ModelAndView(map, "error.ftl");
+			return new ModelAndView(Routes.getMap(req), "error.ftl");
 		}, new FreeMarkerEngine());		
 		
 		
@@ -148,7 +141,7 @@ public class Application {
 		post(Routes.REGISTER, registerRoute, new FreeMarkerEngine());
 		get(Routes.TOKEN_VALIDATION, new ValidTokenRoute(), new FreeMarkerEngine());
 		get(Routes.REGISTRED, (req, res) -> {
-			Map<String, String> map = new HashMap<>();
+			Map<String, Object> map = Routes.getMap(req);
 			map.put("title", "Utilisateur enregistré");
 			map.put("message", "Veuillez suivre les indications qu'il comporte pour activer votre compte.");
 			return new ModelAndView(map, "mail_send.ftl");
@@ -161,13 +154,13 @@ public class Application {
 		get(Routes.PASSWORD_LOST, forgottenPwdRoute, new FreeMarkerEngine());
 		post(Routes.PASSWORD_LOST, forgottenPwdRoute, new FreeMarkerEngine());
 		get(Routes.PASSWORD_RESET, (req, res) -> {
-			Map<String, String> map = new HashMap<>();
+			Map<String, Object> map = Routes.getMap(req);
 			map.put("title", "Mot de passe en cours de modification");
 			map.put("message", "Veuillez suivre les indications qu'il comporte pour définir un nouveau mot de passe.");
 			return new ModelAndView(map, "mail_send.ftl");
 		}, new FreeMarkerEngine());
 		get(Routes.PASSWORD_NEW, (req, res) -> {
-			Map<String, String> map = new HashMap<>();
+			Map<String, Object> map = Routes.getMap(req);
 			map.put("token", req.queryParams("tok"));
 			return new ModelAndView(map, "pwd_new.ftl");
 		}, new FreeMarkerEngine());

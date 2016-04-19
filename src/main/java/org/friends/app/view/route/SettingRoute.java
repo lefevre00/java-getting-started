@@ -28,7 +28,7 @@ public class SettingRoute extends AuthenticatedRoute {
 	@Override
 	protected ModelAndView doHandle(Request request, Response response) {
 
-		Map<String, Object> map = getMap();
+		Map<String, Object> map = Routes.getMap(request);
 		map.put("urlBase", URL_BASE);
 		User user = getUser(request);
 		map.put("placeHolder", user.getPlaceNumber()==null ? null : true);

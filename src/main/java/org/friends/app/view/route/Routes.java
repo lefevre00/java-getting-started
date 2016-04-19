@@ -1,7 +1,10 @@
 package org.friends.app.view.route;
 
+import java.util.Map;
+
 import org.friends.app.model.User;
 
+import spark.Request;
 import spark.Response;
 
 public interface Routes {
@@ -13,6 +16,25 @@ public interface Routes {
 		else if (user.getPlaceNumber() != null)
 			dest = PLACE_SHARE;
 		response.redirect(dest);
+	}
+	
+
+	/**
+	 * Build the default map object to tell the template that the user is logged in.
+	 * @return
+	 */
+	public static Map<String, Object> getMap(Request request) {
+		Map<String, Object> map = Routes.getMap(request);
+		
+		User user = request.session().attribute("user");
+		if (user != null) {
+			map.put("mail", user.getEmailAMDM());
+			if (user.getPlaceNumber() != null) {
+				map.put("canShare", "true");
+			}
+		}
+		
+		return map ;
 	}
 
 	String PARAM_TOKEN_VALUE = "tok";

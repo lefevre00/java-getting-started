@@ -5,8 +5,6 @@ import java.security.AccessControlException;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.friends.app.Configuration;
 import org.friends.app.model.User;
@@ -72,15 +70,4 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 		}
 		return DateUtil.dateToString(dateRecherche);
 	}
-	
-	/**
-	 * Build the default map object to tell the template that the user is logged in.
-	 * @return
-	 */
-	protected Map<String, Object> getMap() {
-		Map<String, Object> map = new HashMap<>();
-		map.put("logged", "true");
-		return map ;
-	}
-
 }

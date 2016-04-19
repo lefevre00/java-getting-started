@@ -23,7 +23,7 @@ public class SearchRoute extends AuthenticatedRoute {
 	
 	@Override
 	public ModelAndView doHandle(Request req, Response resp) {
-    	Map<String, Object> map = getMap();
+    	Map<String, Object> map = Routes.getMap(req);
     	User user = getUser(req);
     	
     	LocalDate now = LocalDate.now();
