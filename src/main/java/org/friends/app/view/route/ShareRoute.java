@@ -18,13 +18,11 @@ import spark.utils.StringUtils;
 public class ShareRoute extends AuthenticatedRoute {
 	
 	private PlaceServiceBean placeService = new PlaceServiceBean();
-	public static String URL_BASE = "/protected/share";
 	
 	@Override
 	public ModelAndView doHandle(Request request, Response response) {
 		
 		Map<String, Object> map = Routes.getMap(request);
-		map.put("urlBase", URL_BASE);
     	User user = getUser(request);		
     	
 		if (user.getPlaceNumber() == null){

@@ -100,8 +100,7 @@
 		</div>
 
 	</section>
-	
-	<#include "footer.ftl">
+
 
 	
 

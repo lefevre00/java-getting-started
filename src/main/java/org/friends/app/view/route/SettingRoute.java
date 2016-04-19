@@ -20,8 +20,6 @@ public class SettingRoute extends AuthenticatedRoute {
 	private static final String ERROR = "error";
 
 	private static final String INFO = "info";
-	
-	private static final String URL_BASE = "/protected/setting";
 
 	UserServiceBean userService = new UserServiceBean();
 
@@ -29,7 +27,6 @@ public class SettingRoute extends AuthenticatedRoute {
 	protected ModelAndView doHandle(Request request, Response response) {
 
 		Map<String, Object> map = Routes.getMap(request);
-		map.put("urlBase", URL_BASE);
 		User user = getUser(request);
 		map.put("placeHolder", user.getPlaceNumber()==null ? null : true);
 		if ("POST".equalsIgnoreCase(request.requestMethod())) {

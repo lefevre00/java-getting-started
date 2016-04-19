@@ -1,5 +1,6 @@
 package org.friends.app.view.route;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.friends.app.model.User;
@@ -24,7 +25,7 @@ public interface Routes {
 	 * @return
 	 */
 	public static Map<String, Object> getMap(Request request) {
-		Map<String, Object> map = Routes.getMap(request);
+		Map<String, Object> map = new HashMap<>();
 		
 		User user = request.session().attribute("user");
 		if (user != null) {

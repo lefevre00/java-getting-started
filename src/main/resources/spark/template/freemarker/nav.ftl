@@ -32,8 +32,8 @@
 						</ul>
 					</li>
 				</#if>
-				<li><a href="<#if urlBase??>${urlBase}<#else>/</#if>#aide">AIDE</a></li>
-				<li><a href="<#if urlBase??>${urlBase}<#else>/</#if>#contact">CONTACT</a></li>
+				<li><a href="/#aide">AIDE</a></li>
+				<li><a href="/#contact">CONTACT</a></li>
 				<#if mail??>
 					<li><a href="/user/logout">DECONNECTER</a></li>
 				</#if>
