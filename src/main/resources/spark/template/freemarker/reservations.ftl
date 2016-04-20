@@ -17,31 +17,32 @@
 		<div class="container containerAttr">
 		
 			<h1 class="titre">Réservations</h1>
-			
+
+			<!--============================= boutons de réservation ================================-->
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
+				<div class="col-sm-6" style="text-align:left;">
+					<#if showToday??>
+						<a href="/protected/search?day=${showToday}" class="btn btn-primary btn-lg">Réserver aujourd'hui</a>						
+					</#if>				
+				</div>
+				<div class="col-sm-6" style="text-align:right;">
+					<#if showTomorrow??>
+						<a href="/protected/search?day=${showTomorrow}" class="btn btn-primary btn-lg">Réserver demain</a>
+					</#if>				
+				</div>
+			</div>
 			
-				<div class="col-sm-8" style="text-align:left;"><h4>
+			<!--============================= Message réservation  ================================-->
+			<div class="row table-responsive" style="margin:0px auto;max-width:700px; padding-top:20px;">
+			
+				<h4>
 					<#if places??>
 						Voici les places que vous avez réservées :
 					<#else>
 						Aucune réservation enregistrée.
 					</#if>
-				</h4></div>
-				
-				<#if showToday??>
-					<div class="col-sm-4" style="text-align:right;">
-						<a href="/protected/search?day=${showToday}" class="btn btn-primary btn-lg">Réserver aujourd'hui</a><br>
-					</div>
-				</#if>
-				
-				<#if showTomorrow??>
-					<div class="col-sm-4" style="text-align:right;">
-						<a href="/protected/search?day=${showTomorrow}" class="btn btn-primary btn-lg">Réserver demain</a><br>
-					</div>
-				</#if>
-
-			</div>
-			<div class="row table-responsive" style="margin:0px auto;max-width:700px; padding-top:20px;">
+				</h4>
+								
 				<#if places??>
 					<table class="table table-bordered table-striped table-condensed padding20">
 						<tr style="background-color: #337ab7; color: white;">
@@ -60,7 +61,8 @@
 						</#list>
 					</table>
 				</#if>
-			</div>
+			</div>			
+
 		</div>
 	</section>
 
