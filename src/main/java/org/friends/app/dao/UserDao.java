@@ -22,9 +22,16 @@ public class UserDao {
 		Assert.notNull(user);
 		Session session = HibernateUtil.getSession();
 		session.beginTransaction();
-		Serializable id = session.save( user );
+		Serializable id = null;
+		if (user.getId() != null) {
+			id = user.getId();
+		 	session.merge(user);
+		} else {
+			id = session.save( user );
+		}
 		session.getTransaction().commit();
-		return (User) session.get(User.class, id);
+		User back = session.get(User.class, id);
+		return back;
 	}
 
 	public User findById(Integer userId) {
