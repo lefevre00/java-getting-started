@@ -254,6 +254,6 @@ public class PlaceServiceBean implements PlaceService {
 
 		// L'utilisateur avec place attitrée a-t-il partagé sa place pour le jour demandé.
 		Place placePartagee = placedao.findPlaceByCriterions(Restrictions.eq("id.placeNumber", user.getPlaceNumber()), Restrictions.eq("id.occupationDate", day));
-		return placePartagee != null && hasNoReservation;
+		return placePartagee != null && StringUtils.isNotEmpty(placePartagee.getUsedBy()) && hasNoReservation;
 	}	
 }
