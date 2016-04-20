@@ -29,10 +29,9 @@
 			<div class="row">
 				<div class="wow bounceIn col-md-12 col-sm-12">
 				
-					<#if logged??>
+					<#if mail??>
 						<img src="/images/logo_accueil.png"/>
 					<#else>
-						
 						<img src="/images/logo_accueil.png"/>
 						<br clear="both"/>
 						<span class="ShadowsIntoLight" style="font-size: 28px;">Site de partage des places de parking</span>
