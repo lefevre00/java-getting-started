@@ -30,7 +30,6 @@ public class ShareRoute extends AuthenticatedRoute {
 		}
     	
 		// Permet d'identifier l'utilisateur avec une place attribuée
-		map.put("placeHolder", true);
 		map.put("placeNumber", user.getPlaceNumber());
 		
 		/*

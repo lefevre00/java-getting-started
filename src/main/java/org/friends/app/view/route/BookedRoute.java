@@ -41,7 +41,6 @@ public class BookedRoute extends AuthenticatedRoute {
 		if (!reservations.isEmpty()){
 			map.put("places", reservations);
 		}
-		map.put("placeHolder", user.getPlaceNumber()==null ? null : true);
 		map.put("placenumber", user.getPlaceNumber() == null ? "" : user.getPlaceNumber());
 		if (user.getPlaceNumber()==null){
 			map.put("dateReservation", getDateReservation(reservations));

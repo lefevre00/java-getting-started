@@ -29,7 +29,6 @@ public class BookRoute extends AuthenticatedRoute {
 		
 		String place = params.get(PARAM_PLACE);
 		String date = params.get(PARAM_DATE);
-		map.put("placeHolder", user.getPlaceNumber()==null ? null : true);
 		if (StringUtils.isEmpty(date)) {
 		    date = DateUtil.dateToString(LocalDate.now());
 		}

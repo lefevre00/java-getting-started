@@ -28,7 +28,6 @@ public class SettingRoute extends AuthenticatedRoute {
 
 		Map<String, Object> map = Routes.getMap(request);
 		User user = getUser(request);
-		map.put("placeHolder", user.getPlaceNumber()==null ? null : true);
 		if ("POST".equalsIgnoreCase(request.requestMethod())) {
 			Integer i = null;
 			boolean doUpdate = true;
