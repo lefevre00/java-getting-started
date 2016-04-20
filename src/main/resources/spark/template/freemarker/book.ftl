@@ -22,6 +22,9 @@
 				<div>
 					<center>
 						${message}
+						<br/>
+						<a href="/protected/booked" class="btn btn-info btn-lg">Retour</a>
+					  	     		
 					</center>
 				</div>
 			</div>

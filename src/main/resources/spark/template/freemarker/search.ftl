@@ -21,6 +21,9 @@
 					Souhaitez-vous valider la  r&eacute;servation ?
 					<br clear="both"/>
 					<br clear="both"/>
+					
+					<a href="/protected/booked" class="btn btn-info btn-lg"> Retour</a>
+					&nbsp;
 					<a href="/protected/book/${dateBook}/${place.placeNumber}" class="btn btn-primary btn-lg">Valider</a>
 				<#else>
 					<#if message??>
