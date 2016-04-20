@@ -57,7 +57,10 @@
 						</tr>
 						<#list places as place>
 							<tr> 
-				  	    		<td>Le ${place.occupationDate}</td>
+				  	    		<td>
+				  	    			<#assign theDate = '${place.occupationDate}'?date("yyyy-MM-dd")>
+				  	    			Le ${theDate?string["dd/MM/yyyy"]}
+				  	    		</td>
 					  	     	<td>${place.placeNumber}</td>
 					  	     	<td>
 					  	     		<a href="?release=${place.occupationDate}" data-confirm='Annuler la réservation du <strong> ${place.occupationDate} </strong> ?' ><img src="/images/cancel.png"/></a>							  	     		

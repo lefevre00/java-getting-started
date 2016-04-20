@@ -80,7 +80,10 @@
 								</tr>
 								<#list datesPartages as place>
 									<!tr> 
-						  	    		<td>${place.occupationDate}</td>
+						  	    		<td>
+						  	    			<#assign theDate = '${place.occupationDate}'?date("yyyy-MM-dd")>
+						  	    			${theDate?string["dd/MM/yyyy"]}	
+						  	    		</td>
 							  	     	<td>
 							  	     		<#assign show = place.usedBy>
 							  	     	 	<#if show == "" || show == " ">
