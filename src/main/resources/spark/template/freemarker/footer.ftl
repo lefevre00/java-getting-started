@@ -4,7 +4,7 @@
 	
 	<#include "contactSection.ftl">
 	
-	<#include "copyRightSection.ftl">
+	<#include "copyrightSection.ftl">
 	
 	
 	
