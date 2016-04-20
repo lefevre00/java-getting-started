@@ -27,7 +27,7 @@ public class MailServiceBean {
 			try {
 				SendGrid.Response response = sendgrid.send(email);
 				if (response.getStatus()) {
-					java.util.logging.Logger.getLogger("mail").warning("fail to send mail");
+					java.util.logging.Logger.getLogger("mail").warning("fail to send mail : " + response.getMessage());
 				}
 			} catch (SendGridException e) {
 				System.out.println(e);
