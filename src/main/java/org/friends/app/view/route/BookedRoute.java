@@ -41,54 +41,17 @@ public class BookedRoute extends AuthenticatedRoute {
 		if (!reservations.isEmpty()){
 			map.put("places", reservations);
 		}
-		map.put("placenumber", user.getPlaceNumber() == null ? "" : user.getPlaceNumber());
-		if (user.getPlaceNumber()==null){
-			map.put("dateReservation", getDateReservation(reservations));
+		
+		LocalDate now = LocalDate.now();
+		String day = DateUtil.dateToString(now);
+		if (service.canBook(user, day)) {
+			map.put("showToday", day);
 		}
-		else{
-			map.put("dateReservation", getDateReservation4UserPlaceHolder(reservations, user.getPlaceNumber()));
+		day = rechercherLejourSuivant(now);
+		if (service.canBook(user, day)) {
+			map.put("showTomorrow", day);
 		}
-		map.put("presentation", reservations.isEmpty() ? "Aucune réservation enregistrée." : "Voici les places que vous avez réservées :");
+		
 		return new ModelAndView(map, "reservations.ftl");
 	}
-
-	protected String getDateReservation(List<Place> reservations){
-		
-		String dateReservation="";
-		if (reservations.isEmpty()){
-			dateReservation = DateUtil.dateToString(LocalDate.now());
-		}
-		else if (reservations.size() == 1 ) {
-			dateReservation = rechercherLejourSuivant(LocalDate.now());
-		}
-		return dateReservation;
-	}
-	
-	/*
-	 * Liste reservations contient au maximum 2 dates de réservations
-	 * Si 2 réservations, pas de nouvelles réservations possibles 
-	 */
-	public String getDateReservation4UserPlaceHolder(List<Place> reservations, Integer placeNumber) {
-		
-		String retour = "";
-		if (reservations.isEmpty()){
-			// on vérifie si place est partagée pour j
-			retour = isPlaceSharedAndOccupiedAtDate(placeNumber, DateUtil.dateToString(LocalDate.now()));
-		}
-		else if (reservations.size() == 1){
-			// on vérifie si place est partagée pour j+1
-			retour = isPlaceSharedAndOccupiedAtDate(placeNumber, rechercherLejourSuivant(LocalDate.now().plusDays(1)));
-		}
-		return retour;
-	}	
-	
-	private String isPlaceSharedAndOccupiedAtDate(Integer placeNumber, String date){
-		
-		Place place = service.isPlaceShared(placeNumber, date);					
-		if (place!=null && StringUtils.isNotEmpty(place.getUsedBy())){
-			return place.getOccupationDate();
-		}
-		return "";
-	}	
-	
 }

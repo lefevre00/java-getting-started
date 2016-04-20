@@ -234,11 +234,26 @@ public class PlaceServiceBean implements PlaceService {
 				}	    	    		
 	        }
 	    	dateToAdd= dateToAdd.plusDays(1);
-	    }	    
+	    }
 	    return dates;
 	}
 
 	public Place isPlaceShared(Integer placeNumber, String date){
 		return placedao.findPlaceByCriterions(Restrictions.eq("id.occupationDate", date), Restrictions.eq("id.placeNumber", placeNumber));
+	}
+	
+	public boolean canBook(User user, String day) {
+		Assert.notNull(user);
+		Assert.notNull(day);
+		
+		boolean hasNoReservation = placedao.findPlaceByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()), Restrictions.eq("id.occupationDate", day)) == null;
+		
+		// Si aucune reservation pour ce user at cette date, et que le user ne peut que reserver une place, alors oui
+		if (user.getPlaceNumber() == null)
+			return hasNoReservation;
+
+		// L'utilisateur avec place attitrée a-t-il partagé sa place pour le jour demandé.
+		Place placePartagee = placedao.findPlaceByCriterions(Restrictions.eq("id.placeNumber", user.getPlaceNumber()), Restrictions.eq("id.occupationDate", day));
+		return placePartagee != null && hasNoReservation;
 	}	
 }

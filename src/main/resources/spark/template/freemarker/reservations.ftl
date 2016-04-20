@@ -19,12 +19,24 @@
 			<h1 class="titre">Réservations</h1>
 			
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
-				<div class="col-sm-8" style="text-align:left;"><h4>${presentation}</h4></div>
+			
+				<div class="col-sm-8" style="text-align:left;"><h4>
+					<#if places??>
+						Voici les places que vous avez réservées :
+					<#else>
+						Aucune réservation enregistrée.
+					</#if>
+				</h4></div>
 				
-				<#if dateReservation != "">
+				<#if showToday??>
 					<div class="col-sm-4" style="text-align:right;">
-						<a href="/protected/search?day=${dateReservation}" class="btn btn-primary btn-lg">Réserver une place</a><br>
-						pour le ${dateReservation}
+						<a href="/protected/search?day=${showToday}" class="btn btn-primary btn-lg">Réserver aujourd'hui</a><br>
+					</div>
+				</#if>
+				
+				<#if showTomorrow??>
+					<div class="col-sm-4" style="text-align:right;">
+						<a href="/protected/search?day=${showTomorrow}" class="btn btn-primary btn-lg">Réserver demain</a><br>
 					</div>
 				</#if>
 
