@@ -13,11 +13,15 @@ import java.net.URISyntaxException;
 import java.security.AccessControlException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 import org.friends.app.Configuration;
+import org.friends.app.model.Place;
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
+import org.friends.app.service.impl.PlaceServiceBean;
 import org.friends.app.service.impl.UserServiceBean;
 import org.friends.app.view.route.AuthenticatedRoute;
 import org.friends.app.view.route.BookRoute;
@@ -33,19 +37,20 @@ import org.friends.app.view.route.SettingRoute;
 import org.friends.app.view.route.ShareRoute;
 import org.friends.app.view.route.ValidTokenRoute;
 
-import com.heroku.sdk.jdbc.DatabaseUrl;
-
 import spark.Filter;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import com.heroku.sdk.jdbc.DatabaseUrl;
+
 public class Application {
 
 	private static Application instance;
 	
 	UserServiceBean userService = new UserServiceBean();
+	PlaceServiceBean placeService = new PlaceServiceBean();
 
 	public Application() {
 		if (instance == null) instance = this;
@@ -95,9 +100,18 @@ public class Application {
 		LoginRoute loginRoute = new LoginRoute();
 		get(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
 		post(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
+//		get("/", (req, res) -> {
+//			return new ModelAndView(Routes.getMap(req), "index.ftl");
+//		}, new FreeMarkerEngine());
+		
 		get("/", (req, res) -> {
-			return new ModelAndView(Routes.getMap(req), "index.ftl");
-		}, new FreeMarkerEngine());
+			Map<String, Object> map = Routes.getMap(req);
+			List<Place> placesLibresToday = placeService.getAvailableByDate(LocalDate.now());
+			List<Place> placesLibresDemain = placeService.getAvailableByDate(LocalDate.now().plusDays(1));
+			map.put("placesToday", placesLibresToday.size());
+			map.put("placesDemain", placesLibresDemain.size());
+			return new ModelAndView(map, "index.ftl");
+		}, new FreeMarkerEngine());		
 		
 		
 		/*

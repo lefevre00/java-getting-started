@@ -33,8 +33,8 @@
 						<img src="/images/logo_accueil.png"/>
 						<br clear>
 						<br clear>
-						<span><h1 style="color:#f69b0c;">Pour information :</h1> <p style="color:#fff;">Il y a 25 places libres pour aujourd'hui,<br>
-						et 11 pour demain.</p></span>
+						<span><h1 style="color:#f69b0c;">Pour information :</h1> <p style="color:#fff;">Il y a ${placesToday} place(s) libre(s) pour aujourd'hui,<br>
+						et ${placesDemain} pour demain.</p></span>
 						
 					<#else>
 						<img src="/images/logo_accueil.png"/>
