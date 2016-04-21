@@ -33,9 +33,19 @@
 						<img src="/images/logo_accueil.png"/>
 						<br clear>
 						<br clear>
-						<span><h1 style="color:#f69b0c;">Pour information :</h1> <p style="color:#fff;">Il y a ${placesToday} place(s) libre(s) pour aujourd'hui,<br>
-						et ${placesDemain} pour demain.</p></span>
-						
+						<span style="text-align:center">
+							<h1 style="color:#f69b0c;">Pour information :</h1> 
+							<p style="color:#fff;">
+								<#if placesToday lte 1>
+									Il y a ${placesToday} place libre pour aujourd'hui
+								<#else>
+									Il y a ${placesToday} places libres pour aujourd'hui
+								</#if>
+								<#if placesDemain gt 0 >
+									,<br>et ${placesDemain} pour demain.
+								</#if>
+							</p>
+						</span>
 					<#else>
 						<img src="/images/logo_accueil.png"/>
 						<br clear="both"/>

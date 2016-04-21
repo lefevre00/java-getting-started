@@ -23,6 +23,7 @@ import org.friends.app.model.Session;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.PlaceServiceBean;
 import org.friends.app.service.impl.UserServiceBean;
+import org.friends.app.util.DateUtil;
 import org.friends.app.view.route.AuthenticatedRoute;
 import org.friends.app.view.route.BookRoute;
 import org.friends.app.view.route.BookedRoute;
@@ -100,14 +101,11 @@ public class Application {
 		LoginRoute loginRoute = new LoginRoute();
 		get(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
 		post(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
-//		get("/", (req, res) -> {
-//			return new ModelAndView(Routes.getMap(req), "index.ftl");
-//		}, new FreeMarkerEngine());
 		
 		get("/", (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
 			List<Place> placesLibresToday = placeService.getAvailableByDate(LocalDate.now());
-			List<Place> placesLibresDemain = placeService.getAvailableByDate(LocalDate.now().plusDays(1));
+			List<Place> placesLibresDemain = placeService.getAvailableByDate(DateUtil.rechercherDateLejourSuivant(LocalDate.now()));
 			map.put("placesToday", placesLibresToday.size());
 			map.put("placesDemain", placesLibresDemain.size());
 			return new ModelAndView(map, "index.ftl");

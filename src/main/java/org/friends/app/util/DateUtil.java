@@ -1,5 +1,6 @@
 package org.friends.app.util;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -44,4 +45,20 @@ public class DateUtil {
 	private static DateTimeFormatter getFullFormatter() {
 		return DateTimeFormatter.ofPattern(FULL_PATTERN);
 	}
+	
+	public static LocalDate rechercherDateLejourSuivant(LocalDate dateRecherche) {
+		if(DayOfWeek.FRIDAY.equals(dateRecherche.getDayOfWeek())){
+			dateRecherche = dateRecherche.plusDays(3);
+		}else if(DayOfWeek.SATURDAY.equals(dateRecherche.getDayOfWeek())){
+			dateRecherche = dateRecherche.plusDays(2);
+		}else{
+			dateRecherche = dateRecherche.plusDays(1);
+		}	
+		return dateRecherche;
+	}
+	
+	public static String rechercherStrLejourSuivant(LocalDate dateRecherche) {
+		return DateUtil.dateToString(rechercherDateLejourSuivant(dateRecherche));
+	}	
+	
 }
