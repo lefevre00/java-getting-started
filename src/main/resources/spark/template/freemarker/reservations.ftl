@@ -25,14 +25,14 @@
 						<#if showToday??>
 							<a href="/protected/search?day=${showToday}" class="btn btn-primary btn-lg">Réserver aujourd'hui</a>
 						<#else>
-							<a href="/protected/search" class="btn btn-secondary btn-lg disabled">Réserver aujourd'hui</a>						
+							<a href="/protected/search" class="btn btn-primary btn-lg disabled">Réserver aujourd'hui</a>						
 						</#if>				
 					</div>
 					<div class="col-sm-6" style="text-align:right;">
 						<#if showTomorrow??>
 							<a href="/protected/search?day=${showTomorrow}" class="btn btn-primary btn-lg">Réserver demain</a>
 						<#else>
-							<a href="/protected/search" class="btn btn-secondary btn-lg disabled">Réserver demain</a>
+							<a href="/protected/search" class="btn btn-primary btn-lg disabled">Réserver demain</a>
 						</#if>				
 					</div>
 				</div>
