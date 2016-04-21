@@ -35,7 +35,7 @@
 				<li><a href="/#aide">AIDE</a></li>
 				<li><a href="/#contact">CONTACT</a></li>
 				<#if mail??>
-					<li><a href="/user/logout">DECONNECTER</a></li>
+					<li><a href="/user/logout">DECONNEXION</a></li>
 				</#if>
 			</ul>
 		</div>
