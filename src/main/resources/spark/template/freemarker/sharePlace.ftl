@@ -36,7 +36,7 @@
     <section class="content-section">
 		<div class="container containerAttr">
 
-			<h1 class="titre">Proposer une place de parking</h1>
+			<h1 class="titre">Partagez votre place de parking</h1>
 
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">					
 				<form method="post" role="form">
@@ -76,7 +76,7 @@
 							<table class="table table-bordered table-striped table-condensed padding20">
 								<tr style="background-color: #337ab7; color: white;">
 									<th style="text-align:center;">Date de partage</th> 
-									<th style="text-align:center;">Annuler</th>
+									<th style="text-align:center;">Annuler partage</th>
 								</tr>
 								<#list datesPartages as place>
 									<!tr> 
@@ -88,6 +88,8 @@
 							  	     		<#assign show = place.usedBy>
 							  	     	 	<#if show == "" || show == " ">
 							  	     			<a href="/protected/share?unshareDate=${place.occupationDate}" data-confirm='Annuler le partage de votre place du <strong> ${place.occupationDate} </strong> ?' ><img src="/images/cancel.png"/></a>
+											<#else>
+												Place réservée
 							  	     		</#if>
 							  	     	</td>
 									</tr>
