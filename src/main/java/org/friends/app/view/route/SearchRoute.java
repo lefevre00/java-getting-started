@@ -40,7 +40,7 @@ public class SearchRoute extends AuthenticatedRoute {
     	
     	// Next date
     	LocalDate nextDate  = dateRecherchee != null ? dateRechercheeAsDate : now;
-    	String next = rechercherLejourSuivant(nextDate);
+    	String next = DateUtil.rechercherStrLejourSuivant(nextDate);
     	map.put("next", next);
     	
     	

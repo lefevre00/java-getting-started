@@ -42,7 +42,7 @@
 			
 				<h4>
 					<#if places??>
-						Voici les places que vous avez réservées :
+						Voici les places que vous avez réservées 
 					<#else>
 						Aucune réservation enregistrée.
 					</#if>

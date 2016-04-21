@@ -47,7 +47,7 @@ public class BookedRoute extends AuthenticatedRoute {
 		if (service.canBook(user, day)) {
 			map.put("showToday", day);
 		}
-		day = rechercherLejourSuivant(now);
+		day = DateUtil.rechercherStrLejourSuivant(now);
 		if (service.canBook(user, day)) {
 			map.put("showTomorrow", day);
 		}

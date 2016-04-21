@@ -3,13 +3,10 @@ package org.friends.app.view.route;
 import java.net.URISyntaxException;
 import java.security.AccessControlException;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 
 import org.friends.app.Configuration;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.UserServiceBean;
-import org.friends.app.util.DateUtil;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -59,15 +56,5 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 	protected User getUser(Request request) {
 		return request.session().attribute("user");
 	}
-	
-	protected String rechercherLejourSuivant(LocalDate dateRecherche) {
-		if(DayOfWeek.FRIDAY.equals(dateRecherche.getDayOfWeek())){
-			dateRecherche = dateRecherche.plusDays(3);
-		}else if(DayOfWeek.SATURDAY.equals(dateRecherche.getDayOfWeek())){
-			dateRecherche = dateRecherche.plusDays(2);
-		}else{
-			dateRecherche = dateRecherche.plusDays(1);
-		}
-		return DateUtil.dateToString(dateRecherche);
-	}
+
 }
