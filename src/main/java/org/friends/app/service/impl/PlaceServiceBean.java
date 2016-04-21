@@ -28,30 +28,6 @@ public class PlaceServiceBean implements PlaceService {
 		return placedao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", DateUtil.dateToString(date)),
 				Restrictions.isNull("usedBy"));
 	}
-	/**
-	 * Release a place at date
-	 * 
-	 * @param numberPlace
-	 * @param dateReservation
-	 * @throws SQLException
-	 * @throws URISyntaxException
-	 * @throws BookingException
-	 */
-	public void releasePlace(Integer numberPlace, LocalDate dateReservation) throws BookingException {
-		Assert.notNull(numberPlace);
-		Assert.notNull(dateReservation);
-		String dateAsString = DateUtil.dateToString(dateReservation);
-		List<Place> listPlaceReserve = placedao.findPlacesByCriterions(
-				Restrictions.eq("id.occupationDate", dateAsString),
-				Restrictions.eq("id.placeNumber", numberPlace));
-		if (listPlaceReserve != null && listPlaceReserve.size() > 0) {
-			throw new BookingException(
-					format("The place %s can't be book on %s", numberPlace.intValue(), dateReservation));
-		} else {
-			placedao.persist(new Place(numberPlace.intValue(), dateAsString));
-		}
-	}
-	
 	
 	/**
 	 * Release a place at date
@@ -206,7 +182,7 @@ public class PlaceServiceBean implements PlaceService {
 	
 	public void release(User user, String dateToRelease) {
 		Assert.notNull(user);
-		Assert.notNull(dateToRelease);
+		Assert.isTrue(StringUtils.isNotEmpty(dateToRelease), "date should not be empty");
 		Place place = placedao.findPlaceByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()),Restrictions.eq("id.occupationDate", dateToRelease));
 		place.setUsedBy(null);
 		placedao.update(place);
