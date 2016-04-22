@@ -24,7 +24,7 @@ public class Configuration {
 	}
 	
 	public static String getMailTeam(){
-		return System.getProperty("MAIL_TEAM");
+		return get("MAIL_TEAM", "");
 	}
 
 	public static Integer getPort() {
