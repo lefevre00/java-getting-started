@@ -1,8 +1,5 @@
 package org.friends.app.service;
 
-import java.net.URISyntaxException;
-import java.sql.SQLException;
-
 import org.friends.app.ParkingTest;
 import org.friends.app.dao.PlaceDao;
 import org.friends.app.model.User;
@@ -29,7 +26,7 @@ public class PlaceService_Release_Test extends ParkingTest {
 	 * Test avec user null
 	 */
 	@Test(expected=IllegalArgumentException.class)
-	public void un_user_ne_doit_pas_etre_nulle() throws SQLException, URISyntaxException, BookingException {
+	public void un_user_ne_doit_pas_etre_nulle() throws BookingException {
 		service.release(null,null);
 	}
 	
@@ -37,7 +34,7 @@ public class PlaceService_Release_Test extends ParkingTest {
 	 * Test avec date nulle
 	 */
 	@Test(expected=IllegalArgumentException.class)
-	public void la_date_ne_doit_pas_etre_nulle() throws SQLException, URISyntaxException, BookingException {
+	public void la_date_ne_doit_pas_etre_nulle() throws BookingException {
 		service.release(new User(), null);
 	}
 
@@ -45,7 +42,7 @@ public class PlaceService_Release_Test extends ParkingTest {
 	 * Test avec date vide
 	 */
 	@Test(expected=IllegalArgumentException.class)
-	public void la_date_ne_doit_pas_etre_vide() throws SQLException, URISyntaxException, BookingException {
+	public void la_date_ne_doit_pas_etre_vide() throws BookingException {
 		service.release(new User(), "");
 	}
 }

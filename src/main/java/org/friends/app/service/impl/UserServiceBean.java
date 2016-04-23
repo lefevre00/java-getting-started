@@ -1,7 +1,5 @@
 package org.friends.app.service.impl;
 
-import java.net.URISyntaxException;
-import java.sql.SQLException;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -53,26 +51,26 @@ public class UserServiceBean implements UserService{
 	}
 	
 	@Override
-	public User findUserByEmail(String email) throws SQLException, URISyntaxException {
+	public User findUserByEmail(String email) {
 		Assert.notNull(email);
 		return userDao.findUserByCriterions(Restrictions.eq("emailAMDM", email));
 	}
 
 	@Override
-	public User findUserByCookie(String cookie) throws SQLException, URISyntaxException {
+	public User findUserByCookie(String cookie) {
 		Session session = sessionDao.findByCookie(cookie);
 		if (session == null)
 			return null;
 		return userDao.findById(session.getUserId()); 
 	}
 	
-	public Session createSession(User user) throws SQLException, URISyntaxException {
+	public Session createSession(User user) {
 		Assert.notNull(user);
 		cleanExpiredSession();
 		return sessionDao.persist(new Session(user));
 	}
 	
-	private void cleanExpiredSession() throws SQLException, URISyntaxException {
+	private void cleanExpiredSession() {
 		sessionDao.deleteExpired();
 	}
 
@@ -105,9 +103,25 @@ public class UserServiceBean implements UserService{
 		return back;
 	}
 	
-	public User update(User user) throws SQLException, URISyntaxException {
+	public User changePlace(User user, Integer place) throws DataIntegrityException {
+		Assert.notNull(place);
 		Assert.notNull(user);
 		Assert.notNull(user.getId()); // User must already have an id
+
+		// Check place change
+		// User could not take the place of another existing user
+		User userInDb = userDao.findById(user.getId());
+		if (userInDb == null)
+			throw new DataIntegrityException(USER_UNKNOWN);
+		
+		if (!place.equals(userInDb.getPlaceNumber())) {
+			User userWithPlace = userDao.findUserByCriterions(Restrictions.eq("placeNumber", place));
+			if (userWithPlace != null) {
+				throw new DataIntegrityException(PLACE_ALREADY_USED);
+			}
+		}
+		
+		user.setPlaceNumber(place);
 		return userDao.persist(user);
 	}
 	
@@ -145,7 +159,7 @@ public class UserServiceBean implements UserService{
 
 	}
 
-	public boolean activate(String token) throws SQLException, URISyntaxException {
+	public boolean activate(String token) {
 		Assert.notNull(token);
 		
 		User user = userDao.findUserByCriterions(Restrictions.eq("tokenMail", token));
@@ -174,7 +188,7 @@ public class UserServiceBean implements UserService{
 		mailService.sendLostPassword(user, appUrl);
 	}
 
-	public boolean setPassword(String email, String token, String hash) throws SQLException, URISyntaxException {
+	public boolean setPassword(String email, String token, String hash) {
 		if (StringUtils.isEmpty(email))
 			throw new IllegalArgumentException("Email required");
 		if (StringUtils.isEmpty(token))

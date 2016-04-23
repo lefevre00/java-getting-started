@@ -1,12 +1,11 @@
 package org.friends.app.view.route;
 
-import java.net.URISyntaxException;
-import java.sql.SQLException;
 import java.util.Map;
 
 import org.friends.app.Messages;
 import org.friends.app.model.User;
 import org.friends.app.service.PlaceService;
+import org.friends.app.service.impl.DataIntegrityException;
 import org.friends.app.service.impl.UserServiceBean;
 import org.friends.app.view.Templates;
 
@@ -29,13 +28,13 @@ public class SettingRoute extends AuthenticatedRoute {
 		Map<String, Object> map = Routes.getMap(request);
 		User user = getUser(request);
 		if ("POST".equalsIgnoreCase(request.requestMethod())) {
-			Integer i = null;
 			boolean doUpdate = true;
 			
-			String place = request.queryParams("placeNumber");
-			if (StringUtils.isNotEmpty(place)) {
+			String placeParam = request.queryParams("placeNumber");
+			Integer place = null;
+			if (StringUtils.isNotEmpty(placeParam)) {
 				try {
-					i = Integer.valueOf(place);
+					place = Integer.valueOf(placeParam);
 				} catch (NumberFormatException e) {
 					map.put(ERROR, Messages.get(PlaceService.INVALID_NUMBER));
 					doUpdate  = false;
@@ -43,15 +42,18 @@ public class SettingRoute extends AuthenticatedRoute {
 			} 
 			
 			if (doUpdate) {
-				user.setPlaceNumber(i);
+				boolean updated = false;
 				try {
-					user = userService.update(user);
-				} catch (SQLException | URISyntaxException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					user = userService.changePlace(user, place);
+					updated = true;
+				} catch (DataIntegrityException e) {
+					map.put(ERROR, Messages.get(e.getMessage()));
 				}
-				request.session().attribute("user", user);
-				map.put(INFO, Messages.get("update.ok"));
+				
+				if (updated) {
+					request.session().attribute("user", user);
+					map.put(INFO, Messages.get("update.ok"));
+				}
 			}
 		}
 		

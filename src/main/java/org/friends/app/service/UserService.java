@@ -1,8 +1,5 @@
 package org.friends.app.service;
 
-import java.net.URISyntaxException;
-import java.sql.SQLException;
-
 import org.friends.app.model.User;
 
 public interface UserService {
@@ -16,12 +13,14 @@ public interface UserService {
 	
 	public static String USER_DISABLE = "user.disable";
 	public static String USER_UNKNOWN = "user.unknown";
+
+	public static String PLACE_ALREADY_USED = "user.place.used";
 	
 	public User authenticate (String email, String pwd) throws Exception;
 	
-	public User findUserByEmail(String email) throws SQLException, URISyntaxException;
+	public User findUserByEmail(String email);
 	
-	public User findUserByCookie(String cookie) throws SQLException, URISyntaxException;
+	public User findUserByCookie(String cookie);
 	
 	public User create(User user, String applicationHost) throws Exception;
 }

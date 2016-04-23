@@ -2,8 +2,6 @@ package org.friends.app.dao;
 
 
 import java.io.Serializable;
-import java.net.URISyntaxException;
-import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,7 +16,7 @@ import spark.utils.Assert;
 
 public class UserDao {
 
-	public User persist(User user) throws SQLException, URISyntaxException {
+	public User persist(User user) {
 		Assert.notNull(user);
 		Session session = HibernateUtil.getSession();
 		session.beginTransaction();

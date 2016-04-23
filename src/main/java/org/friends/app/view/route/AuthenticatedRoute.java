@@ -1,8 +1,6 @@
 package org.friends.app.view.route;
 
-import java.net.URISyntaxException;
 import java.security.AccessControlException;
-import java.sql.SQLException;
 
 import org.friends.app.Configuration;
 import org.friends.app.model.User;
@@ -26,7 +24,7 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 
 	protected abstract ModelAndView doHandle(Request request, Response response);
 
-	private void checkAuthenticated(Request request, Response response) throws SQLException, URISyntaxException {
+	private void checkAuthenticated(Request request, Response response) {
 		User user = getUser(request);
 		
 		// 1 : try to find user in session

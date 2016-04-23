@@ -30,19 +30,19 @@ public class PlaceDaoTest extends ParkingTest {
 	private PlaceDao placeDao;
     
     @BeforeClass
-    public static void beforeClass() throws SQLException {
+    public static void beforeClass() {
     	HibernateUtil.getSession();
     }
 
     
     @Before
-    public void createDatabase() throws SQLException {
+    public void createDatabase() {
     	placeDao = new PlaceDao();
     	initDb();
     }
     
     @After
-    public void clearPlaces() throws SQLException {
+    public void clearPlaces() {
     	placeDao.clearAllPlacesBeforeDate(LocalDate.now().plusDays(40));
     }
 
