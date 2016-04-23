@@ -14,11 +14,11 @@ public interface PlaceService {
 
 	String INVALID_NUMBER = null;
 
-	public List<Place> getAvailableByDate(LocalDate date)  throws SQLException, URISyntaxException;
+	public List<Place> getAvailableByDate(LocalDate date);
 	
-	public Place book(String date, User user, String placeNumber) throws SQLException, URISyntaxException, BookingException;
+	public Place book(String date, User user, String placeNumber) throws BookingException;
 	
-	public List<Place> getReservationsOrRelease(User user) throws SQLException, URISyntaxException;
+	public List<Place> getReservationsOrRelease(User user);
 
 	void unsharePlaceByDate(User user, String date) throws UnshareException;
 

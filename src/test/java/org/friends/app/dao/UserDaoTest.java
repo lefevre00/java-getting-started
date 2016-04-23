@@ -1,7 +1,5 @@
 package org.friends.app.dao;
 
-import java.net.URISyntaxException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 import org.friends.app.HibernateUtil;
@@ -29,21 +27,21 @@ public class UserDaoTest extends ParkingTest {
     private static String MAIL_RESERVANT = "damien.urvoix@amdm.fr";
     
     @BeforeClass
-    public static void beforeClass() throws SQLException {
+    public static void beforeClass() {
     	HibernateUtil.getSession();
     }
     
     @Before
-    public void createDatabase() throws SQLException, URISyntaxException {
+    public void createDatabase() {
     	init();
     }
     
     @After
-    public void clearDataBase() throws SQLException {
+    public void clearDataBase() {
     	userDao.clearAllUsers();
     }
 
-	private void init() throws SQLException, URISyntaxException {
+	private void init() {
 
 		userDao = new UserDao();
 		userDao.persist(new User("abdel.tamditi@amdm.fr", "at" , 133));
@@ -58,21 +56,21 @@ public class UserDaoTest extends ParkingTest {
 	}
 	
 	@Test
-	public void findByEmail() throws SQLException, URISyntaxException{
+	public void findByEmail() {
 		
     	User damien = userDao.findUserByCriterions(Restrictions.eq("emailAMDM", MAIL_RESERVANT));
     	Assert.assertNotNull("Damien devrait être trouvé", damien);
 	}
 	
 	@Test
-	public void findByEmailNonTrouve() throws SQLException, URISyntaxException{
+	public void findByEmailNonTrouve() {
 		
     	User gerard = userDao.findUserByCriterions(Restrictions.eq("emailAMDM", "gerard.mambu@amdm.fr"));
     	Assert.assertNull("Damien devrait être trouvé", gerard);
 	}
 	
 	@Test
-	public void findByTokenMail() throws SQLException, URISyntaxException{
+	public void findByTokenMail() {
 		
     	User mick = userDao.findUserByCriterions(Restrictions.eq("tokenMail", "mick"));
     	Assert.assertNotNull("Le token Mail Mick est ok", mick);
@@ -81,7 +79,7 @@ public class UserDaoTest extends ParkingTest {
 	}
 	
 	@Test
-	public void findByJPC() throws SQLException, URISyntaxException{
+	public void findByJPC() {
 		
     	User jp = userDao.findUserByCriterions(Restrictions.eq("emailAMDM", "jean-pierre.cluzel@amdm.fr"));
     	Assert.assertNotNull("Jp  devrait être trouvé", jp);

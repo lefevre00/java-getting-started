@@ -57,7 +57,7 @@ public class Application {
 		if (instance == null) instance = this;
 	}
 
-	public void start() throws SQLException, URISyntaxException {
+	public void start() {
 		port(getPort());
 		staticFileLocation("/public");
 

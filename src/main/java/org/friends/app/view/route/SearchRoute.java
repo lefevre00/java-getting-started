@@ -1,7 +1,5 @@
 package org.friends.app.view.route;
 
-import java.net.URISyntaxException;
-import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -55,12 +53,7 @@ public class SearchRoute extends AuthenticatedRoute {
     		// L'utilisateur a déjà réservé une place ce jour là
     		map.put("message", "Vous avez déjà réservé la place " + placeReserveeParleUSer.getPlaceNumber());
     	}else{
-			try {
-				places = getPlaces(dateRechercheeAsDate);
-			} catch (SQLException | URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			places = getPlaces(dateRechercheeAsDate);
 	    	if (!places.isEmpty()){
 	    		map.put("place", places.get(0));
 	    	}
@@ -92,7 +85,7 @@ public class SearchRoute extends AuthenticatedRoute {
 		return DateUtil.dateToString(dateUtilisable);
 	}
 
-	private List<Place> getPlaces(LocalDate dateRecherche) throws SQLException, URISyntaxException {
+	private List<Place> getPlaces(LocalDate dateRecherche) {
 		return placeService.getAvailableByDate(dateRecherche);
 	}
 	

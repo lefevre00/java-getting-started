@@ -1,8 +1,6 @@
 package org.friends.app;
 
-import java.net.URISyntaxException;
 import java.nio.charset.Charset;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 import org.friends.app.dao.PlaceDao;
@@ -19,20 +17,20 @@ import com.google.common.hash.Hashing;
 
 public class StartParking {
 
-	public static void main(String[] args) throws SQLException, URISyntaxException {
+	public static void main(String[] args) {
 		System.setProperty("PORT", "8080");
 		System.setProperty(Configuration.DEPLOY_MODE, "dev");
 		System.setProperty("MAIL_TEAM", "contact@takemyplace.fr");
 
 		new Application() {
-			public void start() throws SQLException, URISyntaxException {
+			public void start() {
 				super.start();
 				initData();
 			}
 		}.start();
 	}
 
-	private static void initData() throws SQLException, URISyntaxException {
+	private static void initData() {
 		UserDao userDao = new UserDao();
 		userDao.persist(new User("abdel.tamditi@amdm.fr", md5("at"), 133));
 		userDao.persist(new User("william.verdeil@amdm.fr", md5("wv"), 141));

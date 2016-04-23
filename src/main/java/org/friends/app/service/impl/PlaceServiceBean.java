@@ -2,8 +2,6 @@ package org.friends.app.service.impl;
 
 import static java.lang.String.format;
 
-import java.net.URISyntaxException;
-import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,11 +32,8 @@ public class PlaceServiceBean implements PlaceService {
 	 * 
 	 * @param placeNumber
 	 * @param dateReservation
-	 * @throws SQLException
-	 * @throws URISyntaxException
-	 * @throws BookingException
 	 */
-	public boolean sharePlaces(User user, LocalDate dateDebut, LocalDate dateFin) throws Exception  {
+	public boolean sharePlaces(User user, LocalDate dateDebut, LocalDate dateFin) {
 		Assert.notNull(user);
 		Assert.notNull(dateDebut);
 		Assert.notNull(dateFin);
