@@ -9,12 +9,6 @@
   
 	<!-- navigation section -->
 	<#include "nav.ftl">
-  
-  	<#if error??>
-	  	<div class="alert alert-danger">
-	  		<strong>Erreur : </strong>${error}.
-	  	</div>
-  	</#if>
     
 	<!-- home section -->
 	<section id="home">

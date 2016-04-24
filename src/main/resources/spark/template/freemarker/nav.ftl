@@ -39,6 +39,19 @@
 				</#if>
 			</ul>
 		</div>
-		
 	</div>
 </section>
+
+	<#if error??>
+		<div class="alert alert-danger fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Erreur : </strong>${error}
+		</div>
+	</#if> 
+	
+	<#if info??>
+		<div class="alert alert-info fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Information : </strong>${info}
+		</div>
+	</#if>

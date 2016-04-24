@@ -8,13 +8,7 @@
 <body>
   
 	<!-- navigation section -->
-	<#include "nav.ftl">
-  
-	<#if error??>
-		<div class="alert alert-danger">
-			<strong>Erreur : </strong>${error}
-		</div>
-	</#if>  
+	<#include "nav.ftl"> 
   
 	<!-- home section -->
 	<section id="home">

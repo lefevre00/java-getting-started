@@ -14,12 +14,6 @@
 	<section id="home">
 		
 		<div id="wrapper">
-		
-			<#if error??>
-				<div class="alert alert-danger">
-					<strong>Erreur : </strong>${error}
-				</div>
-			</#if>
 
 			<form method="post" role="form" name="login-form" class="login-form">
 			

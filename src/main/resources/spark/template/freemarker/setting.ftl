@@ -15,17 +15,6 @@
 		
 		<div id="wrapper">
 	
-			<#if error??>
-				<div class="alert alert-danger">
-					<strong>Erreur : </strong>${error}
-				</div>
-			</#if>
-			<#if info??>
-				<div class="alert alert-info">
-					<strong>Information : </strong>${info}
-				</div>
-			</#if>
-	
 			<form method="post" role="form" name="login-form" class="login-form">
 			
 				<div class="header">
