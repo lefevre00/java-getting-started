@@ -21,7 +21,6 @@ public class UserDaoTest extends ParkingTest {
 	static String strApresDemain = DateUtil.dateToString(timePoint.plusDays(2));
 	static String strYearsteday = DateUtil.dateToString(timePoint.minusDays(1));
 	
-	
 	private UserDao userDao = new UserDao();
     
     private static String MAIL_RESERVANT = "damien.urvoix@amdm.fr";
@@ -80,7 +79,6 @@ public class UserDaoTest extends ParkingTest {
 	
 	@Test
 	public void findByJPC() {
-		
     	User jp = userDao.findUserByCriterions(Restrictions.eq("emailAMDM", "jean-pierre.cluzel@amdm.fr"));
     	Assert.assertNotNull("Jp  devrait être trouvé", jp);
     	Assert.assertEquals("Le token Password de jpc doit être correct", "passjpc", jp.getTokenPwd());    
