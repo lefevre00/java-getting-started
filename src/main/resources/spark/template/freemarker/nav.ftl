@@ -21,16 +21,11 @@
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<#if mail??>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">ACTIONS <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<#if canShare??>
-								<li><a href="/protected/share">Partage</a></li>
-							</#if>
-							<li><a href="/protected/booked">Réservation</a></li>
-							<li><a href="/protected/setting">Paramètres</a></li>
-						</ul>
-					</li>
+					<#if canShare??>
+						<li><a href="/protected/share">PARTAGE</a></li>
+					</#if>
+					<li><a href="/protected/booked">RESERVATION</a></li>
+					<li><a href="/protected/setting">PARAMETRES</a></li>
 				</#if>
 				<li><a href="/#aide">AIDE</a></li>
 				<li><a href="/#contact">CONTACT</a></li>
