@@ -3,7 +3,8 @@
 <head>
   	<#include "header.ftl">
 
-	<link href='https://fonts.googleapis.com/css?family=Poiret+One|Yanone+Kaffeesatz|Lobster|Ubuntu+Condensed|Pacifico|Shadows+Into+Light|Comfortaa|Architects+Daughter|BenchNine|Tangerine|Playball|Great+Vibes|Bad+Script|Marck+Script|Niconne|Damion|Michroma|Allerta+Stencil|Marcellus+SC|Coda|Quantico|Alex+Brush|Julius+Sans+One|Syncopate|Teko|Fredericka+the+Great|PT+Mono|Ubuntu+Mono|Advent+Pro|Gruppo|Italianno|Mountains+of+Christmas|Federo|Henny+Penny|Dynalight|Caveat|Sarina|Montserrat+Subrayada|Krona+One|Ruthie|Open+Sans+Condensed:300|Khand|Wire+One|Oswald|Roboto+Condensed|Montserrat' rel='stylesheet' type='text/css'>
+	<!--link href='https://fonts.googleapis.com/css?family=Poiret+One|Yanone+Kaffeesatz|Lobster|Ubuntu+Condensed|Pacifico|Shadows+Into+Light|Comfortaa|Architects+Daughter|BenchNine|Tangerine|Playball|Great+Vibes|Bad+Script|Marck+Script|Niconne|Damion|Michroma|Allerta+Stencil|Marcellus+SC|Coda|Quantico|Alex+Brush|Julius+Sans+One|Syncopate|Teko|Fredericka+the+Great|PT+Mono|Ubuntu+Mono|Advent+Pro|Gruppo|Italianno|Mountains+of+Christmas|Federo|Henny+Penny|Dynalight|Caveat|Sarina|Montserrat+Subrayada|Krona+One|Ruthie|Open+Sans+Condensed:300|Khand|Wire+One|Oswald|Roboto+Condensed|Montserrat' rel='stylesheet' type='text/css'-->
+	<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
 	
 	<style>
 		.ShadowsIntoLight {
@@ -61,7 +62,7 @@
 		</div>		
 	</section>
 
-<#include "footer.ftl">
+	<#include "footer.ftl">
 	
 </body>
 </html>
