@@ -9,12 +9,6 @@
   
 	<!-- navigation section -->
 	<#include "nav.ftl">
-  
-	<#if error??>
-		<div class="alert alert-danger">
-		  	<strong>Erreur : </strong>${error}.
-		</div>
-	</#if>
     
 	<section id="home">
 	
@@ -35,7 +29,7 @@
 	                </#if>
 					<div class="email-icon emailX2"></div>
 					
-					<input class="input password" name="pwd1" id="pwd" type="password" placeholder="nouveau mot de passe" required/>
+					<input class="input password" name="pwd" id="pwd" type="password" placeholder="nouveau mot de passe" required/>
 					<div class="pass-icon passX2"></div>
 					<!--
 					<input class="input password" name="pwd2" id="pwd2" type="password"  placeholder="re-saisir le mot de passe" required/>

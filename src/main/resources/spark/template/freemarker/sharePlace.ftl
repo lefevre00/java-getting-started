@@ -71,8 +71,8 @@
 
 					<!--=============================== liste des dates de partage ============================-->
 
-					<div class="row table-responsive" style="margin:0px auto;max-width:550px; padding-top:30px;">
-						<#if datesPartages??>
+					<#if datesPartages??>
+						<div class="row table-responsive" style="margin:0px auto;max-width:550px; padding-top:30px;">
 							<table class="table table-bordered table-striped table-condensed padding20">
 								<tr style="background-color: #337ab7; color: white;">
 									<th style="text-align:center;">Date de partage</th> 
@@ -95,8 +95,8 @@
 									</tr>
 								</#list>
 							</table>
-						</#if>
-					</div>
+						</div>
+					</#if>
 
 					
 				</form>

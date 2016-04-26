@@ -1,5 +1,5 @@
 	<!-- Section contact -->
-		<br/><br/><br/><br/>
+	<br/><br/><br/><br/>
 	<section id="contact" class="parallax-section">
 		<div class="container">
 			<div class="row">

@@ -3,7 +3,7 @@
 <head>
   	<#include "header.ftl">
 
-	<link href='https://fonts.googleapis.com/css?family=Poiret+One|Yanone+Kaffeesatz|Lobster|Ubuntu+Condensed|Pacifico|Shadows+Into+Light|Comfortaa|Architects+Daughter|BenchNine|Tangerine|Playball|Great+Vibes|Bad+Script|Marck+Script|Niconne|Damion|Michroma|Allerta+Stencil|Marcellus+SC|Coda|Quantico|Alex+Brush|Julius+Sans+One|Syncopate|Teko|Fredericka+the+Great|PT+Mono|Ubuntu+Mono|Advent+Pro|Gruppo|Italianno|Mountains+of+Christmas|Federo|Henny+Penny|Dynalight|Caveat|Sarina|Montserrat+Subrayada|Krona+One|Ruthie|Open+Sans+Condensed:300|Khand|Wire+One|Oswald|Roboto+Condensed|Montserrat' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
 	
 	<style>
 		.ShadowsIntoLight {
@@ -34,7 +34,7 @@
 						<br clear>
 						<br clear>
 						<span style="text-align:center">
-							<h1 style="color:#f69b0c;">Pour information :</h1> 
+							<h1 style="color:#f69b0c;">Pour information</h1> 
 							<p style="color:#fff;">
 								<#if placesToday lte 1>
 									Il y a ${placesToday} place libre pour aujourd'hui
@@ -42,7 +42,7 @@
 									Il y a ${placesToday} places libres pour aujourd'hui
 								</#if>
 								<#if placesDemain gt 0 >
-									,<br>et ${placesDemain} pour demain.
+									<br>et ${placesDemain} pour demain.
 								</#if>
 							</p>
 						</span>
@@ -61,7 +61,17 @@
 		</div>		
 	</section>
 
-<#include "footer.ftl">
+	<#include "footer.ftl">
+	
+	<!-- Cacher le menu sur le mobile après un clique ------>
+	<script>
+	$(function(){ 
+		var navMain = $("#navbar");
+		navMain.on("click", "a", null, function () {
+			navMain.collapse('hide');
+		});
+	});	
+	</script>	
 	
 </body>
 </html>

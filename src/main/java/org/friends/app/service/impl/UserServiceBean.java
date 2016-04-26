@@ -196,7 +196,7 @@ public class UserServiceBean implements UserService{
 		if (StringUtils.isEmpty(hash))
 			throw new IllegalArgumentException("Hashed password required");
 		
-		User user = userDao.findUserByCriterions(Restrictions.eq("email", email), Restrictions.eq("tokenPassword", token));
+		User user = userDao.findUserByCriterions(Restrictions.eq("emailAMDM", email), Restrictions.eq("tokenPwd", token));
 
 		if (user != null) {
 			user.setTokenPwd(null);
