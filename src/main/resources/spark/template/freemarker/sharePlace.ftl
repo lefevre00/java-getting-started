@@ -110,16 +110,23 @@
 	
 
 	<script type="text/javascript">
+	var today = new Date();
+	var firstDate = new Date();
+	if(today.getHours()>16 || today.getDay()==0){
+		firstDate =  rechercherDateLejourSuivant(firstDate);
+	}
 	    $( document ).ready(function() {
 	        $('#datepicker1').datetimepicker({
 	        	locale: 'FR',
 	        	daysOfWeekDisabled: [0, 6],
-	               format: 'DD/MM/YYYY'
+	               format: 'DD/MM/YYYY',
+	               minDate: firstDate
 	        });
 	        $('#datepicker2').datetimepicker({
 	        	daysOfWeekDisabled: [0, 6],
 	            useCurrent: true,
 	            format: 'DD/MM/YYYY',
+	            minDate: firstDate,
 	            locale: 'FR' //Important!
 	        });
 	        $("#datepicker1").on("dp.change", function (e) {
@@ -129,6 +136,22 @@
 	            $('#datepicker1').data("DateTimePicker").maxDate(e.date);
 	        });
 	    });
+	    
+	 function rechercherDateLejourSuivant(date){
+	    var nbJourAAjouter = 1;
+	    if(date.getDay()==5){
+	    	nbJourAAjouter = 3;
+	    }else if(date.getDay()==6){
+	    	nbJourAAjouter = 2;
+	    }else{
+	    	nbJourAAjouter = 1
+	    }
+	 	return new Date(today.getTime() + 24 * 60 * 60 * 1000 * nbJourAAjouter);
+	 }
+	 
+	 function isWeekEnd(date){
+	    return date.getDay()==6 || date.getDay()==0;
+	 }
 	</script>	
 	
 	<script type="text/javascript">

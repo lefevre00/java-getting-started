@@ -59,6 +59,10 @@ public class DateUtil {
 	
 	public static String rechercherStrLejourSuivant(LocalDate dateRecherche) {
 		return DateUtil.dateToString(rechercherDateLejourSuivant(dateRecherche));
-	}	
+	}
+	
+	public static boolean isWeekEnd(LocalDate dateRecherche){
+		return DayOfWeek.SATURDAY.equals(dateRecherche.getDayOfWeek()) || DayOfWeek.SUNDAY.equals(dateRecherche.getDayOfWeek());
+	}
 	
 }

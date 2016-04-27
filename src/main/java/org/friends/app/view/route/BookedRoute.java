@@ -45,17 +45,17 @@ public class BookedRoute extends AuthenticatedRoute {
 		
 		LocalDate jourRecherche = LocalDate.now();
 		map.put("dateDuJour", DateUtil.dateToFullString(LocalDate.now()));
-		if(LocalDateTime.now().getHour()>15){
+		if(LocalDateTime.now().getHour()>20 || DateUtil.isWeekEnd(jourRecherche)){
 			jourRecherche = DateUtil.rechercherDateLejourSuivant(jourRecherche);
 		}
 		String day = DateUtil.dateToString(jourRecherche);
+		map.put("libelleShowToday", "Réserver le " + DateUtil.dateToFullString(jourRecherche));
 		if (service.canBook(user, day)) {
-			map.put("libelleShowToday", "Réserver le " + DateUtil.dateToFullString(jourRecherche));
 			map.put("showToday", day);
 		}
 		day = DateUtil.rechercherStrLejourSuivant(jourRecherche);
+		map.put("libelleShowTomorrow", "Réserver le " + DateUtil.dateToFullString(DateUtil.rechercherDateLejourSuivant(jourRecherche)));
 		if (service.canBook(user, day)) {
-			map.put("libelleShowTomorrow", "Réserver le " + DateUtil.dateToFullString(DateUtil.rechercherDateLejourSuivant(jourRecherche)));
 			map.put("showTomorrow", day);
 		}
 		
