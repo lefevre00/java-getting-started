@@ -9,7 +9,7 @@ public class DateUtil {
 
 	private static final String SHORT_PATTERN_EN = "yyyy-MM-dd";
 	private static final String SHORT_PATTERN_FR = "dd/MM/yyyy";
-	private static final String FULL_PATTERN = "EEEE dd/MM/yyyy";
+	private static final String FULL_PATTERN = "EE dd/MM/yyyy";
 
 	/**
 	 * @param date The date to format
