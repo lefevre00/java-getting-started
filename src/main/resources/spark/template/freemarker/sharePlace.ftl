@@ -112,7 +112,7 @@
 	<script type="text/javascript">
 	var today = new Date();
 	var firstDate = new Date();
-	if(today.getHours()>16 || today.getDay()==0){
+	if(today.getHours()>14 || today.getDay()==0){
 		firstDate =  rechercherDateLejourSuivant(firstDate);
 	}
 	    $( document ).ready(function() {
