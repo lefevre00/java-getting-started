@@ -20,15 +20,15 @@
 
 			<!--============================= boutons de réservation ================================-->
 			<#if showToday?? || showTomorrow??>
-				<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
-					<div class="col-sm-6" style="text-align:left;">
+				<div class="row" style="margin:0px auto;max-width:700px;">
+					<div class="col-sm-6" style="padding-top:20px;">
 						<#if showToday??>
 							<a href="/protected/search?day=${showToday}" class="btn btn-primary btn-lg">Réserver aujourd'hui</a>
 						<#else>
 							<a href="/protected/search" class="btn btn-primary btn-lg disabled">Réserver aujourd'hui</a>						
 						</#if>				
 					</div>
-					<div class="col-sm-6" style="text-align:right;">
+					<div class="col-sm-6" style="padding-top:20px;">
 						<#if showTomorrow??>
 							<a href="/protected/search?day=${showTomorrow}" class="btn btn-primary btn-lg">Réserver demain</a>
 						<#else>
