@@ -45,7 +45,7 @@ public class BookedRoute extends AuthenticatedRoute {
 		
 		LocalDate jourRecherche = LocalDate.now();
 		map.put("dateDuJour", DateUtil.dateToFullString(LocalDate.now()));
-		if(LocalDateTime.now().getHour()>20 || DateUtil.isWeekEnd(jourRecherche)){
+		if(LocalDateTime.now().getHour()>15 || DateUtil.isWeekEnd(jourRecherche)){
 			jourRecherche = DateUtil.rechercherDateLejourSuivant(jourRecherche);
 		}
 		String day = DateUtil.dateToString(jourRecherche);
