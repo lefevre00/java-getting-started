@@ -1,6 +1,7 @@
 package org.friends.app.view.route;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -42,13 +43,19 @@ public class BookedRoute extends AuthenticatedRoute {
 			map.put("places", reservations);
 		}
 		
-		LocalDate now = LocalDate.now();
-		String day = DateUtil.dateToString(now);
+		LocalDate jourRecherche = LocalDate.now();
+		map.put("dateDuJour", DateUtil.dateToFullString(LocalDate.now()));
+		if(LocalDateTime.now().getHour()>15){
+			jourRecherche = DateUtil.rechercherDateLejourSuivant(jourRecherche);
+		}
+		String day = DateUtil.dateToString(jourRecherche);
 		if (service.canBook(user, day)) {
+			map.put("libelleShowToday", "Réserver le " + DateUtil.dateToFullString(jourRecherche));
 			map.put("showToday", day);
 		}
-		day = DateUtil.rechercherStrLejourSuivant(now);
+		day = DateUtil.rechercherStrLejourSuivant(jourRecherche);
 		if (service.canBook(user, day)) {
+			map.put("libelleShowTomorrow", "Réserver le " + DateUtil.dateToFullString(DateUtil.rechercherDateLejourSuivant(jourRecherche)));
 			map.put("showTomorrow", day);
 		}
 		

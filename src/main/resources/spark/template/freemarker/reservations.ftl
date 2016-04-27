@@ -20,19 +20,21 @@
 
 			<!--============================= boutons de réservation ================================-->
 			<#if showToday?? || showTomorrow??>
+			
 				<div class="row" style="margin:0px auto;max-width:700px;">
+					Nous sommes le ${dateDuJour}<br/>
 					<div class="col-sm-6" style="padding-top:20px;">
 						<#if showToday??>
-							<a href="/protected/search?day=${showToday}" class="btn btn-primary btn-lg">Réserver aujourd'hui</a>
+							<a href="/protected/search?day=${showToday}" class="btn btn-primary btn-lg">${libelleShowToday}</a>
 						<#else>
-							<a href="/protected/search" class="btn btn-primary btn-lg disabled">Réserver aujourd'hui</a>						
+							<a href="/protected/search" class="btn btn-primary btn-lg disabled">${libelleShowToday}</a>						
 						</#if>				
 					</div>
 					<div class="col-sm-6" style="padding-top:20px;">
 						<#if showTomorrow??>
-							<a href="/protected/search?day=${showTomorrow}" class="btn btn-primary btn-lg">Réserver demain</a>
+							<a href="/protected/search?day=${showTomorrow}" class="btn btn-primary btn-lg">${libelleShowTomorrow}</a>
 						<#else>
-							<a href="/protected/search" class="btn btn-primary btn-lg disabled">Réserver demain</a>
+							<a href="/protected/search" class="btn btn-primary btn-lg disabled">${libelleShowTomorrow}</a>
 						</#if>				
 					</div>
 				</div>
