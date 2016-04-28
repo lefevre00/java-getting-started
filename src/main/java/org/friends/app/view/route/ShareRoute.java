@@ -1,6 +1,7 @@
 package org.friends.app.view.route;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -28,10 +29,22 @@ public class ShareRoute extends AuthenticatedRoute {
 		if (user.getPlaceNumber() == null){
 			throw new RuntimeException("A user without place cannot share a place");
 		}
+		
+		
     	
 		// Permet d'identifier l'utilisateur avec une place attribuée
 		map.put("placeNumber", user.getPlaceNumber());
-		
+		LocalDate jour1 = LocalDate.now();
+		if(LocalDateTime.now().getHour()>14 || DateUtil.isWeekEnd(jour1)){
+			jour1 = DateUtil.rechercherDateLejourSuivant(jour1);
+		}
+		Place canShareToday = placeService.isPlaceShared(user.getPlaceNumber(), DateUtil.dateToString(jour1));
+		map.put("canShareToday", canShareToday);
+		map.put("jourProchaineLiberation", DateUtil.dateToString(jour1, Locale.FRANCE));
+		LocalDate jour2 = DateUtil.rechercherDateLejourSuivant(jour1);
+		canShareToday = placeService.isPlaceShared(user.getPlaceNumber(), DateUtil.dateToString(jour2));
+		map.put("canShareTomorrow", canShareToday);
+		map.put("jourDeuxiemeLiberation", DateUtil.dateToString(jour2, Locale.FRANCE));
 		/*
 		 * Partage de places
 		 */
@@ -43,6 +56,7 @@ public class ShareRoute extends AuthenticatedRoute {
 			boolean retour=false;
 			try {
 				retour = placeService.sharePlaces(user, dateDebut, dateFin);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				map.put("message", "Une erreur est survenue lors de l'enregistrement de données !"); 
@@ -57,9 +71,12 @@ public class ShareRoute extends AuthenticatedRoute {
 				}
 		        return new ModelAndView(map, "error.ftl");	
 			}
+			response.redirect(Routes.PLACE_SHARE);
 
 		} 
 		else {
+
+
 
 			/*
 			 * Annulation d'un partage
@@ -72,7 +89,8 @@ public class ShareRoute extends AuthenticatedRoute {
 					map.put("message", "Une erreur est survenue lors de l'annulation !"); 
 			        return new ModelAndView(map, "error.ftl");	
 				}
-			}			
+				response.redirect(Routes.PLACE_SHARE);
+			}		
 			
 		}
 
