@@ -29,8 +29,7 @@
 			<form method="post" role="form">
 				<input type="hidden" name="dateDebut" value="${jourProchaineLiberation}"/>
 				<input type="hidden" name="dateFin" value="${jourProchaineLiberation}"/>
-				<#if canShareToday??>
-				<#else>
+				<#if !canShareToday??>
 					<input type="submit" class="btn btn-primary btn-lg" value="Je la libère le ${jourProchaineLiberation}"/>				
 				</#if>	
 			</form>
@@ -38,8 +37,7 @@
 			<form method="post" role="form">
 				<input type="hidden" name="dateDebut" value="${jourDeuxiemeLiberation}"/>
 				<input type="hidden" name="dateFin" value="${jourDeuxiemeLiberation}"/>
-				<#if canShareTomorrow??>
-				<#else>
+				<#if !canShareTomorrow??>
 					<input type="submit" class="btn btn-primary btn-lg" value="Je la libère le ${jourDeuxiemeLiberation}"/>				
 				</#if>	
 			</form>
