@@ -49,12 +49,12 @@ public class BookedRoute extends AuthenticatedRoute {
 			jourRecherche = DateUtil.rechercherDateLejourSuivant(jourRecherche);
 		}
 		String day = DateUtil.dateToString(jourRecherche);
-		map.put("libelleShowToday", "Réserver le " + DateUtil.dateToFullString(jourRecherche));
+		map.put("libelleShowToday", "Réserver le " + DateUtil.dateToMediumString(jourRecherche));
 		if (service.canBook(user, day)) {
 			map.put("showToday", day);
 		}
 		day = DateUtil.rechercherStrLejourSuivant(jourRecherche);
-		map.put("libelleShowTomorrow", "Réserver le " + DateUtil.dateToFullString(DateUtil.rechercherDateLejourSuivant(jourRecherche)));
+		map.put("libelleShowTomorrow", "Réserver le " + DateUtil.dateToMediumString(DateUtil.rechercherDateLejourSuivant(jourRecherche)));
 		if (service.canBook(user, day)) {
 			map.put("showTomorrow", day);
 		}

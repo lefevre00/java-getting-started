@@ -9,7 +9,8 @@ public class DateUtil {
 
 	private static final String SHORT_PATTERN_EN = "yyyy-MM-dd";
 	private static final String SHORT_PATTERN_FR = "dd/MM/yyyy";
-	private static final String FULL_PATTERN = "EE dd/MM/yyyy";
+	private static final String MEDIUM_PATTERN = "EE dd/MM/yyyy";
+	private static final String FULL_PATTERN = "EEEE dd/MM/yyyy";
 
 	/**
 	 * @param date The date to format
@@ -25,6 +26,10 @@ public class DateUtil {
 
 	public static String dateToFullString(LocalDate date) {
 		return getFullFormatter().format(date);
+	}
+	
+	public static String dateToMediumString(LocalDate date) {
+		return getMediumFormatter().format(date);
 	}
 
 	public static LocalDate stringToDate(String maDate) {
@@ -44,6 +49,10 @@ public class DateUtil {
 	
 	private static DateTimeFormatter getFullFormatter() {
 		return DateTimeFormatter.ofPattern(FULL_PATTERN);
+	}
+	
+	private static DateTimeFormatter getMediumFormatter() {
+		return DateTimeFormatter.ofPattern(MEDIUM_PATTERN);
 	}
 	
 	public static LocalDate rechercherDateLejourSuivant(LocalDate dateRecherche) {
