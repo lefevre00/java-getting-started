@@ -39,11 +39,12 @@
 
 			<#if !showToday?? && !showTomorrow??>
 				<div class="row">
-				<#if canShare??>
-					Vous ne pouvez pas effectuer de réservation car votre place est disponible ou inoccupée les deux prochains jours. 
-				<#else>
-					Vous avez déjà réservez des places pour les deux prochains jours. 
-				</#if>
+					<br/>
+					<#if canShare??>
+						Vous ne pouvez pas effectuer de réservation car votre place est disponible ou inoccupée les deux prochains jours. 
+					<#else>
+						Vous avez déjà réservez des places pour les deux prochains jours. 
+					</#if>
 				</div>
 			</#if>
 
