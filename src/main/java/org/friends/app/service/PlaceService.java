@@ -1,7 +1,5 @@
 package org.friends.app.service;
 
-import java.net.URISyntaxException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,6 +11,8 @@ import org.friends.app.service.impl.UnshareException;
 public interface PlaceService {
 
 	String INVALID_NUMBER = null;
+	
+	int HOUR_CHANGE_PARTAGE = 15;
 
 	public List<Place> getAvailableByDate(LocalDate date);
 	

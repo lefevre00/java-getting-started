@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
+import org.friends.app.service.PlaceService;
 import org.friends.app.service.impl.PlaceServiceBean;
 import org.friends.app.util.DateUtil;
 
@@ -35,7 +36,7 @@ public class ShareRoute extends AuthenticatedRoute {
 		// Permet d'identifier l'utilisateur avec une place attribuée
 		map.put("placeNumber", user.getPlaceNumber());
 		LocalDate jour1 = LocalDate.now();
-		if(LocalDateTime.now().getHour()>14 || DateUtil.isWeekEnd(jour1)){
+		if(LocalDateTime.now().getHour()>PlaceService.HOUR_CHANGE_PARTAGE || DateUtil.isWeekEnd(jour1)){
 			jour1 = DateUtil.rechercherDateLejourSuivant(jour1);
 		}
 		Place canShareToday = placeService.isPlaceShared(user.getPlaceNumber(), DateUtil.dateToString(jour1));

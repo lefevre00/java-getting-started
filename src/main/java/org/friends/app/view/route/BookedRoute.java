@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
+import org.friends.app.service.PlaceService;
 import org.friends.app.service.impl.PlaceServiceBean;
 import org.friends.app.util.DateUtil;
 
@@ -45,7 +46,7 @@ public class BookedRoute extends AuthenticatedRoute {
 		
 		LocalDate jourRecherche = LocalDate.now();
 		map.put("dateDuJour", DateUtil.dateToFullString(LocalDate.now()));
-		if(LocalDateTime.now().getHour()>14 || DateUtil.isWeekEnd(jourRecherche)){
+		if(LocalDateTime.now().getHour()>PlaceService.HOUR_CHANGE_PARTAGE || DateUtil.isWeekEnd(jourRecherche)){
 			jourRecherche = DateUtil.rechercherDateLejourSuivant(jourRecherche);
 		}
 		String day = DateUtil.dateToString(jourRecherche);
