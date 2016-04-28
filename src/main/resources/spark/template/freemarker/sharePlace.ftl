@@ -79,7 +79,7 @@
 									<th style="text-align:center;">Annuler partage</th>
 								</tr>
 								<#list datesPartages as place>
-									<!tr> 
+									<tr> 
 						  	    		<td>
 						  	    			<#assign theDate = '${place.occupationDate}'?date("yyyy-MM-dd")>
 						  	    			${theDate?string["dd/MM/yyyy"]}	
@@ -87,7 +87,7 @@
 							  	     	<td>
 							  	     		<#assign show = place.usedBy>
 							  	     	 	<#if show == "" || show == " ">
-							  	     			<a href="/protected/share?unshareDate=${place.occupationDate}" data-confirm='Annuler le partage de votre place du <strong> ${place.occupationDate} </strong> ?' ><img src="/images/cancel.png"/></a>
+							  	     			<a href="/protected/share?unshareDate=${place.occupationDate}" data-confirm='Annuler le partage de votre place du <strong> ${theDate?string["dd/MM/yyyy"]}	 </strong> ?' ><img src="/images/cancel.png"/></a>
 											<#else>
 												Place occupée
 							  	     		</#if>

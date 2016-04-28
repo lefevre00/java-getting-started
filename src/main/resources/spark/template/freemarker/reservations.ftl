@@ -37,7 +37,7 @@
 				</div>
 			</div>
 
-			<#if !showToday?? && !showTomorrow??>
+			<#if !showToday?? || !showTomorrow??>
 				<div class="row">
 					<br/>
 					<#if canShare??>
