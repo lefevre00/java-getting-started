@@ -145,7 +145,12 @@ public class UserServiceBean implements UserService{
 		
 	}	
 	
-	
+	/**
+	 * Validation des paramètres d'authentification (email + password)
+	 * @param email
+	 * @param pwd
+	 * @throws Exception
+	 */
 	public void parametersValidator(String email, String pwd) throws Exception {
 		
 		if (StringUtils.isEmpty(email)) 
@@ -158,6 +163,24 @@ public class UserServiceBean implements UserService{
 			throw new Exception(PWD_REQUIRED);
 
 	}
+	
+	/**
+	 * Validation des paramètres d'authentification (email + password + confirmation de password)
+	 * @param email
+	 * @param pwd
+	 * @param pwdConfirmation
+	 * @throws Exception
+	 */
+	public void parametersValidator(String email, String pwd, String pwdConfirmation) throws Exception {
+		
+		parametersValidator(email, pwd);
+		
+		if(StringUtils.isEmpty(pwdConfirmation)) 
+			throw new Exception(PWD_CONFIRMATION_REQUIRED);
+		
+		if(!pwd.equals(pwdConfirmation))
+			throw new Exception(PWD_UNMATCHING);
+	}	
 
 	public boolean activate(String token) {
 		Assert.notNull(token);

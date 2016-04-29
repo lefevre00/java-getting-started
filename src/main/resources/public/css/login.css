@@ -191,8 +191,12 @@ CONTENT
 	top:290px;
 }
 
+.passConfirmation{
+	top:300px;
+}
+
 .place-icon {
-	top:300px; 
+	top:375px; 
 	background: rgba(65,72,72,0.75) url(../images/place.png) no-repeat center;	
 }
 
