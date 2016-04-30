@@ -169,7 +169,7 @@ public class PlaceServiceBean implements PlaceService {
 		Assert.notNull(user);
 		Assert.notNull(unshareDate);
 		Place place = isPlaceShared(user.getPlaceNumber(), unshareDate);
-		if (StringUtils.isNotEmpty(place.getUsedBy())) {
+		if(!place.isFree()){
 			throw new UnshareException();
 		}
 		placedao.delete(unshareDate, user.getPlaceNumber());

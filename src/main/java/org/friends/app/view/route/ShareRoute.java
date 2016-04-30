@@ -10,6 +10,7 @@ import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.PlaceService;
 import org.friends.app.service.impl.PlaceServiceBean;
+import org.friends.app.service.impl.UnshareException;
 import org.friends.app.util.DateUtil;
 
 import spark.ModelAndView;
@@ -76,9 +77,6 @@ public class ShareRoute extends AuthenticatedRoute {
 
 		} 
 		else {
-
-
-
 			/*
 			 * Annulation d'un partage
 			 */			
@@ -86,7 +84,7 @@ public class ShareRoute extends AuthenticatedRoute {
 			if (!StringUtils.isEmpty(unshareDate)){
 				try {
 					placeService.unsharePlaceByDate(user, unshareDate);
-				} catch (Exception e) {
+				} catch (UnshareException e) {
 					map.put("message", "Une erreur est survenue lors de l'annulation !"); 
 			        return new ModelAndView(map, "error.ftl");	
 				}

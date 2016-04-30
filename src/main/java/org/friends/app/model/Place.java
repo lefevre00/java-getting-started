@@ -11,8 +11,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import spark.utils.StringUtils;
-
 @Entity
 @Table(name = "PLACES")
 @NamedQueries(value = {
@@ -142,6 +140,6 @@ public class Place {
 	}
 	
 	public boolean isFree() {
-		return StringUtils.isEmpty(usedBy);
+		return usedBy == null || "".equalsIgnoreCase(usedBy.trim());
 	}
 }
