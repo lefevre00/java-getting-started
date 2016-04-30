@@ -43,18 +43,29 @@ public class ShareRoute extends AuthenticatedRoute {
 		Place canShareToday = placeService.isPlaceShared(user.getPlaceNumber(), DateUtil.dateToString(jour1));
 		map.put("canShareToday", canShareToday);
 		map.put("jourProchaineLiberation", DateUtil.dateToString(jour1, Locale.FRANCE));
+		map.put("libelleJourProchaineLiberation", DateUtil.dateToFullString(jour1));
 		LocalDate jour2 = DateUtil.rechercherDateLejourSuivant(jour1);
 		canShareToday = placeService.isPlaceShared(user.getPlaceNumber(), DateUtil.dateToString(jour2));
 		map.put("canShareTomorrow", canShareToday);
 		map.put("jourDeuxiemeLiberation", DateUtil.dateToString(jour2, Locale.FRANCE));
+		map.put("libelleJourDeuxiemeLiberation", DateUtil.dateToFullString(jour2));
+		String liberationOk = request.queryParams("liberation");
+		if (!StringUtils.isEmpty(liberationOk) && "ok".equalsIgnoreCase(liberationOk)){
+			map.put("success", "Libération effectuée");
+		}
+		
+		String annulationOk = request.queryParams("annulation");
+		if (!StringUtils.isEmpty(annulationOk) && "ok".equalsIgnoreCase(annulationOk)){
+			map.put("success", "Annulation effectuée");
+		}
 		/*
 		 * Partage de places
 		 */
 		if ("POST".equalsIgnoreCase(request.requestMethod())) {
 			
+			
 			LocalDate dateDebut = request.queryParams("dateDebut") != null ? DateUtil.stringToDate(request.queryParams("dateDebut"), Locale.FRANCE) : null;
 			LocalDate dateFin = request.queryParams("dateFin") != null ? DateUtil.stringToDate(request.queryParams("dateFin"), Locale.FRANCE) : null;
-
 			boolean retour=false;
 			try {
 				retour = placeService.sharePlaces(user, dateDebut, dateFin);
@@ -73,7 +84,7 @@ public class ShareRoute extends AuthenticatedRoute {
 				}
 		        return new ModelAndView(map, "error.ftl");	
 			}
-			response.redirect(Routes.PLACE_SHARE);
+			response.redirect(Routes.PLACE_SHARE+"?liberation=ok");
 
 		} 
 		else {
@@ -88,7 +99,7 @@ public class ShareRoute extends AuthenticatedRoute {
 					map.put("message", "Une erreur est survenue lors de l'annulation !"); 
 			        return new ModelAndView(map, "error.ftl");	
 				}
-				response.redirect(Routes.PLACE_SHARE);
+				response.redirect(Routes.PLACE_SHARE+"?annulation=ok");
 			}		
 			
 		}

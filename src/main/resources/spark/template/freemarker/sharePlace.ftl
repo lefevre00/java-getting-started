@@ -30,7 +30,7 @@
 				<input type="hidden" name="dateDebut" value="${jourProchaineLiberation}"/>
 				<input type="hidden" name="dateFin" value="${jourProchaineLiberation}"/>
 				<#if !canShareToday??>
-					<input type="submit" class="btn btn-primary btn-lg" value="Je la libère le ${jourProchaineLiberation}"/>				
+					<input type="submit" class="btn btn-primary btn-lg" value="Je la libère le ${libelleJourProchaineLiberation}"/>				
 				</#if>	
 			</form>
 			<br/>
@@ -38,7 +38,7 @@
 				<input type="hidden" name="dateDebut" value="${jourDeuxiemeLiberation}"/>
 				<input type="hidden" name="dateFin" value="${jourDeuxiemeLiberation}"/>
 				<#if !canShareTomorrow??>
-					<input type="submit" class="btn btn-primary btn-lg" value="Je la libère le ${jourDeuxiemeLiberation}"/>				
+					<input type="submit" class="btn btn-primary btn-lg" value="Je la libère le ${libelleJourDeuxiemeLiberation}"/>				
 				</#if>	
 			</form>
 			<br/>
@@ -85,7 +85,7 @@
 									<tr> 
 						  	    		<td>
 						  	    			<#assign theDate = '${place.occupationDate}'?date("yyyy-MM-dd")>
-						  	    			${theDate?string["dd/MM/yyyy"]}	
+						  	    			le ${theDate?string["EEEE dd/MM/yyyy"]}	
 						  	    		</td>
 							  	     	<td>
 							  	     		<#assign show = place.usedBy>
