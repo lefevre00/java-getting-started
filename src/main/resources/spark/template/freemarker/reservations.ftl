@@ -19,30 +19,42 @@
 			<h1 class="titre">Réservations</h1>
 
 			<!--============================= boutons de réservation ================================-->
-			<#if showToday?? || showTomorrow??>
-				<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
-					<div class="col-sm-6" style="text-align:left;">
-						<#if showToday??>
-							<a href="/protected/search?day=${showToday}" class="btn btn-primary btn-lg">Réserver aujourd'hui</a>
-						<#else>
-							<a href="/protected/search" class="btn btn-primary btn-lg disabled">Réserver aujourd'hui</a>						
-						</#if>				
-					</div>
-					<div class="col-sm-6" style="text-align:right;">
-						<#if showTomorrow??>
-							<a href="/protected/search?day=${showTomorrow}" class="btn btn-primary btn-lg">Réserver demain</a>
-						<#else>
-							<a href="/protected/search" class="btn btn-primary btn-lg disabled">Réserver demain</a>
-						</#if>				
-					</div>
+			<div class="row" style="margin:0px auto;max-width:700px;">
+				Nous sommes le ${dateDuJour}<br/>
+				<div class="col-sm-6" style="padding-top:20px;">
+					<#if showToday??>
+						<a href="/protected/search?day=${showToday}" class="btn btn-primary btn-lg">${libelleShowToday}</a>
+					<#else>
+						<a href="/protected/search" class="btn btn-primary btn-lg disabled">${libelleShowToday}</a>						
+					</#if>				
+				</div>
+				<div class="col-sm-6" style="padding-top:20px;">
+					<#if showTomorrow??>
+						<a href="/protected/search?day=${showTomorrow}" class="btn btn-primary btn-lg">${libelleShowTomorrow}</a>
+					<#else>
+						<a href="/protected/search" class="btn btn-primary btn-lg disabled">${libelleShowTomorrow}</a>
+					</#if>				
+				</div>
+			</div>
+
+			<#if !showToday?? || !showTomorrow??>
+				<div class="row">
+					<br/>
+					<#if canShare??>
+						Vous ne pouvez pas effectuer de réservation car votre place est disponible ou inoccupée les deux prochains jours. 
+					<#else>
+						Vous avez déjà réservé des places pour les deux prochains jours. 
+					</#if>
 				</div>
 			</#if>
+
+
 			<!--============================= Message réservation  ================================-->
 			<div class="row table-responsive" style="margin:0px auto;max-width:700px; padding-top:20px;">
 			
 				<h4>
 					<#if places??>
-						Voici les places que vous avez réservées 
+						Voici les places que vous avez réservées. 
 					<#else>
 						Aucune réservation enregistrée.
 					</#if>
@@ -63,7 +75,7 @@
 				  	    		</td>
 					  	     	<td>${place.placeNumber}</td>
 					  	     	<td>
-					  	     		<a href="?release=${place.occupationDate}" data-confirm='Annuler la réservation du <strong> ${place.occupationDate} </strong> ?' ><img src="/images/cancel.png"/></a>							  	     		
+					  	     		<a href="?release=${place.occupationDate}" data-confirm='Annuler la réservation du <strong> ${theDate?string["dd/MM/yyyy"]} </strong> ?' ><img src="/images/cancel.png"/></a>							  	     		
 					  	     	</td>
 							</tr>
 						</#list>

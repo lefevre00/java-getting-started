@@ -24,9 +24,9 @@
 			
 				<div class="content">
 			        <#if email??>
-						<input class="input" name="email" type="email" placeholder="adresse@email.fr" value="${email}" required/>
+						<input class="input" name="email" type="email" placeholder="adresse@amdm.fr" value="${email}" required/>
 			        <#else>
-			          	<input class="input" name="email" type="email" placeholder="adresse@email.fr" required/>
+			          	<input class="input" name="email" type="email" placeholder="adresse@amdm.fr" required/>
 	                </#if>
 					<div class="email-icon emailX2"></div>
 

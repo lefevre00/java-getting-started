@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content=""> 
 	<#include "header.ftl">
   	<!--link rel="stylesheet" href="/stylesheets/datepicker.css"-->
   	<link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
@@ -9,22 +13,6 @@
   	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
   	<script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
 	
-  	
-  	<style>
-		.padding120 {
-			padding: 120px;
-		}  	
-		
-		.modalColor{
-			background: #f3f3f3;
-		}
-
-		.footerColor{
-			background: #f1ebe3; 
-		}
-
-  	</style>
-  	
 </head>
 
 <body>
@@ -37,16 +25,31 @@
 		<div class="container containerAttr">
 
 			<h1 class="titre">Partagez votre place de parking</h1>
-
+			Place n&deg;<strong>${placeNumber}</strong><br/>
+			<form method="post" role="form">
+				<input type="hidden" name="dateDebut" value="${jourProchaineLiberation}"/>
+				<input type="hidden" name="dateFin" value="${jourProchaineLiberation}"/>
+				<#if !canShareToday??>
+					<input type="submit" class="btn btn-primary btn-lg" value="Je la libère le ${libelleJourProchaineLiberation}"/>				
+				</#if>	
+			</form>
+			<br/>
+			<form method="post" role="form">
+				<input type="hidden" name="dateDebut" value="${jourDeuxiemeLiberation}"/>
+				<input type="hidden" name="dateFin" value="${jourDeuxiemeLiberation}"/>
+				<#if !canShareTomorrow??>
+					<input type="submit" class="btn btn-primary btn-lg" value="Je la libère le ${libelleJourDeuxiemeLiberation}"/>				
+				</#if>	
+			</form>
+			<br/>
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">					
 				<form method="post" role="form">
 					
-					Je lib&egrave;re la place n&deg;<strong>${placeNumber}</strong> <br><br/>
 					<div class="text-center"> 
 									 
 						<div class="col-md-6 col-sm-6">
 							<div class="input-group date" id="datepicker1">
-								<label>du&nbsp;&nbsp;</labdel>
+								<label>Je la libère du&nbsp;&nbsp;</labdel>
 								<input type="text" class="shareInput" name="dateDebut" required />
 								<span class="input-group-addon">
 									<i class="fa fa-calendar-o"></i>
@@ -79,15 +82,15 @@
 									<th style="text-align:center;">Annuler partage</th>
 								</tr>
 								<#list datesPartages as place>
-									<!tr> 
+									<tr> 
 						  	    		<td>
 						  	    			<#assign theDate = '${place.occupationDate}'?date("yyyy-MM-dd")>
-						  	    			${theDate?string["dd/MM/yyyy"]}	
+						  	    			le ${theDate?string["EEEE dd/MM/yyyy"]}	
 						  	    		</td>
 							  	     	<td>
 							  	     		<#assign show = place.usedBy>
 							  	     	 	<#if show == "" || show == " ">
-							  	     			<a href="/protected/share?unshareDate=${place.occupationDate}" data-confirm='Annuler le partage de votre place du <strong> ${place.occupationDate} </strong> ?' ><img src="/images/cancel.png"/></a>
+							  	     			<a href="/protected/share?unshareDate=${place.occupationDate}" data-confirm='Annuler le partage de votre place du <strong> ${theDate?string["dd/MM/yyyy"]}	 </strong> ?' ><img src="/images/cancel.png"/></a>
 											<#else>
 												Place occupée
 							  	     		</#if>
@@ -106,31 +109,6 @@
 
 	</section>
 
-
-	
-
-	<script type="text/javascript">
-	    $( document ).ready(function() {
-	        $('#datepicker1').datetimepicker({
-	        	locale: 'FR',
-	        	daysOfWeekDisabled: [0, 6],
-	               format: 'DD/MM/YYYY'
-	        });
-	        $('#datepicker2').datetimepicker({
-	        	daysOfWeekDisabled: [0, 6],
-	            useCurrent: true,
-	            format: 'DD/MM/YYYY',
-	            locale: 'FR' //Important!
-	        });
-	        $("#datepicker1").on("dp.change", function (e) {
-	            $('#datepicker2').data("DateTimePicker").minDate(e.date);
-	        });
-	        $("#datepicker2").on("dp.change", function (e) {
-	            $('#datepicker1').data("DateTimePicker").maxDate(e.date);
-	        });
-	    });
-	</script>	
-	
 	<script type="text/javascript">
 		$(function() {
 			$('a[data-confirm]').click(function(ev) {
@@ -147,6 +125,54 @@
 			});
 		});		
 	</script>
+	
+
+	<script type="text/javascript">
+	var today = new Date();
+	var firstDate = new Date();
+	if(today.getHours()>14 || today.getDay()==0){
+		firstDate =  rechercherDateLejourSuivant(firstDate);
+	}
+	    $( document ).ready(function() {
+	        $('#datepicker1').datetimepicker({
+	        	locale: 'FR',
+	        	daysOfWeekDisabled: [0, 6],
+	               format: 'DD/MM/YYYY',
+	               minDate: firstDate
+	        });
+	        $('#datepicker2').datetimepicker({
+	        	daysOfWeekDisabled: [0, 6],
+	            useCurrent: true,
+	            format: 'DD/MM/YYYY',
+	            minDate: firstDate,
+	            locale: 'FR' //Important!
+	        });
+	        $("#datepicker1").on("dp.change", function (e) {
+	            $('#datepicker2').data("DateTimePicker").minDate(e.date);
+	        });
+	        $("#datepicker2").on("dp.change", function (e) {
+	            $('#datepicker1').data("DateTimePicker").maxDate(e.date);
+	        });
+	    });
+	    
+	 function rechercherDateLejourSuivant(date){
+	    var nbJourAAjouter = 1;
+	    if(date.getDay()==5){
+	    	nbJourAAjouter = 3;
+	    }else if(date.getDay()==6){
+	    	nbJourAAjouter = 2;
+	    }else{
+	    	nbJourAAjouter = 1
+	    }
+	 	return new Date(today.getTime() + 24 * 60 * 60 * 1000 * nbJourAAjouter);
+	 }
+	 
+	 function isWeekEnd(date){
+	    return date.getDay()==6 || date.getDay()==0;
+	 }
+	</script>	
+	
+
 
 </body>
 </html>

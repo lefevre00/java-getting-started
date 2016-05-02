@@ -13,9 +13,10 @@
 		<div class="container containerAttr">
 		
 			<h1 class="titre">Confirmation de r&eacute;servation</h1>
-
+					<#assign theDate = '${dateRecherche}'?date("yyyy-MM-dd")>
+					${theDate?string["dd/MM/yyyy"]}	
 			<div class="row " style="margin:0px auto;max-width:700px; padding-top:20px;">					
-				<h4>La place numéro ${numeroPlace} vous est réservée pour le ${dateRecherche}.</h4>
+				<h4>La place numéro ${numeroPlace} vous est réservée pour le ${theDate?string["dd/MM/yyyy"]}.</h4>
 			</div>
 			
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
