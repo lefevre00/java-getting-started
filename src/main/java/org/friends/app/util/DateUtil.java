@@ -48,11 +48,11 @@ public class DateUtil {
 	}
 	
 	private static DateTimeFormatter getFullFormatter() {
-		return DateTimeFormatter.ofPattern(FULL_PATTERN);
+		return DateTimeFormatter.ofPattern(FULL_PATTERN).withLocale(Locale.FRANCE);
 	}
 	
 	private static DateTimeFormatter getMediumFormatter() {
-		return DateTimeFormatter.ofPattern(MEDIUM_PATTERN);
+		return DateTimeFormatter.ofPattern(MEDIUM_PATTERN).withLocale(Locale.FRANCE);
 	}
 	
 	public static LocalDate rechercherDateLejourSuivant(LocalDate dateRecherche) {
