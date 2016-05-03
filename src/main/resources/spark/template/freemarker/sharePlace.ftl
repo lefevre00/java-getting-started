@@ -49,7 +49,7 @@
 									 
 						<div class="col-md-6 col-sm-6">
 							<div class="input-group date" id="datepicker1">
-								<label>Je la libère du&nbsp;&nbsp;</labdel>
+								<label>Je libère du&nbsp;&nbsp;</labdel>
 								<input type="text" class="shareInput" name="dateDebut" required />
 								<span class="input-group-addon">
 									<i class="fa fa-calendar-o"></i>
