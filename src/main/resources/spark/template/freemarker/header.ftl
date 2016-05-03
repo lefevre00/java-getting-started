@@ -25,3 +25,5 @@
 <script src="/js/jquery.parallax.js"></script>
 <script src="/js/smoothscroll.js"></script>
 <script src="/js/nivo-lightbox.min.js"></script>
+
+<#setting locale="fr_FR">
