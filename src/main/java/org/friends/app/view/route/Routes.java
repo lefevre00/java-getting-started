@@ -43,6 +43,7 @@ public interface Routes {
 	/*
 	 * Accessible for everyone
 	 */
+	String DEFAULT = "/";
 	String LOGIN = "/user/login";
 	String LOGOUT = "/user/logout";
 	String REGISTER = "/user/new";
@@ -58,10 +59,8 @@ public interface Routes {
 	/*
 	 * Accessible if authenticated
 	 */
-	String DEFAULT = "/protected/";
 	String PLACE_SEARCH = "/protected/search";
 	String PLACE_SHARE = "/protected/share";
-	String CHOICE_ACTION = "/protected/choice";
 	String PLACE_BOOK = "/protected/book/:date/:place_id";
 	String RESERVATIONS = "/protected/booked";
 	String SETTINGS = "/protected/setting";
