@@ -16,7 +16,7 @@
     <section class="content-section">
 		<div class="container containerAttr">
 		
-			<h1 class="titre">Réservations</h1>
+			<h1 class="titre">Mes réservations</h1>
 
 			<!--============================= boutons de réservation ================================-->
 			<div class="row" style="margin:0px auto;max-width:700px;">
