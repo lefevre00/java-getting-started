@@ -20,7 +20,7 @@
 
 			<!--============================= boutons de réservation ================================-->
 			<div class="row" style="margin:0px auto;max-width:700px;">
-				Nous sommes le ${dateDuJour}<br/>
+				Nous sommes ${dateDuJour}<br/>
 				<div class="col-sm-6" style="padding-top:20px;">
 					<#if showToday??>
 						<a href="/protected/search?day=${showToday}" class="btn btn-primary btn-lg">${libelleShowToday}</a>
@@ -50,7 +50,7 @@
 
 
 			<!--============================= Message réservation  ================================-->
-			<div class="row table-responsive" style="margin:0px auto;max-width:700px; padding-top:20px;">
+			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
 			
 				<h4>
 					<#if places??>
@@ -61,25 +61,27 @@
 				</h4>
 								
 				<#if places??>
-					<table class="table table-bordered table-striped table-condensed padding20">
-						<tr style="background-color: #337ab7; color: white;">
-							<th style="text-align:center;">Date</th> 
-							<th style="text-align:center;">N° place</th>
-							<th style="text-align:center;">Annuler</th>
-						</tr>
-						<#list places as place>
-							<tr> 
-				  	    		<td>
-				  	    			<#assign theDate = '${place.occupationDate}'?date("yyyy-MM-dd")>
-				  	    			Le ${theDate?string["dd/MM/yyyy"]}
-				  	    		</td>
-					  	     	<td>${place.placeNumber}</td>
-					  	     	<td>
-					  	     		<a href="?release=${place.occupationDate}" data-confirm='Annuler la réservation du <strong> ${theDate?string["dd/MM/yyyy"]} </strong> ?' ><img src="/images/cancel.png"/></a>							  	     		
-					  	     	</td>
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped table-condensed padding20">
+							<tr style="background-color: #337ab7; color: white;">
+								<th style="text-align:center;">Date</th> 
+								<th style="text-align:center;">N° place</th>
+								<th style="text-align:center;">Annuler</th>
 							</tr>
-						</#list>
-					</table>
+							<#list places as place>
+								<tr> 
+					  	    		<td>
+					  	    			<#assign theDate = '${place.occupationDate}'?date("yyyy-MM-dd")>
+					  	    			Le ${theDate?string["dd/MM/yyyy"]}
+					  	    		</td>
+						  	     	<td>${place.placeNumber}</td>
+						  	     	<td>
+						  	     		<a href="?release=${place.occupationDate}" data-confirm='Annuler la réservation du <strong> ${theDate?string["dd/MM/yyyy"]} </strong> ?' ><img src="/images/cancel.png"/></a>							  	     		
+						  	     	</td>
+								</tr>
+							</#list>
+						</table>
+					</div>
 				</#if>
 			</div>			
 
