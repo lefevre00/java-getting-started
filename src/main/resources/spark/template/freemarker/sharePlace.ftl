@@ -24,23 +24,29 @@
     <section class="content-section">
 		<div class="container containerAttr">
 
-			<h1 class="titre">Partagez votre place de parking</h1>
+			<h1 class="titre">Mes partages</h1>
 			Place n&deg;<strong>${placeNumber}</strong><br/>
-			<form method="post" role="form">
-				<input type="hidden" name="dateDebut" value="${jourProchaineLiberation}"/>
-				<input type="hidden" name="dateFin" value="${jourProchaineLiberation}"/>
-				<#if !canShareToday??>
-					<input type="submit" class="btn btn-primary btn-lg" value="Libérer le ${libelleJourProchaineLiberation}"/>				
-				</#if>	
-			</form>
-			<br/>
-			<form method="post" role="form">
-				<input type="hidden" name="dateDebut" value="${jourDeuxiemeLiberation}"/>
-				<input type="hidden" name="dateFin" value="${jourDeuxiemeLiberation}"/>
-				<#if !canShareTomorrow??>
-					<input type="submit" class="btn btn-primary btn-lg" value="Libérer le ${libelleJourDeuxiemeLiberation}"/>				
-				</#if>	
-			</form>
+			
+			<div>
+				<div class="col-sm-6">
+					<form method="post" role="form">
+						<input type="hidden" name="dateDebut" value="${jourProchaineLiberation}"/>
+						<input type="hidden" name="dateFin" value="${jourProchaineLiberation}"/>
+						<#if !canShareToday??>
+							<input type="submit" class="btn btn-primary" value="Libérer ${libelleJourProchaineLiberation}"/>				
+						</#if>	
+					</form>
+				</div>
+				<div class="col-sm-6">
+					<form method="post" role="form">
+						<input type="hidden" name="dateDebut" value="${jourDeuxiemeLiberation}"/>
+						<input type="hidden" name="dateFin" value="${jourDeuxiemeLiberation}"/>
+						<#if !canShareTomorrow??>
+							<input type="submit" class="btn btn-primary" value="Libérer ${libelleJourDeuxiemeLiberation}"/>				
+						</#if>	
+					</form>
+				</div>
+			</div>
 			<br/>
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">					
 				<form method="post" role="form">
