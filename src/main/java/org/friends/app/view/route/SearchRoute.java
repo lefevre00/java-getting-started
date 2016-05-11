@@ -2,10 +2,12 @@ package org.friends.app.view.route;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.friends.app.zoneDateHelper;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.PlaceServiceBean;
@@ -24,7 +26,7 @@ public class SearchRoute extends AuthenticatedRoute {
     	Map<String, Object> map = Routes.getMap(req);
     	User user = getUser(req);
     	
-    	LocalDate now = LocalDate.now();
+    	LocalDate now = LocalDate.now(zoneDateHelper.EUROPE_PARIS);
     	String paramDate = req.queryParams("day");
 		String dateRecherchee = paramDate != null ? paramDate : rechercheLaProchaineDateUtilisable();
 		LocalDate dateRechercheeAsDate = DateUtil.stringToDate(dateRecherchee);
@@ -68,7 +70,7 @@ public class SearchRoute extends AuthenticatedRoute {
 		}else{
 			dateRecherche = dateRecherche.minusDays(1);
 		}
-		return dateRecherche.compareTo(LocalDate.now()) <0 ? null : DateUtil.dateToString(dateRecherche);
+		return dateRecherche.compareTo(LocalDate.now(zoneDateHelper.EUROPE_PARIS)) <0 ? null : DateUtil.dateToString(dateRecherche);
 	}
 
 	/**
@@ -76,7 +78,7 @@ public class SearchRoute extends AuthenticatedRoute {
 	 * @return
 	 */
 	protected String rechercheLaProchaineDateUtilisable(){
-		LocalDate dateUtilisable = LocalDate.now();
+		LocalDate dateUtilisable = LocalDate.now(zoneDateHelper.EUROPE_PARIS);
 		if(DayOfWeek.SUNDAY.equals(dateUtilisable.getDayOfWeek())){
 			dateUtilisable = dateUtilisable.plusDays(3);
 		}else if(DayOfWeek.SATURDAY.equals(dateUtilisable.getDayOfWeek())){

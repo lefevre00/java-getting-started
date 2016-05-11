@@ -1,6 +1,7 @@
 package org.friends.app.service;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 import org.friends.app.model.Place;
@@ -13,6 +14,8 @@ public interface PlaceService {
 	String INVALID_NUMBER = null;
 	
 	int HOUR_CHANGE_PARTAGE = 15;
+	
+	//ZoneId EUROPE_PARIS  = ZoneId.of("Europe/Paris");
 
 	public List<Place> getAvailableByDate(LocalDate date);
 	

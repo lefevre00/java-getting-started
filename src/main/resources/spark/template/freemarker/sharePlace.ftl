@@ -24,23 +24,34 @@
     <section class="content-section">
 		<div class="container containerAttr">
 
-			<h1 class="titre">Partagez votre place de parking</h1>
+			<h1 class="titre">Mes partages</h1>
 			Place n&deg;<strong>${placeNumber}</strong><br/>
-			<form method="post" role="form">
-				<input type="hidden" name="dateDebut" value="${jourProchaineLiberation}"/>
-				<input type="hidden" name="dateFin" value="${jourProchaineLiberation}"/>
-				<#if !canShareToday??>
-					<input type="submit" class="btn btn-primary btn-lg" value="Je la libère le ${libelleJourProchaineLiberation}"/>				
-				</#if>	
-			</form>
+			
+			<div>
+				<div class="col-sm-6">
+					<form method="post" role="form">
+						<input type="hidden" name="dateDebut" value="${jourProchaineLiberation}"/>
+						<input type="hidden" name="dateFin" value="${jourProchaineLiberation}"/>
+						<#if canShareToday??>
+							<input type="submit" class="btn btn-primary disabled" value="Libérer ${libelleJourProchaineLiberation}"/>
+						<#else>
+							<input type="submit" class="btn btn-primary" value="Libérer ${libelleJourProchaineLiberation}"/>
+						</#if>	
+					</form>
+				</div>
+				<div class="col-sm-6">
+					<form method="post" role="form">
+						<input type="hidden" name="dateDebut" value="${jourDeuxiemeLiberation}"/>
+						<input type="hidden" name="dateFin" value="${jourDeuxiemeLiberation}"/>
+						<#if canShareTomorrow??>
+							<input type="submit" class="btn btn-primary disabled" value="Libérer ${libelleJourDeuxiemeLiberation}"/>
+						<#else>				
+							<input type="submit" class="btn btn-primary" value="Libérer ${libelleJourDeuxiemeLiberation}"/>
+						</#if>	
+					</form>
+				</div>
+			</div>
 			<br/>
-			<form method="post" role="form">
-				<input type="hidden" name="dateDebut" value="${jourDeuxiemeLiberation}"/>
-				<input type="hidden" name="dateFin" value="${jourDeuxiemeLiberation}"/>
-				<#if !canShareTomorrow??>
-					<input type="submit" class="btn btn-primary btn-lg" value="Je la libère le ${libelleJourDeuxiemeLiberation}"/>				
-				</#if>	
-			</form>
 			<br/>
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">					
 				<form method="post" role="form">
@@ -49,7 +60,7 @@
 									 
 						<div class="col-md-6 col-sm-6">
 							<div class="input-group date" id="datepicker1">
-								<label>Je la libère du&nbsp;&nbsp;</labdel>
+								<label>Je libère du&nbsp;&nbsp;</label>
 								<input type="text" class="shareInput" name="dateDebut" required />
 								<span class="input-group-addon">
 									<i class="fa fa-calendar-o"></i>
@@ -59,7 +70,7 @@
 
 						<div class="col-md-6 col-sm-6">
 							<div class="input-group date" id="datepicker2">
-								<label>au&nbsp;&nbsp;</labdel>
+								<label>au&nbsp;&nbsp;</label>
 								<input type="text" class="shareInput" name="dateFin" required/>
 								<span class="input-group-addon">
 									<i class="fa fa-calendar-o"></i>
@@ -85,7 +96,7 @@
 									<tr> 
 						  	    		<td>
 						  	    			<#assign theDate = '${place.occupationDate}'?date("yyyy-MM-dd")>
-						  	    			le ${theDate?string["EEEE dd/MM/yyyy"]}	
+						  	    			${theDate?string["EEEE dd/MM/yyyy"]}	
 						  	    		</td>
 							  	     	<td>
 							  	     		<#assign show = place.usedBy>

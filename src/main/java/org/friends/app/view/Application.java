@@ -9,15 +9,14 @@ import static spark.Spark.port;
 import static spark.Spark.post;
 import static spark.Spark.staticFileLocation;
 
-import java.net.URISyntaxException;
 import java.security.AccessControlException;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 
 import org.friends.app.Configuration;
+import org.friends.app.zoneDateHelper;
 import org.friends.app.model.Place;
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
@@ -44,11 +43,11 @@ import spark.Request;
 import spark.Response;
 import spark.template.freemarker.FreeMarkerEngine;
 
-import com.heroku.sdk.jdbc.DatabaseUrl;
-
 public class Application {
 
 	private static Application instance;
+	
+	ZoneId EUROPE_PARIS  = ZoneId.of("Europe/Paris");
 	
 	UserServiceBean userService = new UserServiceBean();
 	PlaceServiceBean placeService = new PlaceServiceBean();
@@ -75,26 +74,6 @@ public class Application {
 			response.redirect(Routes.LOGIN);
 		});
 
-		get(Routes.CHOICE_ACTION, new AuthenticatedRoute() {
-			@Override
-			protected ModelAndView doHandle(Request request, Response response) {
-				return new ModelAndView(Routes.getMap(request), "actions.ftl");
-			}
-		}, new FreeMarkerEngine());
-
-		get(Routes.DEFAULT, new AuthenticatedRoute() {
-			@Override
-			protected ModelAndView doHandle(Request request, Response response) {
-				String dest = Routes.RESERVATIONS;
-				User user = getAuthenticatedUser(request);
-				if (user != null && user.getPlaceNumber() != null) {
-					dest = Routes.CHOICE_ACTION;
-				}
-				response.redirect(dest);
-				return new ModelAndView(null, "index.ftl");
-			}
-		}, new FreeMarkerEngine());
-
 		/*
 		 * User login 
 		 */
@@ -102,15 +81,14 @@ public class Application {
 		get(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
 		post(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
 		
-		get("/", (req, res) -> {
+		get(Routes.DEFAULT, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
-			List<Place> placesLibresToday = placeService.getAvailableByDate(LocalDate.now());
-			List<Place> placesLibresDemain = placeService.getAvailableByDate(DateUtil.rechercherDateLejourSuivant(LocalDate.now()));
+			List<Place> placesLibresToday = placeService.getAvailableByDate(LocalDate.now(zoneDateHelper.EUROPE_PARIS));
+			List<Place> placesLibresDemain = placeService.getAvailableByDate(DateUtil.rechercherDateLejourSuivant(LocalDate.now(zoneDateHelper.EUROPE_PARIS)));
 			map.put("placesToday", placesLibresToday.size());
 			map.put("placesDemain", placesLibresDemain.size());
 			return new ModelAndView(map, "index.ftl");
 		}, new FreeMarkerEngine());		
-		
 		
 		/*
 		 * Déconnexion
@@ -128,17 +106,6 @@ public class Application {
 		/*
 		 * Error page
 		 */		
-//		get(Routes.ERROR_PAGE, new AuthenticatedRoute() {
-//			@Override
-//			protected ModelAndView doHandle(Request request, Response response) {
-//				return new ModelAndView(null, "error.ftl");
-//			}
-//		}, new FreeMarkerEngine());		
-		
-		
-		
-		
-		
 		get(Routes.ERROR_PAGE, (req, res) -> {
 			return new ModelAndView(Routes.getMap(req), "error.ftl");
 		}, new FreeMarkerEngine());		
@@ -225,15 +192,6 @@ public class Application {
 		before("/", setCookieFilter);
 	}
 
-
-	protected Connection getConnection() throws SQLException, URISyntaxException {
-		return DatabaseUrl.extract().getConnection();
-	}
-
-	public static Application instance() {
-		return instance;
-	}
-	
 	private User getAuthenticatedUser(Request request) {
 		return request.session().attribute("user");
 	}

@@ -2,9 +2,11 @@ package org.friends.app.view.route;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 
+import org.friends.app.zoneDateHelper;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.PlaceService;
@@ -44,8 +46,8 @@ public class BookedRoute extends AuthenticatedRoute {
 			map.put("places", reservations);
 		}
 		
-		LocalDate jourRecherche = LocalDate.now();
-		map.put("dateDuJour", DateUtil.dateToFullString(LocalDate.now()));
+		LocalDate jourRecherche = LocalDate.now(zoneDateHelper.EUROPE_PARIS);
+		map.put("dateDuJour", DateUtil.dateToFullString(LocalDate.now(zoneDateHelper.EUROPE_PARIS)));
 		if(LocalDateTime.now().getHour()>PlaceService.HOUR_CHANGE_PARTAGE || DateUtil.isWeekEnd(jourRecherche)){
 			jourRecherche = DateUtil.rechercherDateLejourSuivant(jourRecherche);
 		}

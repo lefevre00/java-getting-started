@@ -4,10 +4,12 @@ import static java.lang.String.format;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.friends.app.zoneDateHelper;
 import org.friends.app.dao.PlaceDao;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
@@ -106,7 +108,7 @@ public class PlaceServiceBean implements PlaceService {
 		Assert.notNull(user.getEmailAMDM());
 		List<Place> listRetour = new ArrayList<Place>();
 		
-		LocalDate today = LocalDate.now();
+		LocalDate today = LocalDate.now(zoneDateHelper.EUROPE_PARIS);
 		
 		// utilisateur sans place attribuée
 		if (user.getPlaceNumber() == null) {
@@ -120,7 +122,7 @@ public class PlaceServiceBean implements PlaceService {
 
 			// Recherche réservation pour le jour j+1
 			places = placedao.findPlacesByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()),
-					Restrictions.ge("id.occupationDate", DateUtil.dateToString(LocalDate.now().plusDays(1))));
+					Restrictions.ge("id.occupationDate", DateUtil.dateToString(LocalDate.now(zoneDateHelper.EUROPE_PARIS).plusDays(1))));
 			if (!places.isEmpty()) {
 				listRetour.add(places.get(0));
 			}
@@ -184,7 +186,7 @@ public class PlaceServiceBean implements PlaceService {
 	}
 	
 	public List<Place> getReservations(User user) {
-		return placedao.findPlacesByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()), Restrictions.ge("id.occupationDate", DateUtil.dateToString(LocalDate.now())));
+		return placedao.findPlacesByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()), Restrictions.ge("id.occupationDate", DateUtil.dateToString(LocalDate.now(zoneDateHelper.EUROPE_PARIS))));
 	}
 	
 	/*
