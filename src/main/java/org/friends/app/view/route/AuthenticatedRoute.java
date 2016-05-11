@@ -1,6 +1,7 @@
 package org.friends.app.view.route;
 
 import java.security.AccessControlException;
+import java.time.ZoneId;
 
 import org.friends.app.Configuration;
 import org.friends.app.model.User;
@@ -15,6 +16,7 @@ import spark.utils.StringUtils;
 public abstract class AuthenticatedRoute implements TemplateViewRoute {
 
 	UserServiceBean userService = new UserServiceBean();
+	
 	
 	@Override
 	public ModelAndView handle(Request request, Response response) throws Exception {

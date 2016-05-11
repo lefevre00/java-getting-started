@@ -1,8 +1,10 @@
 package org.friends.app.view.route;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Map;
 
+import org.friends.app.zoneDateHelper;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.BookingException;
@@ -30,7 +32,7 @@ public class BookRoute extends AuthenticatedRoute {
 		String place = params.get(PARAM_PLACE);
 		String date = params.get(PARAM_DATE);
 		if (StringUtils.isEmpty(date)) {
-		    date = DateUtil.dateToString(LocalDate.now());
+		    date = DateUtil.dateToString(LocalDate.now(zoneDateHelper.EUROPE_PARIS));
 		}
 		
 		if (StringUtils.isEmpty(place)) {

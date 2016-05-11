@@ -11,10 +11,12 @@ import static spark.Spark.staticFileLocation;
 
 import java.security.AccessControlException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 
 import org.friends.app.Configuration;
+import org.friends.app.zoneDateHelper;
 import org.friends.app.model.Place;
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
@@ -44,6 +46,8 @@ import spark.template.freemarker.FreeMarkerEngine;
 public class Application {
 
 	private static Application instance;
+	
+	ZoneId EUROPE_PARIS  = ZoneId.of("Europe/Paris");
 	
 	UserServiceBean userService = new UserServiceBean();
 	PlaceServiceBean placeService = new PlaceServiceBean();
@@ -79,8 +83,8 @@ public class Application {
 		
 		get(Routes.DEFAULT, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
-			List<Place> placesLibresToday = placeService.getAvailableByDate(LocalDate.now());
-			List<Place> placesLibresDemain = placeService.getAvailableByDate(DateUtil.rechercherDateLejourSuivant(LocalDate.now()));
+			List<Place> placesLibresToday = placeService.getAvailableByDate(LocalDate.now(zoneDateHelper.EUROPE_PARIS));
+			List<Place> placesLibresDemain = placeService.getAvailableByDate(DateUtil.rechercherDateLejourSuivant(LocalDate.now(zoneDateHelper.EUROPE_PARIS)));
 			map.put("placesToday", placesLibresToday.size());
 			map.put("placesDemain", placesLibresDemain.size());
 			return new ModelAndView(map, "index.ftl");

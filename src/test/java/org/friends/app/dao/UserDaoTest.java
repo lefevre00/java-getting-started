@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.friends.app.HibernateUtil;
 import org.friends.app.ParkingTest;
+import org.friends.app.zoneDateHelper;
 import org.friends.app.model.User;
 import org.friends.app.util.DateUtil;
 import org.hibernate.criterion.Restrictions;
@@ -15,7 +16,7 @@ import org.junit.Test;
 
 public class UserDaoTest extends ParkingTest {
 	
-	static LocalDate timePoint = LocalDate.now();
+	static LocalDate timePoint = LocalDate.now(zoneDateHelper.EUROPE_PARIS);
 	static String strDateToday = DateUtil.dateToString(timePoint);
 	static String strTomorrow = DateUtil.dateToString(timePoint.plusDays(1));
 	static String strApresDemain = DateUtil.dateToString(timePoint.plusDays(2));

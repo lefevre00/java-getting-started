@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.friends.app.zoneDateHelper;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.PlaceService;
@@ -36,7 +37,7 @@ public class ShareRoute extends AuthenticatedRoute {
     	
 		// Permet d'identifier l'utilisateur avec une place attribuée
 		map.put("placeNumber", user.getPlaceNumber());
-		LocalDate jour1 = LocalDate.now();
+		LocalDate jour1 = LocalDate.now(zoneDateHelper.EUROPE_PARIS);
 		if(LocalDateTime.now().getHour()>PlaceService.HOUR_CHANGE_PARTAGE || DateUtil.isWeekEnd(jour1)){
 			jour1 = DateUtil.rechercherDateLejourSuivant(jour1);
 		}
@@ -119,7 +120,7 @@ public class ShareRoute extends AuthenticatedRoute {
 
 
 	public String nextDayWithOutWeekEnd(){
-		String retour = DateUtil.dateToString(LocalDate.now());
+		String retour = DateUtil.dateToString(LocalDate.now(zoneDateHelper.EUROPE_PARIS));
 		return retour;
 	}
 }
