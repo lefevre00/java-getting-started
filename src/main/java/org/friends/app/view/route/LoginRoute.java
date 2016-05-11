@@ -1,6 +1,7 @@
 package org.friends.app.view.route;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.friends.app.Messages;
 import org.friends.app.model.User;
@@ -45,6 +46,7 @@ public class LoginRoute implements TemplateViewRoute {
 			user = userService.authenticate(email, pwd);
 
 			if (user != null) {
+				Logger.getLogger("login").info("user logged in : " + user.getEmailAMDM());
 				addAuthenticatedUser(request, user);
 				Routes.redirect(user, response);
 			} else {
