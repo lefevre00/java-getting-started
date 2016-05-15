@@ -47,6 +47,9 @@ public class User {
 	
 	@Column(name="TOKEN_PASSWORD")
 	private String tokenPwd;
+
+	@Column(name="APIKEY")
+	private String key;
 	
 	public User() {}
 	
