@@ -54,7 +54,7 @@
 			
 				<h4>
 					<#if places??>
-						Voici les places que vous avez réservées. 
+						Voici les places que vous avez réservées :
 					<#else>
 						Aucune réservation enregistrée.
 					</#if>
@@ -72,7 +72,7 @@
 								<tr> 
 					  	    		<td>
 					  	    			<#assign theDate = '${place.occupationDate}'?date("yyyy-MM-dd")>
-					  	    			Le ${theDate?string["dd/MM/yyyy"]}
+					  	    			${theDate?string["EEEE dd/MM/yyyy"]}
 					  	    		</td>
 						  	     	<td>${place.placeNumber}</td>
 						  	     	<td>

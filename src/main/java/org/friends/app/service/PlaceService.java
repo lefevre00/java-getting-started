@@ -1,7 +1,6 @@
 package org.friends.app.service;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 
 import org.friends.app.model.Place;

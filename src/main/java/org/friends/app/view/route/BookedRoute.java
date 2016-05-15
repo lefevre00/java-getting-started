@@ -1,15 +1,14 @@
 package org.friends.app.view.route;
 
+import static org.friends.app.util.DateUtil.dateToString;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 
-import org.friends.app.zoneDateHelper;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
-import org.friends.app.service.PlaceService;
+import org.friends.app.service.impl.DateServiceBean;
 import org.friends.app.service.impl.PlaceServiceBean;
 import org.friends.app.util.DateUtil;
 
@@ -26,6 +25,7 @@ import spark.utils.StringUtils;
  */
 public class BookedRoute extends AuthenticatedRoute {
 
+	private DateServiceBean dateService = new DateServiceBean();
 	private PlaceServiceBean service = new PlaceServiceBean();
 
 	@Override
@@ -46,18 +46,18 @@ public class BookedRoute extends AuthenticatedRoute {
 			map.put("places", reservations);
 		}
 		
-		LocalDate jourRecherche = LocalDate.now(zoneDateHelper.EUROPE_PARIS);
-		map.put("dateDuJour", DateUtil.dateToFullString(LocalDate.now(zoneDateHelper.EUROPE_PARIS)));
-		if(LocalDateTime.now().getHour()>PlaceService.HOUR_CHANGE_PARTAGE || DateUtil.isWeekEnd(jourRecherche)){
-			jourRecherche = DateUtil.rechercherDateLejourSuivant(jourRecherche);
-		}
-		String day = DateUtil.dateToString(jourRecherche);
-		map.put("libelleShowToday", "Réserver le " + DateUtil.dateToMediumString(jourRecherche));
+		map.put("dateDuJour", DateUtil.dateToFullString(DateUtil.now()));
+
+		LocalDate jour1 = dateService.getWorkingDay();
+		String day = dateToString(jour1);
+		map.put("libelleShowToday", "Réserver " + DateUtil.dateToMediumString(jour1));
 		if (service.canBook(user, day)) {
 			map.put("showToday", day);
 		}
-		day = DateUtil.rechercherStrLejourSuivant(jourRecherche);
-		map.put("libelleShowTomorrow", "Réserver le " + DateUtil.dateToMediumString(DateUtil.rechercherDateLejourSuivant(jourRecherche)));
+		
+		LocalDate jour2 = dateService.getNextWorkingDay(jour1); 
+		day =  dateToString(jour2);
+		map.put("libelleShowTomorrow", "Réserver " + DateUtil.dateToMediumString(jour2));
 		if (service.canBook(user, day)) {
 			map.put("showTomorrow", day);
 		}

@@ -16,10 +16,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.friends.app.Configuration;
-import org.friends.app.zoneDateHelper;
 import org.friends.app.model.Place;
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
+import org.friends.app.service.impl.DateServiceBean;
 import org.friends.app.service.impl.PlaceServiceBean;
 import org.friends.app.service.impl.UserServiceBean;
 import org.friends.app.util.DateUtil;
@@ -51,6 +51,8 @@ public class Application {
 	
 	UserServiceBean userService = new UserServiceBean();
 	PlaceServiceBean placeService = new PlaceServiceBean();
+	DateServiceBean dateService = new DateServiceBean();
+
 
 	public Application() {
 		if (instance == null) instance = this;
@@ -83,8 +85,9 @@ public class Application {
 		
 		get(Routes.DEFAULT, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
-			List<Place> placesLibresToday = placeService.getAvailableByDate(LocalDate.now(zoneDateHelper.EUROPE_PARIS));
-			List<Place> placesLibresDemain = placeService.getAvailableByDate(DateUtil.rechercherDateLejourSuivant(LocalDate.now(zoneDateHelper.EUROPE_PARIS)));
+			LocalDate now = DateUtil.now();
+			List<Place> placesLibresToday = placeService.getAvailableByDate(now);
+			List<Place> placesLibresDemain = placeService.getAvailableByDate(dateService.getNextWorkingDay(now));
 			map.put("placesToday", placesLibresToday.size());
 			map.put("placesDemain", placesLibresDemain.size());
 			return new ModelAndView(map, "index.ftl");

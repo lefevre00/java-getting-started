@@ -25,14 +25,8 @@ public class ContactRoute  implements TemplateViewRoute {
 			if (StringUtils.isEmpty(nom) ||
 					StringUtils.isEmpty(mail) ||
 					StringUtils.isEmpty(message) ) throw new RuntimeException("Erreur saisie formulaire contact");
-				sendContact(nom, mail, message);
+			mailService.sendContact(nom, mail, message);
 		}
 		return new ModelAndView(map, "contactSend.ftl");
 	}
-	
-	
-	private void sendContact(String nom, String mail, String message) {
-		mailService.sendContact(nom, mail, message);
-	}
-
 }

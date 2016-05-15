@@ -1,7 +1,6 @@
 package org.friends.app.view.route;
 
 import java.security.AccessControlException;
-import java.time.ZoneId;
 
 import org.friends.app.Configuration;
 import org.friends.app.model.User;

@@ -18,7 +18,7 @@
 			<div class="row " style="margin:0px auto;max-width:700px; padding-top:20px;">					
 				<#if place??>
 					<h4>La place n&deg; <strong>${place.placeNumber}</strong> est disponible pour le ${dateRecherche}</h4>
-					Souhaitez-vous valider la  r&eacute;servation ?
+					Souhaitez-vous valider la r&eacute;servation ?
 					<br clear="both"/>
 					<br clear="both"/>
 					
