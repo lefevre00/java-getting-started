@@ -8,9 +8,11 @@ import java.util.Map;
 
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
+import org.friends.app.service.PlaceService;
 import org.friends.app.service.impl.DateServiceBean;
-import org.friends.app.service.impl.PlaceServiceBean;
 import org.friends.app.util.DateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -18,50 +20,55 @@ import spark.Response;
 import spark.utils.StringUtils;
 
 /**
- * Page listing the booked places for days starting today.
- * Give access to booking page.
+ * Page listing the booked places for days starting today. Give access to
+ * booking page.
+ * 
  * @author michael
  *
  */
+@Component
 public class BookedRoute extends AuthenticatedRoute {
 
-	private DateServiceBean dateService = new DateServiceBean();
-	private PlaceServiceBean service = new PlaceServiceBean();
+	@Autowired
+	private DateServiceBean dateService;
+	@Autowired
+	private PlaceService placeService;
 
 	@Override
 	public ModelAndView doHandle(Request request, Response response) {
 
 		User user = getUser(request);
-		
+
 		String release = request.queryParams("release");
 		if (StringUtils.isNotEmpty(release)) {
-			service.release(user, release);
+			placeService.release(user, release);
 		}
-		
-		// on récupère les réservations pour des dates égales/postérieures à la date du jour  
-		List<Place> reservations = service.getReservations(user);
-		
+
+		// on récupère les réservations pour des dates égales/postérieures à la
+		// date du jour
+		List<Place> reservations = placeService.getReservations(user);
+
 		Map<String, Object> map = Routes.getMap(request);
-		if (!reservations.isEmpty()){
+		if (!reservations.isEmpty()) {
 			map.put("places", reservations);
 		}
-		
+
 		map.put("dateDuJour", DateUtil.dateToFullString(DateUtil.now()));
 
 		LocalDate jour1 = dateService.getWorkingDay();
 		String day = dateToString(jour1);
 		map.put("libelleShowToday", "Réserver " + DateUtil.dateToMediumString(jour1));
-		if (service.canBook(user, day)) {
+		if (placeService.canBook(user, day)) {
 			map.put("showToday", day);
 		}
-		
-		LocalDate jour2 = dateService.getNextWorkingDay(jour1); 
-		day =  dateToString(jour2);
+
+		LocalDate jour2 = dateService.getNextWorkingDay(jour1);
+		day = dateToString(jour2);
 		map.put("libelleShowTomorrow", "Réserver " + DateUtil.dateToMediumString(jour2));
-		if (service.canBook(user, day)) {
+		if (placeService.canBook(user, day)) {
 			map.put("showTomorrow", day);
 		}
-		
+
 		return new ModelAndView(map, "reservations.ftl");
 	}
 }

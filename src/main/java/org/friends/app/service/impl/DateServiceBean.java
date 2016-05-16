@@ -6,12 +6,14 @@ import java.time.LocalDateTime;
 
 import org.friends.app.service.PlaceService;
 import org.friends.app.util.DateUtil;
+import org.springframework.stereotype.Service;
 
 /**
  * Gestion des dates comportant de la logique.
  * @author michael
  *
  */
+@Service
 public class DateServiceBean {
 
 	/**

@@ -3,7 +3,6 @@ package org.friends.app.service;
 import org.friends.app.ParkingTest;
 import org.friends.app.dao.UserDao;
 import org.friends.app.model.User;
-import org.friends.app.service.impl.DataIntegrityException;
 import org.friends.app.service.impl.UserServiceBean;
 import org.junit.Rule;
 import org.junit.Test;

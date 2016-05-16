@@ -11,16 +11,22 @@ import java.util.List;
 import org.friends.app.dao.PlaceDao;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
+import org.friends.app.service.BookingException;
 import org.friends.app.service.PlaceService;
+import org.friends.app.service.UnshareException;
 import org.friends.app.util.DateUtil;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import spark.utils.Assert;
 import spark.utils.StringUtils;
 
+@Service
 public class PlaceServiceBean implements PlaceService {
 
-	PlaceDao placedao = new PlaceDao();
+	@Autowired
+	private PlaceDao placedao;
 
 	public List<Place> getAvailableByDate(LocalDate date) {
 		return placedao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", DateUtil.dateToString(date)),

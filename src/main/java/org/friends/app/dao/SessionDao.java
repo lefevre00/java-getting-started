@@ -6,9 +6,11 @@ import java.util.Date;
 
 import org.friends.app.HibernateUtil;
 import org.friends.app.model.Session;
+import org.springframework.stereotype.Repository;
 
 import spark.utils.Assert;
 
+@Repository
 public class SessionDao {
 
 	public Session persist(Session session) {

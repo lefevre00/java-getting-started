@@ -11,15 +11,20 @@ import org.friends.app.model.User;
 import org.friends.app.service.impl.DateServiceBean;
 import org.friends.app.service.impl.PlaceServiceBean;
 import org.friends.app.util.DateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+@Component
 public class SearchRoute extends AuthenticatedRoute {
 
-	private DateServiceBean dateService = new DateServiceBean();
-	private PlaceServiceBean placeService = new PlaceServiceBean();
+	@Autowired
+	private DateServiceBean dateService;
+	@Autowired
+	private PlaceServiceBean placeService;
 
 	@Override
 	public ModelAndView doHandle(Request req, Response resp) {

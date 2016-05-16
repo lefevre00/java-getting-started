@@ -10,18 +10,24 @@ import org.friends.app.dao.SessionDao;
 import org.friends.app.dao.UserDao;
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
+import org.friends.app.service.DataIntegrityException;
 import org.friends.app.service.UserService;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import spark.utils.Assert;
 import spark.utils.StringUtils;
 
-
-public class UserServiceBean implements UserService{
+@Service
+public class UserServiceBean implements UserService {
 	
-	UserDao userDao = new UserDao();
-	SessionDao sessionDao = new SessionDao();
-	MailServiceBean mailService = new MailServiceBean();
+	@Autowired
+	private UserDao userDao;
+	@Autowired
+	private SessionDao sessionDao;
+	@Autowired
+	private MailServiceBean mailService;
 	
 	/**
 	 * Authentification de l'utilisateur

@@ -1,4 +1,4 @@
-package org.friends.app.service.impl;
+package org.friends.app.service;
 
 /**
  * Indicate the booking could not be finalized.
