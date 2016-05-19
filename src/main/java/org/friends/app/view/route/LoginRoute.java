@@ -31,7 +31,10 @@ public class LoginRoute implements TemplateViewRoute {
 	public ModelAndView handle(Request request, Response response) throws Exception {
 
 		Map<String, Object> map = Routes.getMap(request);
-		if ("POST".equalsIgnoreCase(request.requestMethod())) {
+		User user = request.session().attribute("user");
+		if (user != null) {
+			Routes.redirect(user, response);
+		} else if ("POST".equalsIgnoreCase(request.requestMethod())) {
 			onLogin(request, response, map);
 		}
 
