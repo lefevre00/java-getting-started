@@ -2,9 +2,6 @@
 <html lang="fr">
 <head>
 	<#include "header.ftl">
-  	<link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
-  	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
-  	<script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
 </head>
 
 <body>
@@ -114,6 +111,9 @@
 	
 	<!--==================================== javascripts files section  ==================================-->
 	<#include "commonjs.ftl">		
+	<link href="/css/datetimepicker.css" rel="stylesheet">
+  	<script src="/js/moment-with-locales.js"></script>
+  	<script src="/js/datetimepicker.js"></script>
 	
 
 	<script type="text/javascript">
@@ -178,6 +178,7 @@
 			return date.getDay()==6 || date.getDay()==0;
 		}
 	</script>	
+
 
 </body>
 </html>
