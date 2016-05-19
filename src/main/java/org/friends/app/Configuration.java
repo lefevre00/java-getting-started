@@ -3,10 +3,8 @@ package org.friends.app;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.friends.app.service.impl.DateServiceBean;
 import org.hibernate.dialect.H2Dialect;
 import org.hibernate.dialect.PostgreSQL92Dialect;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 import spark.utils.StringUtils;

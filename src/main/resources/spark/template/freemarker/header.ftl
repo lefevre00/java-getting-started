@@ -7,7 +7,6 @@
 <meta name="description" content="Site de partage des place de parking à destination des salariés de la mutuelle Des Motards.">
 
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/animate.min.css">
@@ -18,7 +17,7 @@
 
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
 	
-<script src="/js/jquery.js"></script>
+<script src="/js/jquery-2.2.3.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/wow.min.js"></script>
 <script src="/js/custom.js"></script>
