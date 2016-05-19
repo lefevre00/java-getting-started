@@ -23,9 +23,10 @@ $(function(){
 	initParallax();
 
 	// NIVO LIGHTBOX
+	/*
 	$('#gallery a').nivoLightbox({
 			effect: 'fadeScale',
 	});
-
+	*/
 });
 
