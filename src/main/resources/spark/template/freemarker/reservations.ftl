@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content=""> 
 	<#include "header.ftl">
 </head>
 
 <body>
   
-	<!-- navigation section -->
-	<#include "nav.ftl">
+	<!--======================================== Section navigation ====================================-->
+	<#include "nav.ftl">	
 	
+	<!--================================================================================================-->	
     <section class="content-section">
 		<div class="container containerAttr">
 		
@@ -88,6 +85,9 @@
 		</div>
 	</section>
 
+	
+	<!--==================================== javascripts files section  ==================================-->
+	<#include "commonjs.ftl">		
 	
 	
 	<script type="text/javascript">

@@ -6,11 +6,11 @@
 
 <body>
   
-	<!-- navigation section -->
-	<#include "nav.ftl">
+	<!--======================================== Section navigation ====================================-->
+	<#include "nav.ftl">	
 
+	<!--================================================================================================-->	
     <section class="content-section">
-	
 		<div class="container containerAttr">
 		
 			<h1 class="titre">Confirmation de r&eacute;servation</h1>
@@ -35,8 +35,10 @@
 			</div>
 			
 		</div>
-	
 	</section>
+	
+	<!--==================================== javascripts files section  ==================================-->
+	<#include "commonjs.ftl">		
 	
 </body>
 </html>

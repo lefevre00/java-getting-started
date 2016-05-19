@@ -1,26 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content=""> 
 	<#include "header.ftl">
-  	<!--link rel="stylesheet" href="/stylesheets/datepicker.css"-->
   	<link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
-  
-  	<!--script src="/js/bootstrap-datepicker.js" charset="UTF-8"></script-->
   	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
   	<script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
-	
 </head>
 
 <body>
   
-	<!-- navigation section -->
+	<!--======================================== Section navigation ====================================-->
 	<#include "nav.ftl">
 
-
+	<!--================================================================================================-->	
     <section class="content-section">
 		<div class="container containerAttr">
 
@@ -117,8 +109,12 @@
 			</div>	
 
 		</div>
-
 	</section>
+	
+	
+	<!--==================================== javascripts files section  ==================================-->
+	<#include "commonjs.ftl">		
+	
 
 	<script type="text/javascript">
 		$(function() {
@@ -139,11 +135,11 @@
 	
 
 	<script type="text/javascript">
-	var today = new Date();
-	var firstDate = new Date();
-	if(today.getHours()>14 || today.getDay()==0){
-		firstDate =  rechercherDateLejourSuivant(firstDate);
-	}
+		var today = new Date();
+		var firstDate = new Date();
+		if(today.getHours()>14 || today.getDay()==0){
+			firstDate =  rechercherDateLejourSuivant(firstDate);
+		}
 	    $( document ).ready(function() {
 	        $('#datepicker1').datetimepicker({
 	        	locale: 'FR',
@@ -166,24 +162,22 @@
 	        });
 	    });
 	    
-	 function rechercherDateLejourSuivant(date){
-	    var nbJourAAjouter = 1;
-	    if(date.getDay()==5){
-	    	nbJourAAjouter = 3;
-	    }else if(date.getDay()==6){
-	    	nbJourAAjouter = 2;
-	    }else{
-	    	nbJourAAjouter = 1
-	    }
-	 	return new Date(today.getTime() + 24 * 60 * 60 * 1000 * nbJourAAjouter);
-	 }
-	 
-	 function isWeekEnd(date){
-	    return date.getDay()==6 || date.getDay()==0;
-	 }
+		function rechercherDateLejourSuivant(date){
+			var nbJourAAjouter = 1;
+			if(date.getDay()==5){
+				nbJourAAjouter = 3;
+			}else if(date.getDay()==6){
+				nbJourAAjouter = 2;
+			}else{
+				nbJourAAjouter = 1
+			}
+			return new Date(today.getTime() + 24 * 60 * 60 * 1000 * nbJourAAjouter);
+		}
+		 
+		function isWeekEnd(date){
+			return date.getDay()==6 || date.getDay()==0;
+		}
 	</script>	
-	
-
 
 </body>
 </html>

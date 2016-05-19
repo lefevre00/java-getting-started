@@ -3,16 +3,16 @@
 <head>
 	<#include "header.ftl">
 	<link rel="stylesheet" href="/css/login.css">
+	<link rel="stylesheet" href="/css/mediaqueries.css" type="text/css" />	
 </head>
 
 <body>
   
-	<!-- navigation section -->
-	<#include "nav.ftl">
+	<!--======================================== Section navigation ====================================-->
+	<#include "nav.ftl">	
 
-	<!-- home section -->
-	<section id="home">
-		
+	<!--=============================================== form ===========================================-->
+	<section id="conteneur" class="jumbotron" style="background-color:transparent !important;">			
 		<div id="wrapper">
 	
 			<form method="post" role="form" name="login-form" class="login-form">
@@ -36,8 +36,10 @@
 			</form>	
 	
 		</div>
-	
 	</section>
+	
+	<!--==================================== javascripts files section  ==================================-->
+	<#include "commonjs.ftl">		
   
 </body>
 </html>

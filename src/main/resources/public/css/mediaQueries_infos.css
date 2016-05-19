@@ -1,0 +1,80 @@
+/* CSS media queries */
+
+
+
+/* 1: max-width */
+/*@media only screen and (max-width: 320px) {*/
+    
+}
+
+/* 1: max-width */
+@media screen and (max-width: 640px) {
+	.small {
+		width: 100%;
+        float: none;
+	}
+	.precisions span.regle1 {
+		display: block;
+	}
+}
+
+
+/* 2: min-width */
+@media screen and (min-width: 800px) {
+	.medium {
+		background: #f11a57;
+		color:#fff;
+	}
+	.precisions span.regle2 {
+		display: block;
+	}
+}
+
+
+/* 3: min-width + max-width */
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+	.wide {
+		background: #f11a57;
+		color:#fff;
+	}
+	.precisions span.regle3 {
+		display: block;
+	}
+}
+
+
+/* 4: max device width */
+@media screen and (max-device-width: 480px) {
+	.maxdevice {
+		background: #f11a57;
+		color:#fff;
+	}
+	.precisions span.regle4 {
+		display: block;
+	}
+}
+
+
+/* 5: orientation:portrait */
+@media screen and (orientation:portrait) {
+	.portrait {
+		background: #f11a57;
+		color:#fff;
+	}
+	.precisions span.regle5 {
+		display: block;
+	}
+}
+
+
+/* 6: orientation:paysage */
+@media screen and (orientation:landscape) {
+	.landscape {
+		background: #f11a57;
+		color:#fff;
+	}
+	.precisions span.regle6 {
+		display: block;
+	}
+}
+

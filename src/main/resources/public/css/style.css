@@ -1,92 +1,79 @@
-@import url(http://fonts.googleapis.com/css?family=Varela+Round|Open+Sans:400,300,600,400italic,700);
-@import url(http://fonts.googleapis.com/css?family=Great+Vibes);
+/*
+Tailles mobiles : 
+
+1 pouce = 96 Pixel
+4 pouce = 384 pixel
+4.5 pouce = 432 pixel
+5 pouce = 480 pixel
+5.2 pouce = 499 pixel
+5.5 pouce = 528 pixel
+6 pouce = 576 pixel
+6.5 pouce = 624 pixel
+*/
+
+@import url(https://fonts.googleapis.com/css?family=Varela+Round|Shadows+Into+Light|Roboto:400,500);
+
+html, body {
+    height: 100%;
+    margin: 0; padding: 0;
+}
 
 body {
-	padding:0;
-	margin: 10px 10px 10px 10px;
-	background: url(../images/bg/bg1.jpg) no-repeat center fixed; 
-	-webkit-background-size: cover; /* pour anciens Chrome et Safari */
-	background-size: cover; 		/* version standardisée */	
-	background-position: center;
-
-    /*font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
+    background: url(../images/bg.jpg) no-repeat center center fixed;  
+    -webkit-background-size: cover; 
+    -moz-background-size: cover; 
+    -o-background-size: cover; 
+    background-size: cover; 	
+	
     font-family: 'Varela Round', sans-serif; font-size:14px;
     font-weight: 400;
-    text-align: center;
-	text-decoration: none;
-	position: relative;
+    text-align: center;	
 }
 
-p {
-	color: #848484;
-	font-weight: 400;
-	font-size: 16px;
-	letter-spacing: 0.4px;
-	line-height: 28px;
+/* Réduit la taille de l'image pour les mobiles ayant une taille < 400px */
+@media 
+only screen and (max-width: 400px) {
+	.responsive {
+		width: 188px;
+	}
+}	
+
+.txtAccueil {
+	font-family: 'Shadows Into Light', cursive;
+	color : #FFF;	
+	font-weight: normal;	
+	font-size: 28px;
 }
 
-.titre{
-	font-size: 2.2em;
-	font-weight: bold; 	
+/* Styles CSS spécifiques mobiles */
+
+@media 
+only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+	.txtAccueil {
+		font-size: 4em;
+		font-size: 5vw;	
+	}
 }
 
-/***********************************
- *
- * preloader section 
- *
- ***********************************/
-.preloader  {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 99999;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-flow: row nowrap;
-		-ms-flex-flow: row nowrap;
-			flex-flow: row nowrap;
-    -webkit-justify-content: center;
-		-ms-flex-pack: center;
-			justify-content: center;
-    -webkit-align-items: center;
-		-ms-flex-align: center;
-			align-items: center;
-    background: none repeat scroll 0 0 #fff;
-}
-.sk-spinner-pulse {
-	width: 40px;
-	height: 40px;
-	background-color: #F6D76B;
-	border-radius: 100%;
-	-webkit-animation: sk-pulseScaleOut 1s infinite ease-in-out;
-    animation: sk-pulseScaleOut 1s infinite ease-in-out;
+/* Pris en compte pour une zone d'affichage supérieure à 480px  */
+@media screen and (min-width: 480px) and (max-width: 1024px) and (orientation : landscape) {
+
 }
 
-@-webkit-keyframes sk-pulseScaleOut {
-  0% {
-    -webkit-transform: scale(0);
-            transform: scale(0); }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    opacity: 0; } }
+.parallax-section {
+	background-attachment: fixed !important;
+	background-size: cover !important;
+}
 
-@keyframes sk-pulseScaleOut {
-  0% {
-    -webkit-transform: scale(0);
-            transform: scale(0); }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    opacity: 0; } }
+.heading {
+	font-size: 22px;
+	font-weight: 500;
+}
 
 
 /***********************************
  *
- * start navigation 
+ * start navigation : #f69b0c : couleur orange
  *
  ***********************************/
 .navbar-default {
@@ -99,7 +86,7 @@ p {
 	line-height: 28px;
 }
 .navbar-default .navbar-brand  {
-	color: #5C5C5C;
+	color: #f69b0c; 
 	font-size: 22px;
 	font-weight: bold;
 	letter-spacing: 2px;
@@ -109,71 +96,51 @@ p {
 	letter-spacing: 1px;
 }
 
-.alert{
-	clear:all;
-	padding-top:60px;
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    background-color: #f69b0c; 
+    color: #FFF;
 }
 
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    background-image:#f69b0c !important;
+	color: #FFF;
+}
+ .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    background-color:#f69b0c;
+	color: #FFF;
+}
+.dropdown-toggle:active, .open .dropdown-toggle {
+	background:#f69b0c !important; 
+	color:#FFF !important;
+}
 
 /***********************************
  *
- *  home section
+ *  Accueil section
  *
  ***********************************/
-#home {
-	color: #ffffff;
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-		-ms-flex-align: center;
-			align-items: center;
-	height: 100vh;
-	text-align: center;
-}
-
-#home h1 {
-	font-size: 20px;
-	letter-spacing: 8px;
-	font-style: normal;
-	padding-top: 10px;
+#home, #conteneur {
+	margin-top : 50px;
 }
 
 #home .btn {
+	width:180px;
 	background: #f69b0c;
 	border-radius: 10px;
 	border: 2px solid #ffffff;
 	color: #ffffff;
-	letter-spacing: 4px;
-	padding: 16px 42px;
+	font-weight: bold;
+	letter-spacing: 3px;
+	padding: 10px 10px;
 	margin-top: 40px;
 	transition: all 0.4s ease-in-out;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px; 
+	-webkit-border-radius: 10px; 
 }
-
 #home .btn:hover {
 	background: #ffffff;
 	color: #202020;
 }
-
-.heading {
-	font-size: 22px;
-	font-weight: 500;
-}
-
-.subheading {
-	font-size: 16px;
-	padding-bottom: 60px;
-}
-
-.parallax-section {
-	background-attachment: fixed !important;
-	background-size: cover !important;
-}
-
 
 /***********************************
  *
@@ -181,8 +148,9 @@ p {
  *
  ***********************************/
 #aide {
+	margin-top : 160px;
 	padding-top: 100px;
-	padding-bottom: 300px;
+	padding-bottom: 100px;
 	background: #ffffff;
 }
 
@@ -271,7 +239,12 @@ p {
 	padding-top: 30px;
 	padding-bottom: 20px;
 	text-align: center;
-
+	
+/*	
+	position: fixed;
+	width: 100%;
+    bottom: 0;
+    right: 0;*/
 }
 
 #footer p, a {
@@ -279,11 +252,9 @@ p {
 	font-size: 12px;
 }
 
-
 #footer a:hover {
 	color: #FF0;
 }
-
 
 
 /***********************************

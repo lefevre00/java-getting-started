@@ -3,15 +3,16 @@
 <head>
 	<#include "header.ftl">
 	<link rel="stylesheet" href="/css/login.css">
+	<link rel="stylesheet" href="/css/mediaqueries.css" type="text/css" />	
 </head>
 
 <body>
   
-	<!-- navigation section -->
-	<#include "nav.ftl"> 
+	<!--======================================== Section navigation ====================================-->
+	<#include "nav.ftl">	 
   
-	<!-- home section -->
-	<section id="home">
+	<!--======================================== User creation form ====================================-->
+	<section id="conteneur" class="jumbotron" style="background-color:transparent !important;">	
 		
 		<div id="wrapper">
 
@@ -28,10 +29,10 @@
 			        <#else>
 			          	<input class="input" name="email" type="email" placeholder="adresse@amdm.fr" required/>
 	                </#if>
-					<div class="email-icon emailX2"></div>
+					<div class="email-icon emailRegister"></div>
 
 					<input class="input password" name="pwd" id="pwd" type="password" placeholder="mot de passe" required/>
-					<div class="pass-icon passX2"></div>
+					<div class="pass-icon passRegister"></div>
 					
 					<input class="input place" name="placeNumber" id="placeNumber" type="text"  placeholder="Numéro de place (si attribuée)" size="3" maxlength="3"/>
 					<div class="place-icon"></div>	
@@ -47,6 +48,9 @@
 			
 	</section>
 
+	<!--================================== javascripts files section  ===============================-->
+	<#include "commonjs.ftl">	
+	
 	<!-- cryptage md5 -->
 	<#include "md5.ftl">
 </body>
