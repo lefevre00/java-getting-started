@@ -2,6 +2,9 @@
 <html lang="fr">
 <head>
 	<#include "header.ftl">
+    <link href="/css/bootstrap-table.css" rel="stylesheet">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap-table.js"></script>
 </head>
 
 <body>
@@ -76,11 +79,29 @@
 
 					<#if datesPartages??>
 						<div class="row table-responsive" style="margin:0px auto;max-width:550px; padding-top:30px;">
+							<#if (datesPartages?size > 7)>
+							<table class="table table-striped table-condensed padding20"
+								   id="table" 
+								   data-toggle="table"
+								   data-height="330" 
+								   data-pagination="true"
+								   data-page-size="7"								   							   
+								   data-pagination-pre-text="< "
+								   data-pagination-next-text=" >">							
+							
+								<thead style="background-color: #337ab7; color: white;">
+									<tr>
+										<th style="text-align:center;">Date de partage</th> 
+										<th style="text-align:center;">Annuler partage</th>
+									</tr>
+								</thead>
+							<#else>
 							<table class="table table-bordered table-striped table-condensed padding20">
 								<tr style="background-color: #337ab7; color: white;">
 									<th style="text-align:center;">Date de partage</th> 
 									<th style="text-align:center;">Annuler partage</th>
 								</tr>
+							</#if>
 								<#list datesPartages as place>
 									<tr> 
 						  	    		<td>
@@ -109,13 +130,6 @@
 	</section>
 	
 	
-	<!--==================================== javascripts files section  ==================================-->
-	<#include "commonjs.ftl">		
-	<link href="/css/datetimepicker.css" rel="stylesheet">
-  	<script src="/js/moment-with-locales.js"></script>
-  	<script src="/js/datetimepicker.js"></script>
-	
-
 	<script type="text/javascript">
 		$(function() {
 			$('a[data-confirm]').click(function(ev) {
@@ -178,6 +192,13 @@
 			return date.getDay()==6 || date.getDay()==0;
 		}
 	</script>	
+	
+	
+	<!--==================================== javascripts files section  ==================================-->
+	<#include "commonjs.ftl">		
+	<link href="/css/datetimepicker.css" rel="stylesheet">
+  	<script src="/js/moment-with-locales.js"></script>
+  	<script src="/js/datetimepicker.js"></script>	
 
 
 </body>

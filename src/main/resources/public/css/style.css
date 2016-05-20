@@ -283,8 +283,8 @@ only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 	padding: 20px;
 }
 .content-section {
-	padding-top: 110px; /*120*/
-	padding-bottom: 160px; /*110 */
+	padding-top: 110px;
+	padding-bottom: 160px;
 	display:block;
 	position:relative;
 	z-index:120;
