@@ -27,7 +27,7 @@
 						<br clear>
 						<span style="text-align:center">
 							<h1 style="color:#f69b0c;">Pour information</h1> 
-							<p style="color:#fff;">
+							<span style="color:#fff;">
 								<#if placesToday lte 1>
 									Il y a ${placesToday} place libre pour aujourd'hui
 								<#else>
@@ -36,7 +36,7 @@
 								<#if placesDemain gt 0 >
 									<br>et ${placesDemain} pour demain.
 								</#if>
-							</p>
+							</span>
 						</span>
 					<#else>
 						<img src="/images/logo_accueil.png" class="responsive"/>
