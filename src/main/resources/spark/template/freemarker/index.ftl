@@ -162,15 +162,5 @@
 	<script src="/js/wow.min.js"></script>	
 	<script src="/js/custom.js"></script> 	
 	
-	<!-- Cacher le menu sur le mobile après un clique ------>
-	<script>
-	$(function(){ 
-		var navMain = $("#navbar");
-		navMain.on("click", "a", null, function () {
-			navMain.collapse('hide');
-		});
-	});	
-	</script>	
-	
 </body>
 </html>

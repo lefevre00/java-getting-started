@@ -30,7 +30,7 @@ body {
     text-align: center;	
 }
 
-/* RÃ©duit la taille de l'image pour les mobiles ayant une taille < 400px */
+/* Réduit la taille de l'image pour les mobiles ayant une taille < 400px */
 @media 
 only screen and (max-width: 400px) {
 	.responsive {
@@ -142,6 +142,12 @@ only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 	color: #202020;
 }
 
+#home h1 {
+	font-size: 20px;
+	letter-spacing: 8px;
+	font-style: normal;
+	padding-top: 10px;
+}
 /***********************************
  *
  *  aide section
