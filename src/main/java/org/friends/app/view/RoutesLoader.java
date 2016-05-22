@@ -76,12 +76,14 @@ public class RoutesLoader {
 			response.redirect(Routes.LOGIN);
 		});
 
+		FreeMarkerEngine templateEngine = new FreeMarkerEngine();
+
 		/*
 		 * User login
 		 */
 		LoginRoute loginRoute = context.getBean(LoginRoute.class);
-		get(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
-		post(Routes.LOGIN, loginRoute, new FreeMarkerEngine());
+		get(Routes.LOGIN, loginRoute, templateEngine);
+		post(Routes.LOGIN, loginRoute, templateEngine);
 
 		get(Routes.DEFAULT, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
@@ -91,7 +93,7 @@ public class RoutesLoader {
 			map.put("placesToday", placesLibresToday.size());
 			map.put("placesDemain", placesLibresDemain.size());
 			return new ModelAndView(map, "index.ftl");
-		}, new FreeMarkerEngine());
+		}, templateEngine);
 
 		/*
 		 * Déconnexion
@@ -103,74 +105,74 @@ public class RoutesLoader {
 				response.removeCookie(Configuration.COOKIE);
 				return new ModelAndView(null, "logout.ftl");
 			}
-		}, new FreeMarkerEngine());
+		}, templateEngine);
 
 		/*
 		 * Error page
 		 */
 		get(Routes.ERROR_PAGE, (req, res) -> {
 			return new ModelAndView(Routes.getMap(req), "error.ftl");
-		}, new FreeMarkerEngine());
+		}, templateEngine);
 
 		/*
 		 * User register
 		 */
 		RegisterRoute registerRoute = context.getBean(RegisterRoute.class);
-		get(Routes.REGISTER, registerRoute, new FreeMarkerEngine());
-		post(Routes.REGISTER, registerRoute, new FreeMarkerEngine());
-		get(Routes.TOKEN_VALIDATION, context.getBean(ValidTokenRoute.class), new FreeMarkerEngine());
+		get(Routes.REGISTER, registerRoute, templateEngine);
+		post(Routes.REGISTER, registerRoute, templateEngine);
+		get(Routes.TOKEN_VALIDATION, context.getBean(ValidTokenRoute.class), templateEngine);
 		get(Routes.REGISTRED, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
 			map.put("title", "Utilisateur enregistré");
 			map.put("message", "Veuillez suivre les indications qu'il comporte pour activer votre compte.");
 			return new ModelAndView(map, "mail_send.ftl");
-		}, new FreeMarkerEngine());
+		}, templateEngine);
 
 		/*
 		 * Forgot password
 		 */
 		ForgottenPwdRoute forgottenPwdRoute = context.getBean(ForgottenPwdRoute.class);
-		get(Routes.PASSWORD_LOST, forgottenPwdRoute, new FreeMarkerEngine());
-		post(Routes.PASSWORD_LOST, forgottenPwdRoute, new FreeMarkerEngine());
+		get(Routes.PASSWORD_LOST, forgottenPwdRoute, templateEngine);
+		post(Routes.PASSWORD_LOST, forgottenPwdRoute, templateEngine);
 		get(Routes.PASSWORD_RESET, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
 			map.put("title", "Mot de passe en cours de modification");
 			map.put("message", "Veuillez suivre les indications qu'il comporte pour définir un nouveau mot de passe.");
 			return new ModelAndView(map, "mail_send.ftl");
-		}, new FreeMarkerEngine());
+		}, templateEngine);
 		get(Routes.PASSWORD_NEW, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
 			map.put("token", req.queryParams("tok"));
 			return new ModelAndView(map, "pwd_new.ftl");
-		}, new FreeMarkerEngine());
-		post(Routes.PASSWORD_NEW, context.getBean(PasswordTokenRoute.class), new FreeMarkerEngine());
+		}, templateEngine);
+		post(Routes.PASSWORD_NEW, context.getBean(PasswordTokenRoute.class), templateEngine);
 
 		/*
 		 * Places booking
 		 */
-		get(Routes.PLACE_SEARCH, context.getBean(SearchRoute.class), new FreeMarkerEngine());
-		get(Routes.PLACE_BOOK, context.getBean(BookRoute.class), new FreeMarkerEngine());
-		get(Routes.RESERVATIONS, context.getBean(BookedRoute.class), new FreeMarkerEngine());
+		get(Routes.PLACE_SEARCH, context.getBean(SearchRoute.class), templateEngine);
+		get(Routes.PLACE_BOOK, context.getBean(BookRoute.class), templateEngine);
+		get(Routes.RESERVATIONS, context.getBean(BookedRoute.class), templateEngine);
 
 		/*
 		 * Share a place
 		 */
 		ShareRoute shareRoute = context.getBean(ShareRoute.class);
-		get(Routes.PLACE_SHARE, shareRoute, new FreeMarkerEngine());
-		post(Routes.PLACE_SHARE, shareRoute, new FreeMarkerEngine());
+		get(Routes.PLACE_SHARE, shareRoute, templateEngine);
+		post(Routes.PLACE_SHARE, shareRoute, templateEngine);
 
 		/*
 		 * User settings
 		 */
 		SettingRoute setting = context.getBean(SettingRoute.class);
-		get(Routes.SETTINGS, setting, new FreeMarkerEngine());
-		post(Routes.SETTINGS, setting, new FreeMarkerEngine());
+		get(Routes.SETTINGS, setting, templateEngine);
+		post(Routes.SETTINGS, setting, templateEngine);
 
 		/*
 		 * User Contact
 		 */
 		ContactRoute contactRoute = context.getBean(ContactRoute.class);
-		post(Routes.MESSAGE_CONTACT, contactRoute, new FreeMarkerEngine());
+		post(Routes.MESSAGE_CONTACT, contactRoute, templateEngine);
 
 		/*
 		 * Set cookie if needed
