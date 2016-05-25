@@ -107,7 +107,7 @@
 								</thead>
 							<#else>
 							<table class="table table-bordered table-striped table-condensed padding20">
-								<tr style="background-color: #337ab7; color: white;">
+								<tr style="background-color: #f5f5f5; color: #317bba;">
 									<th style="text-align:center;">Date de partage</th> 
 									<th style="text-align:center;">Occupée par</th> 
 									<th style="text-align:center;">Annuler</th>
