@@ -32,6 +32,7 @@ public interface Routes {
 			map.put("mail", user.getEmailAMDM());
 			if (user.getPlaceNumber() != null) {
 				map.put("canShare", "true");
+				map.put("placeNumber", user.getPlaceNumber());
 			}
 		}
 		

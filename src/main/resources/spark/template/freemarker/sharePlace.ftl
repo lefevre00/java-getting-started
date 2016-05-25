@@ -21,7 +21,7 @@
     <section class="content-section">
 		<div class="container containerAttr">
 
-			<h1 class="titre">Partages : <small>place ${placeNumber}</small></h1>
+			<h1 class="titre">Partages</h1>
 	
 			<!--======================================== libération rapide =====================================-->		
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
@@ -100,7 +100,7 @@
 							
 								<thead style="background-color: #f5f5f5; color: #317bba;">
 									<tr>
-										<th>Date de partage</th> 
+										<th>Date</th> 
 										<th>Occupée par</th>
 										<th>Annuler</th>
 									</tr>
@@ -108,7 +108,7 @@
 							<#else>
 							<table class="table table-bordered table-striped table-condensed padding20">
 								<tr style="background-color: #f5f5f5; color: #317bba;">
-									<th style="text-align:center;">Date de partage</th> 
+									<th style="text-align:center;">Date</th> 
 									<th style="text-align:center;">Occupée par</th> 
 									<th style="text-align:center;">Annuler</th>
 								</tr>

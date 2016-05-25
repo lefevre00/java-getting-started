@@ -14,7 +14,12 @@
 					<img src="/images/logo.png" class="hidden-xs" alt="EcoParking">
 				</a>
 				<#if mail??>
-					<p class="navbar-text">${mail}</p>
+					<p class="navbar-text">
+						${mail?substring(0, mail?index_of("@"))?cap_first?replace(".", " ")}
+						<#if placeNumber??>
+							(place : ${placeNumber})
+						</#if>
+					</p>
 				</#if>				
 			</div>			
 			

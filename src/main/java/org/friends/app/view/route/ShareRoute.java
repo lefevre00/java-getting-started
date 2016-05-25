@@ -37,9 +37,6 @@ public class ShareRoute extends AuthenticatedRoute {
 			throw new RuntimeException("A user without place cannot share a place");
 		}
 
-		// Permet d'identifier l'utilisateur avec une place attribuée
-		map.put("placeNumber", user.getPlaceNumber());
-
 		// Premier jour reservable
 		LocalDate jour1 = dateService.getWorkingDay();
 		Place canShareToday = placeService.isPlaceShared(user.getPlaceNumber(), DateUtil.dateToString(jour1));
