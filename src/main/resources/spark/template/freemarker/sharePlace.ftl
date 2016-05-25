@@ -25,33 +25,33 @@
 	
 			<!--======================================== libération rapide =====================================-->		
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
-			<div class="panel panel-default" >
-				<div class="panel-heading">Libération rapide</div>
-				<div class="panel-body">
-					<div class="col-sm-6" style="margin-bottom:10px;">
-						<form method="post" role="form">
-							<input type="hidden" name="dateDebut" value="${jourProchaineLiberation}"/>
-							<input type="hidden" name="dateFin" value="${jourProchaineLiberation}"/>
-							<#if canShareToday??>
-								<input type="submit" class="btn btn-primary disabled" value="${libelleJourProchaineLiberation}"/>
-							<#else>
-								<input type="submit" class="btn btn-primary" value="${libelleJourProchaineLiberation}"/>
-							</#if>	
-						</form>
-					</div>
-					<div class="col-sm-6" style="margin-bottom:10px;">
-						<form method="post" role="form">
-							<input type="hidden" name="dateDebut" value="${jourDeuxiemeLiberation}"/>
-							<input type="hidden" name="dateFin" value="${jourDeuxiemeLiberation}"/>
-							<#if canShareTomorrow??>
-								<input type="submit" class="btn btn-primary disabled" value="${libelleJourDeuxiemeLiberation}"/>
-							<#else>				
-								<input type="submit" class="btn btn-primary" value="${libelleJourDeuxiemeLiberation}"/>
-							</#if>	
-						</form>
+				<div class="panel panel-default" >
+					<div class="panel-heading">Libération rapide</div>
+					<div class="panel-body">
+						<div class="col-sm-6" style="margin-bottom:10px;">
+							<form method="post" role="form">
+								<input type="hidden" name="dateDebut" value="${jourProchaineLiberation}"/>
+								<input type="hidden" name="dateFin" value="${jourProchaineLiberation}"/>
+								<#if canShareToday??>
+									<input type="submit" class="btn btn-primary disabled" value="${libelleJourProchaineLiberation}"/>
+								<#else>
+									<input type="submit" class="btn btn-primary" value="${libelleJourProchaineLiberation}"/>
+								</#if>
+							</form>
+						</div>
+						<div class="col-sm-6" style="margin-bottom:10px;">
+							<form method="post" role="form">
+								<input type="hidden" name="dateDebut" value="${jourDeuxiemeLiberation}"/>
+								<input type="hidden" name="dateFin" value="${jourDeuxiemeLiberation}"/>
+								<#if canShareTomorrow??>
+									<input type="submit" class="btn btn-primary disabled" value="${libelleJourDeuxiemeLiberation}"/>
+								<#else>				
+									<input type="submit" class="btn btn-primary" value="${libelleJourDeuxiemeLiberation}"/>
+								</#if>
+							</form>
+						</div>
 					</div>
 				</div>
-			</div>
 			</div>
 
 			<!--======================================== libération par dates ==================================-->

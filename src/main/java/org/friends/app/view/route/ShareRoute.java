@@ -45,14 +45,14 @@ public class ShareRoute extends AuthenticatedRoute {
 		Place canShareToday = placeService.isPlaceShared(user.getPlaceNumber(), DateUtil.dateToString(jour1));
 		map.put("canShareToday", canShareToday);
 		map.put("jourProchaineLiberation", DateUtil.dateToString(jour1, Locale.FRANCE));
-		map.put("libelleJourProchaineLiberation", DateUtil.dateToFullString(jour1));
+		map.put("libelleJourProchaineLiberation", DateUtil.dateToMediumString(jour1));
 
 		// Deuxieme jour reservable
 		LocalDate jour2 = dateService.getNextWorkingDay(jour1);
 		canShareToday = placeService.isPlaceShared(user.getPlaceNumber(), DateUtil.dateToString(jour2));
 		map.put("canShareTomorrow", canShareToday);
 		map.put("jourDeuxiemeLiberation", DateUtil.dateToString(jour2, Locale.FRANCE));
-		map.put("libelleJourDeuxiemeLiberation", DateUtil.dateToFullString(jour2));
+		map.put("libelleJourDeuxiemeLiberation", DateUtil.dateToMediumString(jour2));
 
 		// Messages
 		String liberationOk = request.queryParams("liberation");

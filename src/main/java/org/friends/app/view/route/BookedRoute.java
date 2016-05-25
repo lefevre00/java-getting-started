@@ -57,14 +57,14 @@ public class BookedRoute extends AuthenticatedRoute {
 
 		LocalDate jour1 = dateService.getWorkingDay();
 		String day = dateToString(jour1);
-		map.put("libelleShowToday", "Réserver " + DateUtil.dateToMediumString(jour1));
+		map.put("libelleShowToday", DateUtil.dateToMediumString(jour1));
 		if (placeService.canBook(user, day)) {
 			map.put("showToday", day);
 		}
 
 		LocalDate jour2 = dateService.getNextWorkingDay(jour1);
 		day = dateToString(jour2);
-		map.put("libelleShowTomorrow", "Réserver " + DateUtil.dateToMediumString(jour2));
+		map.put("libelleShowTomorrow", DateUtil.dateToMediumString(jour2));
 		if (placeService.canBook(user, day)) {
 			map.put("showTomorrow", day);
 		}
