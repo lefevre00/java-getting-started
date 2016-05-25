@@ -80,7 +80,7 @@
 					<!--=============================== liste des dates de partage ============================-->
 
 					<#if datesPartages??>
-						<div class="row table-responsive" style="margin:0px auto;max-width:550px; padding-top:30px;">
+						<div class="row table-responsive" style="margin:0px auto;max-width:650px; padding-top:30px;">
 							<#if (datesPartages?size > 7)>
 							<table class="table table-striped table-condensed padding20"
 								   id="table" 
@@ -94,6 +94,7 @@
 								<thead style="background-color: #337ab7; color: white;">
 									<tr>
 										<th style="text-align:center;">Date de partage</th> 
+										<th style="text-align:center;">Occupée par</th>
 										<th style="text-align:center;">Annuler partage</th>
 									</tr>
 								</thead>
@@ -101,21 +102,29 @@
 							<table class="table table-bordered table-striped table-condensed padding20">
 								<tr style="background-color: #337ab7; color: white;">
 									<th style="text-align:center;">Date de partage</th> 
-									<th style="text-align:center;">Annuler partage</th>
+									<th style="text-align:center;">Occupée par</th> 
+									<th style="text-align:center;">Annuler</th>
 								</tr>
 							</#if>
 								<#list datesPartages as place>
+									<#assign show = place.usedBy>
 									<tr> 
 						  	    		<td>
 						  	    			<#assign theDate = '${place.occupationDate}'?date("yyyy-MM-dd")>
 						  	    			${theDate?string["EEEE dd/MM/yyyy"]}	
 						  	    		</td>
+						  	    		<td>
+						  	    			<#if show == "" || show == " ">
+						  	    				-
+						  	    			<#else>
+						  	    				${show?substring(0, show?index_of("@"))?cap_first?replace(".", " ")}
+						  	    			</#if>
+						  	    		</td>						  	    		
 							  	     	<td>
-							  	     		<#assign show = place.usedBy>
 							  	     	 	<#if show == "" || show == " ">
 							  	     			<a href="/protected/share?unshareDate=${place.occupationDate}" data-confirm='Annuler le partage de votre place du <strong> ${theDate?string["dd/MM/yyyy"]}	 </strong> ?' ><img src="/images/cancel.png"/></a>
 											<#else>
-												${show}
+												-
 							  	     		</#if>
 							  	     	</td>
 									</tr>
