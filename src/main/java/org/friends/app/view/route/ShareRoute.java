@@ -110,7 +110,7 @@ public class ShareRoute extends AuthenticatedRoute {
 		/*
 		 * Liste des dates partagées
 		 */
-		List<Place> datesPartages = placeService.getReservationsOrRelease(user);
+		List<Place> datesPartages = placeService.getShared(user);
 		if (!datesPartages.isEmpty()) {
 			map.put("datesPartages", datesPartages);
 		}

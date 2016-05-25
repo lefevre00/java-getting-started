@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<data-source id="postgres-jdbc-15366284b45-35e0fdd09703f0cd" provider="postgresql" driver="postgres-jdbc" name="PostgreSQL - takemyplace@heroku" create-date="1457708060349" update-date="1457709103352" save-password="true" show-system-objects="true" read-only="false">
+		<connection host="ec2-107-20-153-141.compute-1.amazonaws.com" port="5432" server="" database="d24no190e83ier" url="jdbc:postgresql://ec2-107-20-153-141.compute-1.amazonaws.com:5432/d24no190e83ier" user="mssbzhocnhzlzu" password="U1M3MmpQezcSOD8dE05XZD9CJ3xlF08QNgQ7ZvI=" type="prod">
+			<property name="@dbeaver-show-non-default-db@" value="true"/>
+			<property name="connectTimeout" value="20"/>
+			<property name="loginTimeout" value="20"/>
+			<property name="@dbeaver-ssl@" value="true"/>
+			<network-handler type="TUNNEL" id="ssh_tunnel" enabled="false" user="" save-password="false">
+				<property name="port" value="22"/>
+				<property name="keyPath" value=""/>
+				<property name="host" value=""/>
+				<property name="authType" value="PASSWORD"/>
+			</network-handler>
+			<network-handler type="PROXY" id="socks_proxy" enabled="false" user="" save-password="false">
+				<property name="socks-host" value=""/>
+				<property name="socks-port" value="1080"/>
+			</network-handler>
+			<bootstrap autocommit="false"/>
+		</connection>
+	</data-source>
+	<data-source id="h2_embedded-153bee89165-115ef9df9856da99" provider="generic" driver="h2_embedded" name="H2 - Parking" create-date="1459196847080" update-date="1461443276312" login-date="1461443262523" save-password="true" show-system-objects="true" read-only="false">
+		<connection server="" database="~/test;AUTO_SERVER=TRUE" url="jdbc:h2:~/test;AUTO_SERVER=TRUE" user="sa" type="dev">
+			<bootstrap txnIsolation="2"/>
+		</connection>
+	</data-source>
+</data-sources>

@@ -107,7 +107,7 @@ public class PlaceServiceBean implements PlaceService {
 	 * <li> un utilisateur sans place attribuée, pour les jours j et j+1
 	 * 
 	 */
-	public List<Place> getReservationsOrRelease(User user) {
+	public List<Place> getShared(User user) {
 		Assert.notNull(user);
 		Assert.notNull(user.getEmailAMDM());
 		List<Place> listRetour = new ArrayList<Place>();

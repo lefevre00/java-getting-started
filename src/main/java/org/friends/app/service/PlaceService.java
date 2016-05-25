@@ -18,7 +18,7 @@ public interface PlaceService {
 
 	public Place book(String date, User user, String placeNumber) throws BookingException;
 
-	public List<Place> getReservationsOrRelease(User user);
+	public List<Place> getShared(User user);
 
 	void unsharePlaceByDate(User user, String date) throws UnshareException;
 

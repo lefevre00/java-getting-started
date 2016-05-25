@@ -2,6 +2,7 @@ package org.friends.app.service;
 
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
+import org.omg.CORBA.UnknownUserException;
 
 public interface UserService {
 
@@ -14,6 +15,7 @@ public interface UserService {
 
 	public static String USER_DISABLE = "user.disable";
 	public static String USER_UNKNOWN = "user.unknown";
+	public static String USER_DELETE_SHARE = "user.delete.share";
 
 	public static String PLACE_ALREADY_USED = "user.place.used";
 
@@ -32,4 +34,14 @@ public interface UserService {
 	public User changePlace(User user, Integer place) throws DataIntegrityException;
 
 	public boolean activate(String token);
+
+	/**
+	 * Delete a user. If there is coming shared places, if any.
+	 * 
+	 * @param user
+	 * @return true if removed.
+	 * @throws UnknownUserException
+	 * @throws DataIntegrityException
+	 */
+	public void delete(User user) throws UnknownUserException, DataIntegrityException;
 }
