@@ -11,9 +11,11 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import spark.utils.Assert;
 
+@Repository
 public class UserDao {
 
 	public User persist(User user) {

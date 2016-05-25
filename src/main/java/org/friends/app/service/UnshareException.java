@@ -1,4 +1,4 @@
-package org.friends.app.service.impl;
+package org.friends.app.service;
 
 /**
  * L'utilisateur cherche a annuler le partage d'une place occupée.  

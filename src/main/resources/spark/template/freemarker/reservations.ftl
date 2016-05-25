@@ -1,39 +1,56 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content=""> 
 	<#include "header.ftl">
+	
+	<style>
+		.tailleText{
+			font-size :14px;
+			padding : 7px 12px 7px 12px;
+		}
+	</style>
 </head>
 
 <body>
   
-	<!-- navigation section -->
-	<#include "nav.ftl">
+	<!--======================================== Section navigation ====================================-->
+	<#include "nav.ftl">	
 	
+	
+	<!--================================================================================================-->	
     <section class="content-section">
 		<div class="container containerAttr">
 		
-			<h1 class="titre">Mes réservations</h1>
+			<h1 class="titre">Réservations</h1>
 
 			<!--============================= boutons de réservation ================================-->
-			<div class="row" style="margin:0px auto;max-width:700px;">
-				Nous sommes ${dateDuJour}<br/>
-				<div class="col-sm-6" style="padding-top:20px;">
-					<#if showToday??>
-						<a href="/protected/search?day=${showToday}" class="btn btn-primary btn-lg">${libelleShowToday}</a>
-					<#else>
-						<a href="/protected/search" class="btn btn-primary btn-lg disabled">${libelleShowToday}</a>						
-					</#if>				
-				</div>
-				<div class="col-sm-6" style="padding-top:20px;">
-					<#if showTomorrow??>
-						<a href="/protected/search?day=${showTomorrow}" class="btn btn-primary btn-lg">${libelleShowTomorrow}</a>
-					<#else>
-						<a href="/protected/search" class="btn btn-primary btn-lg disabled">${libelleShowTomorrow}</a>
-					</#if>				
+			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
+				<div class="panel panel-default" >
+					<div class="panel-heading">Nous sommes ${dateDuJour}
+						<#if showToday?? || showTomorrow??>
+							, réserver votre place pour 
+						<#else>
+							, pas de places disponibles pour les 2 jours à venir.
+						</#if>
+					</div>
+					
+					
+					<div class="panel-body">
+						<div class="col-sm-6" style="margin-bottom:10px;">
+							<#if showToday??>
+								<a href="/protected/search?day=${showToday}" class="btn btn-primary btn-lg tailleText">${libelleShowToday}</a>
+							<#else>
+								<a href="/protected/search" class="btn btn-primary btn-lg disabled tailleText">${libelleShowToday}</a>						
+							</#if>
+						</div>
+						<div class="col-sm-6" style="margin-bottom:10px;">
+							<#if showTomorrow??>
+								<a href="/protected/search?day=${showTomorrow}" class="btn btn-primary btn-lg tailleText">${libelleShowTomorrow}</a>
+							<#else>
+								<a href="/protected/search" class="btn btn-primary btn-lg disabled tailleText">${libelleShowTomorrow}</a>
+							</#if>
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -42,8 +59,6 @@
 					<br/>
 					<#if canShare??>
 						Vous ne pouvez pas effectuer de réservation car votre place est disponible ou inoccupée les deux prochains jours. 
-					<#else>
-						Vous avez déjà réservé des places pour les deux prochains jours. 
 					</#if>
 				</div>
 			</#if>
@@ -54,7 +69,7 @@
 			
 				<h4>
 					<#if places??>
-						Voici les places que vous avez réservées. 
+						Voici les places que vous avez réservées :
 					<#else>
 						Aucune réservation enregistrée.
 					</#if>
@@ -72,7 +87,7 @@
 								<tr> 
 					  	    		<td>
 					  	    			<#assign theDate = '${place.occupationDate}'?date("yyyy-MM-dd")>
-					  	    			Le ${theDate?string["dd/MM/yyyy"]}
+					  	    			${theDate?string["EEEE dd/MM/yyyy"]}
 					  	    		</td>
 						  	     	<td>${place.placeNumber}</td>
 						  	     	<td>
@@ -88,6 +103,9 @@
 		</div>
 	</section>
 
+	
+	<!--==================================== javascripts files section  ==================================-->
+	<#include "commonjs.ftl">		
 	
 	
 	<script type="text/javascript">

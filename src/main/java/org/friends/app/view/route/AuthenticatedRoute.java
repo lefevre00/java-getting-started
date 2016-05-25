@@ -1,11 +1,12 @@
 package org.friends.app.view.route;
 
 import java.security.AccessControlException;
-import java.time.ZoneId;
 
 import org.friends.app.Configuration;
 import org.friends.app.model.User;
-import org.friends.app.service.impl.UserServiceBean;
+import org.friends.app.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -13,11 +14,12 @@ import spark.Response;
 import spark.TemplateViewRoute;
 import spark.utils.StringUtils;
 
+@Component
 public abstract class AuthenticatedRoute implements TemplateViewRoute {
 
-	UserServiceBean userService = new UserServiceBean();
-	
-	
+	@Autowired
+	private UserService userService;
+
 	@Override
 	public ModelAndView handle(Request request, Response response) throws Exception {
 		checkAuthenticated(request, response);
@@ -28,11 +30,11 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 
 	private void checkAuthenticated(Request request, Response response) {
 		User user = getUser(request);
-		
+
 		// 1 : try to find user in session
 		if (user != null)
 			return;
-		
+
 		// 2. Try to find user using cookie
 		boolean userFound = false;
 		String cookie = request.cookie(Configuration.COOKIE);

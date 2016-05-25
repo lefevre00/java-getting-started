@@ -38,7 +38,7 @@ public class StartParking {
 		userDao.persist(new User("damien.urvoix@amdm.fr", md5("du")));
 		userDao.persist(new User("jean-pierre.cluzel@amdm.fr", md5("jpc")));
 		
-		LocalDate timePoint = LocalDate.now(zoneDateHelper.EUROPE_PARIS);
+		LocalDate timePoint = DateUtil.now();
 		String strDateToday  = DateUtil.dateToString(timePoint);
 		String strTomorrow = DateUtil.dateToString(timePoint.plusDays(1));
 		String strYearsteday = DateUtil.dateToString(timePoint.minusDays(1));

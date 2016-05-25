@@ -3,9 +3,9 @@
 $(document).ready(function() {
 
   $('form').submit(function(e) {
-	var fieldPwd = $('#pwd');
-    var strVal = fieldPwd.val();
-    var strMD5 = CryptoJS.MD5(strVal).toString();
+	fieldPwd = $('#pwd');
+    strVal = fieldPwd.val();
+    strMD5 = CryptoJS.MD5(strVal).toString();
     fieldPwd.val( strMD5 );
     return true;
   });

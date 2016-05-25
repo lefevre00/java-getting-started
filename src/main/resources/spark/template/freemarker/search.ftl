@@ -6,11 +6,11 @@
 
 <body>
   
-	<!-- navigation section -->
-	<#include "nav.ftl">
+	<!--======================================== Section navigation ====================================-->
+	<#include "nav.ftl">	
 
+	<!--================================================================================================-->	
     <section class="content-section">
-	
 		<div class="container containerAttr">
 		
 			<h1 class="titre">Confirmation de r&eacute;servation</h1>
@@ -18,7 +18,7 @@
 			<div class="row " style="margin:0px auto;max-width:700px; padding-top:20px;">					
 				<#if place??>
 					<h4>La place n&deg; <strong>${place.placeNumber}</strong> est disponible pour le ${dateRecherche}</h4>
-					Souhaitez-vous valider la  r&eacute;servation ?
+					Souhaitez-vous valider la r&eacute;servation ?
 					<br clear="both"/>
 					<br clear="both"/>
 					
@@ -35,8 +35,10 @@
 			</div>
 			
 		</div>
-	
 	</section>
+	
+	<!--==================================== javascripts files section  ==================================-->
+	<#include "commonjs.ftl">		
 	
 </body>
 </html>

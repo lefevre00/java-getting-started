@@ -3,7 +3,6 @@ package org.friends.app.service;
 import org.friends.app.ParkingTest;
 import org.friends.app.dao.PlaceDao;
 import org.friends.app.model.User;
-import org.friends.app.service.impl.BookingException;
 import org.friends.app.service.impl.PlaceServiceBean;
 import org.junit.Test;
 import org.junit.runner.RunWith;

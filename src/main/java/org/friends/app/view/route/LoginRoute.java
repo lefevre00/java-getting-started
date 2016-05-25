@@ -1,10 +1,13 @@
 package org.friends.app.view.route;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.friends.app.Messages;
 import org.friends.app.model.User;
-import org.friends.app.service.impl.UserServiceBean;
+import org.friends.app.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -13,27 +16,33 @@ import spark.TemplateViewRoute;
 
 /**
  * Page de Login
+ * 
  * @author michael lefevre
  */
+@Component
 public class LoginRoute implements TemplateViewRoute {
 
 	private static final String ERROR = "error";
 	private static final String EMAIL = "email";
-	UserServiceBean userService = new UserServiceBean();
-	
+	@Autowired
+	private UserService userService;
+
 	@Override
 	public ModelAndView handle(Request request, Response response) throws Exception {
-		
+
 		Map<String, Object> map = Routes.getMap(request);
-		if ("POST".equalsIgnoreCase(request.requestMethod())) {
+		User user = request.session().attribute("user");
+		if (user != null) {
+			Routes.redirect(user, response);
+		} else if ("POST".equalsIgnoreCase(request.requestMethod())) {
 			onLogin(request, response, map);
 		}
-		
-    	return new ModelAndView(map, "login.ftl");
+
+		return new ModelAndView(map, "login.ftl");
 	}
 
 	protected void onLogin(Request request, Response response, Map<String, Object> map) {
-		
+
 		String email = request.queryParams("email");
 		String pwd = request.queryParams("pwd");
 
@@ -45,6 +54,7 @@ public class LoginRoute implements TemplateViewRoute {
 			user = userService.authenticate(email, pwd);
 
 			if (user != null) {
+				Logger.getLogger("login").info("user logged in : " + user.getEmailAMDM());
 				addAuthenticatedUser(request, user);
 				Routes.redirect(user, response);
 			} else {
@@ -52,7 +62,7 @@ public class LoginRoute implements TemplateViewRoute {
 			}
 
 		} catch (Exception e) {
-			map.put(ERROR, Messages.get(e.getMessage()));	
+			map.put(ERROR, Messages.get(e.getMessage()));
 		}
 	}
 

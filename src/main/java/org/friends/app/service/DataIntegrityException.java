@@ -1,4 +1,4 @@
-package org.friends.app.service.impl;
+package org.friends.app.service;
 
 public class DataIntegrityException extends Exception {
 

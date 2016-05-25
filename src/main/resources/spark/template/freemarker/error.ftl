@@ -6,9 +6,9 @@
 
 <body>
   
-	<!-- navigation section -->
+	<!--======================================== Section navigation ====================================-->
 	<#include "nav.ftl">
-
+	
     <section class="content-section">
 		<div class="container containerAttr" style="padding-bottom:80px;">
 			<h2>Oups !</h2>
@@ -19,5 +19,8 @@
 		</div>
 	</section>
 
+	<!--==================================== javascripts files section  ==================================-->
+	<#include "commonjs.ftl">		
+	
 </body>
 </html>

@@ -8,15 +8,19 @@ import javax.xml.bind.ValidationException;
 
 import org.friends.app.Messages;
 import org.friends.app.service.impl.UserServiceBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.TemplateViewRoute;
 
+@Component
 public class ForgottenPwdRoute implements TemplateViewRoute {
 
-	UserServiceBean userService = new UserServiceBean();
+	@Autowired
+	UserServiceBean userService;
 
 	@Override
 	public ModelAndView handle(Request request, Response response) throws Exception {

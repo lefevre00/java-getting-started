@@ -1,0 +1,79 @@
+@media 
+only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+	.txtAccueil {
+		font-size: 4em;
+		font-size: 5vw;	
+	}
+}
+
+@media
+only screen and (max-device-width : 350px) {
+
+	#wrapper {
+		width: 300px;
+	}
+
+	.login-form {
+		width: 300px;
+	}
+
+	.login-form .header {
+		padding: 10px 10px 30px 10px;
+	}
+
+	.login-form .content {
+		padding: 0 10px 25px 10px;	
+	}
+
+	.login-form .content .input {
+		width: 200px;
+		padding: 15px 15px;
+	}
+
+	.login-form .footer .login {
+		padding: 10px 10px;
+	}
+
+	.login-form .footer .register {
+		padding: 10px;
+		margin-right: 10px;
+	}
+
+	/*********************/
+	
+	
+	.emailLogin {
+		top:125px; 
+	}
+	.passLogin {
+		top:178px;
+	}	
+
+	.emailRegister {
+		top:125px; 
+	}
+	.passRegister{
+		top:180px;
+	}
+	.place-icon {
+		top:260px; 
+	}	
+	
+	.emailPwdLost{
+		top:210px; 
+	}
+	
+	.emailReset{
+		top:180px; 
+	}	
+	
+	.passX3{
+		top:290px;
+	}
+
+
+	
+	
+
+
+}

@@ -4,25 +4,29 @@ import static java.lang.String.format;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.friends.app.zoneDateHelper;
 import org.friends.app.dao.PlaceDao;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
+import org.friends.app.service.BookingException;
 import org.friends.app.service.PlaceService;
+import org.friends.app.service.UnshareException;
 import org.friends.app.util.DateUtil;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import spark.utils.Assert;
 import spark.utils.StringUtils;
 
+@Service
 public class PlaceServiceBean implements PlaceService {
 
-	PlaceDao placedao = new PlaceDao();
+	@Autowired
+	private PlaceDao placedao;
 
 	public List<Place> getAvailableByDate(LocalDate date) {
 		return placedao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", DateUtil.dateToString(date)),
@@ -108,7 +112,7 @@ public class PlaceServiceBean implements PlaceService {
 		Assert.notNull(user.getEmailAMDM());
 		List<Place> listRetour = new ArrayList<Place>();
 		
-		LocalDate today = LocalDate.now(zoneDateHelper.EUROPE_PARIS);
+		LocalDate today = DateUtil.now();
 		
 		// utilisateur sans place attribuée
 		if (user.getPlaceNumber() == null) {
@@ -122,7 +126,7 @@ public class PlaceServiceBean implements PlaceService {
 
 			// Recherche réservation pour le jour j+1
 			places = placedao.findPlacesByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()),
-					Restrictions.ge("id.occupationDate", DateUtil.dateToString(LocalDate.now(zoneDateHelper.EUROPE_PARIS).plusDays(1))));
+					Restrictions.ge("id.occupationDate", DateUtil.dateToString(DateUtil.now().plusDays(1))));
 			if (!places.isEmpty()) {
 				listRetour.add(places.get(0));
 			}
@@ -143,14 +147,14 @@ public class PlaceServiceBean implements PlaceService {
 		return listRetour;
 	}
 
+
 	/**
-	 * Retourne la place d'un user réservée à une date définie
-	 * sinon retourne null
-	 * @param user
-	 * @param dateRecherche
-	 * @return
+	 * Retourne la place réservée par un utilisateur à une date donnée
+	 * @param user L'utilisateur
+	 * @param dateRecherche La date de la recherche
+	 * @return null si aucune reservation pour ce jour
 	 */
-	public Place getPlaceReservedByUserAtTheDate(User user, LocalDate dateRecherche) {
+	public Place getBookedPlaceByUserAtDate(User user, LocalDate dateRecherche) {
 		Assert.notNull(user);
 		Assert.notNull(dateRecherche);
 		Assert.notNull(user.getEmailAMDM());
@@ -186,7 +190,7 @@ public class PlaceServiceBean implements PlaceService {
 	}
 	
 	public List<Place> getReservations(User user) {
-		return placedao.findPlacesByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()), Restrictions.ge("id.occupationDate", DateUtil.dateToString(LocalDate.now(zoneDateHelper.EUROPE_PARIS))));
+		return placedao.findPlacesByCriterions(Restrictions.eq("usedBy", user.getEmailAMDM()), Restrictions.ge("id.occupationDate", DateUtil.dateToString(DateUtil.now())));
 	}
 	
 	/*

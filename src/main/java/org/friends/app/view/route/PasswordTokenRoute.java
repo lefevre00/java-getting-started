@@ -2,8 +2,10 @@ package org.friends.app.view.route;
 
 import java.util.Map;
 
-import org.friends.app.service.impl.UserServiceBean;
+import org.friends.app.service.UserService;
 import org.friends.app.view.Templates;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -11,12 +13,15 @@ import spark.Response;
 import spark.TemplateViewRoute;
 import spark.utils.StringUtils;
 
+@Component
 public class PasswordTokenRoute implements TemplateViewRoute {
 
 	private static final String FIELD_PASSWORD = "pwd";
 	private static final String FIELD_EMAIL = "email";
 	private static final String FIELD_TOKEN = "token";
-	UserServiceBean userService = new UserServiceBean();
+	
+	@Autowired
+	private UserService userService;
 	
 	@Override
 	public ModelAndView handle(Request request, Response response) throws Exception {

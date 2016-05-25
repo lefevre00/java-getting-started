@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.friends.app.HibernateUtil;
 import org.friends.app.ParkingTest;
-import org.friends.app.zoneDateHelper;
 import org.friends.app.model.Place;
 import org.friends.app.util.DateUtil;
 import org.hibernate.criterion.Restrictions;
@@ -21,7 +20,7 @@ import org.junit.Test;
 public class PlaceDaoTest extends ParkingTest {
 
 	private static String MAIL_RESERVANT = "damien.urvoix@amdm.fr";
-	static LocalDate timePoint = LocalDate.now(zoneDateHelper.EUROPE_PARIS);
+	static LocalDate timePoint = DateUtil.now();
 	static String strDateToday  = DateUtil.dateToString(timePoint);
 	static String strTomorrow = DateUtil.dateToString(timePoint.plusDays(1));
 	static String strApresDemain = DateUtil.dateToString(timePoint.plusDays(2));
@@ -43,11 +42,11 @@ public class PlaceDaoTest extends ParkingTest {
     
     @After
     public void clearPlaces() {
-    	placeDao.clearAllPlacesBeforeDate(LocalDate.now(zoneDateHelper.EUROPE_PARIS).plusDays(40));
+    	placeDao.clearAllPlacesBeforeDate(DateUtil.now().plusDays(40));
     }
 
 	private void initDb() {
-		placeDao.clearAllPlacesBeforeDate(LocalDate.now(zoneDateHelper.EUROPE_PARIS).plusDays(40)); // suppresion de toutes les réservations
+		placeDao.clearAllPlacesBeforeDate(DateUtil.now().plusDays(40)); // suppresion de toutes les réservations
 		placeDao.persist(new Place(new Integer(3), MAIL_RESERVANT, strTomorrow));
 		placeDao.persist(new Place(new Integer(1), strDateToday)); //Place libre aujourd'hui free = true
 		placeDao.persist(new Place(new Integer(141), strDateToday));
@@ -119,7 +118,7 @@ public class PlaceDaoTest extends ParkingTest {
     @Ignore
     public void suppression() {
     	
-    	placeDao.clearAllPlacesBeforeDate(LocalDate.now(zoneDateHelper.EUROPE_PARIS).plusDays(40));
+    	placeDao.clearAllPlacesBeforeDate(DateUtil.now().plusDays(40));
     	
     	List<Place> lesPlacesLibresAujourdhui = placeDao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", strDateToday), Restrictions.isNull("usedBy"));
     	//List<Place> lesPlacesLibresAujourdhui = placeDao.findAllFreeByDate(timePoint);

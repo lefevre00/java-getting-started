@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<#include "header.ftl">
+	<#include "header.ftl">	
 	<link rel="stylesheet" href="/css/login.css">
+	<link rel="stylesheet" href="/css/mediaqueries.css" type="text/css" />		
 </head>
 
 <body>
   
-	<!-- navigation section -->
+	<!--======================================== Section navigation ====================================-->
 	<#include "nav.ftl">
 	
-	<!-- home section -->
-	<section id="home">
-		
+	<!--============================================ login form ========================================-->
+	<section id="conteneur" class="jumbotron" style="background-color:transparent !important;">	
 		<div id="wrapper">
 
 			<form method="post" role="form" name="login-form" class="login-form">
@@ -28,7 +28,7 @@
 			        <#else>
 			          	<input class="input" name="email" type="email" placeholder="adresse@email.fr" required/>
 	                </#if>				
-					<div class="email-icon emailX3"></div>
+					<div class="email-icon emailPwdLost"></div>
 				</div>
 
 				<div class="footer">
@@ -38,8 +38,10 @@
 			</form>
 
 		</div>
-
 	</section>
+	
+	<!--==================================== javascripts files section  ==================================-->
+	<#include "commonjs.ftl">		
   
 </body>
 </html>

@@ -7,10 +7,12 @@ import static org.friends.app.Configuration.getMailTeam;
 import org.friends.app.Configuration;
 import org.friends.app.model.User;
 import org.friends.app.view.route.Routes;
+import org.springframework.stereotype.Service;
 
 import com.sendgrid.SendGrid;
 import com.sendgrid.SendGridException;
 
+@Service
 public class MailServiceBean {
 
 	private static final String MAIL_BONJOUR = "Bonjour\n\n";
