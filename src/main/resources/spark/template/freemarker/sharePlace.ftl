@@ -98,7 +98,7 @@
 								   data-pagination-pre-text="< "
 								   data-pagination-next-text=" >">							
 							
-								<thead style="background-color: #337ab7; color: white;">
+								<thead style="background-color: #f5f5f5; color: #317bba;">
 									<tr>
 										<th>Date de partage</th> 
 										<th>Occupée par</th>
