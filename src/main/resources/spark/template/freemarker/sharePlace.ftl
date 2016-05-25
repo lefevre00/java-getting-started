@@ -5,6 +5,11 @@
     <link href="/css/bootstrap-table.css" rel="stylesheet">
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap-table.js"></script>
+    <style>
+		.table th {
+		   text-align: center;
+		} 
+    </style>
 </head>
 
 <body>
@@ -12,15 +17,17 @@
 	<!--======================================== Section navigation ====================================-->
 	<#include "nav.ftl">
 
-	<!--================================================================================================-->	
+		
     <section class="content-section">
 		<div class="container containerAttr">
 
 			<h1 class="titre">Partages : <small>place ${placeNumber}</small></h1>
-			
-				<div class="panel panel-default" >
-				  <div class="panel-heading">Libération rapide</div>
-				  <div class="panel-body">
+	
+			<!--======================================== libération rapide =====================================-->		
+			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
+			<div class="panel panel-default" >
+				<div class="panel-heading">Libération rapide</div>
+				<div class="panel-body">
 					<div class="col-sm-6" style="margin-bottom:10px;">
 						<form method="post" role="form">
 							<input type="hidden" name="dateDebut" value="${jourProchaineLiberation}"/>
@@ -43,44 +50,44 @@
 							</#if>	
 						</form>
 					</div>
-				  </div>
 				</div>
-			
+			</div>
+			</div>
 
+			<!--======================================== libération par dates ==================================-->
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">					
 				<form method="post" role="form">
 					
-					<div class="text-center"> 
-									 
-						<div class="col-md-6 col-sm-6">
-							<div class="input-group date" id="datepicker1">
-								<label>Je libère du&nbsp;&nbsp;</label>
-								<input type="text" class="shareInput" name="dateDebut" required />
-								<span class="input-group-addon">
-									<i class="fa fa-calendar-o"></i>
-								</span>
+					<div class="panel panel-default" >
+						<div class="panel-heading">Libération par dates</div>
+						<div class="panel-body">
+							<div class="col-md-6 col-sm-6">
+								<div class="input-group date" id="datepicker1" style="margin-bottom:10px;">
+									<label>du&nbsp;&nbsp;</label>
+									<input type="text" class="shareInput" name="dateDebut" required />
+									<span class="input-group-addon">
+										<i class="fa fa-calendar-o"></i>
+									</span>
+								</div>
 							</div>
+							<div class="col-md-6 col-sm-6">
+								<div class="input-group date" id="datepicker2" style="margin-bottom:10px;">
+									<label>au&nbsp;&nbsp;</label>
+									<input type="text" class="shareInput" name="dateFin" required/>
+									<span class="input-group-addon">
+										<i class="fa fa-calendar-o"></i>
+									</span>
+								</div>
+							</div>						
 						</div>
-
-						<div class="col-md-6 col-sm-6">
-							<div class="input-group date" id="datepicker2">
-								<label>au&nbsp;&nbsp;</label>
-								<input type="text" class="shareInput" name="dateFin" required/>
-								<span class="input-group-addon">
-									<i class="fa fa-calendar-o"></i>
-								</span>
-							</div>
-						</div>
-					<div/>
-
-					<br clear="both"/>
-					<br clear="both"/>
-					<input type="submit" class="btn btn-primary btn-lg" value="Valider"/>
+						
+						<input type="submit" class="btn btn-primary btn-lg" value="Valider" style="margin-bottom:20px;"/>						
+					</div>					
+					
 
 					<!--=============================== liste des dates de partage ============================-->
-
 					<#if datesPartages??>
-						<div class="row table-responsive" style="margin:0px auto;max-width:650px; padding-top:30px;">
+						<div class="row table-responsive" style="margin:0px auto;max-width:700px; padding-top:30px;">
 							<#if (datesPartages?size > 7)>
 							<table class="table table-striped table-condensed padding20"
 								   id="table" 
@@ -93,9 +100,9 @@
 							
 								<thead style="background-color: #337ab7; color: white;">
 									<tr>
-										<th style="text-align:center;">Date de partage</th> 
-										<th style="text-align:center;">Occupée par</th>
-										<th style="text-align:center;">Annuler partage</th>
+										<th>Date de partage</th> 
+										<th>Occupée par</th>
+										<th>Annuler</th>
 									</tr>
 								</thead>
 							<#else>
@@ -132,7 +139,7 @@
 							</table>
 						</div>
 					</#if>
-
+					<!--======================================= Fin liste =====================================-->
 					
 				</form>
 			</div>	
