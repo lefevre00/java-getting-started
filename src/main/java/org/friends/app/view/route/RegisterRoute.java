@@ -39,11 +39,12 @@ public class RegisterRoute implements TemplateViewRoute {
 	
 		String email = request.queryParams("email");
 		String pwd = request.queryParams("pwd");
+		String pwdConfirmation = request.queryParams("pwdConfirmation");
 		String placeNumber = request.queryParams("placeNumber");
 		
 		try {
 
-			userService.parametersValidator(email, pwd);
+			userService.parametersValidator(email, pwd, pwdConfirmation);
 			User user = new User(email, pwd, StringUtils.isEmpty(placeNumber) ? null : Integer.parseInt(placeNumber));
 			
 			User userExiste = userService.findUserByEmail(user.getEmailAMDM());
@@ -66,7 +67,13 @@ public class RegisterRoute implements TemplateViewRoute {
 				map.put(ERROR, "L'email saisi est invalide !");
 			
 			if(UserService.PWD_REQUIRED.equals(e.getMessage()))
-				map.put(ERROR, "Vous devez saisir un mot de passe !");			
+				map.put(ERROR, "Vous devez saisir un mot de passe !");		
+			
+			if(UserService.PWD_CONFIRMATION_REQUIRED.equals(e.getMessage()))
+				map.put(ERROR, "Vous devez saisir une confirmation de mot de passe !");
+			
+			if(UserService.PWD_UNMATCHING.equals(e.getMessage()))
+				map.put(ERROR, "Le mot de passe et la confirmation doivent être identiques !");			
 			
 			map.put(EMAIL, email);
 		}

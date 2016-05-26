@@ -34,6 +34,9 @@
 					<input class="input password" name="pwd" id="pwd" type="password" placeholder="mot de passe" required/>
 					<div class="pass-icon passRegister"></div>
 					
+					<input class="input password" name="pwdConfirmation" id="pwdConfirmation" type="password" placeholder="mot de passe (confirmation)" required/>
+					<div class="pass-icon passConfirmation"></div>
+					
 					<input class="input place" name="placeNumber" id="placeNumber" type="text"  placeholder="Numéro de place (si attribuée)" size="3" maxlength="3"/>
 					<div class="place-icon"></div>	
 				</div>
