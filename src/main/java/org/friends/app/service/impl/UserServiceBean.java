@@ -1,5 +1,6 @@
 package org.friends.app.service.impl;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,6 +9,7 @@ import javax.xml.bind.ValidationException;
 
 import org.friends.app.dao.SessionDao;
 import org.friends.app.dao.UserDao;
+import org.friends.app.model.Place;
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
 import org.friends.app.service.DataIntegrityException;
@@ -237,10 +239,19 @@ public class UserServiceBean implements UserService {
 
 		// Check remaining shared places
 		if (null != user.getPlaceNumber()) {
-			boolean someMorePlaces = !placeService.getShared(user).isEmpty();
-			if (someMorePlaces) {
+			List<Place> shared = placeService.getShared(user);
+			if (!shared.isEmpty()) {
+				long nbrUsed = shared.stream().filter(p -> p.getUsedBy() != null).count();
+				if (nbrUsed > 0) {
+					throw new DataIntegrityException(USER_DELETE_USED);
+				}
 				throw new DataIntegrityException(USER_DELETE_SHARE);
 			}
+		}
+
+		// Check remaining booked places
+		if (!placeService.getReservations(userDb).isEmpty()) {
+			throw new DataIntegrityException(USER_DELETE_BOOK);
 		}
 
 		// Finaly delete user

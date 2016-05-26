@@ -53,7 +53,7 @@ public class SearchRoute extends AuthenticatedRoute {
 	}
 
 	private List<Place> getPlaces(LocalDate dateRecherche) {
-		return placeService.getAvailableByDate(dateRecherche);
+		return placeService.getAvailablesAtDate(dateRecherche);
 	}
 
 	private Place getBookedPlace(User user, LocalDate dateRecherche) {

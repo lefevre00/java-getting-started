@@ -8,24 +8,46 @@ import org.friends.app.model.User;
 
 public interface PlaceService {
 
-	String INVALID_NUMBER = null;
-
-	int HOUR_CHANGE_PARTAGE = 15;
-
-	// ZoneId EUROPE_PARIS = ZoneId.of("Europe/Paris");
-
-	public List<Place> getAvailableByDate(LocalDate date);
+	public List<Place> getAvailablesAtDate(LocalDate date);
 
 	public Place book(String date, User user, String placeNumber) throws BookingException;
 
 	public List<Place> getShared(User user);
 
-	void unsharePlaceByDate(User user, String date) throws UnshareException;
+	/**
+	 * Cancel a shared place by the owner of the place
+	 * 
+	 * @param user
+	 * @param date
+	 * @throws UnshareException
+	 */
+	void unshare(User user, String date) throws UnshareException;
 
+	/**
+	 * The owner share his place between to dates.
+	 * 
+	 * @param user
+	 * @param dateDebut
+	 * @param dateFin
+	 * @return
+	 * @throws Exception
+	 */
 	public boolean sharePlaces(User user, LocalDate dateDebut, LocalDate dateFin) throws Exception;
 
+	/**
+	 * A user which booked a place, inform that he don't need the place anymore.
+	 * 
+	 * @param user
+	 * @param release
+	 */
 	public void release(User user, String release);
 
+	/**
+	 * Get booked places, starting now.
+	 * 
+	 * @param user
+	 * @return The list of places booked, or empty list if none.
+	 */
 	public List<Place> getReservations(User user);
 
 	public boolean canBook(User user, String day);

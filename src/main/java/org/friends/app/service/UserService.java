@@ -6,18 +6,20 @@ import org.omg.CORBA.UnknownUserException;
 
 public interface UserService {
 
-	public static String EMAIL_ERROR = "email.error";
-	public static String EMAIL_REQUIRED = "email.required";
-	public static String EMAIL_UNKNOWN = "email.unknown";
+	public static final String EMAIL_ERROR = "email.error";
+	public static final String EMAIL_REQUIRED = "email.required";
+	public static final String EMAIL_UNKNOWN = "email.unknown";
 
-	public static String PWD_ERROR = "password.error";
-	public static String PWD_REQUIRED = "password.required";
+	public static final String PWD_ERROR = "password.error";
+	public static final String PWD_REQUIRED = "password.required";
 
-	public static String USER_DISABLE = "user.disable";
-	public static String USER_UNKNOWN = "user.unknown";
-	public static String USER_DELETE_SHARE = "user.delete.share";
+	public static final String USER_DISABLE = "user.disable";
+	public static final String USER_UNKNOWN = "user.unknown";
+	public static final String USER_DELETE_SHARE = "user.delete.shared";
+	public static final String USER_DELETE_BOOK = "user.delete.booked";
+	public static final String USER_DELETE_USED = "user.delete.used";
 
-	public static String PLACE_ALREADY_USED = "user.place.used";
+	public static final String PLACE_ALREADY_USED = "user.place.used";
 
 	public User authenticate(String email, String pwd) throws Exception;
 

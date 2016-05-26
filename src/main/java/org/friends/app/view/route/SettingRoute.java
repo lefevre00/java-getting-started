@@ -5,7 +5,6 @@ import java.util.Map;
 import org.friends.app.Messages;
 import org.friends.app.model.User;
 import org.friends.app.service.DataIntegrityException;
-import org.friends.app.service.PlaceService;
 import org.friends.app.service.UserService;
 import org.friends.app.view.Templates;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,8 @@ public class SettingRoute extends AuthenticatedRoute {
 	private static final String ERROR = "error";
 
 	private static final String INFO = "info";
+
+	private String INVALID_NUMBER = null;
 
 	@Autowired
 	UserService userService;
@@ -40,7 +41,7 @@ public class SettingRoute extends AuthenticatedRoute {
 				try {
 					place = Integer.valueOf(placeParam);
 				} catch (NumberFormatException e) {
-					map.put(ERROR, Messages.get(PlaceService.INVALID_NUMBER));
+					map.put(ERROR, Messages.get(INVALID_NUMBER));
 					doUpdate = false;
 				}
 			}

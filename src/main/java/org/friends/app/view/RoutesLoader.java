@@ -88,8 +88,8 @@ public class RoutesLoader {
 		get(Routes.DEFAULT, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
 			LocalDate now = DateUtil.now();
-			List<Place> placesLibresToday = placeService.getAvailableByDate(now);
-			List<Place> placesLibresDemain = placeService.getAvailableByDate(dateService.getNextWorkingDay(now));
+			List<Place> placesLibresToday = placeService.getAvailablesAtDate(now);
+			List<Place> placesLibresDemain = placeService.getAvailablesAtDate(dateService.getNextWorkingDay(now));
 			map.put("placesToday", placesLibresToday.size());
 			map.put("placesDemain", placesLibresDemain.size());
 			return new ModelAndView(map, "index.ftl");

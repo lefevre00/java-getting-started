@@ -97,7 +97,7 @@ public class ShareRoute extends AuthenticatedRoute {
 			String unshareDate = request.queryParams("unshareDate");
 			if (!StringUtils.isEmpty(unshareDate)) {
 				try {
-					placeService.unsharePlaceByDate(user, unshareDate);
+					placeService.unshare(user, unshareDate);
 				} catch (UnshareException e) {
 					map.put("message", "Une erreur est survenue lors de l'annulation !");
 					return new ModelAndView(map, "error.ftl");

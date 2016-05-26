@@ -4,17 +4,19 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.friends.app.service.PlaceService;
 import org.friends.app.util.DateUtil;
 import org.springframework.stereotype.Service;
 
 /**
  * Gestion des dates comportant de la logique.
+ * 
  * @author michael
  *
  */
 @Service
 public class DateServiceBean {
+
+	private int HOUR_CHANGE_PARTAGE = 15;
 
 	/**
 	 * Indique le prochain jour reservable à compter de maintenant. Si c'est le
@@ -24,7 +26,7 @@ public class DateServiceBean {
 	public LocalDate getWorkingDay() {
 		LocalDateTime now = LocalDateTime.now(DateUtil.EUROPE_PARIS);
 		LocalDate back = now.toLocalDate();
-		if (now.getHour() > PlaceService.HOUR_CHANGE_PARTAGE || !isWorkingDay(back)) {
+		if (now.getHour() > HOUR_CHANGE_PARTAGE || !isWorkingDay(back)) {
 			back = getNextWorkingDay(now.toLocalDate());
 		}
 		return back;
@@ -32,7 +34,7 @@ public class DateServiceBean {
 
 	/**
 	 * TODO : Gestion des vacances
-	*/
+	 */
 	private boolean isWorkingDay(LocalDate dateRecherche) {
 		return !(DayOfWeek.SATURDAY.equals(dateRecherche.getDayOfWeek())
 				|| DayOfWeek.SUNDAY.equals(dateRecherche.getDayOfWeek()));
