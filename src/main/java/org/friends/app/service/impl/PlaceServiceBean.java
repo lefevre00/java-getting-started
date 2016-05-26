@@ -124,6 +124,8 @@ public class PlaceServiceBean implements PlaceService {
 
 		// utilisateur sans place attribuée
 		if (user.getPlaceNumber() == null) {
+			// FIXME : attention cette partie du service ne devrait plus etre
+			// appelée, seulement celle avec [user.getPlaceNumber != null]
 			List<Place> places = new ArrayList<>();
 
 			// Recherche réservation pour le jour j
