@@ -11,7 +11,7 @@
 	<#include "nav.ftl">
   
     <section class="content-section">
-		<div class="container containerAttr" style="padding-bottom:80px;">
+		<div class="container containerAttr" style="padding-bottom:50px;">
 			<h2>Vous êtes déconnecté.</h2>
 			<br><br>
 			<img src="/images/deconnexion.png"/>
