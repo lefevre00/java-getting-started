@@ -29,8 +29,6 @@
 					<div class="panel-heading">Nous sommes ${dateDuJour}
 						<#if showToday?? || showTomorrow??>
 							, réserver votre place pour 
-						<#else>
-							, pas de places disponibles pour les 2 jours à venir.
 						</#if>
 					</div>
 					
