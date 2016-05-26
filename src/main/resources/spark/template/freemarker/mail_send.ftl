@@ -6,7 +6,7 @@
 
 <body>
   
-	<!-- navigation section -->
+	<!--======================================== Section navigation ====================================-->
 	<#include "nav.ftl">
 
     <section class="content-section">
@@ -22,5 +22,8 @@
 		</div>
 	</section>
 
+	<!--==================================== javascripts files section  ==================================-->
+	<#include "commonjs.ftl">	
+	
 </body>
 </html>

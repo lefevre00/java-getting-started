@@ -14,36 +14,37 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class UserDaoTest extends ParkingTest {
-	
-	static LocalDate timePoint = LocalDate.now();
+
+	public static final String EMAIL_ABDEL = "abdel.tamditi@amdm.fr";
+	static LocalDate timePoint = DateUtil.now();
 	static String strDateToday = DateUtil.dateToString(timePoint);
 	static String strTomorrow = DateUtil.dateToString(timePoint.plusDays(1));
 	static String strApresDemain = DateUtil.dateToString(timePoint.plusDays(2));
 	static String strYearsteday = DateUtil.dateToString(timePoint.minusDays(1));
-	
+
 	private UserDao userDao = new UserDao();
-    
-    private static String MAIL_RESERVANT = "damien.urvoix@amdm.fr";
-    
-    @BeforeClass
-    public static void beforeClass() {
-    	HibernateUtil.getSession();
-    }
-    
-    @Before
-    public void createDatabase() {
-    	init();
-    }
-    
-    @After
-    public void clearDataBase() {
-    	userDao.clearAllUsers();
-    }
+
+	private static String MAIL_RESERVANT = "damien.urvoix@amdm.fr";
+
+	@BeforeClass
+	public static void beforeClass() {
+		HibernateUtil.getSession();
+	}
+
+	@Before
+	public void createDatabase() {
+		init();
+	}
+
+	@After
+	public void clearDataBase() {
+		userDao.clearAllUsers();
+	}
 
 	private void init() {
 
 		userDao = new UserDao();
-		userDao.persist(new User("abdel.tamditi@amdm.fr", "at" , 133));
+		userDao.persist(new User(EMAIL_ABDEL, "at", 133));
 		userDao.persist(new User("william.verdeil@amdm.fr", "wv", 141));
 		User mick = new User("michael.lefevre@amdm.fr", "ml", 87);
 		mick.setTokenMail("mick");
@@ -53,34 +54,34 @@ public class UserDaoTest extends ParkingTest {
 		jpc.setTokenPwd("passjpc");
 		userDao.persist(jpc);
 	}
-	
+
 	@Test
 	public void findByEmail() {
-		
-    	User damien = userDao.findUserByCriterions(Restrictions.eq("emailAMDM", MAIL_RESERVANT));
-    	Assert.assertNotNull("Damien devrait être trouvé", damien);
+
+		User damien = userDao.findUserByCriterions(Restrictions.eq("emailAMDM", MAIL_RESERVANT));
+		Assert.assertNotNull("Damien devrait être trouvé", damien);
 	}
-	
+
 	@Test
 	public void findByEmailNonTrouve() {
-		
-    	User gerard = userDao.findUserByCriterions(Restrictions.eq("emailAMDM", "gerard.mambu@amdm.fr"));
-    	Assert.assertNull("Damien devrait être trouvé", gerard);
+
+		User gerard = userDao.findUserByCriterions(Restrictions.eq("emailAMDM", "gerard.mambu@amdm.fr"));
+		Assert.assertNull("Damien devrait être trouvé", gerard);
 	}
-	
+
 	@Test
 	public void findByTokenMail() {
-		
-    	User mick = userDao.findUserByCriterions(Restrictions.eq("tokenMail", "mick"));
-    	Assert.assertNotNull("Le token Mail Mick est ok", mick);
-    	Assert.assertEquals("Mick a la place 87", Integer.valueOf(87), mick.getPlaceNumber());
-    	Assert.assertEquals("Mick a le mot de passe : ", "ml", mick.getPwd());
+
+		User mick = userDao.findUserByCriterions(Restrictions.eq("tokenMail", "mick"));
+		Assert.assertNotNull("Le token Mail Mick est ok", mick);
+		Assert.assertEquals("Mick a la place 87", Integer.valueOf(87), mick.getPlaceNumber());
+		Assert.assertEquals("Mick a le mot de passe : ", "ml", mick.getPwd());
 	}
-	
+
 	@Test
 	public void findByJPC() {
-    	User jp = userDao.findUserByCriterions(Restrictions.eq("emailAMDM", "jean-pierre.cluzel@amdm.fr"));
-    	Assert.assertNotNull("Jp  devrait être trouvé", jp);
-    	Assert.assertEquals("Le token Password de jpc doit être correct", "passjpc", jp.getTokenPwd());    
+		User jp = userDao.findUserByCriterions(Restrictions.eq("emailAMDM", "jean-pierre.cluzel@amdm.fr"));
+		Assert.assertNotNull("Jp  devrait être trouvé", jp);
+		Assert.assertEquals("Le token Password de jpc doit être correct", "passjpc", jp.getTokenPwd());
 	}
 }

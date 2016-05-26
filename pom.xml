@@ -4,17 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.friends.apps</groupId>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.2-SNAPSHOT</version>
   <artifactId>parking</artifactId>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <hibernate-version>5.1.0.Final</hibernate-version>
+    <sparkjava-version>2.3</sparkjava-version>
   </properties>
   <dependencies>
     <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>4.2.6.RELEASE</version>
+    </dependency>
+    <dependency>
       <groupId>com.sparkjava</groupId>
       <artifactId>spark-core</artifactId>
-      <version>2.3</version>
+      <version>${sparkjava-version}</version>
     </dependency>
     <dependency>
       <groupId>com.sparkjava</groupId>
@@ -53,12 +59,6 @@
 	  <version>2.0.43-beta</version>
 	  <scope>test</scope>
     </dependency>
-    <dependency>
-	  <groupId>org.assertj</groupId>
-	  <artifactId>assertj-db</artifactId>
-	  <version>1.0.1</version>
-	  <scope>test</scope>
-	</dependency>
 	<dependency>
 		<groupId>junit</groupId>
 		<artifactId>junit</artifactId>
@@ -68,11 +68,6 @@
     <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-core</artifactId>
-        <version>${hibernate-version}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-c3p0</artifactId>
         <version>${hibernate-version}</version>
     </dependency>
   </dependencies>

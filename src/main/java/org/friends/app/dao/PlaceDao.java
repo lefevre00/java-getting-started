@@ -14,9 +14,11 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import spark.utils.Assert;
 
+@Repository
 public class PlaceDao {
 
 	Session sessionHibernate = HibernateUtil.getSession();

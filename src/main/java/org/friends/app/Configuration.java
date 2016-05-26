@@ -5,16 +5,18 @@ import java.net.URISyntaxException;
 
 import org.hibernate.dialect.H2Dialect;
 import org.hibernate.dialect.PostgreSQL92Dialect;
+import org.springframework.context.annotation.ComponentScan;
 
 import spark.utils.StringUtils;
 
+@org.springframework.context.annotation.Configuration("application")
+@ComponentScan("org.friends.app.*")
 public class Configuration {
 
 	public final static String PORT = "PORT";
 	public final static String DEPLOY_MODE = "PARKING_MODE";
 	public final static String MAIL_ENABLE = "MAIL_ENABLE";
 	
-
 	public static String getMailServiceLogin() {
 		return System.getenv("SENDGRID_USERNAME");
 	}

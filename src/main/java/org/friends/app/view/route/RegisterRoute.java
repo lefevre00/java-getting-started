@@ -6,6 +6,8 @@ import org.friends.app.model.User;
 import org.friends.app.service.UserService;
 import org.friends.app.service.impl.UserServiceBean;
 import org.friends.app.view.RequestHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -13,12 +15,14 @@ import spark.Response;
 import spark.TemplateViewRoute;
 import spark.utils.StringUtils;
 
+@Component
 public class RegisterRoute implements TemplateViewRoute {
 	
 	private static final String ERROR = "error";
 	private static final String EMAIL = "email";
 	
-	UserServiceBean userService = new UserServiceBean();
+	@Autowired
+	UserServiceBean userService;
 	
 	@Override
 	public ModelAndView handle(Request request, Response response) throws Exception {

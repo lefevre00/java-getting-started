@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<#include "header.ftl">
+	<#include "header.ftl">	
 	<link rel="stylesheet" href="/css/login.css">
+	<link rel="stylesheet" href="/css/mediaqueries.css" type="text/css" />		
 </head>
 
 <body>
   
-	<!-- navigation section -->
-	<#include "nav.ftl">
+	<!--======================================== Section navigation ====================================-->
+	<#include "nav.ftl">	
     
-	<section id="home">
-	
+	<!--=============================================== form ===========================================-->
+	<section id="conteneur" class="jumbotron" style="background-color:transparent !important;">	
 		<div id="wrapper">
 
 			<form method="post" role="form" name="login-form" class="login-form">
@@ -27,13 +28,13 @@
 			        <#else>
 			          	<input class="input" name="email" type="email" placeholder="adresse@email.fr" required/>
 	                </#if>
-					<div class="email-icon emailX2"></div>
+					<div class="email-icon emailPwdNew"></div>
 					
 					<input class="input password" name="pwd" id="pwd" type="password" placeholder="nouveau mot de passe" required/>
-					<div class="pass-icon passX2"></div>
+					<div class="pass-icon passPwdNew"></div>
 					<!--
 					<input class="input password" name="pwd2" id="pwd2" type="password"  placeholder="re-saisir le mot de passe" required/>
-					<div class="pass-icon passX3"></div>
+					<div class="pass-icon passPwdNew2"></div>
 					-->
 				</div>
 				
@@ -43,9 +44,11 @@
 			
 			</form>
 
-		</div>
-		
+		</div>		
 	</section>
+  
+	<!--==================================== javascripts files section  ==================================-->
+	<#include "commonjs.ftl">	  
   
 	<!-- cryptage md5 -->
 	<#include "md5.ftl">

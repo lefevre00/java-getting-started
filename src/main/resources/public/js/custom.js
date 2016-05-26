@@ -7,7 +7,7 @@ $(window).load(function(){
 /* HTML document is loaded. DOM is ready. 
 -------------------------------------------*/
 $(function(){
-
+	
 	// ------- WOW ANIMATED ------ //
 	wow = new WOW({
 		mobile: false
@@ -23,8 +23,10 @@ $(function(){
 	initParallax();
 
 	// NIVO LIGHTBOX
-	/*$('#gallery a').nivoLightbox({
+	/*
+	$('#gallery a').nivoLightbox({
 			effect: 'fadeScale',
 	});
-*/
+	*/
 });
+
