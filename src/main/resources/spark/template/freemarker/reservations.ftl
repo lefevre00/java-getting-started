@@ -31,8 +31,6 @@
 							, réserver votre place pour 
 						</#if>
 					</div>
-					
-					
 					<div class="panel-body">
 						<div class="col-sm-6" style="margin-bottom:10px;">
 							<#if showToday??>
@@ -53,12 +51,16 @@
 			</div>
 
 			<#if !showToday?? || !showTomorrow??>
-				<div class="row">
-					<br/>
-					<#if canShare??>
-						Vous ne pouvez pas effectuer de réservation car votre place est disponible ou inoccupée les deux prochains jours. 
-					</#if>
-				</div>
+				<#if canShare??>
+					<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
+						<div class="panel panel-default" >
+							<div class="panel-heading"><span class="glyphicon glyphicon-info-sign fa-2x text-primary"></span></div>
+							<div class="panel-body">
+								Vous ne pouvez pas effectuer de réservation car votre place est disponible ou inoccupée les deux prochains jours.
+							</div>
+						</div>
+					</div>
+				</#if>
 			</#if>
 
 
