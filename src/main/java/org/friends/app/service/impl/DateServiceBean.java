@@ -4,6 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.friends.app.service.DateService;
 import org.friends.app.util.DateUtil;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
-public class DateServiceBean {
+public class DateServiceBean implements DateService {
 
 	private int HOUR_CHANGE_PARTAGE = 15;
 
@@ -23,6 +24,7 @@ public class DateServiceBean {
 	 * matin, c'est aujourd'hui, si le jour est ouvrable. Passé une certaine
 	 * heure de la journée, c'est le lendemain, ou le prochain jour ouvrable.
 	 */
+	@Override
 	public LocalDate getWorkingDay() {
 		LocalDateTime now = LocalDateTime.now(DateUtil.EUROPE_PARIS);
 		LocalDate back = now.toLocalDate();
@@ -46,6 +48,7 @@ public class DateServiceBean {
 	 * 
 	 * @return
 	 */
+	@Override
 	public LocalDate getNextWorkingDay() {
 		return getNextWorkingDay(DateUtil.now());
 	}
@@ -55,6 +58,7 @@ public class DateServiceBean {
 	 * @param base
 	 * @return
 	 */
+	@Override
 	public LocalDate getNextWorkingDay(LocalDate base) {
 		int toAdd;
 		switch (base.getDayOfWeek()) {

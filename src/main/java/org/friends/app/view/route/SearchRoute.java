@@ -8,8 +8,8 @@ import java.util.Map;
 
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
-import org.friends.app.service.impl.DateServiceBean;
-import org.friends.app.service.impl.PlaceServiceBean;
+import org.friends.app.service.DateService;
+import org.friends.app.service.PlaceService;
 import org.friends.app.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,9 +22,9 @@ import spark.Response;
 public class SearchRoute extends AuthenticatedRoute {
 
 	@Autowired
-	private DateServiceBean dateService;
+	private DateService dateService;
 	@Autowired
-	private PlaceServiceBean placeService;
+	private PlaceService placeService;
 
 	@Override
 	public ModelAndView doHandle(Request req, Response resp) {

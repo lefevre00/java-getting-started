@@ -20,6 +20,8 @@ import org.omg.CORBA.UnknownUserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Strings;
+
 import spark.utils.Assert;
 import spark.utils.StringUtils;
 
@@ -47,8 +49,8 @@ public class UserServiceBean implements UserService {
 	 */
 	@Override
 	public User authenticate(String email, String pwd) throws Exception {
-
-		parametersValidator(email, pwd);
+		Assert.isTrue(!Strings.isNullOrEmpty(email), "email null or empty");
+		Assert.isTrue(!Strings.isNullOrEmpty(pwd), "password null or empty");
 
 		User user = findUserByEmail(email);
 
@@ -142,22 +144,6 @@ public class UserServiceBean implements UserService {
 		return userDao.persist(user);
 	}
 
-	public void reset(User user) {
-	}
-
-	public void parametersValidator(String email, String pwd) throws Exception {
-
-		if (StringUtils.isEmpty(email))
-			throw new Exception(EMAIL_REQUIRED);
-
-		if (!EmailValidator.isValid(email))
-			throw new Exception(EMAIL_ERROR);
-
-		if (StringUtils.isEmpty(pwd))
-			throw new Exception(PWD_REQUIRED);
-
-	}
-
 	@Override
 	public boolean activate(String token) {
 		Assert.notNull(token);
@@ -174,6 +160,7 @@ public class UserServiceBean implements UserService {
 		return success;
 	}
 
+	@Override
 	public void resetPassword(String email, String appUrl) throws Exception {
 		if (StringUtils.isEmpty(email))
 			throw new IllegalArgumentException("Email required");

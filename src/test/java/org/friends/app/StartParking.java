@@ -23,6 +23,7 @@ public class StartParking {
 		System.setProperty("MAIL_TEAM", "contact@takemyplace.fr");
 
 		new Application() {
+			@Override
 			public void start() {
 				super.start();
 				initData();
@@ -37,19 +38,25 @@ public class StartParking {
 		userDao.persist(new User("michael.lefevre@amdm.fr", md5("ml"), 87));
 		userDao.persist(new User("damien.urvoix@amdm.fr", md5("du")));
 		userDao.persist(new User("jean-pierre.cluzel@amdm.fr", md5("jpc")));
-		
+
 		LocalDate timePoint = DateUtil.now();
-		String strDateToday  = DateUtil.dateToString(timePoint);
+		String strDateToday = DateUtil.dateToString(timePoint);
 		String strTomorrow = DateUtil.dateToString(timePoint.plusDays(1));
 		String strYearsteday = DateUtil.dateToString(timePoint.minusDays(1));
 		PlaceDao placeDao = new PlaceDao();
-		
-    	placeDao.persist(new Place(1, strDateToday)); //Place libre aujourd'hui free = true
-    	placeDao.persist(new Place(2, "damien.urvoix@amdm.fr", strDateToday));//place occupée aujourd'hui
-    	placeDao.persist(new Place(34, strYearsteday)); //Place libre hier free = true
-    	placeDao.persist(new Place(35, strTomorrow)); //Place libre demain
-    	placeDao.persist(new Place(36, "damien.urvoix@amdm.fr", strYearsteday)); //Place occupee hier
-    	placeDao.persist(new Place(37, strTomorrow)); //Place libre demain
+
+		placeDao.persist(new Place(1, strDateToday)); // Place libre aujourd'hui
+														// free = true
+		placeDao.persist(new Place(2, "damien.urvoix@amdm.fr", strDateToday));// place
+																				// occupée
+																				// aujourd'hui
+		placeDao.persist(new Place(34, strYearsteday)); // Place libre hier free
+														// = true
+		placeDao.persist(new Place(35, strTomorrow)); // Place libre demain
+		placeDao.persist(new Place(36, "damien.urvoix@amdm.fr", strYearsteday)); // Place
+																					// occupee
+																					// hier
+		placeDao.persist(new Place(37, strTomorrow)); // Place libre demain
 
 		SessionDao sessionDao = new SessionDao();
 		sessionDao.deleteExpired();

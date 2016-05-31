@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
+import org.friends.app.service.DateService;
 import org.friends.app.service.PlaceService;
 import org.friends.app.service.UnshareException;
-import org.friends.app.service.impl.DateServiceBean;
 import org.friends.app.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ import spark.utils.StringUtils;
 public class ShareRoute extends AuthenticatedRoute {
 
 	@Autowired
-	private DateServiceBean dateService;
+	private DateService dateService;
 	@Autowired
 	private PlaceService placeService;
 

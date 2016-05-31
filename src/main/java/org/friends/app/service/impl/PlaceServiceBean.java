@@ -168,6 +168,7 @@ public class PlaceServiceBean implements PlaceService {
 	 *            La date de la recherche
 	 * @return null si aucune reservation pour ce jour
 	 */
+	@Override
 	public Place getBookedPlaceByUserAtDate(User user, LocalDate dateRecherche) {
 		Assert.notNull(user);
 		Assert.notNull(dateRecherche);

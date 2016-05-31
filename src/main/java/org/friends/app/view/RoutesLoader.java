@@ -18,9 +18,9 @@ import org.friends.app.Configuration;
 import org.friends.app.model.Place;
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
+import org.friends.app.service.DateService;
 import org.friends.app.service.PlaceService;
 import org.friends.app.service.UserService;
-import org.friends.app.service.impl.DateServiceBean;
 import org.friends.app.util.DateUtil;
 import org.friends.app.view.route.AuthenticatedRoute;
 import org.friends.app.view.route.BookRoute;
@@ -53,7 +53,7 @@ public class RoutesLoader {
 	@Autowired
 	private PlaceService placeService;
 	@Autowired
-	private DateServiceBean dateService;
+	private DateService dateService;
 
 	public void init(GenericApplicationContext context) {
 		port(getPort());

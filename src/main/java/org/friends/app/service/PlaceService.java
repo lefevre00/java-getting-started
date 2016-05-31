@@ -53,4 +53,6 @@ public interface PlaceService {
 	public boolean canBook(User user, String day);
 
 	public Place isPlaceShared(Integer placeNumber, String dateToString);
+
+	public Place getBookedPlaceByUserAtDate(User user, LocalDate dateRecherche);
 }

@@ -46,4 +46,6 @@ public interface UserService {
 	 * @throws DataIntegrityException
 	 */
 	public void delete(User user) throws UnknownUserException, DataIntegrityException;
+
+	public void resetPassword(String email, String appUrl) throws Exception;
 }
