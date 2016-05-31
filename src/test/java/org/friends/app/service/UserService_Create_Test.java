@@ -1,8 +1,9 @@
 package org.friends.app.service;
 
+import static org.friends.app.service.UserBuilder.unUser;
+
 import org.friends.app.ParkingTest;
 import org.friends.app.dao.UserDao;
-import org.friends.app.model.User;
 import org.friends.app.service.impl.UserServiceBean;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +13,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserService_Create_Test extends ParkingTest {
+
+	private static final String PRENOM_NOM_AMDM_FR = "prenom.nom@amdm.fr";
 
 	@InjectMocks
 	UserServiceBean service = new UserServiceBean();
@@ -34,8 +37,7 @@ public class UserService_Create_Test extends ParkingTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void un_user_doit_avoir_un_email() throws Exception {
-		User user = UserBuilder.unUser().build(null, "mdp");
-		service.create(user, null);
+		service.create(unUser().mdp("mdp").build(), null);
 	}
 
 	/*
@@ -43,8 +45,7 @@ public class UserService_Create_Test extends ParkingTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void un_user_doit_avoir_un_mot_de_passe() throws Exception {
-		User user = UserBuilder.unUser().build("email@gmail.com", null);
-		service.create(user, null);
+		service.create(unUser().email(PRENOM_NOM_AMDM_FR).build(), null);
 	}
 
 	/*
@@ -52,7 +53,6 @@ public class UserService_Create_Test extends ParkingTest {
 	 */
 	@Test()
 	public void un_user_doit_avoir_un_email_valide_et_un_mdp() throws Exception {
-		User user = UserBuilder.unUser().build("prenom.nom@amdm.fr", "mdp");
-		service.create(user, "http://localhost:8080/");
+		service.create(unUser().email(PRENOM_NOM_AMDM_FR).mdp("mdp").build(), "http://localhost:8080/");
 	}
 }

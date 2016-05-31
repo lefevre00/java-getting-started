@@ -36,14 +36,6 @@ public class UserBuilder {
 		return back;
 	}
 
-	/**
-	 * Use email("bla").mdp("bla")
-	 */
-	@Deprecated
-	public User build(String email, String pwd) {
-		return new User(email, pwd);
-	}
-
 	public UserBuilder id(int id) {
 		this.id = id;
 		return this;
