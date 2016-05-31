@@ -8,6 +8,7 @@ import javax.xml.bind.ValidationException;
 
 import org.friends.app.Messages;
 import org.friends.app.service.impl.UserServiceBean;
+import org.friends.app.validator.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,7 +43,7 @@ public class ForgottenPwdRoute implements TemplateViewRoute {
 		String email = request.queryParams("email");
 
 		// Email validator
-		if (!UserServiceBean.emailAMDMValidator(email))
+		if (!EmailValidator.isValid(email))
 			throw new ValidationException("L'email saisi est incorrect !");
 
 		userService.resetPassword(email, getAppUrl(request));

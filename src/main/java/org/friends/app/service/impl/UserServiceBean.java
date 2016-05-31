@@ -2,8 +2,6 @@ package org.friends.app.service.impl;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.xml.bind.ValidationException;
 
@@ -16,6 +14,7 @@ import org.friends.app.service.DataIntegrityException;
 import org.friends.app.service.MailService;
 import org.friends.app.service.PlaceService;
 import org.friends.app.service.UserService;
+import org.friends.app.validator.EmailValidator;
 import org.hibernate.criterion.Restrictions;
 import org.omg.CORBA.UnknownUserException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,7 +109,7 @@ public class UserServiceBean implements UserService {
 		Assert.notNull(user.getPwd());
 
 		// Email validator
-		if (!emailAMDMValidator(user.getEmailAMDM()))
+		if (!EmailValidator.isValid(user.getEmailAMDM()))
 			throw new Exception("L'email saisi est incorrect !");
 
 		user.setTokenMail(UUID.randomUUID().toString());
@@ -146,30 +145,12 @@ public class UserServiceBean implements UserService {
 	public void reset(User user) {
 	}
 
-	/**
-	 * On valide le format de l'email saisi qui doit être celui de l'AMDM
-	 * L'email doit avoir le format prenom.nom@amdm.fr (un '-' dans le prénom et
-	 * le nom sont possibles)
-	 * 
-	 * @param email
-	 * @return
-	 */
-	public static boolean emailAMDMValidator(final String email) {
-
-		String EMAIL_PATTERN = "^([A-Za-z]+\\-?)+\\.([A-Za-z]+\\-?)+@amdm.fr$";
-		Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-
-		Matcher matcher = pattern.matcher(email);
-		return matcher.matches();
-
-	}
-
 	public void parametersValidator(String email, String pwd) throws Exception {
 
 		if (StringUtils.isEmpty(email))
 			throw new Exception(EMAIL_REQUIRED);
 
-		if (!emailAMDMValidator(email))
+		if (!EmailValidator.isValid(email))
 			throw new Exception(EMAIL_ERROR);
 
 		if (StringUtils.isEmpty(pwd))
