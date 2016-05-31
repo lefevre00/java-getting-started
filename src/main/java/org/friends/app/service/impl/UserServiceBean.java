@@ -13,6 +13,7 @@ import org.friends.app.model.Place;
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
 import org.friends.app.service.DataIntegrityException;
+import org.friends.app.service.MailService;
 import org.friends.app.service.PlaceService;
 import org.friends.app.service.UserService;
 import org.hibernate.criterion.Restrictions;
@@ -31,7 +32,7 @@ public class UserServiceBean implements UserService {
 	@Autowired
 	private SessionDao sessionDao;
 	@Autowired
-	private MailServiceBean mailService;
+	private MailService mailService;
 	@Autowired
 	private PlaceService placeService;
 

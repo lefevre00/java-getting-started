@@ -3,7 +3,6 @@ package org.friends.app.service;
 import org.friends.app.ParkingTest;
 import org.friends.app.dao.UserDao;
 import org.friends.app.model.User;
-import org.friends.app.service.impl.MailServiceBean;
 import org.friends.app.service.impl.UserServiceBean;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +17,7 @@ public class UserService_Create_Test extends ParkingTest {
 	UserServiceBean service = new UserServiceBean();
 	
 	@Mock UserDao dao;
-	@Mock MailServiceBean mailServiceBean;
+	@Mock MailService mailServiceBean;
 	
 	/*
 	 * Test avec user null

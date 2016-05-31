@@ -2,7 +2,7 @@ package org.friends.app.view.route;
 
 import java.util.Map;
 
-import org.friends.app.service.impl.MailServiceBean;
+import org.friends.app.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ import spark.utils.StringUtils;
 public class ContactRoute implements TemplateViewRoute {
 
 	@Autowired
-	private MailServiceBean mailService;
+	private MailService mailService;
 
 	@Override
 	public ModelAndView handle(Request request, Response response) throws Exception {
