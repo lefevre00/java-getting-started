@@ -6,6 +6,7 @@ import org.friends.app.model.User;
 import org.friends.app.service.UserService;
 import org.friends.app.validator.EmailValidator;
 import org.friends.app.view.RequestHelper;
+import org.friends.app.view.Templates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +35,7 @@ public class RegisterRoute implements TemplateViewRoute {
 			onRegister(request, response, map);
 		}
 
-		return new ModelAndView(map, "createUser.ftl");
+		return new ModelAndView(map, Templates.REGISTER);
 	}
 
 	protected void onRegister(Request request, Response response, Map<String, Object> map) {

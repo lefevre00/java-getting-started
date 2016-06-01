@@ -11,6 +11,7 @@ import org.friends.app.model.User;
 import org.friends.app.service.DateService;
 import org.friends.app.service.PlaceService;
 import org.friends.app.util.DateUtil;
+import org.friends.app.view.Templates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -49,7 +50,7 @@ public class SearchRoute extends AuthenticatedRoute {
 			}
 		}
 
-		return new ModelAndView(map, "search.ftl");
+		return new ModelAndView(map, Templates.SEARCH);
 	}
 
 	private List<Place> getPlaces(LocalDate dateRecherche) {

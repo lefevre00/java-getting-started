@@ -3,6 +3,7 @@ package org.friends.app.view.route;
 import java.util.Map;
 
 import org.friends.app.service.MailService;
+import org.friends.app.view.Templates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +31,6 @@ public class ContactRoute implements TemplateViewRoute {
 				throw new RuntimeException("Erreur saisie formulaire contact");
 			mailService.sendContact(nom, mail, message);
 		}
-		return new ModelAndView(map, "contactSend.ftl");
+		return new ModelAndView(map, Templates.SEND_CONTACT);
 	}
 }

@@ -19,20 +19,20 @@ public class PasswordTokenRoute implements TemplateViewRoute {
 	private static final String FIELD_PASSWORD = "pwd";
 	private static final String FIELD_EMAIL = "email";
 	private static final String FIELD_TOKEN = "token";
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Override
 	public ModelAndView handle(Request request, Response response) throws Exception {
 
-		String template = "pwd_new.ftl";
+		String template = Templates.PASSWORD_NEW;
 
 		Map<String, Object> map = Routes.getMap(request);
 		String token = request.queryParams(FIELD_TOKEN);
 		String email = request.queryParams(FIELD_EMAIL);
 		String mdp = request.queryParams(FIELD_PASSWORD);
-		
+
 		if (StringUtils.isEmpty(token)) {
 			map.put("error", "Jeton invalide, contrôler le lien fourni dans l'email.");
 			map.put(FIELD_EMAIL, email);

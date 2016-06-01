@@ -11,6 +11,7 @@ import org.friends.app.service.DateService;
 import org.friends.app.service.PlaceService;
 import org.friends.app.service.UnshareException;
 import org.friends.app.util.DateUtil;
+import org.friends.app.view.Templates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -77,7 +78,7 @@ public class ShareRoute extends AuthenticatedRoute {
 			} catch (Exception e) {
 				e.printStackTrace();
 				map.put("message", "Une erreur est survenue lors de l'enregistrement de données !");
-				return new ModelAndView(map, "error.ftl");
+				return new ModelAndView(map, Templates.ERROR);
 			}
 			if (!retour) {
 				if (dateDebut.equals(dateFin)) {
@@ -86,7 +87,7 @@ public class ShareRoute extends AuthenticatedRoute {
 				} else {
 					map.put("message", "Vous avez déjà partagé ces dates !");
 				}
-				return new ModelAndView(map, "error.ftl");
+				return new ModelAndView(map, Templates.ERROR);
 			}
 			response.redirect(Routes.PLACE_SHARE + "?liberation=ok");
 
@@ -100,7 +101,7 @@ public class ShareRoute extends AuthenticatedRoute {
 					placeService.unshare(user, unshareDate);
 				} catch (UnshareException e) {
 					map.put("message", "Une erreur est survenue lors de l'annulation !");
-					return new ModelAndView(map, "error.ftl");
+					return new ModelAndView(map, Templates.ERROR);
 				}
 				response.redirect(Routes.PLACE_SHARE + "?annulation=ok");
 			}
@@ -115,6 +116,6 @@ public class ShareRoute extends AuthenticatedRoute {
 			map.put("datesPartages", datesPartages);
 		}
 
-		return new ModelAndView(map, "sharePlace.ftl");
+		return new ModelAndView(map, Templates.SHARE);
 	}
 }

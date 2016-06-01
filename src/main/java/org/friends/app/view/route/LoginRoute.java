@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import org.friends.app.Messages;
 import org.friends.app.model.User;
 import org.friends.app.service.UserService;
+import org.friends.app.view.Templates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -38,7 +39,7 @@ public class LoginRoute implements TemplateViewRoute {
 			onLogin(request, response, map);
 		}
 
-		return new ModelAndView(map, "login.ftl");
+		return new ModelAndView(map, Templates.LOGIN);
 	}
 
 	protected void onLogin(Request request, Response response, Map<String, Object> map) {

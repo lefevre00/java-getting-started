@@ -92,7 +92,7 @@ public class RoutesLoader {
 			List<Place> placesLibresDemain = placeService.getAvailablesAtDate(dateService.getNextWorkingDay(now));
 			map.put("placesToday", placesLibresToday.size());
 			map.put("placesDemain", placesLibresDemain.size());
-			return new ModelAndView(map, "index.ftl");
+			return new ModelAndView(map, Templates.INDEX);
 		}, templateEngine);
 
 		/*
@@ -103,7 +103,7 @@ public class RoutesLoader {
 			protected ModelAndView doHandle(Request request, Response response) {
 				removeAuthenticatedUser(request);
 				response.removeCookie(Configuration.COOKIE);
-				return new ModelAndView(null, "logout.ftl");
+				return new ModelAndView(null, Templates.LOGOUT);
 			}
 		}, templateEngine);
 
@@ -111,7 +111,7 @@ public class RoutesLoader {
 		 * Error page
 		 */
 		get(Routes.ERROR_PAGE, (req, res) -> {
-			return new ModelAndView(Routes.getMap(req), "error.ftl");
+			return new ModelAndView(Routes.getMap(req), Templates.ERROR);
 		}, templateEngine);
 
 		/*
@@ -125,7 +125,7 @@ public class RoutesLoader {
 			Map<String, Object> map = Routes.getMap(req);
 			map.put("title", "Utilisateur enregistré");
 			map.put("message", "Veuillez suivre les indications qu'il comporte pour activer votre compte.");
-			return new ModelAndView(map, "mail_send.ftl");
+			return new ModelAndView(map, Templates.SEND_MAIL);
 		}, templateEngine);
 
 		/*
@@ -138,12 +138,12 @@ public class RoutesLoader {
 			Map<String, Object> map = Routes.getMap(req);
 			map.put("title", "Mot de passe en cours de modification");
 			map.put("message", "Veuillez suivre les indications qu'il comporte pour définir un nouveau mot de passe.");
-			return new ModelAndView(map, "mail_send.ftl");
+			return new ModelAndView(map, Templates.SEND_MAIL);
 		}, templateEngine);
 		get(Routes.PASSWORD_NEW, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
 			map.put("token", req.queryParams("tok"));
-			return new ModelAndView(map, "pwd_new.ftl");
+			return new ModelAndView(map, Templates.PASSWORD_NEW);
 		}, templateEngine);
 		post(Routes.PASSWORD_NEW, context.getBean(PasswordTokenRoute.class), templateEngine);
 

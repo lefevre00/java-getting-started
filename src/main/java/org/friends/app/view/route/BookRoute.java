@@ -7,6 +7,7 @@ import org.friends.app.model.User;
 import org.friends.app.service.BookingException;
 import org.friends.app.service.PlaceService;
 import org.friends.app.util.DateUtil;
+import org.friends.app.view.Templates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -53,6 +54,6 @@ public class BookRoute extends AuthenticatedRoute {
 			}
 		}
 
-		return new ModelAndView(map, "book.ftl");
+		return new ModelAndView(map, Templates.BOOK);
 	}
 }

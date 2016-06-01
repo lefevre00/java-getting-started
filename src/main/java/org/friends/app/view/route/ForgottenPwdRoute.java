@@ -9,6 +9,7 @@ import javax.xml.bind.ValidationException;
 import org.friends.app.Messages;
 import org.friends.app.service.UserService;
 import org.friends.app.validator.EmailValidator;
+import org.friends.app.view.Templates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +36,7 @@ public class ForgottenPwdRoute implements TemplateViewRoute {
 			}
 		}
 
-		return new ModelAndView(map, "pwd_lost.ftl");
+		return new ModelAndView(map, Templates.PASSWORD_LOST);
 	}
 
 	protected void onLogin(Request request, Response response, Map<String, Object> map) throws Exception {
