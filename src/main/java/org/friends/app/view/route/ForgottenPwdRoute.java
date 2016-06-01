@@ -32,7 +32,7 @@ public class ForgottenPwdRoute implements TemplateViewRoute {
 			try {
 				onLogin(request, response, map);
 			} catch (ValidationException e) {
-				map.put("error", Messages.get(e.getMessage()));
+				map.put(Routes.KEY_ERROR, Messages.get(e.getMessage()));
 			}
 		}
 

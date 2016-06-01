@@ -9,7 +9,7 @@ import spark.Request;
 import spark.Response;
 
 public interface Routes {
-	
+
 	public static void redirect(User user, Response response) {
 		String dest = RESERVATIONS;
 		if (user == null)
@@ -18,15 +18,16 @@ public interface Routes {
 			dest = PLACE_SHARE;
 		response.redirect(dest);
 	}
-	
 
 	/**
-	 * Build the default map object to tell the template that the user is logged in.
+	 * Build the default map object to tell the template that the user is logged
+	 * in.
+	 * 
 	 * @return
 	 */
 	public static Map<String, Object> getMap(Request request) {
 		Map<String, Object> map = new HashMap<>();
-		
+
 		User user = request.session().attribute("user");
 		if (user != null) {
 			map.put("mail", user.getEmailAMDM());
@@ -35,8 +36,8 @@ public interface Routes {
 				map.put("placeNumber", user.getPlaceNumber());
 			}
 		}
-		
-		return map ;
+
+		return map;
 	}
 
 	String PARAM_TOKEN_VALUE = "tok";
@@ -46,7 +47,6 @@ public interface Routes {
 	 */
 	String DEFAULT = "/";
 	String LOGIN = "/user/login";
-	String LOGOUT = "/user/logout";
 	String REGISTER = "/user/new";
 	String TOKEN_VALIDATION = "/user/validate";
 	String REGISTRED = "/user/registred";
@@ -54,16 +54,25 @@ public interface Routes {
 	String PASSWORD_RESET = "/user/reset";
 	String PASSWORD_NEW = "/user/pwd";
 	String PASSWORD_SETTED = "/user/setted";
-	
+
 	String ERROR_PAGE = "/user/error";
 	String MESSAGE_CONTACT = "/user/contact";
+
 	/*
 	 * Accessible if authenticated
 	 */
+	String LOGOUT = "/user/logout";
 	String PLACE_SEARCH = "/protected/search";
 	String PLACE_SHARE = "/protected/share";
 	String PLACE_BOOK = "/protected/book/:date/:place_id";
 	String RESERVATIONS = "/protected/booked";
 	String SETTINGS = "/protected/setting";
-	
+	String UNREGISTER = "/protected/unregister";
+
+	/*
+	 * Model map key
+	 */
+	String KEY_ERROR = "error";
+	String KEY_INFO = "info";
+	String KEY_SUCCESS = "success";
 }

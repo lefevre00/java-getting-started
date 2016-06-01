@@ -21,7 +21,6 @@ import spark.utils.StringUtils;
 @Component
 public class RegisterRoute implements TemplateViewRoute {
 
-	private static final String ERROR = "error";
 	private static final String EMAIL = "email";
 
 	@Autowired
@@ -61,22 +60,22 @@ public class RegisterRoute implements TemplateViewRoute {
 				user = userService.create(user, RequestHelper.getAppUrl(request));
 				response.redirect(Routes.REGISTRED);
 			} else {
-				map.put(ERROR, "Un compte existe déjà avec cette adresse email !");
+				map.put(Routes.KEY_ERROR, "Un compte existe déjà avec cette adresse email !");
 			}
 			map.put(EMAIL, email);
 
 		} catch (NumberFormatException e) {
-			map.put(ERROR, "Le numéro de place est un numéro !");
+			map.put(Routes.KEY_ERROR, "Le numéro de place est un numéro !");
 		} catch (Exception e) {
 
 			if (UserService.EMAIL_REQUIRED.equals(e.getMessage()))
-				map.put(ERROR, "Vous devez saisir une adresse email !");
+				map.put(Routes.KEY_ERROR, "Vous devez saisir une adresse email !");
 
 			if (UserService.EMAIL_ERROR.equals(e.getMessage()))
-				map.put(ERROR, "L'email saisi est invalide !");
+				map.put(Routes.KEY_ERROR, "L'email saisi est invalide !");
 
 			if (UserService.PWD_REQUIRED.equals(e.getMessage()))
-				map.put(ERROR, "Vous devez saisir un mot de passe !");
+				map.put(Routes.KEY_ERROR, "Vous devez saisir un mot de passe !");
 
 			map.put(EMAIL, email);
 		}

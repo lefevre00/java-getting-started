@@ -210,7 +210,9 @@ public class UserServiceBean implements UserService {
 		if (null != user.getPlaceNumber()) {
 			List<Place> shared = placeService.getShared(user);
 			if (!shared.isEmpty()) {
-				long nbrUsed = shared.stream().filter(p -> p.getUsedBy() != null).count();
+				long nbrUsed = shared.stream()
+						.filter(p -> !Strings.isNullOrEmpty(p.getUsedBy()) && !" ".equalsIgnoreCase(p.getUsedBy()))
+						.count();
 				if (nbrUsed > 0) {
 					throw new DataIntegrityException(USER_DELETE_USED);
 				}

@@ -2,8 +2,16 @@
 <html lang="fr">
 <head>
 	<#include "header.ftl">
-	<link rel="stylesheet" href="/css/login.css">
-	<link rel="stylesheet" href="/css/mediaqueries.css" type="text/css" />	
+	<style>
+		.input-group {
+			display: inline-flex;
+		}
+		.input-group-addon {
+			width: auto;
+			height: 34px;
+			font-size: 14px;
+		}
+	</style>
 </head>
 
 <body>
@@ -12,34 +20,51 @@
 	<#include "nav.ftl">	
 
 	<!--=============================================== form ===========================================-->
-	<section id="conteneur" class="jumbotron" style="background-color:transparent !important;">			
-		<div id="wrapper">
-	
-			<form method="post" role="form" name="login-form" class="login-form">
-			
-				<div class="header">
-					<h1>Attribution N° place</h1>
-					<span>Veuillez saisir le n° de place (si attribué).</span>
+    <section class="content-section">
+		<div class="container containerAttr">
+			<h1 class="titre">Paramètres</h1>
+
+			<div class="row">
+
+				<!-- Modification n° place -->
+				<div class="col-md-6">
+					<form action="/protected/setting" method="post" role="form" name="place-form">
+						<div class="panel panel-default" >
+							<div class="panel-heading">Place attribuée</div>
+							<div class="panel-body">
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon1">Numéro</span>
+									<input type="text" class="form-control" name="placeNumber" aria-describedby="basic-addon1" id="placeNumber" placeholder="110" size="3" maxlength="3"
+									<#if placeNumber??>
+										value="${placeNumber}"
+									</#if>
+									>
+								</div>
+								&nbsp;
+								<input type="submit" name="submit" value="Valider" class="btn btn-primary" />
+							</div>
+						</div>
+					</form>
 				</div>
-	
-				<div class="content">
-					<input type="text" class="form-control" name="placeNumber" id="placeNumber" placeholder="110" size="3" maxlength="3"
-						<#if placeNumber??>
-							value="${placeNumber}"
-						</#if>
->
+				
+				<!-- Suppression de compte -->
+				<div class="col-md-6">
+					<div class="panel panel-default" >
+						<div class="panel-heading">Suppression de compte</div>
+						<div class="panel-body">
+							<a href="/protected/unregister" class="btn btn-primary" 
+							  data-confirm='Suppression de votre compte ?' ><img src="/images/cancel.png"/>
+							  Supprimer
+							</a>
+						</div>
+					</div>
 				</div>
-				<div class="footer">
-					<input type="submit" name="submit" value="Valider" class="valider" />
-				</div>
-			
-			</form>	
-	
+			</div>
 		</div>
 	</section>
 	
 	<!--==================================== javascripts files section  ==================================-->
 	<#include "commonjs.ftl">		
-  
+	<script src="/js/confirm.js"></script>
 </body>
 </html>

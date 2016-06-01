@@ -23,8 +23,8 @@ import spark.TemplateViewRoute;
 @Component
 public class LoginRoute implements TemplateViewRoute {
 
-	private static final String ERROR = "error";
-	private static final String EMAIL = "email";
+	private static final String KEY_EMAIL = "email";
+
 	@Autowired
 	private UserService userService;
 
@@ -48,7 +48,7 @@ public class LoginRoute implements TemplateViewRoute {
 		String pwd = request.queryParams("pwd");
 
 		// En cas d'erreur
-		map.put(EMAIL, email);
+		map.put(KEY_EMAIL, email);
 
 		User user = null;
 		try {
@@ -59,11 +59,11 @@ public class LoginRoute implements TemplateViewRoute {
 				addAuthenticatedUser(request, user);
 				Routes.redirect(user, response);
 			} else {
-				map.put(ERROR, "Utilisateur introuvable !");
+				map.put(Routes.KEY_ERROR, "Utilisateur introuvable !");
 			}
 
 		} catch (Exception e) {
-			map.put(ERROR, Messages.get(e.getMessage()));
+			map.put(Routes.KEY_ERROR, Messages.get(e.getMessage()));
 		}
 	}
 

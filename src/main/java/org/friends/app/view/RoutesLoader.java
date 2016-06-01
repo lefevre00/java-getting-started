@@ -34,6 +34,7 @@ import org.friends.app.view.route.Routes;
 import org.friends.app.view.route.SearchRoute;
 import org.friends.app.view.route.SettingRoute;
 import org.friends.app.view.route.ShareRoute;
+import org.friends.app.view.route.UnregisterRoute;
 import org.friends.app.view.route.ValidTokenRoute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.GenericApplicationContext;
@@ -101,7 +102,7 @@ public class RoutesLoader {
 		get(Routes.LOGOUT, new AuthenticatedRoute() {
 			@Override
 			protected ModelAndView doHandle(Request request, Response response) {
-				removeAuthenticatedUser(request);
+				unauthenticatedUser(request);
 				response.removeCookie(Configuration.COOKIE);
 				return new ModelAndView(null, Templates.LOGOUT);
 			}
@@ -127,6 +128,7 @@ public class RoutesLoader {
 			map.put("message", "Veuillez suivre les indications qu'il comporte pour activer votre compte.");
 			return new ModelAndView(map, Templates.SEND_MAIL);
 		}, templateEngine);
+		get(Routes.UNREGISTER, context.getBean(UnregisterRoute.class), templateEngine);
 
 		/*
 		 * Forgot password
@@ -198,7 +200,7 @@ public class RoutesLoader {
 		return request.session().attribute("user");
 	}
 
-	private void removeAuthenticatedUser(Request request) {
+	private void unauthenticatedUser(Request request) {
 		request.session().removeAttribute("user");
 	}
 }

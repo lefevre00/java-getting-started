@@ -18,10 +18,6 @@ import spark.utils.StringUtils;
 @Component
 public class SettingRoute extends AuthenticatedRoute {
 
-	private static final String ERROR = "error";
-
-	private static final String INFO = "info";
-
 	private String INVALID_NUMBER = null;
 
 	@Autowired
@@ -41,7 +37,7 @@ public class SettingRoute extends AuthenticatedRoute {
 				try {
 					place = Integer.valueOf(placeParam);
 				} catch (NumberFormatException e) {
-					map.put(ERROR, Messages.get(INVALID_NUMBER));
+					map.put(Routes.KEY_ERROR, Messages.get(INVALID_NUMBER));
 					doUpdate = false;
 				}
 			}
@@ -52,12 +48,12 @@ public class SettingRoute extends AuthenticatedRoute {
 					user = userService.changePlace(user, place);
 					updated = true;
 				} catch (DataIntegrityException e) {
-					map.put(ERROR, Messages.get(e.getMessage()));
+					map.put(Routes.KEY_ERROR, Messages.get(e.getMessage()));
 				}
 
 				if (updated) {
 					request.session().attribute("user", user);
-					map.put(INFO, Messages.get("update.ok"));
+					map.put(Routes.KEY_INFO, Messages.get("update.ok"));
 				}
 			}
 		}

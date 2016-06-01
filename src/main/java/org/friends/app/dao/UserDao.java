@@ -72,7 +72,10 @@ public class UserDao {
 
 	public void delete(Integer id) {
 		User user = findById(id);
-		HibernateUtil.getSession().delete(user);
+		Session session = HibernateUtil.getSession();
+		session.beginTransaction();
+		session.delete(user);
+		session.getTransaction().commit();
 	}
 
 }

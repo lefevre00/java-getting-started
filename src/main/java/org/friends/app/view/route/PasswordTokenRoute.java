@@ -34,7 +34,7 @@ public class PasswordTokenRoute implements TemplateViewRoute {
 		String mdp = request.queryParams(FIELD_PASSWORD);
 
 		if (StringUtils.isEmpty(token)) {
-			map.put("error", "Jeton invalide, contrôler le lien fourni dans l'email.");
+			map.put(Routes.KEY_ERROR, "Jeton invalide, contrôler le lien fourni dans l'email.");
 			map.put(FIELD_EMAIL, email);
 		} else {
 			boolean result = userService.setPassword(email, token, mdp);
@@ -46,7 +46,7 @@ public class PasswordTokenRoute implements TemplateViewRoute {
 			} else {
 				map.put(FIELD_EMAIL, email);
 				map.put(FIELD_TOKEN, token);
-				map.put("error", "Vérifier l'adresse email fournie.");
+				map.put(Routes.KEY_ERROR, "Vérifier l'adresse email fournie.");
 			}
 		}
 		return new ModelAndView(map, template);
