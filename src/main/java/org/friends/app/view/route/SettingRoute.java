@@ -20,7 +20,6 @@ import spark.utils.StringUtils;
 public class SettingRoute extends AuthenticatedRoute {
 
 	private static final String ERROR = "error";
-
 	private static final String INFO = "info";
 
 	@Autowired
@@ -29,7 +28,9 @@ public class SettingRoute extends AuthenticatedRoute {
 	@Override
 	protected ModelAndView doHandle(Request request, Response response) {
 
-		Map<String, Object> map = Routes.getMap(request);
+		String messageKey = null;
+		String messageId = null;
+
 		User user = getUser(request);
 		if ("POST".equalsIgnoreCase(request.requestMethod())) {
 			boolean doUpdate = true;
@@ -40,7 +41,8 @@ public class SettingRoute extends AuthenticatedRoute {
 				try {
 					place = Integer.valueOf(placeParam);
 				} catch (NumberFormatException e) {
-					map.put(ERROR, Messages.get(PlaceService.INVALID_NUMBER));
+					messageKey = ERROR;
+					messageId = PlaceService.INVALID_NUMBER;
 					doUpdate = false;
 				}
 			}
@@ -51,19 +53,22 @@ public class SettingRoute extends AuthenticatedRoute {
 					user = userService.changePlace(user, place);
 					updated = true;
 				} catch (DataIntegrityException e) {
-					map.put(ERROR, Messages.get(e.getMessage()));
+					messageKey = ERROR;
+					messageId = e.getMessage();
 				}
 
 				if (updated) {
 					request.session().attribute("user", user);
-					map.put(INFO, Messages.get("update.ok"));
+					messageKey = INFO;
+					messageId = "update.ok";
 				}
 			}
 		}
 
-		if (user.getPlaceNumber() != null)
-			map.put("placeNumber", user.getPlaceNumber().toString());
-
+		Map<String, Object> map = Routes.getMap(request);
+		if (messageKey != null) {
+			map.put(messageKey, Messages.get(messageId));
+		}
 		return new ModelAndView(map, Templates.SETTING);
 	}
 }
