@@ -13,6 +13,10 @@ Tailles mobiles :
 
 @import url(https://fonts.googleapis.com/css?family=Varela+Round|Shadows+Into+Light|Roboto:400,500);
 
+.alertSpace{
+	padding-top: 60px;	
+}
+
 html, body {
     height: 100%;
     margin: 0; padding: 0;
