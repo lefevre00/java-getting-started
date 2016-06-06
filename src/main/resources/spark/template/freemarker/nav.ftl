@@ -54,31 +54,25 @@
 			</div>			
 		</div>
 	</nav>
-<div class="alertSpace">
-	<#if error??>
-	
-		<div class="alert alert-danger fade in">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<strong>Erreur : </strong>${error}
-		</div>
-	
-	</#if> 
-	
-	<#if info??>
-	
-		<div class="alert alert-info fade in">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<strong>Information : </strong>${info}
-		</div>
-	
-	</#if>
-	
-	<#if success??>
-	
-		<div class="alert alert-success fade in">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<strong>Succès : </strong>${success}
-		</div>
-	
-	</#if>
-</div>
+
+	<div class="alertSpace">
+		<#if error??>
+			<div class="alert alert-danger fade in">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong>Erreur : </strong>${error}
+			</div>
+		
+		</#if> 
+		<#if info??>
+			<div class="alert alert-info fade in">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong>Information : </strong>${info}
+			</div>
+		</#if>
+		<#if success??>
+			<div class="alert alert-success fade in">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong>Succès : </strong>${success}
+			</div>
+		</#if>
+	</div>
