@@ -38,7 +38,9 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 		// 2. Try to find user using cookie
 		boolean userFound = false;
 		String cookie = request.cookie(Configuration.COOKIE);
-		if (!StringUtils.isEmpty(cookie)) {
+
+		// Lors du refresh sur logout, userService == null
+		if (!StringUtils.isEmpty(cookie) && userService != null) {
 			user = userService.findUserByCookie(cookie);
 			if (user != null) {
 				request.session().attribute("user", user);
