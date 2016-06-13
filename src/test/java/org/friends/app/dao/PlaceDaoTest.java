@@ -131,4 +131,9 @@ public class PlaceDaoTest extends ParkingTest {
     	Assert.assertEquals("On attend 0 places libres apres demain", 0, lesPlacesLibresAujourdhui.size());
     }
  
+    @Test
+    public void statistics(){
+    	List<Place> listAllPlace = placeDao.findPlacesByCriterions(Restrictions.ge("id.occupationDate", strYearsteday), Restrictions.le("id.occupationDate", strApresDemain));
+    	Assert.assertEquals( "10 places ont été libérées en le " + strYearsteday + " et le " + strApresDemain, 10, listAllPlace.size());
+    }
 }

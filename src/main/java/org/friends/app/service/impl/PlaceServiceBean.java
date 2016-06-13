@@ -264,4 +264,12 @@ public class PlaceServiceBean implements PlaceService {
 				Restrictions.eq("id.occupationDate", day));
 		return hasNoReservation && placePartagee != null && !placePartagee.isFree();
 	}
+	
+	@Override
+	public List<Place> getAllPlaceBetweenTwoDates(String beginDate, String endDate) {
+		Assert.notNull(beginDate);
+		Assert.notNull(endDate);
+		return placedao.findPlacesByCriterions(Restrictions.ge("id.occupationDate", beginDate), Restrictions.le("id.occupationDate", endDate));
+		
+	}
 }
