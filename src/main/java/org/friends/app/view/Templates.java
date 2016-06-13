@@ -19,4 +19,5 @@ public interface Templates {
 	static final String BOOK = "book.ftl";
 	static final String SEARCH = "search.ftl";
 	static final String SHARE = "sharePlace.ftl";
+	static final String STATISTICS = "statistics.ftl";
 }

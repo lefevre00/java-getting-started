@@ -34,6 +34,7 @@ import org.friends.app.view.route.Routes;
 import org.friends.app.view.route.SearchRoute;
 import org.friends.app.view.route.SettingRoute;
 import org.friends.app.view.route.ShareRoute;
+import org.friends.app.view.route.StatisticsRoute;
 import org.friends.app.view.route.UnregisterRoute;
 import org.friends.app.view.route.ValidTokenRoute;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -162,6 +163,13 @@ public class RoutesLoader {
 		ShareRoute shareRoute = context.getBean(ShareRoute.class);
 		get(Routes.PLACE_SHARE, shareRoute, templateEngine);
 		post(Routes.PLACE_SHARE, shareRoute, templateEngine);
+		
+		/*
+		 * Statistics 
+		 */
+		StatisticsRoute statsRoute = context.getBean(StatisticsRoute.class);
+		get(Routes.PLACE_STATISTICS, statsRoute, templateEngine);
+		post(Routes.PLACE_STATISTICS, statsRoute, templateEngine);
 
 		/*
 		 * User settings
@@ -193,6 +201,7 @@ public class RoutesLoader {
 		after(Routes.RESERVATIONS, setCookieFilter);
 		before(Routes.PLACE_SEARCH, setCookieFilter);
 		before(Routes.PLACE_SHARE, setCookieFilter);
+		before(Routes.PLACE_STATISTICS, setCookieFilter);
 		before("/", setCookieFilter);
 	}
 

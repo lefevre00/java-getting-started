@@ -35,6 +35,12 @@ public interface Routes {
 				map.put("canShare", "true");
 				map.put("placeNumber", user.getPlaceNumber());
 			}
+			//TODO Mettre les login admin dans un fichier prperties
+			if("william.verdeil@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())
+					|| 	"abdel.tamditi@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())
+					|| 	"michael.lefevre@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())) {
+			    map.put("admin", "true");	
+			}
 		}
 
 		return map;
@@ -64,6 +70,7 @@ public interface Routes {
 	String LOGOUT = "/user/logout";
 	String PLACE_SEARCH = "/protected/search";
 	String PLACE_SHARE = "/protected/share";
+	String PLACE_STATISTICS = "/protected/statistics";
 	String PLACE_BOOK = "/protected/book/:date/:place_id";
 	String RESERVATIONS = "/protected/booked";
 	String SETTINGS = "/protected/setting";
