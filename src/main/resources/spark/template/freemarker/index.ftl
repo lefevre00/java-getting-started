@@ -29,12 +29,12 @@
 							<h1 style="color:#f69b0c;">Pour information</h1> 
 							<span style="color:#fff;">
 								<#if placesToday lte 1>
-									Il y a ${placesToday} place libre pour aujourd'hui
+									Il y a ${placesToday} place libre pour ${labelFirstDay}
 								<#else>
-									Il y a ${placesToday} places libres pour aujourd'hui
+									Il y a ${placesToday} places libres pour ${labelFirstDay}
 								</#if>
 								<#if placesDemain gt 0 >
-									<br>et ${placesDemain} pour demain.
+									<br>et ${placesDemain} pour ${labelSecondDay}.
 								</#if>
 							</span>
 						</span>

@@ -11,6 +11,7 @@ public class DateUtil {
 	private static final String SHORT_PATTERN_FR = "dd/MM/yyyy";
 	private static final String MEDIUM_PATTERN = "EE dd/MM/yyyy";
 	private static final String FULL_PATTERN = "EEEE dd/MM/yyyy";
+	private static final String DAYTEXT_PATTERN = "EEEE";
 
 	public static ZoneId EUROPE_PARIS  = ZoneId.of("Europe/Paris");
 
@@ -25,9 +26,15 @@ public class DateUtil {
 	public static String dateToString(LocalDate date) {
 		return dateToString(date, null);
 	}
+	
+
 
 	public static String dateToFullString(LocalDate date) {
 		return getFullFormatter().format(date);
+	}
+	
+	public static String dateToDayString(LocalDate date) {
+		return getDayFormatter().format(date);
 	}
 	
 	public static String dateToMediumString(LocalDate date) {
@@ -56,6 +63,10 @@ public class DateUtil {
 	
 	private static DateTimeFormatter getFullFormatter() {
 		return DateTimeFormatter.ofPattern(FULL_PATTERN).withLocale(Locale.FRANCE);
+	}
+	
+	private static DateTimeFormatter getDayFormatter() {
+		return DateTimeFormatter.ofPattern(DAYTEXT_PATTERN).withLocale(Locale.FRANCE);
 	}
 	
 	private static DateTimeFormatter getMediumFormatter() {

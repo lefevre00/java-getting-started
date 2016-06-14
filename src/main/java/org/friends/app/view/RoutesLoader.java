@@ -10,8 +10,10 @@ import static spark.Spark.post;
 import static spark.Spark.staticFileLocation;
 
 import java.security.AccessControlException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.friends.app.Configuration;
@@ -89,11 +91,15 @@ public class RoutesLoader {
 
 		get(Routes.DEFAULT, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
-			LocalDate now = DateUtil.now();
+			LocalDate now = dateService.getWorkingDay();
 			List<Place> placesLibresToday = placeService.getAvailablesAtDate(now);
 			List<Place> placesLibresDemain = placeService.getAvailablesAtDate(dateService.getNextWorkingDay(now));
 			map.put("placesToday", placesLibresToday.size());
+			map.put("labelFirstDay", DateUtil.dateToDayString(now));
 			map.put("placesDemain", placesLibresDemain.size());
+			map.put("labelSecondDay", DateUtil.dateToDayString(dateService.getNextWorkingDay(now)));
+			
+			
 			return new ModelAndView(map, Templates.INDEX);
 		}, templateEngine);
 
