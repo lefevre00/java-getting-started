@@ -20,4 +20,6 @@ public interface Templates {
 	static final String SEARCH = "search.ftl";
 	static final String SHARE = "sharePlace.ftl";
 	static final String STATISTICS = "statistics.ftl";
+	
+	static final String ADMIN_PAGE = "adminPage.ftl";
 }

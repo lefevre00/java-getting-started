@@ -50,7 +50,7 @@
 						<a href="/#contact" class="hidden-xs">CONTACT</a>
 						<a href="/#contact" class="visible-xs" data-toggle="collapse" data-target=".navbar-collapse">CONTACT</a>
 					</li>
-					<#if mail??>
+					<#if mail?? || admin??>
 						<li><a href="/user/logout">DÉCONNEXION</a></li>
 					</#if>					
 				</ul>

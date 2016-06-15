@@ -1,6 +1,10 @@
 package org.friends.app.view.route;
 
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import org.friends.app.Messages;
@@ -25,6 +29,9 @@ public class LoginRoute implements TemplateViewRoute {
 
 	private static final String KEY_EMAIL = "email";
 
+	private static final String APPLICATION_PROPERTIES = "application.properties";
+	static Properties properties;
+	
 	@Autowired
 	private UserService userService;
 
@@ -47,6 +54,25 @@ public class LoginRoute implements TemplateViewRoute {
 		String email = request.queryParams("email");
 		String pwd = request.queryParams("pwd");
 
+		/*
+		 * is Admin connected
+		 */
+		Properties tmp = new Properties();
+		try {
+			tmp.load(LoginRoute.class.getResourceAsStream(APPLICATION_PROPERTIES));
+		} catch (IOException e) {
+			System.out.println("erreur lecture application.properties");
+		}
+		properties = tmp;		
+		
+		if ((getEncryptedMD5Password(properties.getProperty("admin.password"))).equals(pwd)){
+			map.put("admin", "true");
+			map.put(KEY_EMAIL, email);
+			User adminUser = new User();
+			request.session().attribute("user", adminUser);
+			response.redirect(Routes.ADMIN_INDEX);
+		}		
+		
 		// En cas d'erreur
 		map.put(KEY_EMAIL, email);
 
@@ -70,4 +96,22 @@ public class LoginRoute implements TemplateViewRoute {
 	private void addAuthenticatedUser(Request request, User user) {
 		request.session().attribute("user", user);
 	}
+	
+	private String getEncryptedMD5Password(String pass) {
+		StringBuffer sb = new StringBuffer();
+    	try{
+	        MessageDigest md = MessageDigest.getInstance("MD5");
+	        md.update(pass.getBytes());
+	        
+	        byte byteData[] = md.digest();
+	 
+	        //convert the byte to hex format method 1
+	        for (int i = 0; i < byteData.length; i++) {
+	        	sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+	        }
+	    } catch (NoSuchAlgorithmException ex) {
+
+	    }
+	     return sb.toString();
+	}	
 }

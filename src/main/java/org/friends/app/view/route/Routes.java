@@ -75,6 +75,8 @@ public interface Routes {
 	String RESERVATIONS = "/protected/booked";
 	String SETTINGS = "/protected/setting";
 	String UNREGISTER = "/protected/unregister";
+	
+	String ADMIN_INDEX = "/protected/adminPage";
 
 	/*
 	 * Model map key

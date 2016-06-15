@@ -10,10 +10,8 @@ import static spark.Spark.post;
 import static spark.Spark.staticFileLocation;
 
 import java.security.AccessControlException;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.friends.app.Configuration;
@@ -82,6 +80,15 @@ public class RoutesLoader {
 
 		FreeMarkerEngine templateEngine = new FreeMarkerEngine();
 
+		/*
+		 * Admin Section
+		 */
+		get(Routes.ADMIN_INDEX, (req, res) -> {
+			Map<String, Object> map = Routes.getMap(req);
+			map.put("admin", true);
+			return new ModelAndView(map, Templates.ADMIN_PAGE);
+		}, templateEngine);		
+		
 		/*
 		 * User login
 		 */
