@@ -24,7 +24,7 @@
                             <hr>
                             <small>Visualisez la liste de tous les utilisateurs de l'application.</small>
                             <br/><br/>
-                            <a href="usersList.html" class="btn btn-primary tailleText">Visualiser</a>	
+                            <a href="/protected/usersList" class="btn btn-primary tailleText">Visualiser</a>	
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                             <hr>
                             <small>Vous pouvez consulter vos historiques d'utilisations et de partage.<br/></small>
                             <br/>
-                            <a href="acountStats.html" class="btn btn-primary tailleText">Visualiser</a>	                            
+                            <a href="/protected/statistics" class="btn btn-primary tailleText">Visualiser</a>	                            
                         </div>
                     </div> 
                 </div>

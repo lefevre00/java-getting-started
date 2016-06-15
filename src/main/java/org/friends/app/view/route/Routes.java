@@ -30,16 +30,22 @@ public interface Routes {
 
 		User user = request.session().attribute("user");
 		if (user != null) {
-			map.put("mail", user.getEmailAMDM());
+//			map.put("mail", user.getEmailAMDM());
 			if (user.getPlaceNumber() != null) {
 				map.put("canShare", "true");
 				map.put("placeNumber", user.getPlaceNumber());
 			}
 			//TODO Mettre les login admin dans un fichier prperties
-			if("william.verdeil@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())
-					|| 	"abdel.tamditi@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())
-					|| 	"michael.lefevre@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())) {
-			    map.put("admin", "true");	
+//			if("william.verdeil@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())
+//					|| 	"abdel.tamditi@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())
+//					|| 	"michael.lefevre@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())) {
+//			    map.put("admin", "true");
+//			}
+			if("admin.ecoparking@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())) {
+			    map.put("admin", "true");
+			}			
+			if (!"true".equalsIgnoreCase((String) map.get("admin"))) {
+				map.put("mail", user.getEmailAMDM());
 			}
 		}
 

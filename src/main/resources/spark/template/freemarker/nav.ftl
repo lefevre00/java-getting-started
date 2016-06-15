@@ -34,9 +34,9 @@
 									<li><a href="/protected/share">PARTAGE</a></li>
 								</#if>
 								<li><a href="/protected/booked">RÉSERVATIONS</a></li>
-								<#if admin??>
-									<li><a href="/protected/statistics">STATS</a></li>
-								</#if>
+								<!--#if admin??-->
+									<!--li><a href="/protected/statistics">STATS</a></li-->
+								<!--/#if-->
 								<li role="separator" class="divider"></li>
 								<li><a href="/protected/setting">PARAMÈTRES</a></li>
 							</ul>

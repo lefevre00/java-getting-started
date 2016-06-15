@@ -85,7 +85,6 @@ public class RoutesLoader {
 		 */
 		get(Routes.ADMIN_INDEX, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
-			map.put("admin", true);
 			return new ModelAndView(map, Templates.ADMIN_PAGE);
 		}, templateEngine);		
 		

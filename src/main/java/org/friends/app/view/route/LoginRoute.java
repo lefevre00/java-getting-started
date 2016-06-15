@@ -67,14 +67,15 @@ public class LoginRoute implements TemplateViewRoute {
 		
 		if ((getEncryptedMD5Password(properties.getProperty("admin.password"))).equals(pwd)){
 			map.put("admin", "true");
-			map.put(KEY_EMAIL, email);
-			User adminUser = new User();
+			User adminUser = new User(email, pwd);
 			request.session().attribute("user", adminUser);
 			response.redirect(Routes.ADMIN_INDEX);
 		}		
 		
 		// En cas d'erreur
-		map.put(KEY_EMAIL, email);
+		if (!"true".equalsIgnoreCase((String) map.get("admin"))) {
+			map.put(KEY_EMAIL, email);
+		}
 
 		User user = null;
 		try {
