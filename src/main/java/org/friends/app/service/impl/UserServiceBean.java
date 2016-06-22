@@ -123,7 +123,6 @@ public class UserServiceBean implements UserService {
 
 	@Override
 	public User changePlace(User user, Integer place) throws DataIntegrityException {
-		Assert.notNull(place);
 		Assert.notNull(user);
 		Assert.notNull(user.getId()); // User must already have an id
 
@@ -133,7 +132,7 @@ public class UserServiceBean implements UserService {
 		if (userInDb == null)
 			throw new DataIntegrityException(USER_UNKNOWN);
 
-		if (!place.equals(userInDb.getPlaceNumber())) {
+		if (place != null && !place.equals(userInDb.getPlaceNumber())) {
 			User userWithPlace = userDao.findUserByCriterions(Restrictions.eq("placeNumber", place));
 			if (userWithPlace != null) {
 				throw new DataIntegrityException(PLACE_ALREADY_USED);

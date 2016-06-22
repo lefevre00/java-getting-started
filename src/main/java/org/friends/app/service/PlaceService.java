@@ -55,9 +55,10 @@ public interface PlaceService {
 	public Place isPlaceShared(Integer placeNumber, String dateToString);
 
 	public Place getBookedPlaceByUserAtDate(User user, LocalDate dateRecherche);
-	
+
 	/**
 	 * Get all places, between two dates
+	 * 
 	 * @param beginDate
 	 * @param endDate
 	 * @return
