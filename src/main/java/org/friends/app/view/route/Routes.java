@@ -30,20 +30,22 @@ public interface Routes {
 
 		User user = request.session().attribute("user");
 		if (user != null) {
-//			map.put("mail", user.getEmailAMDM());
+			// map.put("mail", user.getEmailAMDM());
 			if (user.getPlaceNumber() != null) {
 				map.put("canShare", "true");
 				map.put("placeNumber", user.getPlaceNumber());
 			}
-			//TODO Mettre les login admin dans un fichier prperties
-//			if("william.verdeil@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())
-//					|| 	"abdel.tamditi@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())
-//					|| 	"michael.lefevre@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())) {
-//			    map.put("admin", "true");
-//			}
-			if("admin.ecoparking@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())) {
-			    map.put("admin", "true");
-			}			
+			// TODO Mettre les login admin dans un fichier prperties
+			// if("william.verdeil@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())
+			// || "abdel.tamditi@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())
+			// ||
+			// "michael.lefevre@amdm.fr".equalsIgnoreCase(user.getEmailAMDM()))
+			// {
+			// map.put("admin", "true");
+			// }
+			if ("admin.ecoparking@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())) {
+				map.put("admin", "true");
+			}
 			if (!"true".equalsIgnoreCase((String) map.get("admin"))) {
 				map.put("mail", user.getEmailAMDM());
 			}
@@ -81,7 +83,9 @@ public interface Routes {
 	String RESERVATIONS = "/protected/booked";
 	String SETTINGS = "/protected/setting";
 	String UNREGISTER = "/protected/unregister";
-	
+	String HISTORY = "/protected/history";
+	String PASSWORD_CHANGE = "/protected/ch_pwd";
+	String PERSONAL = "/protected/personal";
 	String ADMIN_INDEX = "/protected/adminPage";
 
 	/*
@@ -90,4 +94,5 @@ public interface Routes {
 	String KEY_ERROR = "error";
 	String KEY_INFO = "info";
 	String KEY_SUCCESS = "success";
+
 }

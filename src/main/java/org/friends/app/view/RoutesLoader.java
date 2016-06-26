@@ -86,8 +86,8 @@ public class RoutesLoader {
 		get(Routes.ADMIN_INDEX, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
 			return new ModelAndView(map, Templates.ADMIN_PAGE);
-		}, templateEngine);		
-		
+		}, templateEngine);
+
 		/*
 		 * User login
 		 */
@@ -104,8 +104,7 @@ public class RoutesLoader {
 			map.put("labelFirstDay", DateUtil.dateToDayString(now));
 			map.put("placesDemain", placesLibresDemain.size());
 			map.put("labelSecondDay", DateUtil.dateToDayString(dateService.getNextWorkingDay(now)));
-			
-			
+
 			return new ModelAndView(map, Templates.INDEX);
 		}, templateEngine);
 
@@ -175,9 +174,11 @@ public class RoutesLoader {
 		ShareRoute shareRoute = context.getBean(ShareRoute.class);
 		get(Routes.PLACE_SHARE, shareRoute, templateEngine);
 		post(Routes.PLACE_SHARE, shareRoute, templateEngine);
-		
+		get(Routes.PLACE_BOOK, context.getBean(BookRoute.class), templateEngine);
+		get(Routes.RESERVATIONS, context.getBean(BookedRoute.class), templateEngine);
+
 		/*
-		 * Statistics 
+		 * Statistics
 		 */
 		StatisticsRoute statsRoute = context.getBean(StatisticsRoute.class);
 		get(Routes.PLACE_STATISTICS, statsRoute, templateEngine);
@@ -189,6 +190,21 @@ public class RoutesLoader {
 		SettingRoute setting = context.getBean(SettingRoute.class);
 		get(Routes.SETTINGS, setting, templateEngine);
 		post(Routes.SETTINGS, setting, templateEngine);
+		get(Routes.HISTORY, (req, res) -> {
+			Map<String, Object> map = Routes.getMap(req);
+			map.put("message", "Page en cours de réalisation");
+			return new ModelAndView(map, Templates.ERROR);
+		}, templateEngine);
+		get(Routes.PASSWORD_CHANGE, (req, res) -> {
+			Map<String, Object> map = Routes.getMap(req);
+			map.put("message", "Page en cours de réalisation");
+			return new ModelAndView(map, Templates.ERROR);
+		}, templateEngine);
+		get(Routes.PERSONAL, (req, res) -> {
+			Map<String, Object> map = Routes.getMap(req);
+			map.put("message", "Page en cours de réalisation");
+			return new ModelAndView(map, Templates.ERROR);
+		}, templateEngine);
 
 		/*
 		 * User Contact
