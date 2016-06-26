@@ -19,19 +19,19 @@ public class SessionDao {
 		sessionHibernate.beginTransaction();
 		Serializable id = sessionHibernate.save(session);
 		sessionHibernate.getTransaction().commit();
-		return (Session) sessionHibernate.get(Session.class, id);
+		return sessionHibernate.get(Session.class, id);
 	}
 
 	public void deleteExpired() {
 		Date now = Calendar.getInstance().getTime();
 		org.hibernate.Session sessionHibernate = HibernateUtil.getSession();
 		sessionHibernate.beginTransaction();
-		sessionHibernate.getNamedQuery(Session.DELETE_EXPIRED).setDate("date", now).executeUpdate();
+		sessionHibernate.getNamedQuery(Session.DELETE_EXPIRED).setParameter("date", now).executeUpdate();
 		sessionHibernate.getTransaction().commit();
 	}
 
 	public Session findByCookie(String cookie) {
 		return (Session) HibernateUtil.getSession().getNamedQuery(Session.QUERY_FIND_BY_COOKIE)
-				.setString("cookie", cookie).uniqueResult();
+				.setParameter("cookie", cookie).getSingleResult();
 	}
 }
