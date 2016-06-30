@@ -9,6 +9,7 @@ import org.friends.app.model.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -58,6 +59,7 @@ public class UserDao {
 		for (int i = 0; i < criterions.length; i++) {
 			criteria.add(criterions[i]);
 		}
+		criteria.addOrder(Order.asc("emailAMDM"));
 
 		return criteria.list();
 	}

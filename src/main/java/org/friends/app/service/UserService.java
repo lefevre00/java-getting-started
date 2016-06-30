@@ -1,5 +1,7 @@
 package org.friends.app.service;
 
+import java.util.List;
+
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
 import org.omg.CORBA.UnknownUserException;
@@ -48,4 +50,6 @@ public interface UserService {
 	public void delete(User user) throws UnknownUserException, DataIntegrityException;
 
 	public void resetPassword(String email, String appUrl) throws Exception;
+
+	public List<User> getAllUser();
 }

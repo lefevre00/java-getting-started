@@ -227,4 +227,9 @@ public class UserServiceBean implements UserService {
 		// Finaly delete user
 		userDao.delete(userDb.getId());
 	}
+
+	@Override
+	public List<User> getAllUser() {
+		return userDao.findAllUserByCriterions(Restrictions.isNotNull("id"));
+	}
 }

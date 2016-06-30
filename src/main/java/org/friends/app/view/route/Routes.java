@@ -87,6 +87,7 @@ public interface Routes {
 	String PASSWORD_CHANGE = "/protected/ch_pwd";
 	String PERSONAL = "/protected/personal";
 	String ADMIN_INDEX = "/protected/adminPage";
+	String USERLIST = "/protected/usersList";
 
 	/*
 	 * Model map key

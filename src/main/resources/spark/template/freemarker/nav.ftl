@@ -34,14 +34,14 @@
 									<li><a href="/protected/share">PARTAGE</a></li>
 								</#if>
 								<li><a href="/protected/booked">RÉSERVATIONS</a></li>
-								<!--#if admin??-->
-									<!--li><a href="/protected/statistics">STATS</a></li-->
-								<!--/#if-->
 								<li role="separator" class="divider"></li>
 								<li><a href="/protected/setting">PARAMÈTRES</a></li>
 							</ul>
 						</li>
-					</#if>					
+					</#if>			
+					<#if admin??>
+						<li><a href="/protected/adminPage">ADMIN</a></li>
+					</#if>	
 					<li>
 						<a href="/#aide" class="hidden-xs">AIDE</a>
 						<a href="/#aide" class="visible-xs" data-toggle="collapse" data-target=".navbar-collapse">AIDE</a>
@@ -50,6 +50,7 @@
 						<a href="/#contact" class="hidden-xs">CONTACT</a>
 						<a href="/#contact" class="visible-xs" data-toggle="collapse" data-target=".navbar-collapse">CONTACT</a>
 					</li>
+					
 					<#if mail?? || admin??>
 						<li><a href="/user/logout">DÉCONNEXION</a></li>
 					</#if>					

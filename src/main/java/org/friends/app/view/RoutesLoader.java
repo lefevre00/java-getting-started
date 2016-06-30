@@ -36,6 +36,7 @@ import org.friends.app.view.route.SettingRoute;
 import org.friends.app.view.route.ShareRoute;
 import org.friends.app.view.route.StatisticsRoute;
 import org.friends.app.view.route.UnregisterRoute;
+import org.friends.app.view.route.UserListRoute;
 import org.friends.app.view.route.ValidTokenRoute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.GenericApplicationContext;
@@ -183,6 +184,10 @@ public class RoutesLoader {
 		StatisticsRoute statsRoute = context.getBean(StatisticsRoute.class);
 		get(Routes.PLACE_STATISTICS, statsRoute, templateEngine);
 		post(Routes.PLACE_STATISTICS, statsRoute, templateEngine);
+		
+		UserListRoute userListRoute = context.getBean(UserListRoute.class);
+		get(Routes.USERLIST, userListRoute, templateEngine);
+		post(Routes.USERLIST, userListRoute, templateEngine);
 
 		/*
 		 * User settings
