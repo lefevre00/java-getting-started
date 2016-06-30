@@ -32,17 +32,7 @@ public class UserDaoTest extends ParkingTest {
 	}
 
 	@Before
-	public void createDatabase() {
-		init();
-	}
-
-	@After
-	public void clearDataBase() {
-		userDao.clearAllUsers();
-	}
-
-	private void init() {
-
+	public void beforeTestMethod() {
 		userDao = new UserDao();
 		userDao.persist(new User(EMAIL_ABDEL, "at", 133));
 		userDao.persist(new User("william.verdeil@amdm.fr", "wv", 141));
@@ -53,6 +43,11 @@ public class UserDaoTest extends ParkingTest {
 		User jpc = new User("jean-pierre.cluzel@amdm.fr", "jpc");
 		jpc.setTokenPwd("passjpc");
 		userDao.persist(jpc);
+	}
+
+	@After
+	public void clearDataBase() {
+		userDao.clearAllUsers();
 	}
 
 	@Test

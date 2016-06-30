@@ -8,7 +8,10 @@ import org.friends.app.HibernateUtil;
 import org.friends.app.ParkingTest;
 import org.friends.app.model.Place;
 import org.friends.app.util.DateUtil;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -30,13 +33,26 @@ public class PlaceDaoTest extends ParkingTest {
 		HibernateUtil.getSession();
 	}
 
-	@Before
-	public void createDatabase() {
-		placeDao = new PlaceDao();
-		initDb();
+	@AfterClass
+	public static void afterClass() {
+		HibernateUtil.closeSession();
 	}
 
-	private void initDb() {
+	@After
+	public void after() {
+		List<Place> l = placeDao.findPlacesByCriterions(Restrictions.isNotNull("id.occupationDate"));
+		l.stream().forEach(p -> {
+			placeDao.delete(p.getOccupationDate(), p.getPlaceNumber());
+		});
+
+		Transaction t = HibernateUtil.getSession().getTransaction();
+		if (t.isActive())
+			t.rollback();
+	}
+
+	@Before
+	public void beforeTestMethod() {
+		placeDao = new PlaceDao();
 		placeDao.persist(new Place(new Integer(3), MAIL_RESERVANT, strTomorrow));
 		placeDao.persist(new Place(new Integer(1), strDateToday)); // Place
 																	// libre
@@ -107,7 +123,7 @@ public class PlaceDaoTest extends ParkingTest {
 	}
 
 	@Test
-	public void unePlaceNEstLibreAujourdhui() {
+	public void la_place_200_ne_doit_pas_etre_libre_aujourdhui() {
 		List<Place> listPlaceReserve = placeDao.findPlacesByCriterions(
 				Restrictions.eq("id.occupationDate", strDateToday), Restrictions.eq("id.placeNumber", new Integer(200)),
 				Restrictions.isNull("usedBy"));
