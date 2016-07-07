@@ -115,7 +115,7 @@ CONTENT
 	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
 }
 
-.email-icon, .pass-icon , .place-icon, .name-icon, .phone-icon {
+.email-icon, .pass-icon , .place-icon, .phone-icon {
 	width: 46px;
 	height: 47px;
 	display: block;
@@ -181,25 +181,18 @@ CONTENT
 	top:290px;
 }
 
-.name-icon { 
-	background: rgba(65,72,72,0.75) url(../images/name_icon.png) no-repeat center;	
-}
-.nameEdit {
-	top:125px; 
-}
-
 .emailEdit {
-	top:195px; 
+	top:125px; 
 }
 
 .phone-icon { 
 	background: rgba(65,72,72,0.75) url(../images/phone_icon.png) no-repeat center;	
 }
 .phoneEdit {
-	top:270px; 
+	top:195px; 
 }
 .placeEdit {
-	top:320px; 
+	top:245px; 
 }
 
 .content input:focus + div{
@@ -208,7 +201,7 @@ CONTENT
 
 
 /* Animation */
-.input, .email-icon, .pass-icon, .place-icon, .login, .register, .name-icon, .phone-icon {
+.input, .email-icon, .pass-icon, .place-icon, .login, .register, .phone-icon {
 	transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
 	-webkit-transition: all 0.5s ease;

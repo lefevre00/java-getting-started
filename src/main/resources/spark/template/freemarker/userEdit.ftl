@@ -28,12 +28,9 @@
 
 				<div class="content">
 
-			        <input class="input" name="nom" type="text" placeholder="Prénom & Nom"  value="" required/>	     
-					<div class="name-icon nameEdit"></div>
-					
-			        <input class="input password" name="email" type="email" placeholder="Adresse email"  value="${user.emailAMDM}" required/>	     
+			        <input class="input" name="email" type="email" placeholder="Adresse email"  value="${user.emailAMDM}" required/>	     
 					<div class="email-icon emailEdit"></div>
-
+					
 			        <input class="input password" name="mobile" type="text" placeholder="Numéro du mobile"  value="" required/>	     
 					<div class="phone-icon phoneEdit"></div>
 					
