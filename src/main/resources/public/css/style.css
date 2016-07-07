@@ -286,6 +286,9 @@ only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 	border-radius: 10px;
 	padding: 20px;
 }
+.linkClass {
+    color: #f69b0c;
+}   
 .content-section {
 	padding-top: 110px;
 	padding-bottom: 160px;

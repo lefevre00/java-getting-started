@@ -20,9 +20,9 @@
                     <div class="panel panel-default" >
                         <div class="panel-heading ">- Liste utilisateurs - </div>
                         <div class="panel-body">            
-                            Récupérer la liste des utilisateurs en cliquant <a href="">ici</a> <br/>(fichier au format CSV)<br/>
+                            Récupérer la liste des utilisateurs au format CSV <br>en cliquant <a href="" class="linkClass">ici</a> <br/>
                             <hr>
-                            <small>Visualisez la liste de tous les utilisateurs de l'application.</small>
+                            <small>Visualisez la liste des utilisateurs de l'application.</small>
                             <br/><br/>
                             <a href="/protected/usersList" class="btn btn-primary tailleText">Visualiser</a>	
                         </div>
@@ -32,8 +32,8 @@
                     <div class="panel panel-default" >
                         <div class="panel-heading">- Statistiques d'utilisation - </div>
                         <div class="panel-body">
-							historiques de connexions<br>
-                            historiques de réservation & partage
+							historiques de partage<br>
+                            historiques de réservation
 							<br>
                             <hr>
                             <small>Vous pouvez consulter vos historiques d'utilisations et de partage.<br/></small>
