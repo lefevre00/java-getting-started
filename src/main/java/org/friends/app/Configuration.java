@@ -17,6 +17,10 @@ public class Configuration {
 	public final static String DEPLOY_MODE = "PARKING_MODE";
 	public final static String MAIL_ENABLE = "MAIL_ENABLE";
 	
+	public final static String COOKIE = "takemyplace";
+	public final static int COOKIE_DURATION = 86400 ; // One day
+	public static final String EMAIL_CONTACT = "contact@takemaplace.fr";	
+	
 	public static String getMailServiceLogin() {
 		return System.getenv("SENDGRID_USERNAME");
 	}
@@ -56,11 +60,6 @@ public class Configuration {
 			return value;
 		return System.getProperty(propertyName, defaultValue);
 	}
-
-	public final static String COOKIE = "takemyplace";
-	public final static int COOKIE_DURATION = 86400 ; // One day
-	public static final String EMAIL_CONTACT = "contact@takemaplace.fr";
-
 
 	public static String databaseUrl() {
 		return development() ? H2Dialect.class.getName() : PostgreSQL92Dialect.class.getName();

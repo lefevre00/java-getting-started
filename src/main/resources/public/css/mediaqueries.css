@@ -71,7 +71,9 @@ only screen and (max-device-width : 350px) {
 		top:290px;
 	}
 
-
+	.nameEdit {
+		top:125px; 
+	}	
 	
 	
 

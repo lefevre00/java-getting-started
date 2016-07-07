@@ -17,7 +17,7 @@ import com.sendgrid.SendGridException;
 public class MailServiceBean implements MailService {
 
 	private static final String MAIL_BONJOUR = "Bonjour\n\n";
-	private static final String MAIL_SIGNATURE = "\n\nCordialement,\nL'équipe TakeMyPlace.";
+	private static final String MAIL_SIGNATURE = "\n\nCordialement,\nL'équipe EcoParking.";
 
 	private void sendMail(SendGrid.Email email) {
 		String value = Configuration.get(Configuration.MAIL_ENABLE, "false");
@@ -51,7 +51,7 @@ public class MailServiceBean implements MailService {
 	public void sendWelcome(User user, String applicationUrl) {
 		SendGrid.Email email = new SendGrid.Email();
 		email.addTo(user.getEmailAMDM());
-		email.setSubject("Bienvenue @ TakeMyPlace");
+		email.setSubject("Bienvenue @ EcoParking");
 		StringBuilder sb = new StringBuilder();
 		sb.append(MAIL_BONJOUR).append("Vous venez de vous enregistrer sur le site de partage du parking Mezzo.\n")
 				.append("Afin de finaliser votre inscription, vous devez vous rendre à l'adresse indiquée ci-dessous pour valider votre email.\n")
@@ -66,7 +66,7 @@ public class MailServiceBean implements MailService {
 	public void sendLostPassword(User user, String applicationUrl) {
 		SendGrid.Email email = new SendGrid.Email();
 		email.addTo(user.getEmailAMDM());
-		email.setSubject("TakeMyPlace, problème de connexion");
+		email.setSubject("EcoParking, problème de connexion");
 		StringBuilder sb = new StringBuilder();
 		sb.append(MAIL_BONJOUR).append("Vous venez de demander la modification de votre mot de passe.\n")
 				.append("Pour cela, nous vous invitons à vous rendre à l'adresse ci-dessous pour définir votre nouveau mot de passe.\n")

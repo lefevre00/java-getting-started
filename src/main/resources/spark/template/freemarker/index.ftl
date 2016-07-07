@@ -65,9 +65,22 @@
 	<section id="aide" class="parallax-section">
 		<div class="container">
 			<div class="row">	
-				<div class="col-md-offset-2 col-md-8 col-sm-12 text-center">
+				<div class="col-md-offset-1 col-md-10 col-sm-12 text-center">
+					<h1>Pourquoi partager ?</h1>
+					<hr>
+					<div style="text-align:justify;">
+					Depuis quelques années, l'économie de partage a pu se répandre rapidement car elle apporte une réponse à un besoin de la société, pour plein de raisons. Elle est devenue le visage de la consommation de demain par la réutilisation ou la mutualisation de toute sorte d'objets, de service etc : C'est un échange <strong>gagnant-gagnant</strong> !<br><br>
+					L'optimisation des places de parking par le partage suit cette mouvance de la nouvelle consommation. Elle est fortement lié à la volonté de celles et ceux qui sont prêts à jouer le jeu en mettant à disposition leurs places lorqu'elles sont inoccupées, <strong>rendant ainsi un service à un collègue !</strong> <br><br>
+					</div>
+					
 					<h1 class="heading">COMMENT ÇA MARCHE ?</h1>
-					<hr>				
+					<hr>
+					<div style="text-align:justify;">
+					Vous devez commencer par vous inscrire en créant votre compte (utilisation de l'adresse email de la Mutuelle des Motards). Un email vous sera envoyé pour l'activation du compte. <br><br>
+					Si vous êtes <strong>titulaire d'une place de parking</strong>, il vous suffit alors de vous connecter et de libérer votre place pour le(s) jour(s) de votre absence.<br> 
+					Pour les <strong>demandeurs</strong>, une fois connecté, vous êtes redirigé automatiquement vers la page de réservation qui vous propose d'effectuer une réservation pour 2 jours, si des places sont disponibles. En l'absence de places de parking, les deux boutons sont désactivés !<br><br>
+					<strong>Alors chers/chères collègues, mutualisons nos places de parking.</strong><br><br> 
+					</div>
 					<h3>Vous n'avez pas encore créé votre compte</h3>
 					Rendez-vous <a href="/user/new" style="color:black">ICI</a>.<br/>
 				</div>
@@ -79,8 +92,9 @@
 					<h4><i>Pour libérer votre place en votre absence</i></h4>
 					<div style="text-align:justify;">
 						<ol type="1">
-							<li>Cliquez dans le menu <strong><a href="/protected/share" style="color:black">ACTIONS&nbsp;>>&nbsp;PARTAGE</a></strong> en haut de la page.</li>
-							<li>Dans le calendrier, renseignez le jour ou la période de votre absence, pour partager votre place.</li>
+							<li>Cliquez dans le menu <strong><a href="/protected/share" style="color:black">ACTIONS&nbsp;>>&nbsp;PARTAGE</a></strong> en haut de la page. Deux possibilités s'offrent à vous :</li>
+							<li>Une libération rapide : permet de libérer la place pour les deux jours successifs</li>  
+							<li>Une libération par période : dans le calendrier, renseignez le jour ou la période de votre absence, pour partager votre place.</li>
 						</ol>
 					</div>
 					<hr>

@@ -30,12 +30,12 @@
                         <div class="panel-heading ">- Informations personnelles - </div>
                         <div class="panel-body">
                             Email : abdel-ilah.tamditi@amdm.fr<br/>
-                            Numéro de place attribuér : 133
+                            Numéro de place attribuée : 133
                             <br>
                             <hr>
                             <small>ici, vous avez la possibilité de modifier votre adresse email et/ou votre numéro de place.</small>
                             <br/><br/>
-                            <a href="/protected/personal" class="btn btn-primary tailleText">Modifier</a>	
+                            <a href="/protected/userEdit/${user.emailAMDM}" class="btn btn-primary tailleText">Modifier</a> 		
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                         <div class="panel-body">
                             historiques de réservation<br>
                             historiques de partage.
-                            <br><br>
+                            <br>
                             <hr>
                             <small>Vous avez la possibilité de consulter l'historique de votre activité de partage et/ou de réservation.</small>
                             <br><br>

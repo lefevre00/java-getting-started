@@ -15,7 +15,7 @@
 <body>
   
 	<!--======================================== Section navigation ====================================-->
-	<#include "nav.ftl">
+	<#include "navAdmin.ftl">
 
 		
     <section class="content-section">

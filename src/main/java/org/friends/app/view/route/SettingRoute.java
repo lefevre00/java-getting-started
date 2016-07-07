@@ -65,6 +65,7 @@ public class SettingRoute extends AuthenticatedRoute {
 		}
 
 		Map<String, Object> map = Routes.getMap(request);
+		map.put("user", user);
 		if (messageKey != null) {
 			map.put(messageKey, Messages.get(messageId));
 		}

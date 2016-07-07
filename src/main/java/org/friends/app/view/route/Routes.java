@@ -1,7 +1,9 @@
 package org.friends.app.view.route;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.friends.app.model.User;
 
@@ -9,6 +11,8 @@ import spark.Request;
 import spark.Response;
 
 public interface Routes {
+	
+	static final String APPLICATION_PROPERTIES = "application.properties";
 
 	public static void redirect(User user, Response response) {
 		String dest = RESERVATIONS;
@@ -16,6 +20,8 @@ public interface Routes {
 			dest = Routes.LOGIN;
 		else if (user.getPlaceNumber() != null)
 			dest = PLACE_SHARE;
+		else
+			dest= ADMIN_INDEX;
 		response.redirect(dest);
 	}
 
@@ -30,24 +36,23 @@ public interface Routes {
 
 		User user = request.session().attribute("user");
 		if (user != null) {
-			// map.put("mail", user.getEmailAMDM());
+			map.put("mail", user.getEmailAMDM());
 			if (user.getPlaceNumber() != null) {
 				map.put("canShare", "true");
 				map.put("placeNumber", user.getPlaceNumber());
 			}
-			// TODO Mettre les login admin dans un fichier prperties
-			// if("william.verdeil@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())
-			// || "abdel.tamditi@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())
-			// ||
-			// "michael.lefevre@amdm.fr".equalsIgnoreCase(user.getEmailAMDM()))
-			// {
-			// map.put("admin", "true");
-			// }
-			if ("admin.ecoparking@amdm.fr".equalsIgnoreCase(user.getEmailAMDM())) {
-				map.put("admin", "true");
+
+			// Données login admin dans fichier properties
+			Properties tmp = new Properties();
+			try {
+				tmp.load(LoginRoute.class.getResourceAsStream(APPLICATION_PROPERTIES));
+			} catch (IOException e) {
+				System.out.println("erreur lecture application.properties");
 			}
-			if (!"true".equalsIgnoreCase((String) map.get("admin"))) {
-				map.put("mail", user.getEmailAMDM());
+			Properties properties = tmp;
+
+			if((properties.getProperty("admin.email")).equalsIgnoreCase(user.getEmailAMDM())) {
+			    map.put("admin", "true");
 			}
 		}
 
@@ -83,11 +88,14 @@ public interface Routes {
 	String RESERVATIONS = "/protected/booked";
 	String SETTINGS = "/protected/setting";
 	String UNREGISTER = "/protected/unregister";
+
 	String HISTORY = "/protected/history";
 	String PASSWORD_CHANGE = "/protected/ch_pwd";
-	String PERSONAL = "/protected/personal";
 	String ADMIN_INDEX = "/protected/adminPage";
-	String USERLIST = "/protected/usersList";
+
+	String ACCESS_DENIED = "/protected/accessDenied";
+	String USERS_LIST = "/protected/usersList";
+	String USER_EDIT = "/protected/userEdit/:user_id";
 
 	/*
 	 * Model map key

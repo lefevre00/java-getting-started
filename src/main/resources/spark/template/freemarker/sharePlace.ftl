@@ -78,7 +78,7 @@
 										<i class="fa fa-calendar-o"></i>
 									</span>
 								</div>
-							</div>						
+							</div>
 						</div>
 						
 						<input type="submit" class="btn btn-primary btn-lg" value="Valider" style="margin-bottom:20px;"/>						

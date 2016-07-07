@@ -53,45 +53,47 @@ public class LoginRoute implements TemplateViewRoute {
 
 		String email = request.queryParams("email");
 		String pwd = request.queryParams("pwd");
+		
+		// En cas d'erreur
+		map.put(KEY_EMAIL, email);
 
-		/*
-		 * is Admin connected
-		 */
+
+		User user = null;
 		Properties tmp = new Properties();
 		try {
 			tmp.load(LoginRoute.class.getResourceAsStream(APPLICATION_PROPERTIES));
 		} catch (IOException e) {
 			System.out.println("erreur lecture application.properties");
 		}
-		properties = tmp;		
+		properties = tmp;
 		
-		if ((getEncryptedMD5Password(properties.getProperty("admin.password"))).equals(pwd)){
+		// Si administrateur
+		if ((properties.getProperty("admin.email")).equals(email) &&
+				(getEncryptedMD5Password(properties.getProperty("admin.password"))).equals(pwd)){
+			Logger.getLogger("login").info("Admin logged in : " + email);
 			map.put("admin", "true");
-			User adminUser = new User(email, pwd);
-			request.session().attribute("user", adminUser);
-			response.redirect(Routes.ADMIN_INDEX);
-		}		
-		
-		// En cas d'erreur
-		if (!"true".equalsIgnoreCase((String) map.get("admin"))) {
-			map.put(KEY_EMAIL, email);
+			user = new User(email, pwd);
+			addAuthenticatedUser(request, user);
+			Routes.redirect(user, response);
 		}
+		else{
+			try {
+				user = userService.authenticate(email, pwd);
 
-		User user = null;
-		try {
-			user = userService.authenticate(email, pwd);
+				if (user != null) {
+					Logger.getLogger("login").info("user logged in : " + user.getEmailAMDM());
+					addAuthenticatedUser(request, user);
+					Routes.redirect(user, response);
+				} else {
+					map.put(Routes.KEY_ERROR, "Utilisateur introuvable !");
+				}
 
-			if (user != null) {
-				Logger.getLogger("login").info("user logged in : " + user.getEmailAMDM());
-				addAuthenticatedUser(request, user);
-				Routes.redirect(user, response);
-			} else {
-				map.put(Routes.KEY_ERROR, "Utilisateur introuvable !");
+			} catch (Exception e) {
+				map.put(Routes.KEY_ERROR, Messages.get(e.getMessage()));
 			}
 
-		} catch (Exception e) {
-			map.put(Routes.KEY_ERROR, Messages.get(e.getMessage()));
 		}
+		
 	}
 
 	private void addAuthenticatedUser(Request request, User user) {

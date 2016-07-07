@@ -22,6 +22,7 @@ import org.friends.app.service.DateService;
 import org.friends.app.service.PlaceService;
 import org.friends.app.service.UserService;
 import org.friends.app.util.DateUtil;
+import org.friends.app.view.route.AdminRoute;
 import org.friends.app.view.route.AuthenticatedRoute;
 import org.friends.app.view.route.BookRoute;
 import org.friends.app.view.route.BookedRoute;
@@ -36,7 +37,8 @@ import org.friends.app.view.route.SettingRoute;
 import org.friends.app.view.route.ShareRoute;
 import org.friends.app.view.route.StatisticsRoute;
 import org.friends.app.view.route.UnregisterRoute;
-import org.friends.app.view.route.UserListRoute;
+import org.friends.app.view.route.UserEditRoute;
+import org.friends.app.view.route.UsersListRoute;
 import org.friends.app.view.route.ValidTokenRoute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.GenericApplicationContext;
@@ -84,9 +86,30 @@ public class RoutesLoader {
 		/*
 		 * Admin Section
 		 */
-		get(Routes.ADMIN_INDEX, (req, res) -> {
-			Map<String, Object> map = Routes.getMap(req);
-			return new ModelAndView(map, Templates.ADMIN_PAGE);
+		AdminRoute adminRoute = context.getBean(AdminRoute.class);
+		get(Routes.ADMIN_INDEX, adminRoute, templateEngine);
+		post(Routes.ADMIN_INDEX, adminRoute, templateEngine);
+		
+		/*
+		 * Liste des utilisateurs
+		 */
+		UsersListRoute usersList = context.getBean(UsersListRoute.class);
+		get(Routes.USERS_LIST, usersList, templateEngine);
+		post(Routes.USERS_LIST, usersList, templateEngine);
+		
+		/*
+		 * Editer un utilisateur
+		 */
+		UserEditRoute userEditRoute = context.getBean(UserEditRoute.class);
+		get(Routes.USER_EDIT, userEditRoute, templateEngine);
+		post(Routes.USER_EDIT, userEditRoute, templateEngine);
+		
+		
+		/*
+		 * Page accès interdit
+		 */
+		get(Routes.ACCESS_DENIED, (req, res) -> {
+			return new ModelAndView(Routes.getMap(req), Templates.ACCESS_DENIED);
 		}, templateEngine);
 
 		/*
@@ -185,9 +208,6 @@ public class RoutesLoader {
 		get(Routes.PLACE_STATISTICS, statsRoute, templateEngine);
 		post(Routes.PLACE_STATISTICS, statsRoute, templateEngine);
 		
-		UserListRoute userListRoute = context.getBean(UserListRoute.class);
-		get(Routes.USERLIST, userListRoute, templateEngine);
-		post(Routes.USERLIST, userListRoute, templateEngine);
 
 		/*
 		 * User settings
@@ -201,11 +221,6 @@ public class RoutesLoader {
 			return new ModelAndView(map, Templates.ERROR);
 		}, templateEngine);
 		get(Routes.PASSWORD_CHANGE, (req, res) -> {
-			Map<String, Object> map = Routes.getMap(req);
-			map.put("message", "Page en cours de réalisation");
-			return new ModelAndView(map, Templates.ERROR);
-		}, templateEngine);
-		get(Routes.PERSONAL, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
 			map.put("message", "Page en cours de réalisation");
 			return new ModelAndView(map, Templates.ERROR);
