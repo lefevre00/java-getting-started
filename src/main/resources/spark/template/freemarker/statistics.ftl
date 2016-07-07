@@ -30,7 +30,7 @@
 				<form method="post" role="form">
 					
 					<div class="panel panel-default" >
-						<div class="panel-heading">Choix de la période d'extraction</div>
+						<div class="panel-heading">Choix de la période</div>
 						<div class="panel-body">
 							<div class="col-md-6 col-sm-6">
 								<div class="input-group date" id="datepicker1" style="margin-bottom:10px;">
