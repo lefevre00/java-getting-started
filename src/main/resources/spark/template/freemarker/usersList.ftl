@@ -21,7 +21,7 @@
 	<!--================================================================================================-->
     <section class="content-section">
 		<div class="container containerAttr" style="padding-bottom:50px;">
-			<h1>Liste d'utilisateurs</h1>
+			<h1>Liste des utilisateurs</h1>
 			
 			<div class="row table-responsive" style="margin:0px auto;max-width:700px; padding-top:30px;">
 				<#if (usersList?size > 7)>

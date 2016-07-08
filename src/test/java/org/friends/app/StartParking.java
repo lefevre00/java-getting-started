@@ -38,6 +38,13 @@ public class StartParking {
 		userDao.persist(new User("michael.lefevre@amdm.fr", md5("ml"), 87));
 		userDao.persist(new User("damien.urvoix@amdm.fr", md5("du")));
 		userDao.persist(new User("jean-pierre.cluzel@amdm.fr", md5("jpc")));
+		userDao.persist(new User("marc.coniglio@amdm.fr", md5("jpc"), 33));
+		userDao.persist(new User("jean-yves.sironneau@amdm.fr", md5("jpc")));
+		userDao.persist(new User("philippe.martins@amdm.fr", md5("jpc"), 94));
+		userDao.persist(new User("thibaut.bourelly@amdm.fr", md5("jpc"), 14));
+		userDao.persist(new User("dominique.gay@amdm.fr", md5("jpc"), 66));
+		userDao.persist(new User("vincent.mathon@amdm.fr", md5("jpc"), 99));
+		userDao.persist(new User("sylvain.verneau@amdm.fr", md5("jpc"), 144));
 
 		LocalDate timePoint = DateUtil.now();
 		String strDateToday = DateUtil.dateToString(timePoint);
@@ -87,7 +94,7 @@ public class StartParking {
 		
 		placeDao.persist(new Place(120, "damien.urvoix@amdm.fr", tomorrow));
 		placeDao.persist(new Place(121, tomorrow));
-		placeDao.persist(new Place(122, "guilhem@amdm.fr", tomorrow));
+		placeDao.persist(new Place(122, "philippe.martins@amdm.fr", tomorrow));
 		placeDao.persist(new Place(123, tomorrow));
 	}
 }
