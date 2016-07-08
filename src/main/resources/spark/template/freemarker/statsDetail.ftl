@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 	<#include "header.ftl">
+	
     <link href="/css/bootstrap-table.css" rel="stylesheet">
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap-table.js"></script>
@@ -20,52 +21,59 @@
 		
     <section class="content-section">
 		<div class="container containerAttr">
-
 			<h1 class="titre">${title}</h1>
 	
+			<!--=================================== liste de partage ==================================-->
+			<#if listePlaces??>
 
-
-			<!--======================================== libération par dates ==================================-->
-			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">					
-				<form method="post" role="form">
-					
-
-					<!--=============================== liste des dates de partage ============================-->
-					<#if listePlaces??>
-
-					
-						<div class="row table-responsive" style="margin:0px auto;max-width:700px; padding-top:30px;">
-							<table class="table table-bordered table-striped table-condensed padding20"  id="table">
-								<tr style="background-color: #f5f5f5; color: #317bba;">
-									<th style="text-align:center;">Date</th> 
-									<th style="text-align:center;">Num. de place</th> 
-									<th style="text-align:center;">Occupant</th>
-								</tr>
-								<#list listePlaces as place>
-								<#assign show = place.usedBy>
-								<#assign theDate = '${place.occupationDate}'?date("yyyy-MM-dd")>
-									<tr>
-										<td>${theDate?string["dd/MM/yyyy"]}</td>
-						  	    		<td>${place.placeNumber}</td>
-						  	    		<td>
-						  	    			<#if show == "" || show == " ">
-						  	    				-
-						  	    			<#else>
-						  	    				<!--${show?substring(0, show?index_of("@"))?cap_first?replace(".", " ")}-->
-						  	    				${show?substring(0, show?index_of("@"))?upper_case?replace(".", " ")}
-						  	    			</#if>
-						  	    		</td>
-									</tr>
-								</#list>
-							</table>
-							<button id="export" data-export="export" class="btn btn-primary">Exporter csv</button>
-						</div>
+				<div class="row table-responsive" style="margin:0px auto;max-width:700px; padding-top:30px;">
 						
+					<#if (listePlaces?size > 9)>
+						<table class="table table-striped table-condensed padding20"
+							   id="table" 
+							   data-toggle="table"
+							   data-height="379" 
+							   data-pagination="true"
+							   data-page-size="9"
+							   data-pagination-pre-text="< "
+							   data-pagination-next-text=" >">
+										
+							<thead style="background-color: #f5f5f5; color: #317bba;">
+							<tr>
+								<th style="text-align:center;">Date</th> 
+								<th style="text-align:center;">Num. de place</th> 
+								<th style="text-align:center;">Occupant</th>
+							</tr>
+							</thead>
+					<#else>
+						<table class="table table-bordered table-striped table-condensed padding20">
+							<tr style="background-color: #f5f5f5; color: #317bba;">
+								<th style="text-align:center;">Date</th>
+								<th style="text-align:center;">Num. de place</th>
+								<th style="text-align:center;">Occupant</th>
+							</tr>
 					</#if>
-					<!--======================================= Fin liste =====================================-->
-					
-				</form>
-			</div>	
+					<#list listePlaces as place>
+						<#assign show = place.usedBy>
+						<#assign theDate = '${place.occupationDate}'?date("yyyy-MM-dd")>
+						<tr>
+							<td>${theDate?string["dd/MM/yyyy"]}</td>
+					   		<td>${place.placeNumber}</td>
+					   		<td>
+								<#if show == "" || show == " ">
+					  				-
+					  			<#else>
+					  				${show?substring(0, show?index_of("@"))?upper_case?replace(".", " ")}
+					  			</#if>
+					  		</td>
+						</tr>
+					</#list>
+					</table>
+					<button id="export" data-export="export" class="btn btn-primary">Exporter csv</button>
+				</div>
+						
+			</#if>
+			<!--======================================= Fin liste =====================================-->
 
 		</div>
 	</section>
