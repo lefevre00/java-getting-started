@@ -10,6 +10,9 @@
 		.table th {
 		   text-align: center;
 		} 
+		.imageLeft {
+			float:left;
+		}			
     </style>
 </head>
 
@@ -20,9 +23,15 @@
 
 		
     <section class="content-section">
-		<div class="container containerAttr">
-			<h1 class="titre">${title}</h1>
-	
+		<div class="container containerAttr" >
+
+			<div  style="margin:0px auto;max-width:700px;" >
+				<a href="#" onclick="history.go(-1);">
+					<img src="/images/retour.png" title="Retour" class="imageLeft" />
+				</a>
+				<h1 class="titre">${title}</h1>
+			</div>
+
 			<!--=================================== liste de partage ==================================-->
 			<#if listePlaces??>
 
