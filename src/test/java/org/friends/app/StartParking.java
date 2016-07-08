@@ -58,6 +58,8 @@ public class StartParking {
 																					// hier
 		placeDao.persist(new Place(37, strTomorrow)); // Place libre demain
 
+		insertDatas(strYearsteday, strDateToday, strTomorrow);
+		
 		SessionDao sessionDao = new SessionDao();
 		sessionDao.deleteExpired();
 	}
@@ -66,5 +68,26 @@ public class StartParking {
 		HashFunction hf = Hashing.md5();
 		HashCode hc = hf.newHasher().putString(pwd, Charset.defaultCharset()).hash();
 		return hc.toString();
+	}
+	
+	
+	
+	private static void insertDatas(String yesterday, String today, String tomorrow){
+		PlaceDao placeDao = new PlaceDao();
+
+		placeDao.persist(new Place(133, "damien.urvoix@amdm.fr",yesterday));
+		placeDao.persist(new Place(132, "jean-pierre@amdm.fr",yesterday));
+		placeDao.persist(new Place(131, "philippe@amdm.fr",yesterday));
+		placeDao.persist(new Place(130, yesterday));
+														
+		placeDao.persist(new Place(80, today));
+		placeDao.persist(new Place(81, today));
+		placeDao.persist(new Place(82, today));
+		placeDao.persist(new Place(83, "damien.urvoix@amdm.fr", today));
+		
+		placeDao.persist(new Place(120, "damien.urvoix@amdm.fr", tomorrow));
+		placeDao.persist(new Place(121, tomorrow));
+		placeDao.persist(new Place(122, "guilhem@amdm.fr", tomorrow));
+		placeDao.persist(new Place(123, tomorrow));
 	}
 }

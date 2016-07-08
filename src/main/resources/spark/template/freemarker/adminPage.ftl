@@ -32,11 +32,11 @@
                     <div class="panel panel-default" >
                         <div class="panel-heading">- Statistiques d'utilisation - </div>
                         <div class="panel-body">
-                        	<a href="/protected/shareHistoric" class="linkClass">historique de partage</a><br>
-                        	<a href="/protected/bookHistoric" class="linkClass">historique de réservation</a>
+							historiques de partage<br>
+                            historiques de réservation
 							<br>
                             <hr>
-                            <small>Consulter tous les historiques par période.<br/></small>
+                            <small>Consulter les statistiques d'utilisation par période.<br/></small>
                             <br/>
                             <a href="/protected/statistics" class="btn btn-primary tailleText">Visualiser</a>	                            
                         </div>

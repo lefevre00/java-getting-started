@@ -25,4 +25,6 @@ public interface Templates {
 	static final String ACCESS_DENIED = "accessDenied.ftl";
 	static final String USERS_LIST = "usersList.ftl";
 	static final String USER_EDIT = "userEdit.ftl";
+	
+	static final String STATS_DETAIL = "statsDetail.ftl";
 }
