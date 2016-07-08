@@ -28,7 +28,6 @@
 			<!--======================================== libération par dates ==================================-->
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">					
 				<form method="post" role="form">
-					
 					<div class="panel panel-default" >
 						<div class="panel-heading">Choix de la période</div>
 						<div class="panel-body">
@@ -56,10 +55,13 @@
 					</div>					
 					
 
-					<!--=============================== liste des dates de partage ============================-->
+					<!--=============================== Nbre de places partagé ============================-->
 					<#if nbrePartage??>
-
+					
 						<div class="row table-responsive" style="margin:0px auto;max-width:700px; padding-top:30px;">
+							<#assign dateD = '${dateDebut}'?date("yyyy-MM-dd")>
+							<#assign dateF = '${dateFin}'?date("yyyy-MM-dd")>					
+							Période de partage des places du <strong>${dateD?string["dd/MM/yyyy"]}</strong>  au  <strong>${dateF?string["dd/MM/yyyy"]}</strong>	<br/><br/>
 							<table class="table table-bordered table-striped table-condensed padding20"  id="table">
 								<tr style="background-color: #f5f5f5; color: #317bba;">
 									<th style="text-align:center;">Nbre partagé</th> 
