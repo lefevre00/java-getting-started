@@ -64,4 +64,21 @@ public interface PlaceService {
 	 * @return
 	 */
 	public List<Place> getAllPlaceBetweenTwoDates(String beginDate, String endDate);
+	
+	/**
+	 * Retourne toutes les dates de partages d'une place
+	 * 
+	 * @param placeNumber
+	 * @return
+	 */
+	public List<Place> getAllSharedDatesByUser(Integer placeNumber);
+	
+	/**
+	 * Retourne toutes les places réservées par un utilisateurs
+	 * 
+	 * @param email
+	 * @return
+	 */
+	public List<Place> getAllPlacesBookedByUser(String email);
+	
 }

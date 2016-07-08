@@ -29,9 +29,9 @@ public class UsersListRoute extends AuthenticatedRoute {
 		if (!"true".equalsIgnoreCase((String) map.get("admin"))) {
 			response.redirect(Routes.ACCESS_DENIED);
 		}
-		
-		map.put("usersList", userService.getAllUser());
-	
+		else{
+			map.put("usersList", userService.getAllUser());
+		}
 		return new ModelAndView(map, Templates.USERS_LIST);
 
 	}

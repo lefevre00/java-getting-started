@@ -2,13 +2,11 @@
 <html lang="fr">
 <head>
 
-
-<meta http-equiv="cache-control" content="max-age=0" />
-<meta http-equiv="cache-control" content="no-cache" />
-<meta http-equiv="expires" content="0" />
-<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-<meta http-equiv="pragma" content="no-cache" />
-
+	<meta http-equiv="cache-control" content="max-age=0" />
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+	<meta http-equiv="pragma" content="no-cache" />
 
 	<#include "header.ftl">
 </head>
@@ -50,7 +48,8 @@
                             <hr>
                             <small>Vous avez la possibilité de consulter l'historique de votre activité de partage et/ou de réservation.</small>
                             <br><br>
-                            <a href="/protected/history" class="btn btn-primary tailleText">Visualiser</a>	                            
+                            <!--a href="/protected/history" class="btn btn-primary tailleText">Visualiser</a-->
+                            <a href="/protected/statistics?var=p&email=${user.emailAMDM}&place=${user.placeNumber}" class="btn btn-primary tailleText">Visualiser</a>                         
                         </div>
                     </div> 
                 </div>

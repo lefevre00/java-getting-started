@@ -23,8 +23,6 @@
 
 			<h1 class="titre">Statistiques</h1>
 	
-
-
 			<!--======================================== libération par dates ==================================-->
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">					
 				<form method="post" role="form">

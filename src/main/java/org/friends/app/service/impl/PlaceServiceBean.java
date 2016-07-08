@@ -283,4 +283,29 @@ public class PlaceServiceBean implements PlaceService {
 		listRetour.addAll(listPourAffichage);
 		return listRetour;
 	}
+
+	@Override
+	public List<Place> getAllSharedDatesByUser(Integer placeNumber) {
+		Assert.notNull(placeNumber);
+		
+		List<Place> listRetour = new ArrayList<Place>();
+		listRetour = placedao.findPlacesByCriterions(Restrictions.ge("id.placeNumber", placeNumber));
+		List<Place> listPourAffichage = new ArrayList<Place>();
+		for (Iterator<Place> iterator = listRetour.iterator(); iterator.hasNext();) {
+			Place place = iterator.next();
+			if (place.getUsedBy() == null) {
+				place.setUsedBy(" ");
+			}
+			listPourAffichage.add(place);
+		}
+		listRetour.clear();
+		listRetour.addAll(listPourAffichage);
+		return listRetour;		
+	}
+
+	@Override
+	public List<Place> getAllPlacesBookedByUser(String email) {
+		Assert.notNull(email);
+		return placedao.findPlacesByCriterions(Restrictions.ge("usedBy", email));			
+	}
 }

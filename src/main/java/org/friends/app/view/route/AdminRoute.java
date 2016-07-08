@@ -35,17 +35,20 @@ public class AdminRoute extends AuthenticatedRoute {
 		if (!"true".equalsIgnoreCase((String) map.get("admin"))) {
 			response.redirect(Routes.ACCESS_DENIED);
 		}
-		
-		if ("POST".equalsIgnoreCase(request.requestMethod())) {
-			LocalDate dateDebut = request.queryParams("dateDebut") != null
-					? DateUtil.stringToDate(request.queryParams("dateDebut"), Locale.FRANCE) : null;
-			LocalDate dateFin = request.queryParams("dateFin") != null
-					? DateUtil.stringToDate(request.queryParams("dateFin"), Locale.FRANCE) : null;
-					List<Place> datesPartages = placeService.getAllPlaceBetweenTwoDates(DateUtil.dateToString(dateDebut), DateUtil.dateToString(dateFin));
-					if (!datesPartages.isEmpty()) {
-						map.put("datesPartages", datesPartages);
-					}
+		else{
+			if ("POST".equalsIgnoreCase(request.requestMethod())) {
+				LocalDate dateDebut = request.queryParams("dateDebut") != null
+						? DateUtil.stringToDate(request.queryParams("dateDebut"), Locale.FRANCE) : null;
+				LocalDate dateFin = request.queryParams("dateFin") != null
+						? DateUtil.stringToDate(request.queryParams("dateFin"), Locale.FRANCE) : null;
+						
+				List<Place> datesPartages = placeService.getAllPlaceBetweenTwoDates(DateUtil.dateToString(dateDebut), DateUtil.dateToString(dateFin));
+				if (!datesPartages.isEmpty()) {
+					map.put("datesPartages", datesPartages);
+				}
 
+			}
+			
 		}
 		
 		return new ModelAndView(map, Templates.ADMIN_PAGE);
