@@ -42,6 +42,8 @@ public class PasswordTokenRoute implements TemplateViewRoute {
 				map.put("title", "Mot de passe modifié");
 				map.put("message", "Votre mot de passe vient d'être modifié. Vous pouvez vous connecter.");
 				map.put("ok", "ok");
+				map.put("urlDest", "/user/login");
+				map.put("libelleBtn", "Se connecter");
 				template = Templates.MESSAGE_OK_KO;
 			} else {
 				map.put(FIELD_EMAIL, email);

@@ -232,4 +232,23 @@ public class UserServiceBean implements UserService {
 	public List<User> getAllUser() {
 		return userDao.findAllUserByCriterions(Restrictions.isNotNull("id"));
 	}
+
+	@Override
+	public boolean changePassword(String email, String hashedPwd) {
+		
+		if (StringUtils.isEmpty(email))
+			throw new IllegalArgumentException("Email required");
+		if (StringUtils.isEmpty(hashedPwd))
+			throw new IllegalArgumentException("Hashed password required");
+		
+		User user = findUserByEmail(email);
+		if (user != null) {
+			user.setTokenPwd(null);
+			user.setPwd(hashedPwd);
+			userDao.persist(user);
+			return true;
+		}	
+		return false;
+		
+	}
 }

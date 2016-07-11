@@ -9,7 +9,6 @@ import org.friends.app.view.Templates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import freemarker.template.utility.StringUtil;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;

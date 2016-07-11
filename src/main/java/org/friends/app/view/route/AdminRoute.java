@@ -6,7 +6,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.friends.app.model.Place;
-import org.friends.app.model.User;
 import org.friends.app.service.DateService;
 import org.friends.app.service.PlaceService;
 import org.friends.app.util.DateUtil;
@@ -30,7 +29,6 @@ public class AdminRoute extends AuthenticatedRoute {
 	public ModelAndView doHandle(Request request, Response response) {
 
 		Map<String, Object> map = Routes.getMap(request);
-		User user = getUser(request);
 
 		if (!"true".equalsIgnoreCase((String) map.get("admin"))) {
 			response.redirect(Routes.ACCESS_DENIED);

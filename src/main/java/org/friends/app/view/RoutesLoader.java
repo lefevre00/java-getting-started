@@ -26,6 +26,7 @@ import org.friends.app.view.route.AdminRoute;
 import org.friends.app.view.route.AuthenticatedRoute;
 import org.friends.app.view.route.BookRoute;
 import org.friends.app.view.route.BookedRoute;
+import org.friends.app.view.route.ChangePwdRoute;
 import org.friends.app.view.route.ContactRoute;
 import org.friends.app.view.route.ForgottenPwdRoute;
 import org.friends.app.view.route.LoginRoute;
@@ -220,11 +221,14 @@ public class RoutesLoader {
 			map.put("message", "Page en cours de réalisation");
 			return new ModelAndView(map, Templates.ERROR);
 		}, templateEngine);
-		get(Routes.PASSWORD_CHANGE, (req, res) -> {
-			Map<String, Object> map = Routes.getMap(req);
-			map.put("message", "Page en cours de réalisation");
-			return new ModelAndView(map, Templates.ERROR);
-		}, templateEngine);
+
+		
+		/*
+		 * Change password
+		 */
+		ChangePwdRoute changePwdRoute = context.getBean(ChangePwdRoute.class);
+		get(Routes.PASSWORD_CHANGE, changePwdRoute, templateEngine);
+		post(Routes.PASSWORD_CHANGE, changePwdRoute, templateEngine);
 
 		/*
 		 * User Contact

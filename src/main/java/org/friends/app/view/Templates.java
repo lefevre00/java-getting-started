@@ -8,6 +8,7 @@ public interface Templates {
 	static final String SETTING = "setting.ftl";
 	static final String PASSWORD_NEW = "pwd_new.ftl";
 	static final String PASSWORD_LOST = "pwd_lost.ftl";
+	static final String PASSWORD_CHANGE = "change_pwd.ftl";
 	static final String LOGIN = "login.ftl";
 	static final String LOGOUT = "logout.ftl";
 	static final String REGISTER = "createUser.ftl";

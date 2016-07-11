@@ -52,4 +52,6 @@ public interface UserService {
 	public void resetPassword(String email, String appUrl) throws Exception;
 
 	public List<User> getAllUser();
+	
+	public boolean changePassword(String email, String pwd);
 }

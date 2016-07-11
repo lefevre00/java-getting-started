@@ -97,7 +97,7 @@ CONTENT
 }
 
 .login-form .content .password, .login-form .content .pass-icon, 
-.login-form .content .place, .login-form .content .place-icon {
+.login-form .content .place, .login-form .content .place-icon, .pass-icon-new {
 	margin-top: 25px;
 }
 
@@ -115,7 +115,7 @@ CONTENT
 	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.25);
 }
 
-.email-icon, .pass-icon , .place-icon, .phone-icon {
+.email-icon, .pass-icon , .place-icon, .phone-icon, .pass-icon-new {
 	width: 46px;
 	height: 47px;
 	display: block;
@@ -195,13 +195,29 @@ CONTENT
 	top:245px; 
 }
 
+.pwdActual{
+	top:130px; 
+}
+.pwdNew{
+	top:205px;
+}
+.confirmPwd{
+	top:280px; 
+}
+
+
+.pass-icon-new {
+	background: rgba(65,72,72,0.75) url(../images/pwd_icon_new.png) no-repeat center;
+}
+
+
 .content input:focus + div{
 	left: -46px;
 }
 
 
 /* Animation */
-.input, .email-icon, .pass-icon, .place-icon, .login, .register, .phone-icon {
+.input, .email-icon, .pass-icon, .place-icon, .login, .register, .phone-icon, .pass-icon-new {
 	transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
 	-webkit-transition: all 0.5s ease;

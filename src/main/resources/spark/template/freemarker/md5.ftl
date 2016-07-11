@@ -7,7 +7,19 @@ $(document).ready(function() {
     strVal = fieldPwd.val();
     strMD5 = CryptoJS.MD5(strVal).toString();
     fieldPwd.val( strMD5 );
+    
+	fieldPwd = $('#newPwd');
+    strVal = fieldPwd.val();
+    strMD5 = CryptoJS.MD5(strVal).toString();
+    fieldPwd.val( strMD5 );
+
+    fieldPwd = $('#confirmPwd');
+    strVal = fieldPwd.val();
+    strMD5 = CryptoJS.MD5(strVal).toString();
+    fieldPwd.val( strMD5 );
+
     return true;
   });
+
 });
 </script>

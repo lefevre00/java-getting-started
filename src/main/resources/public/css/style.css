@@ -88,42 +88,44 @@ only screen and (min-device-width : 320px) and (max-device-width : 480px) {
  * start navigation : #f69b0c : couleur orange
  *
  ***********************************/
+ 
+/* Paramètres par défaut du menu */ 
 .navbar-default {
 	background: #ffffff;
 	box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.04);
 	border: none;
 	margin-bottom: 0;
 }
+/* Hauteur du menu */
 .navbar-brand, .navbar-nav li a {
 	line-height: 28px;
 }
+/* Titre du site */
 .navbar-default .navbar-brand  {
 	color: #f69b0c; 
 	font-size: 22px;
 	font-weight: bold;
 	letter-spacing: 2px;
 }
+/* Taille police text du menu */
 .navbar-default .navbar-nav li a {
 	font-size: 12px;
 	letter-spacing: 1px;
 }
-
+/* Survol & focus item menu : Couleur background & text */
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
     background-color: #f69b0c; 
     color: #FFF;
 }
-
+/* Combo Survol & focus sous-item menu : Couleur background & text */
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-    background-image:#f69b0c !important;
+    background-color: #f69b0c;
 	color: #FFF;
 }
- .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-    background-color:#f69b0c;
-	color: #FFF;
-}
+/* Combo élément actif : Couleur background & text */
 .dropdown-toggle:active, .open .dropdown-toggle {
-	background:#f69b0c !important; 
-	color:#FFF !important;
+	background: #f69b0c !important; 
+	color: #FFF !important;
 }
 
 /***********************************
@@ -139,8 +141,8 @@ only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 	width:180px;
 	background: #f69b0c;
 	border-radius: 10px;
-	border: 2px solid #ffffff;
-	color: #ffffff;
+	border: 2px solid #FFF;
+	color: #FFF;
 	font-weight: bold;
 	letter-spacing: 3px;
 	padding: 10px 10px;
@@ -150,7 +152,7 @@ only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 	-webkit-border-radius: 10px; 
 }
 #home .btn:hover {
-	background: #ffffff;
+	background: #FFF;
 	color: #202020;
 }
 
@@ -169,7 +171,7 @@ only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 	margin-top : 160px;
 	padding-top: 100px;
 	padding-bottom: 100px;
-	background: #ffffff;
+	background: #FFF;
 }
 
 #aide h4 {

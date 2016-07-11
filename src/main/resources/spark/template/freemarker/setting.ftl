@@ -62,7 +62,7 @@
                         <div class="panel-body">
                            <small>Choisissez un mot de passe assez long en mélangeant caractères, chiffres et caractères spéciaux. Il est conseillé de le changer régulièrement.</small>
                             <br><br>
-                            <a href="/protected/ch_pwd" class="btn btn-primary tailleText">Changer</a>                            
+                            <a href="/protected/change_pwd" class="btn btn-primary tailleText">Changer</a>                            
                         </div>
                     </div>
                 </div>

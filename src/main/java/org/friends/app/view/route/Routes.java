@@ -90,7 +90,7 @@ public interface Routes {
 	String UNREGISTER = "/protected/unregister";
 
 	String HISTORY = "/protected/history";
-	String PASSWORD_CHANGE = "/protected/ch_pwd";
+	String PASSWORD_CHANGE = "/protected/change_pwd";
 	String ADMIN_INDEX = "/protected/adminPage";
 
 	String ACCESS_DENIED = "/protected/accessDenied";

@@ -35,9 +35,11 @@ public class ValidTokenRoute implements TemplateViewRoute {
 		}
 
 		map.put("message", message);
-		if (success)
+		if (success){
 			map.put("ok", "ok");
-
+			map.put("urlDest", "/user/login");
+			map.put("libelleBtn", "Se connecter");
+		}
 		return new ModelAndView(map, Templates.MESSAGE_OK_KO);
 	}
 
