@@ -57,7 +57,7 @@ public class ChangePwdRoute implements TemplateViewRoute {
 					boolean result = userService.changePassword(user.getEmailAMDM(), pwd);
 					if (result) {
 						map.put("title", "Modification du mot de passe");
-						map.put("message", "Votre mot de passe vient d'être modifié avec succès. Vous pouvez vous connecter.");
+						map.put("message", "Votre mot de passe vient d'être modifié avec succès.");
 						map.put("ok", "ok");
 						map.put("urlDest", "/protected/setting");
 						map.put("libelleBtn", "Retour");
