@@ -55,7 +55,7 @@
 							</tr>
 							</thead>
 					<#else>
-						<table class="table table-bordered table-striped table-condensed padding20">
+						<table class="table table-bordered table-striped table-condensed padding20"  id="table">
 							<tr style="background-color: #f5f5f5; color: #317bba;">
 								<th style="text-align:center;">Date</th>
 								<th style="text-align:center;">Num. de place</th>
@@ -139,7 +139,7 @@
   	<script src="/js/moment-with-locales.js"></script>
   	<script src="/js/datetimepicker.js"></script>	
     <script src="/js/jquery.tabletoCSV.js"></script>
-        <script>
+    <script>
         $(function(){
             $("#export").click(function(){
                 $("#table").tableToCSV();

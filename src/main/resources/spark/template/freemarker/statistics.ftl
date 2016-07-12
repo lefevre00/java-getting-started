@@ -72,7 +72,8 @@
 					  	    		<td><a href="/protected/statistics?var=i&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbreInoccupe}</a></td>
 								</tr>
 							</table>
-							<button id="export" data-export="export" class="btn btn-primary">Exporter csv</button>
+							<!--button id="export" data-export="export" class="btn btn-primary">Exporter csv</button-->
+							<br/>
 						</div>
 					</#if>
 					<!--======================================= Fin liste =====================================-->
@@ -135,7 +136,7 @@
   	<script src="/js/moment-with-locales.js"></script>
   	<script src="/js/datetimepicker.js"></script>	
     <script src="/js/jquery.tabletoCSV.js"></script>
-        <script>
+    <script>
         $(function(){
             $("#export").click(function(){
                 $("#table").tableToCSV();
