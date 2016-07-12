@@ -41,7 +41,7 @@ public class PlaceServiceBean implements PlaceService {
 	 * @param dateReservation
 	 */
 	@Override
-	public boolean sharePlaces(User user, LocalDate dateDebut, LocalDate dateFin) {
+	public boolean sharePlaces(User user, LocalDate dateDebut, LocalDate dateFin, String emailOccupant) {
 		Assert.notNull(user);
 		Assert.notNull(dateDebut);
 		Assert.notNull(dateFin);
@@ -49,7 +49,12 @@ public class PlaceServiceBean implements PlaceService {
 		if (!listeDates.isEmpty()) {
 			for (Iterator<String> iterator = listeDates.iterator(); iterator.hasNext();) {
 				String leJour = iterator.next();
-				placedao.persist(new Place(user.getPlaceNumber().intValue(), leJour));
+				if (StringUtils.isEmpty(emailOccupant)){
+					placedao.persist(new Place(user.getPlaceNumber().intValue(), leJour));
+				}
+				else{
+					placedao.persist(new Place(user.getPlaceNumber().intValue(), emailOccupant, leJour));
+				}
 			}
 			return true;
 		}

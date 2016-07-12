@@ -79,6 +79,16 @@
 									</span>
 								</div>
 							</div>
+							
+							<div class="col-md-6 col-sm-6" style="padding-top:15px;">
+								<div>
+									<span>Email de l'occupant de la place</span>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-6" style="padding-top:10px;">
+								<input type="email" class="shareInput typeahead" style="width: 180px;" name="emailOccupant" id="emailOccupant" />
+							</div>
+							
 						</div>
 						
 						<input type="submit" class="btn btn-primary btn-lg" value="Valider" style="margin-bottom:20px;"/>						
@@ -195,6 +205,9 @@
 	
 	<!--==================================== javascripts files section  ==================================-->
 	<#include "commonjs.ftl">
+	
+	<script src="/js/bootstrap3-typeahead.min.js"></script>
+	
 	<script src="/js/confirm.js"></script>
 	<link href="/css/datetimepicker.css" rel="stylesheet">
   	<script src="/js/moment-with-locales.js"></script>
