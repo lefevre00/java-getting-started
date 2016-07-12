@@ -205,9 +205,6 @@
 	
 	<!--==================================== javascripts files section  ==================================-->
 	<#include "commonjs.ftl">
-	
-	<script src="/js/bootstrap3-typeahead.min.js"></script>
-	
 	<script src="/js/confirm.js"></script>
 	<link href="/css/datetimepicker.css" rel="stylesheet">
   	<script src="/js/moment-with-locales.js"></script>

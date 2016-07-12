@@ -1,5 +1,6 @@
 package org.friends.app.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,10 +21,10 @@ import org.omg.CORBA.UnknownUserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.common.base.Strings;
-
 import spark.utils.Assert;
 import spark.utils.StringUtils;
+
+import com.google.common.base.Strings;
 
 @Service
 public class UserServiceBean implements UserService {
@@ -251,4 +252,38 @@ public class UserServiceBean implements UserService {
 		return false;
 		
 	}
+
+	@Override
+	public List<User> getAllUsersWithoutPlaces() {
+		List<User> users = new ArrayList<User>();
+		for(User user : getAllUser()){
+			if (user.getPlaceNumber()==null || user.getPlaceNumber() == 0){
+				users.add(user);
+			}
+		}
+		return users;
+	}
+
+	@Override
+	public boolean updateUser(Integer idUser, String email, String mobile, Integer placeNumber) {
+		
+		if (StringUtils.isEmpty(idUser))
+			throw new IllegalArgumentException("Email required");
+		if (StringUtils.isEmpty(email))
+			throw new IllegalArgumentException("Email required");		
+
+		User user = userDao.findById(idUser);
+		//TODO ABTAM : ajouter le mobile qd le mapping est fait
+		if ( !email.equals(user.getEmailAMDM()) || !placeNumber.equals(user.getPlaceNumber()) ){ // || !mobile.equals(user.getMobile())
+			user.setEmailAMDM(email);
+			user.setPlaceNumber(placeNumber);
+//			user.setMobile(mobile);
+//			userDao.update(user);
+			return true;
+		}
+		
+		return false;
+
+	}
+
 }

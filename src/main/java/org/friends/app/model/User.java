@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -13,10 +15,16 @@ import org.hibernate.annotations.GenericGenerator;
  * 
  * @author michael lefevre
  */
+
 @Entity
 @Table(name = "USERS")
+@NamedQueries(value = {
+		@NamedQuery(name=User.QUERY_UPDATE_USER, query="update User usr set emailAMDM = :email, placeNumber = :placeNumber where id = :id")
+})
 public class User {
 
+	public static final String QUERY_UPDATE_USER = "updateUser";
+	
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "increment")

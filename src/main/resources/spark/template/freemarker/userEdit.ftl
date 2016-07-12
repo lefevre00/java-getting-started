@@ -27,11 +27,17 @@
 				</div>
 
 				<div class="content">
-
+				
+					<#if user.id??>
+						<input type="hidden" name="idUser" value="${user.id}">
+			    	<#else>
+			    		<input type="hidden" name="idUser" value="">
+			    	</#if>
+			    	
 			        <input class="input" name="email" type="email" placeholder="Adresse email"  value="${user.emailAMDM}" required/>	     
 					<div class="email-icon emailEdit"></div>
 					
-			        <input class="input password" name="mobile" type="text" placeholder="Numéro du mobile"  value="" required/>	     
+			        <input class="input password" name="mobile" type="text" placeholder="Numéro du mobile"  value="" />	     
 					<div class="phone-icon phoneEdit"></div>
 					
 					<#if user.placeNumber??>
@@ -45,6 +51,7 @@
 				
 				<div class="footer">
 					<input type="submit" name="submit" value="Valider" class="valider" />
+					<a href="/protected/setting" class="register BtnRetour">Retour</a>
 				</div>
 
 			</form>

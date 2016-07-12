@@ -53,5 +53,9 @@ public interface UserService {
 
 	public List<User> getAllUser();
 	
+	public List<User> getAllUsersWithoutPlaces();
+	
 	public boolean changePassword(String email, String pwd);
+	
+	public boolean updateUser(Integer idUser, String email, String mobile, Integer placeNumber);
 }

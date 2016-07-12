@@ -80,4 +80,14 @@ public class UserDao {
 		session.getTransaction().commit();
 	}
 
+	public void update(User user) {
+		Session session = HibernateUtil.getSession();
+		session.beginTransaction();
+		session.getNamedQuery(User.QUERY_UPDATE_USER)
+				.setParameter("id", user.getId())
+				.setParameter("email", user.getEmailAMDM())
+				.setParameter("placeNumber", user.getPlaceNumber()).executeUpdate();
+		session.getTransaction().commit();
+	}
+
 }
