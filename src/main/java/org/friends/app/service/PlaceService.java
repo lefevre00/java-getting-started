@@ -32,7 +32,7 @@ public interface PlaceService {
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean sharePlaces(User user, LocalDate dateDebut, LocalDate dateFin) throws Exception;
+	public boolean sharePlaces(User user, LocalDate dateDebut, LocalDate dateFin, String emailOccupant) throws Exception;
 
 	/**
 	 * A user which booked a place, inform that he don't need the place anymore.
