@@ -278,7 +278,7 @@ public class UserServiceBean implements UserService {
 			user.setEmailAMDM(email);
 			user.setPlaceNumber(placeNumber);
 //			user.setMobile(mobile);
-//			userDao.update(user);
+			userDao.update(user);
 			return true;
 		}
 		
