@@ -27,8 +27,8 @@
                     <div class="panel panel-default" >
                         <div class="panel-heading ">- Informations personnelles - </div>
                         <div class="panel-body">
-                            Email : abdel-ilah.tamditi@amdm.fr<br/>
-                            Numéro de place attribuée : 133
+                            Email : ${user.emailAMDM}<br/>
+                            Numéro de place attribuée : ${user.placeNumber}
                             <br>
                             <hr>
                             <small>ici, vous avez la possibilité de modifier votre adresse email et/ou votre numéro de place.</small>
