@@ -58,4 +58,11 @@ public interface UserService {
 	public boolean changePassword(String email, String pwd);
 	
 	public boolean updateUser(Integer idUser, String email, String mobile, Integer placeNumber);
+
+	/**
+	 * retourne l'utilisateur ayant un numéro de place
+	 * @param placeNumber
+	 * @return
+	 */
+	public User findUserByPlaceNUmber(Integer placeNumber);
 }

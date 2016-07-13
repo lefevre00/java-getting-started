@@ -72,6 +72,12 @@ public class UserServiceBean implements UserService {
 		Assert.notNull(email);
 		return userDao.findUserByCriterions(Restrictions.eq("emailAMDM", email));
 	}
+	
+	@Override
+	public User findUserByPlaceNUmber(Integer placeNumber) {
+		Assert.notNull(placeNumber);
+		return userDao.findUserByCriterions(Restrictions.eq("placeNumber", placeNumber));
+	}
 
 	@Override
 	public User findUserByCookie(String cookie) {
@@ -268,10 +274,12 @@ public class UserServiceBean implements UserService {
 	public boolean updateUser(Integer idUser, String email, String mobile, Integer placeNumber) {
 		
 		if (StringUtils.isEmpty(idUser))
-			throw new IllegalArgumentException("Email required");
+			throw new IllegalArgumentException("Id User required");
 		if (StringUtils.isEmpty(email))
 			throw new IllegalArgumentException("Email required");		
-
+		if(findUserByPlaceNUmber(placeNumber)!=null){
+			return false;
+		}
 		User user = userDao.findById(idUser);
 		//TODO ABTAM : ajouter le mobile qd le mapping est fait
 		if ( !email.equals(user.getEmailAMDM()) || !placeNumber.equals(user.getPlaceNumber()) ){ // || !mobile.equals(user.getMobile())
