@@ -28,7 +28,7 @@
                         <div class="panel-heading ">- Informations personnelles - </div>
                         <div class="panel-body">
                             Email : ${user.emailAMDM}<br/>
-                            Numéro de place attribuée : ${user.placeNumber}
+                            Numéro de place attribuée : <#if user.placeNumber??>${user.placeNumber}<else>-</#if>
                             <br>
                             <hr>
                             <small>ici, vous avez la possibilité de modifier votre adresse email et/ou votre numéro de place.</small>
@@ -49,7 +49,7 @@
                             <small>Vous avez la possibilité de consulter l'historique de votre activité de partage et/ou de réservation.</small>
                             <br><br>
                             <!--a href="/protected/history" class="btn btn-primary tailleText">Visualiser</a-->
-                            <a href="/protected/statistics?var=p&email=${user.emailAMDM}&place=${user.placeNumber}" class="btn btn-primary tailleText">Visualiser</a>                         
+                            <a href="/protected/statistics?var=p&email=${user.emailAMDM}&place=<#if user.placeNumber??>${user.placeNumber}</#if>" class="btn btn-primary tailleText">Visualiser</a>                         
                         </div>
                     </div> 
                 </div>
