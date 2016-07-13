@@ -61,6 +61,7 @@ public class Configuration {
 		return System.getProperty(propertyName, defaultValue);
 	}
 
+	// FIXME : doublon de la méthode dialect(), a nettoyer
 	public static String databaseUrl() {
 		return development() ? H2Dialect.class.getName() : PostgreSQL92Dialect.class.getName();
 	}
