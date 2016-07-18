@@ -6,7 +6,7 @@ public class ParkingTest {
 
 	@BeforeClass
 	public static void setup() {
-    	System.setProperty(Configuration.DEPLOY_MODE, "dev");
+    	System.setProperty(Configuration.DEPLOY_MODE, Configuration.DEPLOY_MODE_STANDALONE);
 	}
 
 }

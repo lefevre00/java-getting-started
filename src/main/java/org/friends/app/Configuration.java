@@ -17,6 +17,10 @@ public class Configuration {
 	public final static String DEPLOY_MODE = "PARKING_MODE";
 	public final static String MAIL_ENABLE = "MAIL_ENABLE";
 	
+	public final static String DEPLOY_MODE_H2 = "H2";
+	public final static String DEPLOY_MODE_HEROKU = "HEROKU";
+	public final static String DEPLOY_MODE_STANDALONE = "STANDALONE";
+	
 	public final static String COOKIE = "takemyplace";
 	public final static int COOKIE_DURATION = 86400 ; // One day
 	public static final String EMAIL_CONTACT = "contact@takemaplace.fr";	
@@ -46,8 +50,20 @@ public class Configuration {
 		return System.getProperty(DEPLOY_MODE) != null;
 	}
 	
+	public static String getDBEnvironnement() {
+		String retour = DEPLOY_MODE_H2;
+		if (System.getProperty(DEPLOY_MODE)== null) {
+			return DEPLOY_MODE_HEROKU;
+		}else{
+			if(DEPLOY_MODE_STANDALONE.equalsIgnoreCase(System.getProperty(DEPLOY_MODE))){
+				return DEPLOY_MODE_STANDALONE;
+			}
+		}
+		return retour;
+	}
+	
 	public static String dialect() {
-		return development() ? H2Dialect.class.getName() : PostgreSQL92Dialect.class.getName();
+		return DEPLOY_MODE_H2.equalsIgnoreCase(getDBEnvironnement()) ? H2Dialect.class.getName() : PostgreSQL92Dialect.class.getName();
 	}
 	
 	/**
@@ -60,15 +76,15 @@ public class Configuration {
 			return value;
 		return System.getProperty(propertyName, defaultValue);
 	}
-
-	// FIXME : doublon de la méthode dialect(), a nettoyer
-	public static String databaseUrl() {
-		return development() ? H2Dialect.class.getName() : PostgreSQL92Dialect.class.getName();
-	}
+//
+//	// FIXME : doublon de la méthode dialect(), a nettoyer
+//	public static String databaseUrl() {
+//		return development() ? H2Dialect.class.getName() : PostgreSQL92Dialect.class.getName();
+//	}
 
 	public static String dbUrl() {
 		String url = "jdbc:h2:~/test;AUTO_SERVER=TRUE"; 
-		if (!development()) {
+		if (DEPLOY_MODE_HEROKU.equalsIgnoreCase(getDBEnvironnement())) {
 			try {
 				URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
@@ -79,6 +95,10 @@ public class Configuration {
 			} catch (URISyntaxException e) {
 				throw new RuntimeException("unable to get Datasource url", e);
 			}
+		}
+		if (DEPLOY_MODE_STANDALONE.equalsIgnoreCase(getDBEnvironnement())) {
+				url = "jdbc:postgresql://intramdm-dev.amdm.local:5432/lar?user=intrausr&password=IntraPS";
+
 		}
 		return url;
 	}

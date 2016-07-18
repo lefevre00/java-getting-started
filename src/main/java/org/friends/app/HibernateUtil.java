@@ -69,6 +69,10 @@ public class HibernateUtil {
 		String confFile = "/hibernate-local.cfg.xml";
 		if (!org.friends.app.Configuration.development()) {
 			confFile = "/hibernate-jndi.cfg.xml";
+		}else{
+			if(org.friends.app.Configuration.DEPLOY_MODE_STANDALONE.equalsIgnoreCase(org.friends.app.Configuration.DEPLOY_MODE)){
+				confFile = "/hibernate-standalone.cfg.xml";
+			}
 		}
 
 		Configuration configuration = new Configuration();

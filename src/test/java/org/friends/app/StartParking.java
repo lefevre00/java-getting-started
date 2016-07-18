@@ -19,7 +19,7 @@ public class StartParking {
 
 	public static void main(String[] args) {
 		System.setProperty("PORT", "8080");
-		System.setProperty(Configuration.DEPLOY_MODE, "dev");
+		System.setProperty(Configuration.DEPLOY_MODE, Configuration.DEPLOY_MODE_H2);
 		System.setProperty("MAIL_TEAM", "contact@takemyplace.fr");
 
 		new Application() {
