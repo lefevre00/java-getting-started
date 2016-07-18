@@ -1,10 +1,10 @@
 package org.friends.app.service.impl;
 
-import static org.friends.app.Configuration.getMailServiceLogin;
-import static org.friends.app.Configuration.getMailServicePassword;
-import static org.friends.app.Configuration.getMailTeam;
+import static org.friends.app.ConfHelper.getMailServiceLogin;
+import static org.friends.app.ConfHelper.getMailServicePassword;
+import static org.friends.app.ConfHelper.getMailTeam;
 
-import org.friends.app.Configuration;
+import org.friends.app.ConfHelper;
 import org.friends.app.model.User;
 import org.friends.app.service.MailService;
 import org.friends.app.view.route.Routes;
@@ -20,7 +20,7 @@ public class MailServiceBean implements MailService {
 	private static final String MAIL_SIGNATURE = "\n\nCordialement,\nL'équipe EcoParking.";
 
 	private void sendMail(SendGrid.Email email) {
-		String value = Configuration.get(Configuration.MAIL_ENABLE, "false");
+		String value = ConfHelper.get(ConfHelper.MAIL_ENABLE, "false");
 
 		if (Boolean.parseBoolean(value)) {
 			SendGrid sendgrid = new SendGrid(getMailServiceLogin(), getMailServicePassword());

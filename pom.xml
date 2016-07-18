@@ -178,4 +178,5 @@
 		<system>Travis</system>
 		<url>https://travis-ci.org/lefevre00/parking/</url>
 	</ciManagement>
+	<packaging>war</packaging>
 </project>

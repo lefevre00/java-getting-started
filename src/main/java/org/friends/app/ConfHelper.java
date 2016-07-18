@@ -11,20 +11,15 @@ import spark.utils.StringUtils;
 
 @org.springframework.context.annotation.Configuration("application")
 @ComponentScan("org.friends.app.*")
-public class Configuration {
+public class ConfHelper {
 
 	public final static String PORT = "PORT";
-	public final static String DEPLOY_MODE = "PARKING_MODE";
 	public final static String MAIL_ENABLE = "MAIL_ENABLE";
-	
-	public final static String DEPLOY_MODE_H2 = "H2";
-	public final static String DEPLOY_MODE_HEROKU = "HEROKU";
-	public final static String DEPLOY_MODE_STANDALONE = "STANDALONE";
-	
+
 	public final static String COOKIE = "takemyplace";
-	public final static int COOKIE_DURATION = 86400 ; // One day
-	public static final String EMAIL_CONTACT = "contact@takemaplace.fr";	
-	
+	public final static int COOKIE_DURATION = 86400; // One day
+	public static final String EMAIL_CONTACT = "contact@takemaplace.fr";
+
 	public static String getMailServiceLogin() {
 		return System.getenv("SENDGRID_USERNAME");
 	}
@@ -32,8 +27,8 @@ public class Configuration {
 	public static String getMailServicePassword() {
 		return System.getenv("SENDGRID_PASSWORD");
 	}
-	
-	public static String getMailTeam(){
+
+	public static String getMailTeam() {
 		return get("MAIL_TEAM", "");
 	}
 
@@ -46,28 +41,28 @@ public class Configuration {
 		return Integer.valueOf(port);
 	}
 
-	public static boolean development() {
-		return System.getProperty(DEPLOY_MODE) != null;
-	}
-	
-	public static String getDBEnvironnement() {
-		String retour = DEPLOY_MODE_H2;
-		if (System.getProperty(DEPLOY_MODE)== null) {
-			return DEPLOY_MODE_HEROKU;
-		}else{
-			if(DEPLOY_MODE_STANDALONE.equalsIgnoreCase(System.getProperty(DEPLOY_MODE))){
-				return DEPLOY_MODE_STANDALONE;
-			}
+	public static DeployMode getDeployMode() {
+		String property = System.getProperty(DeployMode.PROPERTY);
+		if (property == null) {
+			return DeployMode.STANDALONE;
 		}
-		return retour;
+
+		DeployMode mode = DeployMode.valueOf(property);
+		if (mode != null) {
+			return mode;
+		}
+
+		return DeployMode.TEST;
 	}
-	
+
 	public static String dialect() {
-		return DEPLOY_MODE_H2.equalsIgnoreCase(getDBEnvironnement()) ? H2Dialect.class.getName() : PostgreSQL92Dialect.class.getName();
+		return DeployMode.TEST.equals(getDeployMode()) ? H2Dialect.class.getName()
+				: PostgreSQL92Dialect.class.getName();
 	}
-	
+
 	/**
 	 * Get configuration, first in environment, then in property.
+	 * 
 	 * @param propertyName
 	 */
 	public static String get(String propertyName, String defaultValue) {
@@ -76,30 +71,32 @@ public class Configuration {
 			return value;
 		return System.getProperty(propertyName, defaultValue);
 	}
-//
-//	// FIXME : doublon de la méthode dialect(), a nettoyer
-//	public static String databaseUrl() {
-//		return development() ? H2Dialect.class.getName() : PostgreSQL92Dialect.class.getName();
-//	}
 
 	public static String dbUrl() {
-		String url = "jdbc:h2:~/test;AUTO_SERVER=TRUE"; 
-		if (DEPLOY_MODE_HEROKU.equalsIgnoreCase(getDBEnvironnement())) {
+		String url = null;
+		switch (getDeployMode()) {
+		case HEROKU:
 			try {
 				URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
 				String username = dbUri.getUserInfo().split(":")[0];
 				String password = dbUri.getUserInfo().split(":")[1];
-				url = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath()
-				+ "?user=" + username + "&password=" + password;
+				url = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath() + "?user="
+						+ username + "&password=" + password;
 			} catch (URISyntaxException e) {
 				throw new RuntimeException("unable to get Datasource url", e);
 			}
+			break;
+		case STANDALONE:
+			// url =
+			// "jdbc:postgresql://intramdm-dev.amdm.local:5432/lar?user=intrausr&password=IntraPS";
+			url = "jdbc:postgresql://localhost:5432/parking?user=michael&password=michael";
+			break;
+		default:
+			url = "jdbc:h2:~/test;AUTO_SERVER=TRUE";
+			break;
 		}
-		if (DEPLOY_MODE_STANDALONE.equalsIgnoreCase(getDBEnvironnement())) {
-				url = "jdbc:postgresql://intramdm-dev.amdm.local:5432/lar?user=intrausr&password=IntraPS";
 
-		}
 		return url;
 	}
 }

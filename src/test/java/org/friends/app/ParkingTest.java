@@ -1,12 +1,14 @@
 package org.friends.app;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 
+@Ignore
 public class ParkingTest {
 
 	@BeforeClass
 	public static void setup() {
-    	System.setProperty(Configuration.DEPLOY_MODE, Configuration.DEPLOY_MODE_STANDALONE);
+		System.setProperty(DeployMode.PROPERTY, DeployMode.TEST.getCode());
 	}
 
 }

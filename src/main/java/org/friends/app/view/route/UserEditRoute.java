@@ -2,7 +2,7 @@ package org.friends.app.view.route;
 
 import java.util.Map;
 
-import org.friends.app.Configuration;
+import org.friends.app.ConfHelper;
 import org.friends.app.model.User;
 import org.friends.app.service.UserService;
 import org.friends.app.view.Templates;
@@ -52,7 +52,7 @@ public class UserEditRoute extends AuthenticatedRoute {
 				boolean result = userService.updateUser(idUserInt, email, mobile, placeNumberInt);
 
 				if (result) {
-					response.removeCookie(Configuration.COOKIE);
+					response.removeCookie(ConfHelper.COOKIE);
 					user = userService.findUserByEmail(user.getEmailAMDM());
 					if (user != null) {
 						request.session().attribute("user", user);

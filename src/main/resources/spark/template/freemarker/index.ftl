@@ -173,8 +173,8 @@
 	<#include "commonjs.ftl">
 	
 	<!-- seulement sur la page d'accueil --------------->
-	<script src="/js/wow.min.js"></script>	
-	<script src="/js/custom.js"></script> 	
+	<script src="./js/wow.min.js"></script>	
+	<script src="./js/custom.js"></script> 	
 	
 </body>
 </html>

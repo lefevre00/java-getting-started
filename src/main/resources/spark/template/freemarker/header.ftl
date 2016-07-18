@@ -22,7 +22,7 @@
 <script src="/js/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<link rel="stylesheet" href="/css/style.css" type="text/css" media="screen"/> 
+<link rel="stylesheet" href="./css/style.css" type="text/css" media="screen"/> 
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 
 <#setting locale="fr_FR">

@@ -11,7 +11,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import org.friends.app.Configuration;
+import org.friends.app.ConfHelper;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.google.common.base.Charsets;
@@ -62,7 +62,7 @@ public class Session {
 		creationDate = cal.getTime();
 		cookie = Hashing.sha1().hashString(user.getEmailAMDM() + creationDate.toString(), Charsets.UTF_8).toString();
 
-		cal.add(Calendar.SECOND, Configuration.COOKIE_DURATION);
+		cal.add(Calendar.SECOND, ConfHelper.COOKIE_DURATION);
 		expirationDate = cal.getTime();
 	}
 

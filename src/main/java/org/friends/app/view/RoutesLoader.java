@@ -1,6 +1,6 @@
 package org.friends.app.view;
 
-import static org.friends.app.Configuration.getPort;
+import static org.friends.app.ConfHelper.getPort;
 import static spark.Spark.after;
 import static spark.Spark.before;
 import static spark.Spark.exception;
@@ -14,7 +14,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-import org.friends.app.Configuration;
+import org.friends.app.ConfHelper;
+import org.friends.app.DeployMode;
 import org.friends.app.model.Place;
 import org.friends.app.model.Session;
 import org.friends.app.model.User;
@@ -62,7 +63,9 @@ public class RoutesLoader {
 	private DateService dateService;
 
 	public void init(GenericApplicationContext context) {
-		port(getPort());
+		if (!DeployMode.STANDALONE.equals(ConfHelper.getDeployMode())) {
+			port(getPort());
+		}
 		staticFileLocation("/public");
 
 		/*
@@ -90,22 +93,21 @@ public class RoutesLoader {
 		AdminRoute adminRoute = context.getBean(AdminRoute.class);
 		get(Routes.ADMIN_INDEX, adminRoute, templateEngine);
 		post(Routes.ADMIN_INDEX, adminRoute, templateEngine);
-		
+
 		/*
 		 * Liste des utilisateurs
 		 */
 		UsersListRoute usersList = context.getBean(UsersListRoute.class);
 		get(Routes.USERS_LIST, usersList, templateEngine);
 		post(Routes.USERS_LIST, usersList, templateEngine);
-		
+
 		/*
 		 * Editer un utilisateur
 		 */
 		UserEditRoute userEditRoute = context.getBean(UserEditRoute.class);
 		get(Routes.USER_EDIT, userEditRoute, templateEngine);
 		post(Routes.USER_EDIT, userEditRoute, templateEngine);
-		
-		
+
 		/*
 		 * Page accès interdit
 		 */
@@ -140,7 +142,7 @@ public class RoutesLoader {
 			@Override
 			protected ModelAndView doHandle(Request request, Response response) {
 				unauthenticatedUser(request);
-				response.removeCookie(Configuration.COOKIE);
+				response.removeCookie(ConfHelper.COOKIE);
 				return new ModelAndView(null, Templates.LOGOUT);
 			}
 		}, templateEngine);
@@ -208,7 +210,6 @@ public class RoutesLoader {
 		StatisticsRoute statsRoute = context.getBean(StatisticsRoute.class);
 		get(Routes.PLACE_STATISTICS, statsRoute, templateEngine);
 		post(Routes.PLACE_STATISTICS, statsRoute, templateEngine);
-		
 
 		/*
 		 * User settings
@@ -222,7 +223,6 @@ public class RoutesLoader {
 			return new ModelAndView(map, Templates.ERROR);
 		}, templateEngine);
 
-		
 		/*
 		 * Change password
 		 */
@@ -242,11 +242,10 @@ public class RoutesLoader {
 		Filter setCookieFilter = (request, response) -> {
 			User authUser = getAuthenticatedUser(request);
 			if (authUser != null) {
-				String cookie = request.cookie(Configuration.COOKIE);
+				String cookie = request.cookie(ConfHelper.COOKIE);
 				if (cookie == null) {
 					Session session = userService.createSession(authUser);
-					response.cookie("/", Configuration.COOKIE, session.getCookie(), Configuration.COOKIE_DURATION,
-							false);
+					response.cookie("/", ConfHelper.COOKIE, session.getCookie(), ConfHelper.COOKIE_DURATION, false);
 				}
 			}
 		};

@@ -39,8 +39,8 @@ public class HibernateUtil {
 	private static SessionFactory createSessionFactory() {
 		try {
 			Configuration configuration = configuration();
-			configuration.setProperty(AvailableSettings.URL, org.friends.app.Configuration.dbUrl());
-			configuration.setProperty(AvailableSettings.DIALECT, org.friends.app.Configuration.dialect());
+			configuration.setProperty(AvailableSettings.URL, org.friends.app.ConfHelper.dbUrl());
+			configuration.setProperty(AvailableSettings.DIALECT, org.friends.app.ConfHelper.dialect());
 			configuration.setProperty(AvailableSettings.USE_QUERY_CACHE, "false");
 			configuration.setProperty(AvailableSettings.SHOW_SQL, "true");
 			configuration.setProperty(AvailableSettings.CURRENT_SESSION_CONTEXT_CLASS, "thread");
@@ -66,18 +66,21 @@ public class HibernateUtil {
 	}
 
 	private static Configuration configuration() {
-		String confFile = "/hibernate-local.cfg.xml";
-		if (!org.friends.app.Configuration.development()) {
+		String confFile = null;
+		switch (ConfHelper.getDeployMode()) {
+		case HEROKU:
 			confFile = "/hibernate-jndi.cfg.xml";
-		}else{
-			if(org.friends.app.Configuration.DEPLOY_MODE_STANDALONE.equalsIgnoreCase(org.friends.app.Configuration.DEPLOY_MODE)){
-				confFile = "/hibernate-standalone.cfg.xml";
-			}
+			break;
+		case STANDALONE:
+			confFile = "/hibernate-standalone.cfg.xml";
+			break;
+		case TEST:
+		default:
+			confFile = "/hibernate-local.cfg.xml";
+			break;
 		}
 
-		Configuration configuration = new Configuration();
-		configuration.configure(confFile);
-		return configuration;
+		return new Configuration().configure(confFile);
 	}
 
 }

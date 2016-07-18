@@ -19,7 +19,7 @@ public class StartParking {
 
 	public static void main(String[] args) {
 		System.setProperty("PORT", "8080");
-		System.setProperty(Configuration.DEPLOY_MODE, Configuration.DEPLOY_MODE_H2);
+		System.setProperty(DeployMode.PROPERTY, DeployMode.TEST.getCode());
 		System.setProperty("MAIL_TEAM", "contact@takemyplace.fr");
 
 		new Application() {
@@ -47,26 +47,39 @@ public class StartParking {
 		userDao.persist(new User("sylvain.verneau@amdm.fr", md5("jpc"), 144));
 
 		LocalDate timePoint = DateUtil.now();
-		String strDateToday = DateUtil.dateToString(timePoint);
-		String strTomorrow = DateUtil.dateToString(timePoint.plusDays(1));
-		String strYearsteday = DateUtil.dateToString(timePoint.minusDays(1));
+		String today = DateUtil.dateToString(timePoint);
+		String tomorrow = DateUtil.dateToString(timePoint.plusDays(1));
+		String yesterday = DateUtil.dateToString(timePoint.minusDays(1));
 		PlaceDao placeDao = new PlaceDao();
 
-		placeDao.persist(new Place(1, strDateToday)); // Place libre aujourd'hui
-														// free = true
-		placeDao.persist(new Place(2, "damien.urvoix@amdm.fr", strDateToday));// place
-																				// occupée
-																				// aujourd'hui
-		placeDao.persist(new Place(34, strYearsteday)); // Place libre hier free
-														// = true
-		placeDao.persist(new Place(35, strTomorrow)); // Place libre demain
-		placeDao.persist(new Place(36, "damien.urvoix@amdm.fr", strYearsteday)); // Place
-																					// occupee
-																					// hier
-		placeDao.persist(new Place(37, strTomorrow)); // Place libre demain
+		// Place libre aujourd'hui
+		placeDao.persist(new Place(1, today));
+		// place occupée aujourd'hui
+		placeDao.persist(new Place(2, "damien.urvoix@amdm.fr", today));
+		// Place libre hier
+		placeDao.persist(new Place(34, yesterday));
+		// Place libre demain
+		placeDao.persist(new Place(35, tomorrow));
+		// Place occupee hier
+		placeDao.persist(new Place(36, "damien.urvoix@amdm.fr", yesterday));
+		// Place libre demain
+		placeDao.persist(new Place(37, tomorrow));
 
-		insertDatas(strYearsteday, strDateToday, strTomorrow);
-		
+		placeDao.persist(new Place(133, "damien.urvoix@amdm.fr", yesterday));
+		placeDao.persist(new Place(132, "jean-pierre@amdm.fr", yesterday));
+		placeDao.persist(new Place(131, "philippe@amdm.fr", yesterday));
+		placeDao.persist(new Place(130, yesterday));
+
+		placeDao.persist(new Place(80, today));
+		placeDao.persist(new Place(81, today));
+		placeDao.persist(new Place(82, today));
+		placeDao.persist(new Place(133, "damien.urvoix@amdm.fr", today));
+
+		placeDao.persist(new Place(120, "damien.urvoix@amdm.fr", tomorrow));
+		placeDao.persist(new Place(121, tomorrow));
+		placeDao.persist(new Place(122, "philippe.martins@amdm.fr", tomorrow));
+		placeDao.persist(new Place(133, tomorrow));
+
 		SessionDao sessionDao = new SessionDao();
 		sessionDao.deleteExpired();
 	}
@@ -75,26 +88,5 @@ public class StartParking {
 		HashFunction hf = Hashing.md5();
 		HashCode hc = hf.newHasher().putString(pwd, Charset.defaultCharset()).hash();
 		return hc.toString();
-	}
-	
-	
-	
-	private static void insertDatas(String yesterday, String today, String tomorrow){
-		PlaceDao placeDao = new PlaceDao();
-
-		placeDao.persist(new Place(133, "damien.urvoix@amdm.fr",yesterday));
-		placeDao.persist(new Place(132, "jean-pierre@amdm.fr",yesterday));
-		placeDao.persist(new Place(131, "philippe@amdm.fr",yesterday));
-		placeDao.persist(new Place(130, yesterday));
-														
-		placeDao.persist(new Place(80, today));
-		placeDao.persist(new Place(81, today));
-		placeDao.persist(new Place(82, today));
-		placeDao.persist(new Place(133, "damien.urvoix@amdm.fr", today));
-		
-		placeDao.persist(new Place(120, "damien.urvoix@amdm.fr", tomorrow));
-		placeDao.persist(new Place(121, tomorrow));
-		placeDao.persist(new Place(122, "philippe.martins@amdm.fr", tomorrow));
-		placeDao.persist(new Place(133, tomorrow));
 	}
 }
