@@ -24,7 +24,7 @@
                             <hr>
                             <small>Visualisez la liste des utilisateurs de l'application.</small>
                             <br/><br/>
-                            <a href="/protected/usersList" class="btn btn-primary tailleText">Visualiser</a>	
+                            <a href="${routesDirectory}protected/usersList" class="btn btn-primary tailleText">Visualiser</a>	
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                             <hr>
                             <small>Consulter les statistiques d'utilisation par période.<br/></small>
                             <br/>
-                            <a href="/protected/statistics" class="btn btn-primary tailleText">Visualiser</a>	                            
+                            <a href="${routesDirectory}protected/statistics" class="btn btn-primary tailleText">Visualiser</a>	                            
                         </div>
                     </div> 
                 </div>

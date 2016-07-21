@@ -10,8 +10,8 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/protected/adminPage">
-					<img src="/images/logo.png" class="hidden-xs" alt="EcoParking">
+				<a class="navbar-brand" href="${routesDirectory}protected/adminPage">
+					<img src="${ressourcesDirectory}images/logo.png" class="hidden-xs" alt="EcoParking">
 				</a>
 				<#if mail??>
 					<p class="navbar-text">
@@ -23,7 +23,7 @@
 			<!-- =============================== Menus ================================-->
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/user/logout">DÉCONNEXION</a></li>
+					<li><a href="${routesDirectory}user/logout">DÉCONNEXION</a></li>
 				</ul>				
 			</div>			
 		</div>

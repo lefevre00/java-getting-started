@@ -90,7 +90,7 @@ public class ConfHelper {
 		case STANDALONE:
 			// url =
 			// "jdbc:postgresql://intramdm-dev.amdm.local:5432/lar?user=intrausr&password=IntraPS";
-			url = "jdbc:postgresql://localhost:5432/parking?user=michael&password=michael";
+			url = "jdbc:postgresql://localhost:5432/parking?user=postgres&password=admin";
 			break;
 		default:
 			url = "jdbc:h2:~/test;AUTO_SERVER=TRUE";

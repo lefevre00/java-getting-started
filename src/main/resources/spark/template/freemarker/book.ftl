@@ -24,7 +24,7 @@
 					<center>
 						${message}
 						<br/>
-						<a href="/protected/booked" class="btn btn-info btn-lg">Retour</a>
+						<a href="${routesDirectory}protected/booked" class="btn btn-info btn-lg">Retour</a>
 					  	     		
 					</center>
 				</div>

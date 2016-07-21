@@ -124,6 +124,8 @@ public class RoutesLoader {
 
 		get(Routes.DEFAULT, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
+			map.put("ressourcesDirectory", DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "./" :"/");
+			map.put("routesDirectory", DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "./" :"/");
 			LocalDate now = dateService.getWorkingDay();
 			List<Place> placesLibresToday = placeService.getAvailablesAtDate(now);
 			List<Place> placesLibresDemain = placeService.getAvailablesAtDate(dateService.getNextWorkingDay(now));
@@ -141,9 +143,10 @@ public class RoutesLoader {
 		get(Routes.LOGOUT, new AuthenticatedRoute() {
 			@Override
 			protected ModelAndView doHandle(Request request, Response response) {
+				Map<String, Object> map = Routes.getMap(request);
 				unauthenticatedUser(request);
 				response.removeCookie(ConfHelper.COOKIE);
-				return new ModelAndView(null, Templates.LOGOUT);
+				return new ModelAndView(map, Templates.LOGOUT);
 			}
 		}, templateEngine);
 

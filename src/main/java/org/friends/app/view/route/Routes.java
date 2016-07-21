@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.friends.app.ConfHelper;
+import org.friends.app.DeployMode;
 import org.friends.app.model.User;
 
 import spark.Request;
@@ -15,6 +17,7 @@ public interface Routes {
 	static final String APPLICATION_PROPERTIES = "application.properties";
 
 	public static void redirect(User user, Response response) {
+		String directory = DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "../" :"";
 		String dest = RESERVATIONS;
 		if (user == null)
 			dest = Routes.LOGIN;
@@ -22,7 +25,7 @@ public interface Routes {
 			dest = PLACE_SHARE;
 		else
 			dest= ADMIN_INDEX;
-		response.redirect(dest);
+		response.redirect(directory+dest);
 	}
 
 	/**
@@ -35,6 +38,8 @@ public interface Routes {
 		Map<String, Object> map = new HashMap<>();
 
 		User user = request.session().attribute("user");
+		map.put("ressourcesDirectory", DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "../" :"/");
+		map.put("routesDirectory", DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "../" :"/");
 		if (user != null) {
 			map.put("mail", user.getEmailAMDM());
 			if (user.getPlaceNumber() != null) {

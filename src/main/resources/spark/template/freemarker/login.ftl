@@ -2,8 +2,8 @@
 <html lang="fr">
 <head>
 	<#include "header.ftl">
-	<link rel="stylesheet" href="/css/login.css">
-	<link rel="stylesheet" href="/css/mediaqueries.css" type="text/css" />		
+	<link rel="stylesheet" href="${ressourcesDirectory}css/login.css">
+	<link rel="stylesheet" href="${ressourcesDirectory}css/mediaqueries.css" type="text/css" />		
 </head>
 
 <body>
@@ -38,9 +38,9 @@
 				
 				<div class="footer">
 					<input type="submit" name="submit" value="Se connecter" class="login" id="log"/>
-					<a href="/user/new" class="register">S'inscrire</a>
+					<a href="${routesDirectory}user/new" class="register">S'inscrire</a>
 					<br><br><br>
-					<a href="/user/forget" class="forget">Mot de passe oublié ?</a>
+					<a href="${routesDirectory}user/forget" class="forget">Mot de passe oublié ?</a>
 				</div>
 
 			</form>

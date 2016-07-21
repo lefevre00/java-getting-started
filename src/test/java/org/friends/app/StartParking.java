@@ -18,7 +18,7 @@ import com.google.common.hash.Hashing;
 public class StartParking {
 
 	public static void main(String[] args) {
-		System.setProperty("PORT", "8080");
+		System.setProperty("PORT", "9090");
 		System.setProperty(DeployMode.PROPERTY, DeployMode.TEST.getCode());
 		System.setProperty("MAIL_TEAM", "contact@takemyplace.fr");
 

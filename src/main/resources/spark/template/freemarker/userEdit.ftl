@@ -2,8 +2,8 @@
 <html lang="fr">
 <head>
 	<#include "header.ftl">
-	<link rel="stylesheet" href="/css/login.css">
-	<link rel="stylesheet" href="/css/mediaqueries.css" type="text/css" />	
+	<link rel="stylesheet" href="${ressourcesDirectory}css/login.css">
+	<link rel="stylesheet" href="${ressourcesDirectory}css/mediaqueries.css" type="text/css" />	
 </head> 
 <body>     
 
@@ -51,7 +51,7 @@
 				
 				<div class="footer">
 					<input type="submit" name="submit" value="Valider" class="valider" />
-					<a href="/protected/setting" class="register BtnRetour">Retour</a>
+					<a href="${routesDirectory}protected/setting" class="register BtnRetour">Retour</a>
 				</div>
 
 			</form>

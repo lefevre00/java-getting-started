@@ -3,9 +3,9 @@
 <head>
 	<#include "header.ftl">
 	
-    <link href="/css/bootstrap-table.css" rel="stylesheet">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap-table.js"></script>
+    <link href="${ressourcesDirectory}css/bootstrap-table.css" rel="stylesheet">
+    <script src="${ressourcesDirectory}js/jquery.min.js"></script>
+    <script src="${ressourcesDirectory}js/bootstrap-table.js"></script>
     <style>
 		.table th {
 		   text-align: center;
@@ -71,7 +71,7 @@
 		  	    			</#if>
 		  	    		</td>		
 		  	    		<td><#if user.tokenMail??>Attente activation<#else>Activé</#if></td>				  	    		
-			  	     	<td><a href="/protected/userEdit/${user.emailAMDM}"><img src="/images/edit.png"/></a></td>
+			  	     	<td><a href="${routesDirectory}protected/userEdit/${user.emailAMDM}"><img src="${ressourcesDirectory}images/edit.png"/></a></td>
 					</tr>
 				</#list>				
 				 

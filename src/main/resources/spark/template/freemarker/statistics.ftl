@@ -2,9 +2,9 @@
 <html lang="fr">
 <head>
 	<#include "header.ftl">
-    <link href="/css/bootstrap-table.css" rel="stylesheet">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap-table.js"></script>
+    <link href="${ressourcesDirectory}css/bootstrap-table.css" rel="stylesheet">
+    <script src="${ressourcesDirectory}js/jquery.min.js"></script>
+    <script src="${ressourcesDirectory}js/bootstrap-table.js"></script>
     <style>
 		.table th {
 		   text-align: center;
@@ -67,9 +67,9 @@
 									<th style="text-align:center;">Nbre inoccupé</th>
 								</tr>
 								<tr>
-									<td><a href="/protected/statistics?var=p&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbrePartage}</a></td>
-					  	    		<td><a href="/protected/statistics?var=o&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbreOccupe}</a></td>
-					  	    		<td><a href="/protected/statistics?var=i&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbreInoccupe}</a></td>
+									<td><a href="${routesDirectory}protected/statistics?var=p&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbrePartage}</a></td>
+					  	    		<td><a href="${routesDirectory}protected/statistics?var=o&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbreOccupe}</a></td>
+					  	    		<td><a href="${routesDirectory}protected/statistics?var=i&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbreInoccupe}</a></td>
 								</tr>
 							</table>
 							<!--button id="export" data-export="export" class="btn btn-primary">Exporter csv</button-->
@@ -131,11 +131,11 @@
 	
 	<!--==================================== javascripts files section  ==================================-->
 	<#include "commonjs.ftl">
-	<script src="/js/confirm.js"></script>
-	<link href="/css/datetimepicker.css" rel="stylesheet">
-  	<script src="/js/moment-with-locales.js"></script>
-  	<script src="/js/datetimepicker.js"></script>	
-    <script src="/js/jquery.tabletoCSV.js"></script>
+	<script src="${ressourcesDirectory}js/confirm.js"></script>
+	<link href="${ressourcesDirectory}css/datetimepicker.css" rel="stylesheet">
+  	<script src="${ressourcesDirectory}js/moment-with-locales.js"></script>
+  	<script src="${ressourcesDirectory}js/datetimepicker.js"></script>	
+    <script src="${ressourcesDirectory}js/jquery.tabletoCSV.js"></script>
     <script>
         $(function(){
             $("#export").click(function(){

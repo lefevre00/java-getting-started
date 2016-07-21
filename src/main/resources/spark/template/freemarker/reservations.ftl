@@ -34,16 +34,16 @@
 					<div class="panel-body">
 						<div class="col-sm-6" style="margin-bottom:10px;">
 							<#if showToday??>
-								<a href="/protected/search?day=${showToday}" class="btn btn-primary btn-lg tailleText">${libelleShowToday}</a>
+								<a href="${routesDirectory}protected/search?day=${showToday}" class="btn btn-primary btn-lg tailleText">${libelleShowToday}</a>
 							<#else>
-								<a href="/protected/search" class="btn btn-primary btn-lg disabled tailleText">${libelleShowToday}</a>						
+								<a href="${routesDirectory}protected/search" class="btn btn-primary btn-lg disabled tailleText">${libelleShowToday}</a>						
 							</#if>
 						</div>
 						<div class="col-sm-6" style="margin-bottom:10px;">
 							<#if showTomorrow??>
-								<a href="/protected/search?day=${showTomorrow}" class="btn btn-primary btn-lg tailleText">${libelleShowTomorrow}</a>
+								<a href="${routesDirectory}protected/search?day=${showTomorrow}" class="btn btn-primary btn-lg tailleText">${libelleShowTomorrow}</a>
 							<#else>
-								<a href="/protected/search" class="btn btn-primary btn-lg disabled tailleText">${libelleShowTomorrow}</a>
+								<a href="${routesDirectory}protected/search" class="btn btn-primary btn-lg disabled tailleText">${libelleShowTomorrow}</a>
 							</#if>
 						</div>
 					</div>
@@ -106,6 +106,6 @@
 	
 	<!--==================================== javascripts files section  ==================================-->
 	<#include "commonjs.ftl">		
-	<script src="/js/confirm.js"></script>
+	<script src="${ressourcesDirectory}/js/confirm.js"></script>
 </body>
 </html>
