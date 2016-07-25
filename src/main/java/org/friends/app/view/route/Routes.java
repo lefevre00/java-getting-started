@@ -8,24 +8,25 @@ import java.util.Properties;
 import org.friends.app.ConfHelper;
 import org.friends.app.DeployMode;
 import org.friends.app.model.User;
+import org.friends.app.view.RoutesLoader;
 
 import spark.Request;
 import spark.Response;
 
 public interface Routes {
-	
+
 	static final String APPLICATION_PROPERTIES = "application.properties";
 
 	public static void redirect(User user, Response response) {
-		String directory = DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "../" :"";
+		String directory = DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "../" : "";
 		String dest = RESERVATIONS;
 		if (user == null)
 			dest = Routes.LOGIN;
 		else if (user.getPlaceNumber() != null)
 			dest = PLACE_SHARE;
 		else
-			dest= ADMIN_INDEX;
-		response.redirect(directory+dest);
+			dest = ADMIN_INDEX;
+		response.redirect(directory + dest);
 	}
 
 	/**
@@ -38,8 +39,8 @@ public interface Routes {
 		Map<String, Object> map = new HashMap<>();
 
 		User user = request.session().attribute("user");
-		map.put("ressourcesDirectory", DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "../" :"/");
-		map.put("routesDirectory", DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "../" :"/");
+		map.put(RoutesLoader.RESOURCES_DIR, DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "../" : "/");
+		map.put(RoutesLoader.ROUTES_DIR, DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "../" : "/");
 		if (user != null) {
 			map.put("mail", user.getEmailAMDM());
 			if (user.getPlaceNumber() != null) {
@@ -56,8 +57,8 @@ public interface Routes {
 			}
 			Properties properties = tmp;
 
-			if((properties.getProperty("admin.email")).equalsIgnoreCase(user.getEmailAMDM())) {
-			    map.put("admin", "true");
+			if ((properties.getProperty("admin.email")).equalsIgnoreCase(user.getEmailAMDM())) {
+				map.put("admin", "true");
 			}
 		}
 

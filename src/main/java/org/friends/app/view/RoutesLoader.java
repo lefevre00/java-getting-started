@@ -55,6 +55,9 @@ import spark.template.freemarker.FreeMarkerEngine;
 @Component
 public class RoutesLoader {
 
+	public static final String ROUTES_DIR = "routesDirectory";
+	public static final String RESOURCES_DIR = "ressourcesDirectory";
+
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -124,8 +127,8 @@ public class RoutesLoader {
 
 		get(Routes.DEFAULT, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
-			map.put("ressourcesDirectory", DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "./" :"/");
-			map.put("routesDirectory", DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "./" :"/");
+			map.put(RESOURCES_DIR, DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "./" : "/");
+			map.put(ROUTES_DIR, DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "./" : "/");
 			LocalDate now = dateService.getWorkingDay();
 			List<Place> placesLibresToday = placeService.getAvailablesAtDate(now);
 			List<Place> placesLibresDemain = placeService.getAvailablesAtDate(dateService.getNextWorkingDay(now));
