@@ -1,6 +1,6 @@
 import org.friends.app.view.Application;
 
-public class Main {
+public class HerokuMain {
 
   public static void main(String[] args) {
 	  new Application().start();
