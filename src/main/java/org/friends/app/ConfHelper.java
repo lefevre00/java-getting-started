@@ -1,8 +1,13 @@
 package org.friends.app;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Properties;
 
+import org.friends.app.view.route.LoginRoute;
 import org.hibernate.dialect.H2Dialect;
 import org.hibernate.dialect.PostgreSQL92Dialect;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,6 +24,21 @@ public class ConfHelper {
 	public final static String COOKIE = "takemyplace";
 	public final static int COOKIE_DURATION = 86400; // One day
 	public static final String EMAIL_CONTACT = "contact@takemaplace.fr";
+
+	private static final String APPLICATION_PROPERTIES = "/application.properties";
+	public static final String ADMIN_MAIL;
+	public static final String ADMIN_PWD_MD5;
+	static {
+		// Données login admin dans fichier properties
+		Properties tmp = new Properties();
+		try {
+			tmp.load(LoginRoute.class.getResourceAsStream(APPLICATION_PROPERTIES));
+		} catch (IOException e) {
+			System.out.println("erreur lecture application.properties");
+		}
+		ADMIN_MAIL = tmp.getProperty("admin.email");
+		ADMIN_PWD_MD5 = getEncryptedMD5Password(tmp.getProperty("admin.password"));
+	}
 
 	public static String getMailServiceLogin() {
 		return System.getenv("SENDGRID_USERNAME");
@@ -98,5 +118,23 @@ public class ConfHelper {
 		}
 
 		return url;
+	}
+
+	private static String getEncryptedMD5Password(String pass) {
+		StringBuffer sb = new StringBuffer();
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(pass.getBytes());
+
+			byte byteData[] = md.digest();
+
+			// convert the byte to hex format method 1
+			for (int i = 0; i < byteData.length; i++) {
+				sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+			}
+		} catch (NoSuchAlgorithmException ex) {
+
+		}
+		return sb.toString();
 	}
 }

@@ -6,7 +6,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.friends.app.model.Place;
-import org.friends.app.service.DateService;
 import org.friends.app.service.PlaceService;
 import org.friends.app.util.DateUtil;
 import org.friends.app.view.Templates;
@@ -18,10 +17,8 @@ import spark.Request;
 import spark.Response;
 
 @Component
-public class AdminRoute extends AuthenticatedRoute {
+public class AdminRoute extends AdminAuthRoute {
 
-	@Autowired
-	private DateService dateService;
 	@Autowired
 	private PlaceService placeService;
 
@@ -30,25 +27,19 @@ public class AdminRoute extends AuthenticatedRoute {
 
 		Map<String, Object> map = Routes.getMap(request);
 
-		if (!"true".equalsIgnoreCase((String) map.get("admin"))) {
-			response.redirect(Routes.ACCESS_DENIED);
-		}
-		else{
-			if ("POST".equalsIgnoreCase(request.requestMethod())) {
-				LocalDate dateDebut = request.queryParams("dateDebut") != null
-						? DateUtil.stringToDate(request.queryParams("dateDebut"), Locale.FRANCE) : null;
-				LocalDate dateFin = request.queryParams("dateFin") != null
-						? DateUtil.stringToDate(request.queryParams("dateFin"), Locale.FRANCE) : null;
-						
-				List<Place> datesPartages = placeService.getAllPlaceBetweenTwoDates(DateUtil.dateToString(dateDebut), DateUtil.dateToString(dateFin));
-				if (!datesPartages.isEmpty()) {
-					map.put("datesPartages", datesPartages);
-				}
+		if ("POST".equalsIgnoreCase(request.requestMethod())) {
+			String paramDebut = request.queryParams("dateDebut");
+			LocalDate dateDebut = paramDebut != null ? DateUtil.stringToDate(paramDebut, Locale.FRANCE) : null;
+			String paramFin = request.queryParams("dateFin");
+			LocalDate dateFin = paramFin != null ? DateUtil.stringToDate(paramFin, Locale.FRANCE) : null;
 
+			List<Place> datesPartages = placeService.getAllPlaceBetweenTwoDates(DateUtil.dateToString(dateDebut),
+					DateUtil.dateToString(dateFin));
+			if (!datesPartages.isEmpty()) {
+				map.put("datesPartages", datesPartages);
 			}
-			
 		}
-		
+
 		return new ModelAndView(map, Templates.ADMIN_PAGE);
 
 	}

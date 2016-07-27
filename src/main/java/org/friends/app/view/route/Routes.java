@@ -1,9 +1,7 @@
 package org.friends.app.view.route;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import org.friends.app.ConfHelper;
 import org.friends.app.DeployMode;
@@ -13,9 +11,7 @@ import org.friends.app.view.RoutesLoader;
 import spark.Request;
 import spark.Response;
 
-public interface Routes {
-
-	static final String APPLICATION_PROPERTIES = "application.properties";
+public class Routes {
 
 	public static void redirect(User user, Response response) {
 		String directory = DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "../" : "";
@@ -49,15 +45,7 @@ public interface Routes {
 			}
 
 			// Données login admin dans fichier properties
-			Properties tmp = new Properties();
-			try {
-				tmp.load(LoginRoute.class.getResourceAsStream(APPLICATION_PROPERTIES));
-			} catch (IOException e) {
-				System.out.println("erreur lecture application.properties");
-			}
-			Properties properties = tmp;
-
-			if ((properties.getProperty("admin.email")).equalsIgnoreCase(user.getEmailAMDM())) {
+			if (ConfHelper.ADMIN_MAIL.equalsIgnoreCase(user.getEmailAMDM())) {
 				map.put("admin", "true");
 			}
 		}
@@ -65,49 +53,48 @@ public interface Routes {
 		return map;
 	}
 
-	String PARAM_TOKEN_VALUE = "tok";
+	public static String PARAM_TOKEN_VALUE = "tok";
 
 	/*
 	 * Accessible for everyone
 	 */
-	String DEFAULT = "/";
-	String LOGIN = "/user/login";
-	String REGISTER = "/user/new";
-	String TOKEN_VALIDATION = "/user/validate";
-	String REGISTRED = "/user/registred";
-	String PASSWORD_LOST = "/user/forget";
-	String PASSWORD_RESET = "/user/reset";
-	String PASSWORD_NEW = "/user/pwd";
-	String PASSWORD_SETTED = "/user/setted";
+	public static String DEFAULT = "/";
+	public static String LOGIN = "/user/login";
+	public static String REGISTER = "/user/new";
+	public static String TOKEN_VALIDATION = "/user/validate";
+	public static String REGISTRED = "/user/registred";
+	public static String PASSWORD_LOST = "/user/forget";
+	public static String PASSWORD_RESET = "/user/reset";
+	public static String PASSWORD_NEW = "/user/pwd";
+	public static String PASSWORD_SETTED = "/user/setted";
 
-	String ERROR_PAGE = "/user/error";
-	String MESSAGE_CONTACT = "/user/contact";
+	public static String ERROR_PAGE = "/user/error";
+	public static String MESSAGE_CONTACT = "/user/contact";
 
 	/*
 	 * Accessible if authenticated
 	 */
-	String LOGOUT = "/user/logout";
-	String PLACE_SEARCH = "/protected/search";
-	String PLACE_SHARE = "/protected/share";
-	String PLACE_STATISTICS = "/protected/statistics";
-	String PLACE_BOOK = "/protected/book/:date/:place_id";
-	String RESERVATIONS = "/protected/booked";
-	String SETTINGS = "/protected/setting";
-	String UNREGISTER = "/protected/unregister";
+	public static String LOGOUT = "/user/logout";
+	public static String PLACE_SEARCH = "/protected/search";
+	public static String PLACE_SHARE = "/protected/share";
+	public static String PLACE_STATISTICS = "/protected/statistics";
+	public static String PLACE_BOOK = "/protected/book/:date/:place_id";
+	public static String RESERVATIONS = "/protected/booked";
+	public static String SETTINGS = "/protected/setting";
+	public static String UNREGISTER = "/protected/unregister";
 
-	String HISTORY = "/protected/history";
-	String PASSWORD_CHANGE = "/protected/change_pwd";
-	String ADMIN_INDEX = "/protected/adminPage";
+	public static String HISTORY = "/protected/history";
+	public static String PASSWORD_CHANGE = "/protected/change_pwd";
+	public static String ADMIN_INDEX = "/protected/adminPage";
 
-	String ACCESS_DENIED = "/protected/accessDenied";
-	String USERS_LIST = "/protected/usersList";
-	String USER_EDIT = "/protected/userEdit/:user_id";
+	public static String ACCESS_DENIED = "/protected/accessDenied";
+	public static String USERS_LIST = "/protected/usersList";
+	public static String USER_EDIT = "/protected/userEdit/:user_id";
 
 	/*
 	 * Model map key
 	 */
-	String KEY_ERROR = "error";
-	String KEY_INFO = "info";
-	String KEY_SUCCESS = "success";
-
+	public static String KEY_ERROR = "error";
+	public static String KEY_INFO = "info";
+	public static String KEY_SUCCESS = "success";
 }

@@ -10,9 +10,6 @@ public class Application {
 		ctx.register(ConfHelper.class);
 		ctx.refresh();
 
-		for (String name : ctx.getBeanDefinitionNames()) {
-			System.out.println("bean define : " + name);
-		}
 		RoutesLoader routesLoader = ctx.getBean(RoutesLoader.class);
 		routesLoader.init(ctx);
 	}

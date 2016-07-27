@@ -28,7 +28,7 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 
 	protected abstract ModelAndView doHandle(Request request, Response response);
 
-	private void checkAuthenticated(Request request, Response response) {
+	protected final void checkAuthenticated(Request request, Response response) {
 		User user = getUser(request);
 
 		// 1 : try to find user in session
@@ -61,4 +61,12 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 		return request.session().attribute("user");
 	}
 
+	protected boolean isAdmin(Request request) {
+		if (request == null)
+			return false;
+		User user = getUser(request);
+		if (user == null)
+			return false;
+		return ConfHelper.ADMIN_MAIL.equalsIgnoreCase(user.getEmailAMDM());
+	}
 }
