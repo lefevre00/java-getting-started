@@ -9,8 +9,5 @@ public class Application {
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
 		ctx.register(ConfHelper.class);
 		ctx.refresh();
-
-		RoutesLoader routesLoader = ctx.getBean(RoutesLoader.class);
-		routesLoader.init(ctx);
 	}
 }

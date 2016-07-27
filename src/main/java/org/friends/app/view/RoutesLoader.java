@@ -14,6 +14,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.friends.app.ConfHelper;
 import org.friends.app.DeployMode;
 import org.friends.app.model.Place;
@@ -43,6 +45,7 @@ import org.friends.app.view.route.UserEditRoute;
 import org.friends.app.view.route.UsersListRoute;
 import org.friends.app.view.route.ValidTokenRoute;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -64,8 +67,11 @@ public class RoutesLoader {
 	private PlaceService placeService;
 	@Autowired
 	private DateService dateService;
+	@Autowired
+	ApplicationContext context;
 
-	public void init(GenericApplicationContext context) {
+	@PostConstruct
+	public void init() {
 		if (!DeployMode.STANDALONE.equals(ConfHelper.getDeployMode())) {
 			port(getPort());
 		}
