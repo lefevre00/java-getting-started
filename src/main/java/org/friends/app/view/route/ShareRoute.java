@@ -90,10 +90,16 @@ public class ShareRoute extends AuthenticatedRoute {
 			try {
 				
 				// on vérifie que l'email existe bien en base
-				userOccupant = userService.findUserByEmail(emailOccupant);
-				if (StringUtils.isEmpty(emailOccupant) || StringUtils.isNotEmpty(emailOccupant) && userOccupant != null){
-					retour = placeService.sharePlaces(user, dateDebut, dateFin, emailOccupant);
+				if(!StringUtils.isEmpty(emailOccupant)){
+					userOccupant = userService.findUserByEmail(emailOccupant);
+					if(userOccupant == null) {
+						map.put("message", "L'utilisateur n'est pas connu !");
+						return new ModelAndView(map, Templates.ERROR);
+					}
 				}
+				
+				retour = placeService.sharePlaces(user, dateDebut, dateFin, emailOccupant);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				map.put("message", "Une erreur est survenue lors de l'enregistrement de données !");
