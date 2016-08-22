@@ -1,5 +1,6 @@
 package org.friends.app.servletcontext;
 
+import org.friends.app.DeployMode;
 import org.friends.app.view.Application;
 
 import spark.servlet.SparkApplication;
@@ -13,8 +14,7 @@ public class ApplicationServlet implements SparkApplication {
 
 	@Override
 	public void init() {
-		System.setProperty("MAIL_TEAM", "contact@takemyplace.fr");
-		new Application().start();
+		new Application().start(DeployMode.STANDALONE);
 	}
 
 }

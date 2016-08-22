@@ -4,7 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 
 @Ignore
-public class ParkingTest {
+public class ClientTest {
 
 	@BeforeClass
 	public static void setup() {

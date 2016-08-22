@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.friends.app.dao.PlaceDao;
+import org.friends.app.dao.impl.PlaceDaoImpl;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.BookingException;
@@ -18,15 +18,18 @@ import org.friends.app.util.DateUtil;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import spark.utils.Assert;
 import spark.utils.StringUtils;
 
+@Transactional(propagation = Propagation.REQUIRED)
 @Service
 public class PlaceServiceBean implements PlaceService {
 
 	@Autowired
-	private PlaceDao placedao;
+	private PlaceDaoImpl placedao;
 
 	@Override
 	public List<Place> getAvailablesAtDate(LocalDate date) {
@@ -49,11 +52,10 @@ public class PlaceServiceBean implements PlaceService {
 		if (!listeDates.isEmpty()) {
 			for (Iterator<String> iterator = listeDates.iterator(); iterator.hasNext();) {
 				String leJour = iterator.next();
-				if (StringUtils.isEmpty(emailOccupant)){
+				if (StringUtils.isEmpty(emailOccupant)) {
 					placedao.persist(new Place(user.getPlaceNumber().intValue(), leJour));
-				}
-				else{
-					placedao.persist(new Place(user.getPlaceNumber().intValue(), emailOccupant, leJour));
+				} else {
+					placedao.persist(new Place(user.getPlaceNumber().intValue(), leJour, emailOccupant));
 				}
 			}
 			return true;
@@ -79,8 +81,8 @@ public class PlaceServiceBean implements PlaceService {
 	public Place book(String date, User user, String placeNumber) throws BookingException {
 
 		Assert.notNull(date);
-		Assert.notNull(placeNumber);
 		Assert.notNull(user);
+		Assert.notNull(placeNumber);
 
 		List<Place> listPlaceReserve = placedao.findPlacesByCriterions(Restrictions.eq("id.occupationDate", date),
 				Restrictions.eq("id.placeNumber", Integer.valueOf(placeNumber)));
@@ -269,13 +271,14 @@ public class PlaceServiceBean implements PlaceService {
 				Restrictions.eq("id.occupationDate", day));
 		return hasNoReservation && placePartagee != null && !placePartagee.isFree();
 	}
-	
+
 	@Override
 	public List<Place> getAllPlaceBetweenTwoDates(String beginDate, String endDate) {
 		Assert.notNull(beginDate);
 		Assert.notNull(endDate);
 		List<Place> listRetour = new ArrayList<Place>();
-		listRetour = placedao.findPlacesByCriterions(Restrictions.ge("id.occupationDate", beginDate), Restrictions.le("id.occupationDate", endDate));
+		listRetour = placedao.findPlacesByCriterions(Restrictions.ge("id.occupationDate", beginDate),
+				Restrictions.le("id.occupationDate", endDate));
 		List<Place> listPourAffichage = new ArrayList<Place>();
 		for (Iterator<Place> iterator = listRetour.iterator(); iterator.hasNext();) {
 			Place place = iterator.next();
@@ -292,7 +295,7 @@ public class PlaceServiceBean implements PlaceService {
 	@Override
 	public List<Place> getAllSharedDatesByUser(Integer placeNumber) {
 		Assert.notNull(placeNumber);
-		
+
 		List<Place> listRetour = new ArrayList<Place>();
 		listRetour = placedao.findPlacesByCriterions(Restrictions.ge("id.placeNumber", placeNumber));
 		List<Place> listPourAffichage = new ArrayList<Place>();
@@ -305,12 +308,12 @@ public class PlaceServiceBean implements PlaceService {
 		}
 		listRetour.clear();
 		listRetour.addAll(listPourAffichage);
-		return listRetour;		
+		return listRetour;
 	}
 
 	@Override
 	public List<Place> getAllPlacesBookedByUser(String email) {
 		Assert.notNull(email);
-		return placedao.findPlacesByCriterions(Restrictions.ge("usedBy", email));			
+		return placedao.findPlacesByCriterions(Restrictions.ge("usedBy", email));
 	}
 }

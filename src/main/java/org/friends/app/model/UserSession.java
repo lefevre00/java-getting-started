@@ -26,9 +26,9 @@ import com.google.common.hash.Hashing;
 @Entity
 @Table(name = "SESSIONS")
 @NamedQueries(value = {
-		@NamedQuery(name = Session.DELETE_EXPIRED, query = "delete from Session where expirationDate < :date"),
-		@NamedQuery(name = Session.QUERY_FIND_BY_COOKIE, query = "select s from Session s where s.cookie = :cookie") })
-public class Session {
+		@NamedQuery(name = UserSession.DELETE_EXPIRED, query = "delete from UserSession where expirationDate < :date"),
+		@NamedQuery(name = UserSession.QUERY_FIND_BY_COOKIE, query = "select s from UserSession s where s.cookie = :cookie") })
+public class UserSession {
 
 	public static final String DELETE_EXPIRED = "expired";
 
@@ -52,11 +52,11 @@ public class Session {
 	@Column(name = "EXPIRATION_DATE")
 	Date expirationDate;
 
-	public Session() {
+	public UserSession() {
 		// pour hibernate
 	}
 
-	public Session(User user) {
+	public UserSession(User user) {
 		userId = user.getId();
 		Calendar cal = Calendar.getInstance();
 		creationDate = cal.getTime();

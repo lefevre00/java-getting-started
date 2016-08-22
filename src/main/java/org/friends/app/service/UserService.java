@@ -2,7 +2,7 @@ package org.friends.app.service;
 
 import java.util.List;
 
-import org.friends.app.model.Session;
+import org.friends.app.model.UserSession;
 import org.friends.app.model.User;
 import org.omg.CORBA.UnknownUserException;
 
@@ -31,7 +31,7 @@ public interface UserService {
 
 	public User create(User user, String applicationHost) throws Exception;
 
-	public Session createSession(User authUser);
+	public UserSession createSession(User authUser);
 
 	public boolean setPassword(String email, String token, String mdp);
 

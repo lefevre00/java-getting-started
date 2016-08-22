@@ -6,11 +6,11 @@ import java.util.UUID;
 
 import javax.xml.bind.ValidationException;
 
-import org.friends.app.dao.SessionDao;
-import org.friends.app.dao.UserDao;
+import org.friends.app.dao.impl.UserDaoImpl;
+import org.friends.app.dao.impl.UserSessionDaoImpl;
 import org.friends.app.model.Place;
-import org.friends.app.model.Session;
 import org.friends.app.model.User;
+import org.friends.app.model.UserSession;
 import org.friends.app.service.DataIntegrityException;
 import org.friends.app.service.MailService;
 import org.friends.app.service.PlaceService;
@@ -20,19 +20,22 @@ import org.hibernate.criterion.Restrictions;
 import org.omg.CORBA.UnknownUserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.google.common.base.Strings;
 
 import spark.utils.Assert;
 import spark.utils.StringUtils;
 
-import com.google.common.base.Strings;
-
+@Transactional(propagation = Propagation.REQUIRED)
 @Service
 public class UserServiceBean implements UserService {
 
 	@Autowired
-	private UserDao userDao;
+	private UserDaoImpl userDao;
 	@Autowired
-	private SessionDao sessionDao;
+	private UserSessionDaoImpl sessionDao;
 	@Autowired
 	private MailService mailService;
 	@Autowired
@@ -72,7 +75,7 @@ public class UserServiceBean implements UserService {
 		Assert.notNull(email);
 		return userDao.findUserByCriterions(Restrictions.eq("emailAMDM", email));
 	}
-	
+
 	@Override
 	public User findUserByPlaceNUmber(Integer placeNumber) {
 		Assert.notNull(placeNumber);
@@ -81,17 +84,17 @@ public class UserServiceBean implements UserService {
 
 	@Override
 	public User findUserByCookie(String cookie) {
-		Session session = sessionDao.findByCookie(cookie);
+		UserSession session = sessionDao.findByCookie(cookie);
 		if (session == null)
 			return null;
 		return userDao.findById(session.getUserId());
 	}
 
 	@Override
-	public Session createSession(User user) {
+	public UserSession createSession(User user) {
 		Assert.notNull(user);
 		cleanExpiredSession();
-		return sessionDao.persist(new Session(user));
+		return sessionDao.persist(new UserSession(user));
 	}
 
 	private void cleanExpiredSession() {
@@ -242,28 +245,28 @@ public class UserServiceBean implements UserService {
 
 	@Override
 	public boolean changePassword(String email, String hashedPwd) {
-		
+
 		if (StringUtils.isEmpty(email))
 			throw new IllegalArgumentException("Email required");
 		if (StringUtils.isEmpty(hashedPwd))
 			throw new IllegalArgumentException("Hashed password required");
-		
+
 		User user = findUserByEmail(email);
 		if (user != null) {
 			user.setTokenPwd(null);
 			user.setPwd(hashedPwd);
 			userDao.persist(user);
 			return true;
-		}	
+		}
 		return false;
-		
+
 	}
 
 	@Override
 	public List<User> getAllUsersWithoutPlaces() {
 		List<User> users = new ArrayList<User>();
-		for(User user : getAllUser()){
-			if (user.getPlaceNumber()==null || user.getPlaceNumber() == 0){
+		for (User user : getAllUser()) {
+			if (user.getPlaceNumber() == null || user.getPlaceNumber() == 0) {
 				users.add(user);
 			}
 		}
@@ -272,24 +275,25 @@ public class UserServiceBean implements UserService {
 
 	@Override
 	public boolean updateUser(Integer idUser, String email, String mobile, Integer placeNumber) {
-		
+
 		if (StringUtils.isEmpty(idUser))
 			throw new IllegalArgumentException("Id User required");
 		if (StringUtils.isEmpty(email))
-			throw new IllegalArgumentException("Email required");		
-		if(findUserByPlaceNUmber(placeNumber)!=null){
+			throw new IllegalArgumentException("Email required");
+		if (findUserByPlaceNUmber(placeNumber) != null) {
 			return false;
 		}
 		User user = userDao.findById(idUser);
-		//TODO ABTAM : ajouter le mobile qd le mapping est fait
-		if ( !email.equals(user.getEmailAMDM()) || !placeNumber.equals(user.getPlaceNumber()) ){ // || !mobile.equals(user.getMobile())
+		// TODO ABTAM : ajouter le mobile qd le mapping est fait
+		if (!email.equals(user.getEmailAMDM()) || !placeNumber.equals(user.getPlaceNumber())) { // ||
+																								// !mobile.equals(user.getMobile())
 			user.setEmailAMDM(email);
 			user.setPlaceNumber(placeNumber);
-//			user.setMobile(mobile);
+			// user.setMobile(mobile);
 			userDao.update(user);
 			return true;
 		}
-		
+
 		return false;
 
 	}

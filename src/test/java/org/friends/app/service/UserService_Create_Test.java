@@ -2,8 +2,7 @@ package org.friends.app.service;
 
 import static org.friends.app.service.UserBuilder.unUser;
 
-import org.friends.app.ParkingTest;
-import org.friends.app.dao.UserDao;
+import org.friends.app.dao.impl.UserDaoImpl;
 import org.friends.app.service.impl.UserServiceBean;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserService_Create_Test extends ParkingTest {
+public class UserService_Create_Test {
 
 	private static final String PRENOM_NOM_AMDM_FR = "prenom.nom@amdm.fr";
 
@@ -20,7 +19,7 @@ public class UserService_Create_Test extends ParkingTest {
 	UserServiceBean service = new UserServiceBean();
 
 	@Mock
-	UserDao dao;
+	UserDaoImpl dao;
 	@Mock
 	MailService mailServiceBean;
 

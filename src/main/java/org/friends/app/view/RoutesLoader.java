@@ -19,7 +19,7 @@ import javax.annotation.PostConstruct;
 import org.friends.app.ConfHelper;
 import org.friends.app.DeployMode;
 import org.friends.app.model.Place;
-import org.friends.app.model.Session;
+import org.friends.app.model.UserSession;
 import org.friends.app.model.User;
 import org.friends.app.service.DateService;
 import org.friends.app.service.PlaceService;
@@ -46,7 +46,6 @@ import org.friends.app.view.route.UsersListRoute;
 import org.friends.app.view.route.ValidTokenRoute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.stereotype.Component;
 
 import spark.Filter;
@@ -256,7 +255,7 @@ public class RoutesLoader {
 			if (authUser != null) {
 				String cookie = request.cookie(ConfHelper.COOKIE);
 				if (cookie == null) {
-					Session session = userService.createSession(authUser);
+					UserSession session = userService.createSession(authUser);
 					response.cookie("/", ConfHelper.COOKIE, session.getCookie(), ConfHelper.COOKIE_DURATION, false);
 				}
 			}

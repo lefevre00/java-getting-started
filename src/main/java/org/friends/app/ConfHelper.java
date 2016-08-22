@@ -10,12 +10,9 @@ import java.util.Properties;
 import org.friends.app.view.route.LoginRoute;
 import org.hibernate.dialect.H2Dialect;
 import org.hibernate.dialect.PostgreSQL92Dialect;
-import org.springframework.context.annotation.ComponentScan;
 
 import spark.utils.StringUtils;
 
-@org.springframework.context.annotation.Configuration("application")
-@ComponentScan("org.friends.app.*")
 public class ConfHelper {
 
 	public final static String PORT = "PORT";
@@ -49,7 +46,7 @@ public class ConfHelper {
 	}
 
 	public static String getMailTeam() {
-		return get("MAIL_TEAM", "");
+		return get("MAIL_TEAM", "contact@takemyplace.fr");
 	}
 
 	public static Integer getPort() {

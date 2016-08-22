@@ -1,7 +1,7 @@
 package org.friends.app.service;
 
-import org.friends.app.ParkingTest;
-import org.friends.app.dao.UserDao;
+import org.friends.app.ClientTest;
+import org.friends.app.dao.impl.UserDaoImpl;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.UserServiceBean;
 import org.junit.Rule;
@@ -14,12 +14,12 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserService_Update_Test extends ParkingTest {
+public class UserService_Update_Test extends ClientTest {
 	
 	@InjectMocks
 	UserServiceBean service = new UserServiceBean();
 	
-	@Mock UserDao dao;
+	@Mock UserDaoImpl dao;
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void user_ne_doit_pas_etre_null() throws Exception {
