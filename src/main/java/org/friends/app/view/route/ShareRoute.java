@@ -84,26 +84,37 @@ public class ShareRoute extends AuthenticatedRoute {
 				map.put("message", "L'email saisi est incorrect !");
 				return new ModelAndView(map, Templates.ERROR);
 			}
+			
+			// on vérifie que l'email existe bien en base
+			if(emailOccupant != null || StringUtils.isNotEmpty(emailOccupant)) { 
+				if(userService.findUserByEmail(emailOccupant) == null) {
+					map.put("message", "Utilisateur introuvable dans notre base de données !");
+					return new ModelAndView(map, Templates.ERROR);
+				}
+			}
 					
 			boolean retour = false;
-			User userOccupant = null;
+			
 			try {
-				
-				// on vérifie que l'email existe bien en base
-				userOccupant = userService.findUserByEmail(emailOccupant);
-				if (StringUtils.isEmpty(emailOccupant) || StringUtils.isNotEmpty(emailOccupant) && userOccupant != null){
+//				
+//				// on vérifie que l'email existe bien en base
+//				if(emailOccupant != null || StringUtils.isNotEmpty(emailOccupant)) { 
+//					userOccupant = userService.findUserByEmail(emailOccupant);
+//				}
+//				if (StringUtils.isEmpty(emailOccupant) || StringUtils.isNotEmpty(emailOccupant)){
 					retour = placeService.sharePlaces(user, dateDebut, dateFin, emailOccupant);
-				}
+//				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				map.put("message", "Une erreur est survenue lors de l'enregistrement de données !");
 				return new ModelAndView(map, Templates.ERROR);
 			}
 			if (!retour) {
-				if (StringUtils.isNotEmpty(emailOccupant) && userOccupant == null){
-					map.put("message", "Utilisateur introuvable dans notre base de données !");
-				}
-				else if (dateDebut.equals(dateFin)) {
+//				if (StringUtils.isNotEmpty(emailOccupant) && userOccupant == null){
+//					map.put("message", "Utilisateur introuvable dans notre base de données !");
+//				}
+//				else 
+				if (dateDebut.equals(dateFin)) {
 					map.put("message", "Vous avez déjà partagé votre place pour le "
 							+ DateUtil.dateToString(dateDebut, Locale.FRANCE));
 				} else {

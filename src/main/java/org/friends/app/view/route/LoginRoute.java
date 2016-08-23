@@ -35,7 +35,7 @@ public class LoginRoute implements TemplateViewRoute {
 		Map<String, Object> map = Routes.getMap(request);
 		User user = request.session().attribute("user");
 		if (user != null) {
-			Routes.redirect(user, response);
+			Routes.redirect(user, response, false);
 		} else if ("POST".equalsIgnoreCase(request.requestMethod())) {
 			onLogin(request, response, map);
 		}
@@ -59,7 +59,7 @@ public class LoginRoute implements TemplateViewRoute {
 			map.put("admin", "true");
 			user = new User(email, pwd);
 			addAuthenticatedUser(request, user);
-			Routes.redirect(user, response);
+			Routes.redirect(user, response, true);
 		} else {
 			try {
 				user = userService.authenticate(email, pwd);
@@ -67,7 +67,7 @@ public class LoginRoute implements TemplateViewRoute {
 				if (user != null) {
 					Logger.getLogger("login").info("user logged in : " + user.getEmailAMDM());
 					addAuthenticatedUser(request, user);
-					Routes.redirect(user, response);
+					Routes.redirect(user, response, false);
 				} else {
 					map.put(Routes.KEY_ERROR, "Utilisateur introuvable !");
 				}

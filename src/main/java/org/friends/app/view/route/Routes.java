@@ -13,16 +13,32 @@ import spark.Response;
 
 public class Routes {
 
-	public static void redirect(User user, Response response) {
-		String directory = DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "../" : "";
+	public static void redirect(User user, Response response, boolean isAdmin) {
+		
+		
+		String directory = DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? ".." : "";
+		String dest = ADMIN_INDEX;
+		if(!isAdmin) {
+			dest = RESERVATIONS;
+			if (user == null)
+				dest = Routes.LOGIN;
+			else if (user.getPlaceNumber() != null)
+				dest = PLACE_SHARE;
+		}
+		response.redirect(directory + dest);
+		
+		/*
+		String directory = DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? ".." : "";
 		String dest = RESERVATIONS;
 		if (user == null)
 			dest = Routes.LOGIN;
 		else if (user.getPlaceNumber() != null)
 			dest = PLACE_SHARE;
+		
 		else
 			dest = ADMIN_INDEX;
 		response.redirect(directory + dest);
+		 * */
 	}
 
 	/**
