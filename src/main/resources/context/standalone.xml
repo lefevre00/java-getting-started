@@ -19,5 +19,5 @@
 	   jndi-name="jdbc/DatabaseName"
 	   expected-type="javax.sql.DataSource" />
    <!-- voir http://stackoverflow.com/questions/9183321/how-to-use-jndi-datasource-provided-by-tomcat-in-spring -->
-	<import resource="classpath:/context/common.xml"/>
+	<import resource="classpath:/context/application.xml"/>
 </beans>
