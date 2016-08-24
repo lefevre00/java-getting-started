@@ -39,7 +39,7 @@ public class SearchRoute extends AuthenticatedRoute {
 		map.put("dateRecherche", DateUtil.dateToFullString(dateRechercheeAsDate));
 
 		if(!dateService.isSearchDateValid(dateRechercheeAsDate)){
-			map.put("message", "Les places du "+DateUtil.dateToMediumString(dateRechercheeAsDate)+" ne sont pas encore réservable !!");
+			map.put("message", "Les places  ne sont pas encore réservable ");
 			return new ModelAndView(map, Templates.SEARCH);
 		}
 		
