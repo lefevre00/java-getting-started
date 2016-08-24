@@ -15,6 +15,8 @@
 		http://www.springframework.org/schema/jdbc
 		http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
+	<bean id="mailSender" class="org.friends.app.service.impl.ConsoleMailSender"/>
+	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="org.h2.Driver" />
 		<property name="url" value="jdbc:h2:~/test;AUTO_SERVER=TRUE" />

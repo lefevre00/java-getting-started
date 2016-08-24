@@ -30,7 +30,7 @@
 			</list> </property> -->
 		<property name="hibernateProperties">
 			<map>
-				<entry key="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+				<entry key="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL92Dialect" />
 				<entry key="hibernate.connection.isolation" value="1" />
 				<entry key="hbm2ddl.auto" value="create" />
 				<entry key="hibernate.current_session_context_class" value="thread" 
