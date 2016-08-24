@@ -153,16 +153,16 @@
 				</executions>
 			</plugin>
 			<plugin>
-		        <artifactId>maven-war-plugin</artifactId>
-		        <version>2.6</version>
-		        <configuration>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
 					<archive>
 						<manifestEntries>
 							<git-SHA-1>${buildNumber}</git-SHA-1>
 						</manifestEntries>
 					</archive>
-		        </configuration>
-	      	</plugin>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -209,4 +209,46 @@
 		<url>https://travis-ci.org/lefevre00/parking/</url>
 	</ciManagement>
 	<packaging>war</packaging>
+
+	<profiles>
+		<profile>
+			<id>michael</id>
+			<properties>
+				<tomcat.dir>${user.home}/code/apache-tomcat-8.0.36/webapps</tomcat.dir>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>local</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<version>2.10</version>
+						<executions>
+							<execution>
+								<id>copy-installed</id>
+								<phase>install</phase>
+								<goals>
+									<goal>copy</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>${project.groupId}</groupId>
+											<artifactId>${project.artifactId}</artifactId>
+											<version>${project.version}</version>
+											<type>${project.packaging}</type>
+										</artifactItem>
+									</artifactItems>
+									<outputDirectory>${tomcat.dir}</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
