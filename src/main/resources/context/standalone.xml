@@ -15,9 +15,27 @@
 		http://www.springframework.org/schema/jee
 		http://www.springframework.org/schema/jee/spring-jee.xsd">
 
+<!--
+	Need to define the database in tomcat as bellow
+	see http://stackoverflow.com/questions/9183321/how-to-use-jndi-datasource-provided-by-tomcat-in-spring 
+
+    <Resource name="jdbc/parkingDb"
+              auth="Container"
+              type="javax.sql.DataSource"
+              username="user"
+              password="secret"
+              url="jdbc:postgresql://host:5432/dbname"
+              driverClassName="org.postgresql.Driver"
+              maxWaitMillis="-1"
+              maxTotal="40"
+              maxIdle="10"
+              testOnBorrow="true"
+              validationQuery="select 1" />
+ -->
+ 
 	<jee:jndi-lookup id="dataSource"
-	   jndi-name="jdbc/DatabaseName"
+	   jndi-name="jdbc/parkingDb"
 	   expected-type="javax.sql.DataSource" />
-   <!-- voir http://stackoverflow.com/questions/9183321/how-to-use-jndi-datasource-provided-by-tomcat-in-spring -->
+
 	<import resource="classpath:/context/application.xml"/>
 </beans>
