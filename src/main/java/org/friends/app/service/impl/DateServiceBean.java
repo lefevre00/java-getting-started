@@ -81,7 +81,7 @@ public class DateServiceBean implements DateService {
 		
 		if(getWorkingDay().atStartOfDay().isEqual(dateRecherche.atStartOfDay())) {
 			retour = true;
-		}else if(getNextWorkingDay(DateUtil.now()).atStartOfDay().isEqual(dateRecherche.atStartOfDay())) {
+		}else if(getNextWorkingDay(getWorkingDay()).atStartOfDay().isEqual(dateRecherche.atStartOfDay())) {
 			retour = true;
 		}
 		
