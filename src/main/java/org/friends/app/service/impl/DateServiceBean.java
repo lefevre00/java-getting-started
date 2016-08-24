@@ -50,7 +50,7 @@ public class DateServiceBean implements DateService {
 	 */
 	@Override
 	public LocalDate getNextWorkingDay() {
-		return getNextWorkingDay(DateUtil.now());
+		return getNextWorkingDay(getWorkingDay());
 	}
 
 	/**
