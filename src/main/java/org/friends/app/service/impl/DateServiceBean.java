@@ -74,4 +74,17 @@ public class DateServiceBean implements DateService {
 		}
 		return base.plusDays(toAdd);
 	}
+
+	@Override
+	public boolean isSearchDateValid(LocalDate dateRecherche) {
+		boolean retour = false;
+		
+		if(getWorkingDay().atStartOfDay().isEqual(dateRecherche.atStartOfDay())) {
+			retour = true;
+		}else if(getNextWorkingDay(DateUtil.now()).atStartOfDay().isEqual(dateRecherche.atStartOfDay())) {
+			retour = true;
+		}
+		
+		return retour;
+	}
 }
