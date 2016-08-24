@@ -40,7 +40,9 @@ public class UserSessionDaoImpl extends AbstractDao {
 	}
 
 	public UserSession findByCookie(String cookie) {
-		return (UserSession) getSession().getNamedQuery(UserSession.QUERY_FIND_BY_COOKIE).setParameter("cookie", cookie)
-				.getSingleResult();
+		getSession().beginTransaction();
+		UserSession back = (UserSession ) getSession().getNamedQuery(UserSession.QUERY_FIND_BY_COOKIE).setParameter("cookie", cookie).getSingleResult();
+		session.getTransaction().commit();
+		return back;
 	}
 }
