@@ -79,31 +79,40 @@ public class ShareRoute extends AuthenticatedRoute {
 			// Email de l'occupant de la place
 			String emailOccupant = request.queryParams("emailOccupant");
 			
-			// Email validator
-			if (StringUtils.isNotEmpty(emailOccupant) && !EmailValidator.isValid(emailOccupant)){
-				map.put("message", "L'email saisi est incorrect !");
-				return new ModelAndView(map, Templates.ERROR);
-			}
-			
-			// on vérifie que l'email existe bien en base
-			if(emailOccupant != null || StringUtils.isNotEmpty(emailOccupant)) { 
-				if(userService.findUserByEmail(emailOccupant) == null) {
-					map.put("message", "Utilisateur introuvable dans notre base de données !");
+			boolean retour = false;
+			User userOccupant = null;
+
+			if (StringUtils.isNotEmpty(emailOccupant)){
+
+				// Email validator
+				if (!EmailValidator.isValid(emailOccupant)){
+					map.put("message", "L'email saisi est incorrect !");
 					return new ModelAndView(map, Templates.ERROR);
 				}
+				else {
+					// On vérifie que l'utilisateur occupant existe bien en base
+					userOccupant = userService.findUserByEmail(emailOccupant);
+					if(userOccupant == null) {
+						map.put("message", "L'utilisateur n'est pas connu !");
+						return new ModelAndView(map, Templates.ERROR);
+					}
+				}
+				
 			}
-					
-			boolean retour = false;
 			
 			try {
+				retour = placeService.sharePlaces(user, dateDebut, dateFin, emailOccupant);
 			} catch (Exception e) {
 				e.printStackTrace();
 				map.put("message", "Une erreur est survenue lors de l'enregistrement de données !");
 				return new ModelAndView(map, Templates.ERROR);
 			}
+			
 			if (!retour) {
-
-				if (dateDebut.equals(dateFin)) {
+				if (StringUtils.isNotEmpty(emailOccupant) && userOccupant == null){
+					map.put("message", "Utilisateur introuvable dans notre base de données !");
+				}
+				else if (dateDebut.equals(dateFin)) {
 					map.put("message", "Vous avez déjà partagé votre place pour le "
 							+ DateUtil.dateToString(dateDebut, Locale.FRANCE));
 				} else {
