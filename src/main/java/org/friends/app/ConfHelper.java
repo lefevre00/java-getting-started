@@ -134,4 +134,8 @@ public class ConfHelper {
 		}
 		return sb.toString();
 	}
+	
+	public static String complementUrl(){
+		return DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? ".." : "";
+	}
 }

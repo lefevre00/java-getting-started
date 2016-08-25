@@ -34,6 +34,7 @@
 
 				<div class="footer">
 					<input type="submit" name="submit" value="Valider" class="valider" />
+					<a href="${routesDirectory}protected/setting" class="register BtnRetour">Retour</a>
 				</div>
 			</form>
 

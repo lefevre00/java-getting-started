@@ -16,7 +16,6 @@ public class Routes {
 	public static void redirect(User user, Response response, boolean isAdmin) {
 		
 		
-		String directory = DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? ".." : "";
 		String dest = ADMIN_INDEX;
 		if(!isAdmin) {
 			dest = RESERVATIONS;
@@ -25,7 +24,7 @@ public class Routes {
 			else if (user.getPlaceNumber() != null)
 				dest = PLACE_SHARE;
 		}
-		response.redirect(directory + dest);
+		response.redirect(ConfHelper.complementUrl() + dest);
 		
 		/*
 		String directory = DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? ".." : "";

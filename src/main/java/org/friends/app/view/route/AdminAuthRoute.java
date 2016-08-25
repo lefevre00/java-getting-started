@@ -1,5 +1,6 @@
 package org.friends.app.view.route;
 
+import org.friends.app.ConfHelper;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -15,7 +16,7 @@ public abstract class AdminAuthRoute extends AuthenticatedRoute {
 
 	private final void checkAdmin(Request request, Response response) {
 		if (!isAdmin(request)) {
-			response.redirect(Routes.ACCESS_DENIED);
+			response.redirect(ConfHelper.complementUrl() + Routes.ACCESS_DENIED);
 		}
 	}
 }

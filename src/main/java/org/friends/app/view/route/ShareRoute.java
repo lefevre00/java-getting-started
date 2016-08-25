@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.friends.app.ConfHelper;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.DateService;
@@ -120,7 +121,7 @@ public class ShareRoute extends AuthenticatedRoute {
 				}
 				return new ModelAndView(map, Templates.ERROR);
 			}
-			response.redirect(Routes.PLACE_SHARE + "?liberation=ok");
+			response.redirect(ConfHelper.complementUrl() + Routes.PLACE_SHARE + "?liberation=ok");
 
 		} else {
 			/*
@@ -134,7 +135,7 @@ public class ShareRoute extends AuthenticatedRoute {
 					map.put("message", "Une erreur est survenue lors de l'annulation !");
 					return new ModelAndView(map, Templates.ERROR);
 				}
-				response.redirect(Routes.PLACE_SHARE + "?annulation=ok");
+				response.redirect(ConfHelper.complementUrl() + Routes.PLACE_SHARE + "?annulation=ok");
 			}
 
 		}
