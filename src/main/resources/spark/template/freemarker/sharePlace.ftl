@@ -140,7 +140,7 @@
 							  	     	<td>
 							  	     	 	<#if show == "" || show == " ">
 							  	     			<!--a href="/protected/share?unshareDate=${place.occupationDate}" data-confirm='Annuler le partage de votre place du <strong> ${theDate?string["dd/MM/yyyy"]}	 </strong> ?' ><img src="/images/cancel.png"/></a-->
-							  	     			<a href="?unshareDate=${place.occupationDate}" data-confirm='Annuler le partage de votre place du <strong> ${theDate?string["dd/MM/yyyy"]}	 </strong> ?' ><img src="/images/cancel.png"/></a>
+							  	     			<a href="?unshareDate=${place.occupationDate}" data-confirm='Annuler le partage de votre place du <strong> ${theDate?string["dd/MM/yyyy"]}	 </strong> ?' ><img src="${ressourcesDirectory}images/cancel.png"/></a>
 											<#else>
 												-
 							  	     		</#if>
