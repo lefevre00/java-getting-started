@@ -38,11 +38,9 @@
 							<tr>
 								<th style="text-align:center;">Utilisateur</th> 
 								<th style="text-align:center;">N° place</th> 
-								<!--th style="text-align:center;">Nb connexion</th> 
-								<th style="text-align:center;">Nb partage</th> 
-								<th style="text-align:center;">Nb réservation </th--> 
 								<th style="text-align:center;">Etat compte</th> 
 								<th style="text-align:center;">Editer</th> 
+								<th style="text-align:center;">Libérer</th>
 							</tr>
 						</thead>
 				<#else>
@@ -50,11 +48,9 @@
 						<tr style="background-color: #f5f5f5; color: #317bba;">
 							<th style="text-align:center;">Utilisateur</th> 
 							<th style="text-align:center;">N° place</th> 
-							<!--th style="text-align:center;">Nb connexion</th> 
-							<th style="text-align:center;">Nb partage</th> 
-							<th style="text-align:center;">Nb réservation </th--> 
 							<th style="text-align:center;">Etat compte</th> 
 							<th style="text-align:center;">Editer</th> 							
+							<th style="text-align:center;">Libérer</th>
 						</tr>
 				</#if>			
 
@@ -70,8 +66,23 @@
 		  	    				-
 		  	    			</#if>
 		  	    		</td>		
-		  	    		<td><#if user.tokenMail??>Attente activation<#else>Activé</#if></td>				  	    		
-			  	     	<td><a href="${routesDirectory}protected/userEdit?email=${user.emailAMDM}"><img src="${ressourcesDirectory}images/edit.png"/></a></td>
+		  	    		<td>
+		  	    			<#if user.tokenMail??>
+		  	    				Attente activation
+		  	    			<#else>
+		  	    				Activé
+		  	    			</#if>
+		  	    		</td>				  	    		
+			  	     	<td>
+			  	     		<a href="${routesDirectory}protected/userEdit?email=${user.emailAMDM}"><img src="${ressourcesDirectory}images/edit.png"/></a>
+			  	     	</td>
+			  	     	<td>
+		  	    			<#if user.placeNumber??>
+								<img src="${ressourcesDirectory}images/partager.png" title="Disponible dans la prochaine version" />
+		  	    			<#else>
+		  	    				-
+		  	    			</#if>
+			  	     	</td>
 					</tr>
 				</#list>				
 				 

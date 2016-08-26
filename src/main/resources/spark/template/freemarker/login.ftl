@@ -26,11 +26,11 @@
 			        <#if email??>
 						<input class="input" name="email" type="email" placeholder="adresse@email.fr" value="${email}" required/>
 			        <#else>
-			          	<input class="input" name="email" type="email" placeholder="adresse@email.fr"  value="william.verdeil@amdm.fr" required/> <!--admin.ecoparking-->
+			          	<input class="input" name="email" type="email" placeholder="adresse@email.fr"  value="admin.ecoparking@amdm.fr" required/> <!--william.verdeil-->
 	                </#if>
 					<div class="email-icon emailLogin"></div>
 
-					<input class="input password" name="pwd" id="pwd" type="password" placeholder="mot de passe" value="wv" required/> <!--adminecop-->
+					<input class="input password" name="pwd" id="pwd" type="password" placeholder="mot de passe" value="adminecop" required/> <!--wv-->
 					<div class="pass-icon passLogin"></div>
 					
 					<div id="dvValue"></div>
