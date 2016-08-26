@@ -33,7 +33,7 @@
                             <hr>
                             <small>ici, vous avez la possibilité de modifier votre adresse email et/ou votre numéro de place.</small>
                             <br/><br/>
-                            <a href="${routesDirectory}protected/userEdit/${user.emailAMDM}" class="btn btn-primary tailleText">Modifier</a> 		
+                            <a href="${routesDirectory}protected/userEdit?email=${user.emailAMDM}" class="btn btn-primary tailleText">Modifier</a> 		
                         </div>
                     </div>
                 </div>

@@ -71,7 +71,7 @@
 		  	    			</#if>
 		  	    		</td>		
 		  	    		<td><#if user.tokenMail??>Attente activation<#else>Activé</#if></td>				  	    		
-			  	     	<td><a href="${routesDirectory}protected/userEdit/${user.emailAMDM}"><img src="${ressourcesDirectory}images/edit.png"/></a></td>
+			  	     	<td><a href="${routesDirectory}protected/userEdit?email=${user.emailAMDM}"><img src="${ressourcesDirectory}images/edit.png"/></a></td>
 					</tr>
 				</#list>				
 				 

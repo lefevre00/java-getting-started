@@ -5,6 +5,7 @@
 	<link rel="stylesheet" href="${ressourcesDirectory}css/login.css">
 	<link rel="stylesheet" href="${ressourcesDirectory}css/mediaqueries.css" type="text/css" />	
 </head> 
+
 <body>     
 
 	<!--======================================== Section navigation ====================================-->
@@ -41,9 +42,9 @@
 					<div class="phone-icon phoneEdit"></div>
 					
 					<#if user.placeNumber??>
-						<input class="input place" name="placeNumber" type="text" placeholder="N° place attribuée" value="${user.placeNumber}" required/>
+						<input class="input place" name="placeNumber" type="text" placeholder="N° place attribuée" value="${user.placeNumber}" />
 					<#else>
-						<input class="input place" name="placeNumber" type="text" placeholder="N° place attribuée" value="" required/>
+						<input class="input place" name="placeNumber" type="text" placeholder="N° place attribuée" value="" />
 					</#if>
 					<div class="place-icon placeEdit"></div>
 					
@@ -51,7 +52,11 @@
 				
 				<div class="footer">
 					<input type="submit" name="submit" value="Valider" class="valider" />
-					<a href="${routesDirectory}protected/setting" class="register BtnRetour">Retour</a>
+					<#if admin??>
+						<a href="${routesDirectory}protected/usersList" class="register BtnRetour">Retour</a>
+					<#else>
+						<a href="${routesDirectory}protected/setting" class="register BtnRetour">Retour</a>
+					</#if>
 				</div>
 
 			</form>

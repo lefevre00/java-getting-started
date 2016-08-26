@@ -280,13 +280,11 @@ public class UserServiceBean implements UserService {
 			throw new IllegalArgumentException("Id User required");
 		if (StringUtils.isEmpty(email))
 			throw new IllegalArgumentException("Email required");
-		if (findUserByPlaceNUmber(placeNumber) != null) {
+		if (placeNumber!=null && findUserByPlaceNUmber(placeNumber) != null) 
 			return false;
-		}
 		User user = userDao.findById(idUser);
 		// TODO ABTAM : ajouter le mobile qd le mapping est fait
-		if (!email.equals(user.getEmailAMDM()) || !placeNumber.equals(user.getPlaceNumber())) { // ||
-																								// !mobile.equals(user.getMobile())
+		if (!email.equals(user.getEmailAMDM()) || user.getPlaceNumber() != placeNumber) { // || !mobile.equals(user.getMobile())
 			user.setEmailAMDM(email);
 			user.setPlaceNumber(placeNumber);
 			// user.setMobile(mobile);
