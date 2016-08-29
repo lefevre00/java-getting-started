@@ -21,7 +21,7 @@
                         <div class="panel-heading ">- Liste utilisateurs - </div>
                         <div class="panel-body">
                         	Accéder à la liste de tous les utilisateurs de l'application.
-                        	Modifier les données personnelles / Libérer des places.       
+                        	Modifier des données / Libérer des places.       
                             <!--Récupérer la liste des utilisateurs au format CSV <br>en cliquant <a href="" class="linkClass">ici</a--> <br/>
                             <hr>
                             <small>Visualisez la liste des utilisateurs de l'application.</small>
