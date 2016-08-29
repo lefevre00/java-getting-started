@@ -93,7 +93,7 @@ public class Routes {
 	public static String PLACE_SEARCH = "/protected/search";
 	public static String PLACE_SHARE = "/protected/share";
 	public static String PLACE_STATISTICS = "/protected/statistics";
-	public static String PLACE_BOOK = "/protected/book/:date/:place_id";
+	public static String PLACE_BOOK = "/protected/book";
 	public static String RESERVATIONS = "/protected/booked";
 	public static String SETTINGS = "/protected/setting";
 	public static String UNREGISTER = "/protected/unregister";
@@ -105,6 +105,7 @@ public class Routes {
 	public static String ACCESS_DENIED = "/protected/accessDenied";
 	public static String USERS_LIST = "/protected/usersList";
 	public static String USER_EDIT = "/protected/userEdit";
+	public static String ADMIN_SHARE = "/protected/adminShare";
 
 	/*
 	 * Model map key

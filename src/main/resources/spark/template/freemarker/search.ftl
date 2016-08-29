@@ -24,7 +24,7 @@
 					
 					<a href="${routesDirectory}protected/booked" class="btn btn-info btn-lg"> Retour</a>
 					&nbsp;
-					<a href="${routesDirectory}protected/book/${dateBook}/${place.placeNumber}" class="btn btn-primary btn-lg">Valider</a>
+					<a href="${routesDirectory}protected/book?date=${dateBook}&place=${place.placeNumber}" class="btn btn-primary btn-lg">Valider</a>
 				<#else>
 					<#if message??>
 						<h4>${message} pour le ${dateRecherche}</h4>

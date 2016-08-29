@@ -19,20 +19,16 @@ import spark.utils.StringUtils;
 @Component
 public class BookRoute extends AuthenticatedRoute {
 
-	public final static String PARAM_PLACE = ":place_id";
-	public final static String PARAM_DATE = ":date";
-
 	@Autowired
 	PlaceService service;
 
 	@Override
 	public ModelAndView doHandle(Request request, Response response) {
 		User user = getUser(request);
-		Map<String, String> params = request.params();
 		Map<String, Object> map = Routes.getMap(request);
 
-		String place = params.get(PARAM_PLACE);
-		String date = params.get(PARAM_DATE);
+		String date = request.queryParams("date");
+		String place = request.queryParams("place");
 		if (StringUtils.isEmpty(date)) {
 			date = DateUtil.dateToString(DateUtil.now());
 		}

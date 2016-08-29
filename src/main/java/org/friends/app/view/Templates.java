@@ -27,5 +27,7 @@ public interface Templates {
 	static final String USERS_LIST = "usersList.ftl";
 	static final String USER_EDIT = "userEdit.ftl";
 	
+	static final String ADMIN_SHARE = "adminShare.ftl";
+
 	static final String STATS_DETAIL = "statsDetail.ftl";
 }

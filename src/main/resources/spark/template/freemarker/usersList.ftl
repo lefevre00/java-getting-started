@@ -78,7 +78,9 @@
 			  	     	</td>
 			  	     	<td>
 		  	    			<#if user.placeNumber??>
-								<img src="${ressourcesDirectory}images/partager.png" title="Disponible dans la prochaine version" />
+								<!--a href="${routesDirectory}protected/adminShare"-->
+									<img src="${ressourcesDirectory}images/partager.png" title="Disponible dans la prochaine version" />
+								<!--/a-->
 		  	    			<#else>
 		  	    				-
 		  	    			</#if>

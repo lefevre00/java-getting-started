@@ -19,13 +19,14 @@ import javax.annotation.PostConstruct;
 import org.friends.app.ConfHelper;
 import org.friends.app.DeployMode;
 import org.friends.app.model.Place;
-import org.friends.app.model.UserSession;
 import org.friends.app.model.User;
+import org.friends.app.model.UserSession;
 import org.friends.app.service.DateService;
 import org.friends.app.service.PlaceService;
 import org.friends.app.service.UserService;
 import org.friends.app.util.DateUtil;
 import org.friends.app.view.route.AdminRoute;
+import org.friends.app.view.route.AdminShareRoute;
 import org.friends.app.view.route.AuthenticatedRoute;
 import org.friends.app.view.route.BookRoute;
 import org.friends.app.view.route.BookedRoute;
@@ -110,11 +111,19 @@ public class RoutesLoader {
 		post(Routes.USERS_LIST, usersList, templateEngine);
 
 		/*
-		 * Editer un utilisateur
+		 * Editer et modifier un utilisateur
 		 */
 		UserEditRoute userEditRoute = context.getBean(UserEditRoute.class);
 		get(Routes.USER_EDIT, userEditRoute, templateEngine);
 		post(Routes.USER_EDIT, userEditRoute, templateEngine);
+
+		/*
+		 * Libérer les places d'un utilisateur
+		 */
+//		AdminShareRoute adminShareRoute = context.getBean(AdminShareRoute.class);
+//		get(Routes.ADMIN_SHARE, adminShareRoute, templateEngine);
+//		post(Routes.ADMIN_SHARE, adminShareRoute, templateEngine);	
+		
 
 		/*
 		 * Page accès interdit

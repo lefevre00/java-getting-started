@@ -38,8 +38,9 @@ public class PlaceDaoImpl extends AbstractDao {
 		Session session = getSession();
 		session.beginTransaction();
 		session.getNamedQuery(Place.QUERY_RESERVE_PLACE)
-				.setParameter("id", new Place(place.getPlaceNumber(), place.getOccupationDate()))
-				.setParameter("email", place.getUsedBy()).executeUpdate();
+				.setParameter("id", new Place.PlacePK(place.getPlaceNumber(), place.getOccupationDate()))
+				.setParameter("email", place.getUsedBy())
+				.executeUpdate();
 		session.getTransaction().commit();
 	}
 

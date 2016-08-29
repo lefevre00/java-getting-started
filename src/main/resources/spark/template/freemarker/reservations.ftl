@@ -91,7 +91,7 @@
 					  	    		</td>
 						  	     	<td>${place.placeNumber}</td>
 						  	     	<td>
-						  	     		<a href="?release=${place.occupationDate}" data-confirm='Annuler la réservation du <strong> ${theDate?string["dd/MM/yyyy"]} </strong> ?' ><img src="/images/cancel.png"/></a>							  	     		
+						  	     		<a href="?release=${place.occupationDate}" data-confirm='Annuler la réservation du <strong> ${theDate?string["dd/MM/yyyy"]} </strong> ?' ><img src="${ressourcesDirectory}images/cancel.png"/></a>							  	     		
 						  	     	</td>
 								</tr>
 							</#list>
