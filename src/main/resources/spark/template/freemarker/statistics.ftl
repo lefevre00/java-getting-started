@@ -67,9 +67,29 @@
 									<th style="text-align:center;">Nbre inoccupé</th>
 								</tr>
 								<tr>
-									<td><a href="${routesDirectory}protected/statistics?var=p&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbrePartage}</a></td>
-					  	    		<td><a href="${routesDirectory}protected/statistics?var=o&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbreOccupe}</a></td>
-					  	    		<td><a href="${routesDirectory}protected/statistics?var=i&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbreInoccupe}</a></td>
+									<td>
+										<#if nbrePartage gt 0 >
+											<a href="${routesDirectory}protected/statistics?var=p&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbrePartage}</a>
+										<#else>
+											${nbrePartage}
+										</#if>
+										
+									</td>
+					  	    		<td>
+										<#if nbreOccupe gt 0 >
+											<a href="${routesDirectory}protected/statistics?var=o&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbreOccupe}</a>
+										<#else>
+											${nbreOccupe}
+										</#if>
+					  	    			
+					  	    		</td>
+					  	    		<td>
+										<#if nbreInoccupe gt 0 >
+											<a href="${routesDirectory}protected/statistics?var=i&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbreInoccupe}</a>
+										<#else>
+											${nbreInoccupe}
+										</#if>
+					  	    		</td>
 								</tr>
 							</table>
 							<!--button id="export" data-export="export" class="btn btn-primary">Exporter csv</button-->
