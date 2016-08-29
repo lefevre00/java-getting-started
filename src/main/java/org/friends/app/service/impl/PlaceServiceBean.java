@@ -297,7 +297,7 @@ public class PlaceServiceBean implements PlaceService {
 		Assert.notNull(placeNumber);
 
 		List<Place> listRetour = new ArrayList<Place>();
-		listRetour = placedao.findPlacesByCriterions(Restrictions.ge("id.placeNumber", placeNumber));
+		listRetour = placedao.findPlacesByCriterions(Restrictions.eq("id.placeNumber", placeNumber));
 		List<Place> listPourAffichage = new ArrayList<Place>();
 		for (Iterator<Place> iterator = listRetour.iterator(); iterator.hasNext();) {
 			Place place = iterator.next();
@@ -314,6 +314,6 @@ public class PlaceServiceBean implements PlaceService {
 	@Override
 	public List<Place> getAllPlacesBookedByUser(String email) {
 		Assert.notNull(email);
-		return placedao.findPlacesByCriterions(Restrictions.ge("usedBy", email));
+		return placedao.findPlacesByCriterions(Restrictions.eq("usedBy", email));
 	}
 }

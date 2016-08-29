@@ -19,7 +19,11 @@
 <body>
   
 	<!--======================================== Section navigation ====================================-->
-	<#include "navAdmin.ftl">
+	<#if admin??>
+		<#include "navAdmin.ftl">
+	<#else>
+		<#include "nav.ftl">
+	</#if>
 
 		
     <section class="content-section">

@@ -31,7 +31,7 @@
                             Numéro de place attribuée : <#if user.placeNumber??>${user.placeNumber}<else>-</#if>
                             <br>
                             <hr>
-                            <small>ici, vous avez la possibilité de modifier votre adresse email et/ou votre numéro de place.</small>
+                            <small>Vous avez la possibilité de modifier votre adresse email, numéro de téléphone.</small>
                             <br/><br/>
                             <a href="${routesDirectory}protected/userEdit?email=${user.emailAMDM}" class="btn btn-primary tailleText">Modifier</a> 		
                         </div>
@@ -60,7 +60,7 @@
                     <div class="panel panel-default" >
                         <div class="panel-heading ">- Mot de passe -</div>
                         <div class="panel-body">
-                           <small>Choisissez un mot de passe assez long en mélangeant caractères, chiffres et caractères spéciaux. Il est conseillé de le changer régulièrement.</small>
+                           <small>Choisissez un mot de passe assez long en mélangeant caractères, chiffres et caractères spéciaux. </small>
                             <br><br>
                             <a href="${routesDirectory}protected/change_pwd" class="btn btn-primary tailleText">Changer</a>                            
                         </div>

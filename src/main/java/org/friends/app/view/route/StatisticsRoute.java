@@ -102,11 +102,14 @@ public class StatisticsRoute extends AuthenticatedRoute {
 				String placeNumber = request.queryParams("place");
 				List<Place> listePlaces = new ArrayList<Place>();
 				if (StringUtils.isNotEmpty(var) && StringUtils.isNotEmpty(email)) {
-					if (placeNumber != null) {
+					// Historiques des places partagées
+					if (StringUtils.isNotEmpty(placeNumber)) {
 						Integer numPlace = Integer.valueOf(placeNumber);
 						listePlaces = placeService.getAllSharedDatesByUser(numPlace);
 						map.put("title", SHARED_PLACES_TITLE);
-					} else {
+					} 
+					// Historique des places réservées
+					else {
 						listePlaces = placeService.getAllPlacesBookedByUser(email);
 						map.put("title", OCCUPIED_PLACES_TITLE);
 					}

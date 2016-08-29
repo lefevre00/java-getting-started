@@ -27,7 +27,6 @@ public class UserEditRoute extends AuthenticatedRoute {
 
 		template = Templates.USER_EDIT;
 
-		Map<String, String> params = request.params();
 		Map<String, Object> map = Routes.getMap(request);
 		User user = getUser(request);
 
