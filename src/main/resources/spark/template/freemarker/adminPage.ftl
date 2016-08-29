@@ -19,8 +19,10 @@
                 <div class="col-md-offset-1 col-md-5 col-sm-5"> 
                     <div class="panel panel-default" >
                         <div class="panel-heading ">- Liste utilisateurs - </div>
-                        <div class="panel-body">            
-                            Récupérer la liste des utilisateurs au format CSV <br>en cliquant <a href="" class="linkClass">ici</a> <br/>
+                        <div class="panel-body">
+                        	Accéder à la liste de tous les utilisateurs de l'application.
+                        	Modifier les données personnelles / Libérer des places.       
+                            <!--Récupérer la liste des utilisateurs au format CSV <br>en cliquant <a href="" class="linkClass">ici</a--> <br/>
                             <hr>
                             <small>Visualisez la liste des utilisateurs de l'application.</small>
                             <br/><br/>

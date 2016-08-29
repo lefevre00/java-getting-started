@@ -59,12 +59,12 @@
 						<div class="row table-responsive" style="margin:0px auto;max-width:700px; padding-top:30px;">
 							<#assign dateD = '${dateDebut}'?date("yyyy-MM-dd")>
 							<#assign dateF = '${dateFin}'?date("yyyy-MM-dd")>					
-							Période de partage des places du <strong>${dateD?string["dd/MM/yyyy"]}</strong>  au  <strong>${dateF?string["dd/MM/yyyy"]}</strong>	<br/><br/>
+							Période du <strong>${dateD?string["dd/MM/yyyy"]}</strong>  au  <strong>${dateF?string["dd/MM/yyyy"]}</strong>	<br/><br/>
 							<table class="table table-bordered table-striped table-condensed padding20"  id="table">
 								<tr style="background-color: #f5f5f5; color: #317bba;">
-									<th style="text-align:center;">Nbre partagé</th> 
-									<th style="text-align:center;">Nbre réservé</th> 
-									<th style="text-align:center;">Nbre inoccupé</th>
+									<th style="text-align:center;">Places partagées</th> 
+									<th style="text-align:center;">Places réservées</th> 
+									<th style="text-align:center;">Places inoccupées</th>
 								</tr>
 								<tr>
 									<td>
