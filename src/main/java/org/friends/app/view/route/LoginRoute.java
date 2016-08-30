@@ -53,29 +53,27 @@ public class LoginRoute implements TemplateViewRoute {
 
 		User user = null;
 
-		// Si administrateur
-		if (ConfHelper.ADMIN_MAIL.equals(email) && ConfHelper.ADMIN_PWD_MD5.equals(pwd)) {
-			Logger.getLogger("login").info("Admin logged in : " + email);
-			map.put("admin", "true");
-			user = new User(email, pwd);
-			user.setId(new Integer(999999));;
-			addAuthenticatedUser(request, user);
-			Routes.redirect(user, response, true);
-		} else {
-			try {
-				user = userService.authenticate(email, pwd);
+		try {
+			user = userService.authenticate(email, pwd);
 
-				if (user != null) {
-					Logger.getLogger("login").info("user logged in : " + user.getEmailAMDM());
-					addAuthenticatedUser(request, user);
-					Routes.redirect(user, response, false);
-				} else {
-					map.put(Routes.KEY_ERROR, "Utilisateur introuvable !");
+			if (user != null) {
+				boolean isAdmin = false;
+				if (ConfHelper.ADMIN_MAIL.equals(email)){
+					Logger.getLogger("login").info("Admin logged in : " + email);
+					map.put("admin", "true");
+					isAdmin = true;
 				}
-
-			} catch (Exception e) {
-				map.put(Routes.KEY_ERROR, Messages.get(e.getMessage()));
+				else{
+					Logger.getLogger("login").info("user logged in : " + user.getEmailAMDM());
+				}
+				addAuthenticatedUser(request, user);
+				Routes.redirect(user, response, isAdmin);
+			} else {
+				map.put(Routes.KEY_ERROR, "Utilisateur introuvable !");
 			}
+
+		} catch (Exception e) {
+			map.put(Routes.KEY_ERROR, Messages.get(e.getMessage()));
 		}
 	}
 
