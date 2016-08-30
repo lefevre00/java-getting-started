@@ -58,6 +58,7 @@ public class LoginRoute implements TemplateViewRoute {
 			Logger.getLogger("login").info("Admin logged in : " + email);
 			map.put("admin", "true");
 			user = new User(email, pwd);
+			user.setId(new Integer(999999));;
 			addAuthenticatedUser(request, user);
 			Routes.redirect(user, response, true);
 		} else {
