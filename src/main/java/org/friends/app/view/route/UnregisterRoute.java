@@ -2,6 +2,7 @@ package org.friends.app.view.route;
 
 import java.util.Map;
 
+import org.friends.app.ConfHelper;
 import org.friends.app.Messages;
 import org.friends.app.model.User;
 import org.friends.app.service.DataIntegrityException;
@@ -23,11 +24,12 @@ public class UnregisterRoute extends AuthenticatedRoute {
 
 	@Override
 	protected ModelAndView doHandle(Request request, Response response) {
+		Map<String, Object> map = Routes.getMap(request);
 		try {
 			userService.delete(getUser(request));
 		} catch (UnknownUserException | DataIntegrityException e) {
-			Map<String, Object> map = Routes.getMap(request);
 			User user = getUser(request);
+			map.put("user", user);
 			if (user.getPlaceNumber() != null) {
 				map.put("placeNumber", user.getPlaceNumber().toString());
 			}
@@ -35,7 +37,7 @@ public class UnregisterRoute extends AuthenticatedRoute {
 			return new ModelAndView(map, Templates.SETTING);
 		}
 
-		response.redirect(Routes.LOGOUT);
-		return new ModelAndView(null, Templates.LOGOUT);
+		response.redirect(ConfHelper.complementUrl() + Routes.LOGOUT);
+		return new ModelAndView(map, Templates.LOGOUT);
 	}
 }

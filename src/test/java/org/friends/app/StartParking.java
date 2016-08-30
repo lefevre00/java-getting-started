@@ -70,6 +70,8 @@ public class StartParking {
 		lines.add(createUser("dominique.gay@amdm.fr", "dg", 66));
 		lines.add(createUser("vincent.mathon@amdm.fr", "vm", 99));
 		lines.add(createUser("sylvain.verneau@amdm.fr", "sv", 144));
+		
+		lines.add(createUser("admin.ecoparking@amdm.fr", "adminecop"));
 
 		LocalDate timePoint = DateUtil.now();
 		String today = DateUtil.dateToString(timePoint);
