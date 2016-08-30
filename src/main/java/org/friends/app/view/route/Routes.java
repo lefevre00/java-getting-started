@@ -15,7 +15,6 @@ public class Routes {
 
 	public static void redirect(User user, Response response, boolean isAdmin) {
 		
-		
 		String dest = ADMIN_INDEX;
 		if(!isAdmin) {
 			dest = RESERVATIONS;

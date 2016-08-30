@@ -237,6 +237,7 @@ public class RoutesLoader {
 		SettingRoute setting = context.getBean(SettingRoute.class);
 		get(Routes.SETTINGS, setting, templateEngine);
 		post(Routes.SETTINGS, setting, templateEngine);
+		
 		get(Routes.HISTORY, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
 			map.put("message", "Page en cours de réalisation");
