@@ -8,7 +8,11 @@
 <body>
   
 	<!--======================================== Section navigation ====================================-->
-	<#include "nav.ftl">
+	<#if admin??>
+		<#include "navAdmin.ftl">
+	<#else>
+		<#include "nav.ftl">
+	</#if>
   
     <section class="content-section">
 		<div class="container containerAttr" style="padding-bottom:50px;">
