@@ -24,7 +24,7 @@ public class ConfHelper {
 
 	private static final String APPLICATION_PROPERTIES = "/application.properties";
 	public static final String ADMIN_MAIL;
-	public static final String ADMIN_PWD_MD5;
+//	public static final String ADMIN_PWD_MD5;
 	static {
 		// Données login admin dans fichier properties
 		Properties tmp = new Properties();
@@ -34,7 +34,7 @@ public class ConfHelper {
 			System.out.println("erreur lecture application.properties");
 		}
 		ADMIN_MAIL = tmp.getProperty("admin.email");
-		ADMIN_PWD_MD5 = getEncryptedMD5Password(tmp.getProperty("admin.password"));
+//		ADMIN_PWD_MD5 = getEncryptedMD5Password(tmp.getProperty("admin.password"));
 	}
 
 	public static String getMailServiceLogin() {
@@ -117,23 +117,23 @@ public class ConfHelper {
 		return url;
 	}
 
-	private static String getEncryptedMD5Password(String pass) {
-		StringBuffer sb = new StringBuffer();
-		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			md.update(pass.getBytes());
-
-			byte byteData[] = md.digest();
-
-			// convert the byte to hex format method 1
-			for (int i = 0; i < byteData.length; i++) {
-				sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
-			}
-		} catch (NoSuchAlgorithmException ex) {
-
-		}
-		return sb.toString();
-	}
+//	private static String getEncryptedMD5Password(String pass) {
+//		StringBuffer sb = new StringBuffer();
+//		try {
+//			MessageDigest md = MessageDigest.getInstance("MD5");
+//			md.update(pass.getBytes());
+//
+//			byte byteData[] = md.digest();
+//
+//			// convert the byte to hex format method 1
+//			for (int i = 0; i < byteData.length; i++) {
+//				sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+//			}
+//		} catch (NoSuchAlgorithmException ex) {
+//
+//		}
+//		return sb.toString();
+//	}
 	
 	public static String complementUrl(){
 		return DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? ".." : "";
