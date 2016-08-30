@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 	<#include "header.ftl">
-	<meta http-equiv="refresh" content="5; URL=${routesDirectory}">
+	<meta http-equiv="refresh" content="3; URL=${routesDirectory}">
 </head>
 
 <body>
