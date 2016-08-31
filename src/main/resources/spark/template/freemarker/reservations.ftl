@@ -63,6 +63,16 @@
 				</#if>
 			</#if>
 
+			<#if !showToday?? && !showTomorrow??>
+				<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
+					<div class="panel panel-default" >
+						<div class="panel-heading"><span class="glyphicon glyphicon-info-sign fa-2x text-primary"></span></div>
+						<div class="panel-body">
+							Vous ne pouvez pas effectuer de réservation car il n'y a pas de places disponibles.
+						</div>
+					</div>
+				</div>
+			</#if>
 
 			<!--============================= Message réservation  ================================-->
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">

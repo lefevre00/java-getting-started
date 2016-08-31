@@ -59,14 +59,16 @@ public class BookedRoute extends AuthenticatedRoute {
 		LocalDate jour1 = dateService.getWorkingDay();
 		String day = dateToString(jour1);
 		map.put("libelleShowToday", DateUtil.dateToMediumString(jour1));
-		if (placeService.canBook(user, day)) {
+		// On vérifie qu'à cette date, le user n'a pas réservé de place et que des places sont disponibles 
+		if (placeService.canBook(user, day) && placeService.getAvailablesAtDate(jour1).size() > 0) {
 			map.put("showToday", day);
 		}
 
 		LocalDate jour2 = dateService.getNextWorkingDay(jour1);
 		day = dateToString(jour2);
 		map.put("libelleShowTomorrow", DateUtil.dateToMediumString(jour2));
-		if (placeService.canBook(user, day)) {
+		// On vérifie qu'à cette date, le user n'a pas réservé de place et que des places sont disponibles
+		if (placeService.canBook(user, day) && placeService.getAvailablesAtDate(jour2).size() > 0 ) {
 			map.put("showTomorrow", day);
 		}
 
