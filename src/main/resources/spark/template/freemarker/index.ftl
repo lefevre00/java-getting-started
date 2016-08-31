@@ -91,20 +91,20 @@
 					<hr>
 					<h4><i>Pour libérer votre place en votre absence</i></h4>
 					<div style="text-align:justify;">
-						<ol type="1">
+						<ul>
 							<li>Cliquez dans le menu <strong><a href="${routesDirectory}protected/share" style="color:black">ACTIONS&nbsp;>>&nbsp;PARTAGE</a></strong> en haut de la page. Deux possibilités s'offrent à vous :</li>
 							<li>Une libération rapide : permet de libérer la place pour les deux jours successifs</li>  
 							<li>Une libération par période : dans le calendrier, renseignez le jour ou la période de votre absence, pour partager votre place.</li>
-						</ol>
+						</ul>
 					</div>
 					<hr>
 					<h4><i>Vous avez déjà partagé votre place, mais vous en avez besoin.</i></h4>
 					<div style="text-align:justify;">
 					  Cliquez dans le menu <strong><a href="${routesDirectory}protected/share" style="color:black">ACTIONS >> PARTAGE</a></strong>.<br/>
-						<ol type="1">
-						<li> Si ce jour-là votre place n'est pas occupée, à l'aide de la croix, vous pouvez annuler votre libération.</li>
-						<li>Si la place est occupée par quelqu'un, pas de soucis, vous pouvez réservé une place libre en cliquant sur le menu <strong><a href="${routesDirectory}protected/booked" style="color:black">ACTIONS >> RESERVATION</a></strong>.</li>
-						</ol>
+						<ul>
+							<li> Si ce jour-là votre place n'est pas occupée, à l'aide de la croix, vous pouvez annuler votre libération.</li>
+							<li>Si la place est occupée par quelqu'un, pas de soucis, vous pouvez réservé une place libre en cliquant sur le menu <strong><a href="${routesDirectory}protected/booked" style="color:black">ACTIONS >> RESERVATION</a></strong>.</li>
+						</ul>
 					</div>
 				</div>
 				<div class="col-md-6 col-sm-6">

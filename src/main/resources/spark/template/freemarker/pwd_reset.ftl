@@ -26,7 +26,7 @@
 			        <#if email??>
 						<input class="input" name="email" type="email" placeholder="adresse@email.fr" value="${email}" required/>
 			        <#else>
-			          	<input class="input" name="email" type="email" placeholder="adresse@email.fr"  value="damien.urvoix@amdm.fr" required/>
+			          	<input class="input" name="email" type="email" placeholder="adresse@email.fr"  value="" required/>
 	                </#if>
 					<div class="email-icon emailReset"></div>
 				</div>
