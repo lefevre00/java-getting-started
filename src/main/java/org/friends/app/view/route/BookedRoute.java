@@ -64,6 +64,7 @@ public class BookedRoute extends AuthenticatedRoute {
 			map.put("showToday", day);
 		}
 
+		
 		LocalDate jour2 = dateService.getNextWorkingDay(jour1);
 		day = dateToString(jour2);
 		map.put("libelleShowTomorrow", DateUtil.dateToMediumString(jour2));

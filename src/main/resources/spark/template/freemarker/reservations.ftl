@@ -50,29 +50,45 @@
 				</div>
 			</div>
 
-			<#if !showToday?? || !showTomorrow??>
-				<#if canShare??>
-					<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
-						<div class="panel panel-default" >
-							<div class="panel-heading"><span class="glyphicon glyphicon-info-sign fa-2x text-primary"></span></div>
-							<div class="panel-body">
-								Vous ne pouvez pas effectuer de réservation car votre place est disponible ou inoccupée les deux prochains jours.
-							</div>
-						</div>
-					</div>
-				</#if>
-			</#if>
-
+			
 			<#if !showToday?? && !showTomorrow??>
 				<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
 					<div class="panel panel-default" >
 						<div class="panel-heading"><span class="glyphicon glyphicon-info-sign fa-2x text-primary"></span></div>
 						<div class="panel-body">
-							Vous ne pouvez pas effectuer de réservation car il n'y a pas de places disponibles.
+							Vous ne pouvez pas effectuer de réservation 
+							<#if canShare??>
+								car votre place est disponible ou inoccupée.
+							<#else>
+								car il n'y a pas de places disponibles.
+							</#if>							
 						</div>
 					</div>
 				</div>
-			</#if>
+			<#else>
+				<#if !showToday?? || !showTomorrow??>
+					<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
+						<div class="panel panel-default" >
+							<div class="panel-heading"><span class="glyphicon glyphicon-info-sign fa-2x text-primary"></span></div>
+							<div class="panel-body">
+								Vous ne pouvez pas effectuer de réservation le 
+								<#if !showToday??>
+									${libelleShowToday} 
+								<#else>
+									${libelleShowTomorrow} 
+								</#if>
+								<#if canShare??>
+									car votre place est disponible ou inoccupée.
+								<#else>
+									car il n'y a pas de places disponibles.
+								</#if>
+							</div>
+						</div>
+					</div>
+				</#if>
+			</#if>			
+			
+
 
 			<!--============================= Message réservation  ================================-->
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
