@@ -78,9 +78,7 @@
 			  	     	</td>
 			  	     	<td>
 		  	    			<#if user.placeNumber??>
-								<!--a href="${routesDirectory}protected/adminShare"-->
-									<img src="${ressourcesDirectory}images/partager.png" title="Disponible dans la prochaine version" />
-								<!--/a-->
+								<a href="${routesDirectory}protected/adminShare?email=${user.emailAMDM}&place=${user.placeNumber}"><img src="${ressourcesDirectory}images/partager.png" /></a>
 		  	    			<#else>
 		  	    				-
 		  	    			</#if>

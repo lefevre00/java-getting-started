@@ -120,9 +120,9 @@ public class RoutesLoader {
 		/*
 		 * Libérer les places d'un utilisateur
 		 */
-//		AdminShareRoute adminShareRoute = context.getBean(AdminShareRoute.class);
-//		get(Routes.ADMIN_SHARE, adminShareRoute, templateEngine);
-//		post(Routes.ADMIN_SHARE, adminShareRoute, templateEngine);	
+		AdminShareRoute adminShareRoute = context.getBean(AdminShareRoute.class);
+		get(Routes.ADMIN_SHARE, adminShareRoute, templateEngine);
+		post(Routes.ADMIN_SHARE, adminShareRoute, templateEngine);	
 		
 
 		/*
