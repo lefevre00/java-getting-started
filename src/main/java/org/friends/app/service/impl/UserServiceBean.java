@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.xml.bind.ValidationException;
 
+import org.friends.app.ConfHelper;
 import org.friends.app.dao.impl.UserDaoImpl;
 import org.friends.app.dao.impl.UserSessionDaoImpl;
 import org.friends.app.model.Place;
@@ -272,6 +273,20 @@ public class UserServiceBean implements UserService {
 		}
 		return users;
 	}
+
+	@Override
+	public List<User> getAllUsersWithoutAdmin() {
+		List<User> users = getAllUser();
+		if (!users.isEmpty()){
+			for (User user : users){
+				if (ConfHelper.ADMIN_MAIL.equals(user.getEmailAMDM())){
+					users.remove(user);
+					break;
+				}
+			}
+		}
+		return users;
+	}	
 
 	@Override
 	public boolean updateUser(Integer idUser, String email, String mobile, Integer placeNumber) {
