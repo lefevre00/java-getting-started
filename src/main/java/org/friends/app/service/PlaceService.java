@@ -50,6 +50,12 @@ public interface PlaceService {
 	 */
 	public List<Place> getReservations(User user);
 
+	/***
+	 * reourne true si l'utilisateur peut réserver une place sinon retourne false
+	 * @param user
+	 * @param day
+	 * @return
+	 */
 	public boolean canBook(User user, String day);
 
 	public Place isPlaceShared(Integer placeNumber, String dateToString);
