@@ -42,9 +42,9 @@
 					<div class="phone-icon phoneEdit"></div>
 					
 					<#if user.placeNumber??>
-						<input class="input place" name="placeNumber" type="text" placeholder="N° place attribuée" value="${user.placeNumber}" <#if admin??><#else>readonly</#if> />
+						<input class="input place" name="placeNumber" type="text" placeholder="N° place attribuée" value="${user.placeNumber}" <#if !admin??>readonly</#if> />
 					<#else>
-						<input class="input place" name="placeNumber" type="text" placeholder="N° place attribuée" value="" <#if admin??><#else>readonly</#if> />
+						<input class="input place" name="placeNumber" type="text" placeholder="N° place attribuée" value="" <#if !admin??>readonly</#if> />
 					</#if>
 					<div class="place-icon placeEdit"></div>
 					
