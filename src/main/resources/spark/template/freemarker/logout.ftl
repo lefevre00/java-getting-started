@@ -20,7 +20,7 @@
 			<br><br>
 			<img src="${ressourcesDirectory}images/deconnexion.png"/>
 			<br/><br/><br/>
-			Dans 5 secondes, vous serez rediriger vers la page d'accueil.<br/> 
+			Dans 3 secondes, vous serez rediriger vers la page d'accueil.<br/> 
 			Merci pour votre visite.
 		</div>
 	</section>
