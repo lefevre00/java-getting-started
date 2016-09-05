@@ -37,12 +37,6 @@ public class PlaceServiceBean implements PlaceService {
 				Restrictions.isNull("usedBy"));
 	}
 
-	/**
-	 * Release a place at date
-	 * 
-	 * @param placeNumber
-	 * @param dateReservation
-	 */
 	@Override
 	public boolean sharePlaces(User user, LocalDate dateDebut, LocalDate dateFin, String emailOccupant) {
 		Assert.notNull(user);
@@ -63,20 +57,6 @@ public class PlaceServiceBean implements PlaceService {
 		return false;
 	}
 
-	/**
-	 * Book a place for a user, on the given date.
-	 * 
-	 * @param date,
-	 *            when the user need the place
-	 * @param user,
-	 *            indicate who need the place
-	 * @param placeNumber,
-	 *            place asked, could be null. If so, we provide the first
-	 *            available place.
-	 * @return A place occupied by the user, if one is available.
-	 * @throws BookingException
-	 *             When a user try to book while he already booked a place.
-	 */
 	@Override
 	public Place book(String date, User user, String placeNumber) throws BookingException {
 
@@ -116,11 +96,7 @@ public class PlaceServiceBean implements PlaceService {
 		return booked;
 	}
 
-	/**
-	 * Recherche places réservées par :
-	 * <li>un utilisateur sans place attribuée, pour les jours j et j+1
-	 * 
-	 */
+
 	@Override
 	public List<Place> getShared(User user) {
 		Assert.notNull(user);
@@ -166,15 +142,7 @@ public class PlaceServiceBean implements PlaceService {
 		return listRetour;
 	}
 
-	/**
-	 * Retourne la place réservée par un utilisateur à une date donnée
-	 * 
-	 * @param user
-	 *            L'utilisateur
-	 * @param dateRecherche
-	 *            La date de la recherche
-	 * @return null si aucune reservation pour ce jour
-	 */
+
 	@Override
 	public Place getBookedPlaceByUserAtDate(User user, LocalDate dateRecherche) {
 		Assert.notNull(user);
@@ -187,14 +155,7 @@ public class PlaceServiceBean implements PlaceService {
 		return places.size() == 0 ? null : places.get(0);
 	}
 
-	/**
-	 * Annulation d'une réservation d'un utilisateur ayant réservé ou libéré une
-	 * place
-	 * 
-	 * @param date
-	 * @param user
-	 * @throws UnshareException
-	 */
+
 	@Override
 	public void unshare(User user, String unshareDate) throws UnshareException {
 		Assert.notNull(user);
@@ -207,6 +168,7 @@ public class PlaceServiceBean implements PlaceService {
 		placedao.delete(unshareDate, user.getPlaceNumber());
 	}
 
+	// Fixme : verifier si service tjs utilisé
 	@Override
 	public void release(User user, String dateToRelease) {
 		Assert.notNull(user);
@@ -265,8 +227,7 @@ public class PlaceServiceBean implements PlaceService {
 		if (user.getPlaceNumber() == null)
 			return hasNoReservation;
 
-		// L'utilisateur avec place attitrée a-t-il partagé sa place pour le
-		// jour demandé.
+		// L'utilisateur avec place attitrée a-t-il partagé sa place pour le jour demandé.
 		Place placePartagee = placedao.findPlaceByCriterions(Restrictions.eq("id.placeNumber", user.getPlaceNumber()),
 				Restrictions.eq("id.occupationDate", day));
 		return hasNoReservation && placePartagee != null && !placePartagee.isFree();
