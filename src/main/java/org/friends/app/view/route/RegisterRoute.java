@@ -2,6 +2,7 @@ package org.friends.app.view.route;
 
 import java.util.Map;
 
+import org.friends.app.ConfHelper;
 import org.friends.app.model.User;
 import org.friends.app.service.UserService;
 import org.friends.app.validator.EmailValidator;
@@ -58,7 +59,7 @@ public class RegisterRoute implements TemplateViewRoute {
 			User userExiste = userService.findUserByEmail(user.getEmailAMDM());
 			if (userExiste == null) {
 				user = userService.create(user, RequestHelper.getAppUrl(request));
-				response.redirect(Routes.REGISTRED);
+				response.redirect(ConfHelper.complementUrl() + Routes.REGISTRED);
 			} else {
 				map.put(Routes.KEY_ERROR, "Un compte existe déjà avec cette adresse email !");
 			}
