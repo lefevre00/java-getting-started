@@ -42,13 +42,14 @@ public class UserEditRoute extends AuthenticatedRoute {
 				
 				String idUser = request.queryParams("idUser");
 				String email = request.queryParams("email");
-				String mobile = request.queryParams("mobile");
+				//String mobile = request.queryParams("mobile");
 				String placeNumber = request.queryParams("placeNumber");
 				
 				Integer idUserInt = StringUtils.isNotEmpty(idUser) ? Integer.valueOf(idUser) : null;
 				Integer placeNumberInt = StringUtils.isNotEmpty(placeNumber) ? Integer.valueOf(placeNumber) : null;
 						
-				boolean result = userService.updateUser(idUserInt, email, mobile, placeNumberInt);
+				//boolean result = userService.updateUser(idUserInt, email, mobile, placeNumberInt);
+				boolean result = userService.updateUser(idUserInt, email, null, placeNumberInt);
 
 				if (result) {
 					

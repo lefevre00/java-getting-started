@@ -33,7 +33,8 @@
                             <hr>
                             <small>Vous avez la possibilité de modifier votre adresse email, numéro de téléphone.</small>
                             <br/><br/>
-                            <a href="${routesDirectory}protected/userEdit?email=${user.emailAMDM}" class="btn btn-primary tailleText">Modifier</a> 		
+                            <!--a href="${routesDirectory}protected/userEdit?email=${user.emailAMDM}" class="btn btn-primary tailleText">Modifier</a-->
+                            <a href="#" class="btn btn-primary tailleText  disabled">Modifier</a> 		
                         </div>
                     </div>
                 </div>

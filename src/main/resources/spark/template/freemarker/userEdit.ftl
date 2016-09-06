@@ -38,8 +38,8 @@
 			        <input class="input" name="email" type="email" placeholder="Adresse email"  value="${user.emailAMDM}" required/>	     
 					<div class="email-icon emailEdit"></div>
 					
-			        <input class="input password" name="mobile" type="text" placeholder="Numéro du mobile"  value="" />	     
-					<div class="phone-icon phoneEdit"></div>
+			        <!--input class="input password" name="mobile" type="text" placeholder="Numéro du mobile"  value="" />	     
+					<div class="phone-icon phoneEdit"></div-->
 					
 					<#if user.placeNumber??>
 						<input class="input place" name="placeNumber" type="text" placeholder="N° place attribuée" value="${user.placeNumber}" <#if !admin??>readonly</#if> />
