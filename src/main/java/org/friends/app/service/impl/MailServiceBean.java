@@ -2,6 +2,10 @@ package org.friends.app.service.impl;
 
 import static org.friends.app.ConfHelper.getMailTeam;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 import org.friends.app.model.User;
 import org.friends.app.service.MailException;
 import org.friends.app.service.MailSender;
@@ -11,6 +15,8 @@ import org.friends.app.view.route.Routes;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import spark.utils.StringUtils;
 
 @Service
 public class MailServiceBean implements MailService {
@@ -61,8 +67,18 @@ public class MailServiceBean implements MailService {
 
 	private void doSend(MailBuilder mb) {
 		try {
-			sender.send(mb.build());
-		} catch (MailException e) {
+			Context context = new InitialContext();
+			String sendMail = (String)context.lookup("java:comp/env/sendMail");
+			if(StringUtils.isEmpty(sendMail)) {
+				System.out.println("SendMail pas définit");
+				sendMail = "false";
+			}
+			if(Boolean.valueOf(sendMail)) {
+					sender.send(mb.build());
+			} else {
+				new ConsoleMailSender().send(mb.build());
+			}
+		} catch (MailException | NamingException e) {
 			LoggerFactory.logger(getClass()).error("Unable send mail");
 			e.printStackTrace();
 			new RuntimeException("Unable to send mail", e);
