@@ -311,4 +311,26 @@ public class UserServiceBean implements UserService {
 
 	}
 
+/**
+ * 
+ */
+	@Override
+	public void updateInscriptionUser(User user, String hashedPwd, String applicationUrl) throws Exception {
+
+		
+		Assert.notNull(user);
+		Assert.notNull(user.getEmailAMDM());
+		if (StringUtils.isEmpty(hashedPwd))
+			throw new IllegalArgumentException("Hashed password required");
+
+		// Email validator
+		if (!EmailValidator.isValid(user.getEmailAMDM()))
+			throw new Exception("L'email saisi est incorrect !");
+		user.setPwd(hashedPwd);
+		user.setTokenMail(UUID.randomUUID().toString());
+		userDao.persist(user);
+
+		mailService.sendWelcome(user, applicationUrl);
+	}
+
 }

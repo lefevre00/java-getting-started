@@ -67,4 +67,6 @@ public interface UserService {
 	 * @return
 	 */
 	public User findUserByPlaceNUmber(Integer placeNumber);
+
+	public void updateInscriptionUser(User userExiste, String pwd, String appUrl) throws Exception ;
 }

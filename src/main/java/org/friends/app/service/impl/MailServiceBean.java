@@ -2,10 +2,6 @@ package org.friends.app.service.impl;
 
 import static org.friends.app.ConfHelper.getMailTeam;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
 import org.friends.app.model.User;
 import org.friends.app.service.MailException;
 import org.friends.app.service.MailSender;
@@ -14,6 +10,8 @@ import org.friends.app.service.util.MailBuilder;
 import org.friends.app.view.route.Routes;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import spark.utils.StringUtils;
@@ -24,6 +22,10 @@ public class MailServiceBean implements MailService {
 	private static final String MAIL_BONJOUR = "Bonjour\n\n";
 	private static final String MAIL_SIGNATURE = "\n\nCordialement,\nL'équipe EcoParking.";
 
+	
+	@Autowired
+	private Environment env;
+	
 	@Autowired
 	private MailSender sender;
 
@@ -67,18 +69,19 @@ public class MailServiceBean implements MailService {
 
 	private void doSend(MailBuilder mb) {
 		try {
-			Context context = new InitialContext();
-			String sendMail = (String)context.lookup("java:comp/env/sendMail");
+			String sendMail = env.getProperty("parking.sendMail");
+			System.out.println("sendMail----------" + sendMail);
 			if(StringUtils.isEmpty(sendMail)) {
 				System.out.println("SendMail pas définit");
 				sendMail = "false";
 			}
+			System.out.println("springProperties.sendMail----------" + sendMail);
 			if(Boolean.valueOf(sendMail)) {
 					sender.send(mb.build());
 			} else {
 				new ConsoleMailSender().send(mb.build());
 			}
-		} catch (MailException | NamingException e) {
+		} catch (MailException e) {
 			LoggerFactory.logger(getClass()).error("Unable send mail");
 			e.printStackTrace();
 			new RuntimeException("Unable to send mail", e);

@@ -24,6 +24,7 @@ public class ConfHelper {
 
 	private static final String APPLICATION_PROPERTIES = "/application.properties";
 	public static final String ADMIN_MAIL;
+	public static final boolean INSCRIPTION_LIBRE;
 //	public static final String ADMIN_PWD_MD5;
 	static {
 		// Données login admin dans fichier properties
@@ -34,6 +35,7 @@ public class ConfHelper {
 			System.out.println("erreur lecture application.properties");
 		}
 		ADMIN_MAIL = tmp.getProperty("admin.email");
+		INSCRIPTION_LIBRE = "true".equalsIgnoreCase(tmp.getProperty("inscription.libre"));
 //		ADMIN_PWD_MD5 = getEncryptedMD5Password(tmp.getProperty("admin.password"));
 	}
 

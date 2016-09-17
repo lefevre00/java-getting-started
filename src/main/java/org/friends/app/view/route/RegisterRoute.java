@@ -58,10 +58,21 @@ public class RegisterRoute implements TemplateViewRoute {
 
 			User userExiste = userService.findUserByEmail(user.getEmailAMDM());
 			if (userExiste == null) {
-				user = userService.create(user, RequestHelper.getAppUrl(request));
-				response.redirect(ConfHelper.complementUrl() + Routes.REGISTRED);
+				if(ConfHelper.INSCRIPTION_LIBRE){
+					user = userService.create(user, RequestHelper.getAppUrl(request));
+					response.redirect(ConfHelper.complementUrl() + Routes.REGISTRED);	
+				} else {
+					map.put(Routes.KEY_ERROR, "Vous n'êtes pas autorisé à utiliser cette application");
+				}
+				
 			} else {
-				map.put(Routes.KEY_ERROR, "Un compte existe déjà avec cette adresse email !");
+				if(ConfHelper.INSCRIPTION_LIBRE){
+					map.put(Routes.KEY_ERROR, "Un compte existe déjà avec cette adresse email !");
+				} else {
+					
+					userService.updateInscriptionUser(userExiste, pwd, RequestHelper.getAppUrl(request));
+					response.redirect(ConfHelper.complementUrl() + Routes.REGISTRED);	
+				}
 			}
 			map.put(EMAIL, email);
 
