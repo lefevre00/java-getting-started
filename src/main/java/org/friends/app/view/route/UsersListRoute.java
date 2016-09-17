@@ -3,6 +3,7 @@ package org.friends.app.view.route;
 import java.util.List;
 import java.util.Map;
 
+import org.friends.app.ConfHelper;
 import org.friends.app.model.User;
 import org.friends.app.service.UserService;
 import org.friends.app.view.Templates;
@@ -23,6 +24,7 @@ public class UsersListRoute extends AdminAuthRoute {
 	public ModelAndView doHandle(Request request, Response response) {
 		Map<String, Object> map = Routes.getMap(request);
 		List<User> allUsers = userService.getAllUsersWithoutAdmin();
+		map.put("inscriptionLibre", ConfHelper.INSCRIPTION_LIBRE ? null : "oui");
 		map.put("usersList", allUsers);
 		return new ModelAndView(map, Templates.USERS_LIST);
 	}

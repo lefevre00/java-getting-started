@@ -59,7 +59,7 @@ public class RegisterRoute implements TemplateViewRoute {
 			User userExiste = userService.findUserByEmail(user.getEmailAMDM());
 			if (userExiste == null) {
 				if(ConfHelper.INSCRIPTION_LIBRE){
-					user = userService.create(user, RequestHelper.getAppUrl(request));
+					user = userService.create(user, RequestHelper.getAppUrl(request), "user");
 					response.redirect(ConfHelper.complementUrl() + Routes.REGISTRED);	
 				} else {
 					map.put(Routes.KEY_ERROR, "Vous n'êtes pas autorisé à utiliser cette application");

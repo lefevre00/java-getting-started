@@ -25,6 +25,7 @@ import org.friends.app.service.DateService;
 import org.friends.app.service.PlaceService;
 import org.friends.app.service.UserService;
 import org.friends.app.util.DateUtil;
+import org.friends.app.view.route.AdminCreateUserRoute;
 import org.friends.app.view.route.AdminRoute;
 import org.friends.app.view.route.AdminShareRoute;
 import org.friends.app.view.route.AuthenticatedRoute;
@@ -123,6 +124,14 @@ public class RoutesLoader {
 		AdminShareRoute adminShareRoute = context.getBean(AdminShareRoute.class);
 		get(Routes.ADMIN_SHARE, adminShareRoute, templateEngine);
 		post(Routes.ADMIN_SHARE, adminShareRoute, templateEngine);	
+		
+		
+		/*
+		 * Création d'un nouvel utilisateur
+		 */
+		AdminCreateUserRoute adminCreateRoute = context.getBean(AdminCreateUserRoute.class);
+		get(Routes.ADMIN_CREATE, adminCreateRoute, templateEngine);
+		post(Routes.ADMIN_CREATE, adminCreateRoute, templateEngine);	
 		
 
 		/*

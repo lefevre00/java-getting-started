@@ -105,6 +105,7 @@ public class Routes {
 	public static String USERS_LIST = "/protected/usersList";
 	public static String USER_EDIT = "/protected/userEdit";
 	public static String ADMIN_SHARE = "/protected/adminShare";
+	public static String ADMIN_CREATE = "/protected/adminCreate";
 
 	/*
 	 * Model map key

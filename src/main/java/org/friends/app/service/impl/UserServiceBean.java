@@ -116,19 +116,26 @@ public class UserServiceBean implements UserService {
 	 * @throws Exception
 	 */
 	@Override
-	public User create(User user, String applicationUrl) throws Exception {
+	public User create(User user, String applicationUrl, String typeUser) throws Exception {
 		Assert.notNull(user);
 		Assert.notNull(user.getEmailAMDM());
 		Assert.notNull(user.getPwd());
+		Assert.notNull(typeUser);
 
 		// Email validator
 		if (!EmailValidator.isValid(user.getEmailAMDM()))
 			throw new Exception("L'email saisi est incorrect !");
-
-		user.setTokenMail(UUID.randomUUID().toString());
+		if("user".equalsIgnoreCase(typeUser)) {
+			user.setTokenMail(UUID.randomUUID().toString());
+		} else {
+			user.setPwd("1");
+		}
 		User back = userDao.persist(user);
-
-		mailService.sendWelcome(back, applicationUrl);
+		if("user".equalsIgnoreCase(typeUser)) {
+			mailService.sendWelcome(back, applicationUrl);
+		}else {
+			mailService.sendInformation(back, applicationUrl);
+		}
 		return back;
 	}
 
@@ -311,15 +318,14 @@ public class UserServiceBean implements UserService {
 
 	}
 
-/**
- * 
- */
+
+
 	@Override
 	public void updateInscriptionUser(User user, String hashedPwd, String applicationUrl) throws Exception {
-
-		
 		Assert.notNull(user);
 		Assert.notNull(user.getEmailAMDM());
+		Assert.notNull(applicationUrl);
+		
 		if (StringUtils.isEmpty(hashedPwd))
 			throw new IllegalArgumentException("Hashed password required");
 
@@ -332,5 +338,6 @@ public class UserServiceBean implements UserService {
 
 		mailService.sendWelcome(user, applicationUrl);
 	}
+	
 
 }

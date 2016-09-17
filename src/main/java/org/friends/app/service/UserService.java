@@ -17,6 +17,7 @@ public interface UserService {
 
 	public static final String USER_DISABLE = "user.disable";
 	public static final String USER_UNKNOWN = "user.unknown";
+	public static final String USER_EXISTE = "user.existe";
 	public static final String USER_DELETE_SHARE = "user.delete.shared";
 	public static final String USER_DELETE_BOOK = "user.delete.booked";
 	public static final String USER_DELETE_USED = "user.delete.used";
@@ -29,7 +30,7 @@ public interface UserService {
 
 	public User findUserByCookie(String cookie);
 
-	public User create(User user, String applicationHost) throws Exception;
+	public User create(User user, String applicationHost, String typeUser) throws Exception;
 
 	public UserSession createSession(User authUser);
 
@@ -68,5 +69,12 @@ public interface UserService {
 	 */
 	public User findUserByPlaceNUmber(Integer placeNumber);
 
+	/**
+	 * permet de modifier l'utilisateur pré-créer par l'admin et ce dans le cas d'une utilisation limitée.
+	 * @param userExiste
+	 * @param pwd
+	 * @param appUrl
+	 * @throws Exception
+	 */
 	public void updateInscriptionUser(User userExiste, String pwd, String appUrl) throws Exception ;
 }

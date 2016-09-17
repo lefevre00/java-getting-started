@@ -84,14 +84,21 @@
 		  	    			</#if>
 			  	     	</td>
 					</tr>
-				</#list>				
-				 
-				</table>				
+				</#list>	
+							
+
+				</table>
 				
 			</div>				
 			
 			
+				 <#if inscriptionLibre??>	
+							
+								<strong><a style=" color: #317bba;" href="${routesDirectory}protected/adminCreate">Ajouter un utilisateur</a></strong>
 
+				<#else>
+					-
+				</#if>
 		</div>
 	</section>
 
