@@ -73,11 +73,6 @@ public class UserService_Create_Test {
 		service.create(unUser().email(PRENOM_NOM_AMDM_FR).build(), null, "user");
 	}
 	
-	@Test()
-	public void un_user_doit_avoir_un_mot_de_passe_type_user_() throws Exception {
-		service.create(unUser().email("eee").mdp("mdp").build(), "http://localhost:9090/", "user");
-	}
-	
 
 	/*
 	 * Email ok
@@ -101,7 +96,16 @@ public class UserService_Create_Test {
 	 * Test email non valide
 	 */
 	@Test(expected = Exception.class)
-	public void un_user_doit_avoir_mail_valide() throws Exception {
+	public void un_user_doit_avoir_mail_valide_user() throws Exception {
+		service.create(unUser().email(PRENOM_NOM_NON_AMDM_FR).mdp("mdp").build(), "http://localhost:9090/", "user");
+	}
+
+	
+	/*
+	 * Test email non valide
+	 */
+	@Test(expected = Exception.class)
+	public void un_user_doit_avoir_mail_valide_admin() throws Exception {
 		service.create(unUser().email(PRENOM_NOM_NON_AMDM_FR).mdp("mdp").build(), "http://localhost:9090/", "admin");
 	}
 
