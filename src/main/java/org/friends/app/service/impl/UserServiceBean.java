@@ -125,6 +125,21 @@ public class UserServiceBean implements UserService {
 		// Email validator
 		if (!EmailValidator.isValid(user.getEmailAMDM()))
 			throw new Exception("L'email saisi est incorrect !");
+
+		// Existance utilisateur
+		if(findUserByEmail(user.getEmailAMDM()) != null) {
+			throw new Exception("L'utilisateur avec le mail " + user.getEmailAMDM() + " existe déjà.");
+		}
+
+		//Attribution place
+		if(user.getPlaceNumber() != null){
+			User userExistant =  findUserByPlaceNUmber(user.getPlaceNumber());
+			if(userExistant!= null) {
+				throw new Exception("La place" + user.getPlaceNumber() + " est déjà attribuée à l'utilisateur : " + userExistant.getEmailAMDM());
+			}
+		}
+
+
 		if("user".equalsIgnoreCase(typeUser)) {
 			user.setTokenMail(UUID.randomUUID().toString());
 		} else {
@@ -325,7 +340,7 @@ public class UserServiceBean implements UserService {
 		Assert.notNull(user);
 		Assert.notNull(user.getEmailAMDM());
 		Assert.notNull(applicationUrl);
-		
+
 		if (StringUtils.isEmpty(hashedPwd))
 			throw new IllegalArgumentException("Hashed password required");
 
@@ -338,6 +353,6 @@ public class UserServiceBean implements UserService {
 
 		mailService.sendWelcome(user, applicationUrl);
 	}
-	
+
 
 }
