@@ -29,84 +29,38 @@ public class UserService_Create_Test {
 	 * Test avec user null
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void un_user_ne_doit_pas_etre_null_type_utilisateur() throws Exception {
-		service.create(null, null, "user");
+	public void un_user_ne_doit_pas_etre_null() throws Exception {
+		service.create(null, null);
 	}
 	
-	/*
-	 * Test avec user null
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void un_user_ne_doit_pas_etre_null_type_admin() throws Exception {
-		service.create(null, null, "admin");
-	}
 
 	/*
 	 * Test avec email null
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void un_user_doit_avoir_un_email_type_user() throws Exception {
-		service.create(unUser().mdp("mdp").build(), null, "user");
-	}
-	
-	/*
-	 * Test avec email null
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void un_user_doit_avoir_un_email_type_admin() throws Exception {
-		service.create(unUser().mdp("mdp").build(), null, "admin");
+	public void un_user_doit_avoir_un_email() throws Exception {
+		service.create(unUser().mdp("mdp").build(), null);
 	}
 
-	/*
-	 * Test avec typeUser null
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void le_type_de_user_ne_doit_pas_etre_null() throws Exception {
-		service.create(unUser().mdp("mdp").build(), "http://localhost:9090/", null);
-	}
 
-	/*
-	 * Test avec mot de passe null
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void un_user_doit_avoir_un_mot_de_passe_type_user() throws Exception {
-		service.create(unUser().email(PRENOM_NOM_AMDM_FR).build(), null, "user");
-	}
-	
+
 
 	/*
 	 * Email ok
 	 */
 	@Test()
-	public void un_user_doit_avoir_un_email_valide_et_un_mdp_type_user() throws Exception {
-		service.create(unUser().email(PRENOM_NOM_AMDM_FR).mdp("mdp").build(), "http://localhost:9090/", "user");
+	public void un_user_doit_avoir_un_email_valide_et_un_mdp() throws Exception {
+		service.create(unUser().email(PRENOM_NOM_AMDM_FR).mdp("mdp").build(), "http://localhost:9090/");
 	}
 
-	
-	/*
-	 * Email ok
-	 */
-	@Test()
-	public void un_user_doit_avoir_un_email_valide_et_un_mdp_type_admin() throws Exception {
-		service.create(unUser().email(PRENOM_NOM_AMDM_FR).mdp("mdp").build(), "http://localhost:9090/", "admin");
-		
-	}
+
 
 	/*
 	 * Test email non valide
 	 */
 	@Test(expected = Exception.class)
-	public void un_user_doit_avoir_mail_valide_user() throws Exception {
-		service.create(unUser().email(PRENOM_NOM_NON_AMDM_FR).mdp("mdp").build(), "http://localhost:9090/", "user");
-	}
-
-	
-	/*
-	 * Test email non valide
-	 */
-	@Test(expected = Exception.class)
-	public void un_user_doit_avoir_mail_valide_admin() throws Exception {
-		service.create(unUser().email(PRENOM_NOM_NON_AMDM_FR).mdp("mdp").build(), "http://localhost:9090/", "admin");
+	public void un_user_doit_avoir_mail_valide() throws Exception {
+		service.create(unUser().email(PRENOM_NOM_NON_AMDM_FR).mdp("mdp").build(), "http://localhost:9090/");
 	}
 
 }

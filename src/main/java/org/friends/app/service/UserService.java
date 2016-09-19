@@ -30,7 +30,7 @@ public interface UserService {
 
 	public User findUserByCookie(String cookie);
 
-	public User create(User user, String applicationHost, String typeUser) throws Exception;
+	public User create(User user, String applicationHost) throws Exception;
 
 	public UserSession createSession(User authUser);
 

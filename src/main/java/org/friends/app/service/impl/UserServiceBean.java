@@ -116,37 +116,36 @@ public class UserServiceBean implements UserService {
 	 * @throws Exception
 	 */
 	@Override
-	public User create(User user, String applicationUrl, String typeUser) throws Exception {
+	public User create(User user, String applicationUrl) throws Exception {
 		Assert.notNull(user);
 		Assert.notNull(user.getEmailAMDM());
 		Assert.notNull(user.getPwd());
-		Assert.notNull(typeUser);
 
 		// Email validator
 		if (!EmailValidator.isValid(user.getEmailAMDM()))
-			throw new Exception("L'email saisi est incorrect !");
+			throw new DataIntegrityException(EMAIL_ERROR);
 
 		// Existance utilisateur
 		if(findUserByEmail(user.getEmailAMDM()) != null) {
-			throw new Exception("L'utilisateur avec le mail " + user.getEmailAMDM() + " existe déjà.");
+			throw new ValidationException(EMAIL_UNKNOWN);
 		}
 
 		//Attribution place
 		if(user.getPlaceNumber() != null){
 			User userExistant =  findUserByPlaceNUmber(user.getPlaceNumber());
 			if(userExistant!= null) {
-				throw new Exception("La place" + user.getPlaceNumber() + " est déjà attribuée à l'utilisateur : " + userExistant.getEmailAMDM());
+				throw new DataIntegrityException(PLACE_ALREADY_USED);
 			}
 		}
 
-
-		if("user".equalsIgnoreCase(typeUser)) {
+		
+		if(ConfHelper.INSCRIPTION_LIBRE) {
 			user.setTokenMail(UUID.randomUUID().toString());
 		} else {
 			user.setPwd("1");
 		}
 		User back = userDao.persist(user);
-		if("user".equalsIgnoreCase(typeUser)) {
+		if(ConfHelper.INSCRIPTION_LIBRE) {
 			mailService.sendWelcome(back, applicationUrl);
 		}else {
 			mailService.sendInformation(back, applicationUrl);
@@ -346,7 +345,8 @@ public class UserServiceBean implements UserService {
 
 		// Email validator
 		if (!EmailValidator.isValid(user.getEmailAMDM()))
-			throw new Exception("L'email saisi est incorrect !");
+			throw new ValidationException(EMAIL_UNKNOWN);
+		
 		user.setPwd(hashedPwd);
 		user.setTokenMail(UUID.randomUUID().toString());
 		userDao.persist(user);

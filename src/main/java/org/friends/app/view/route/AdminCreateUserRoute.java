@@ -41,7 +41,6 @@ public class AdminCreateUserRoute extends AdminAuthRoute {
 		protected void onRegister(Request request, Response response, Map<String, Object> map) {
 
 			String email = request.queryParams("email");
-			String pwd = request.queryParams("pwd");
 			String placeNumber = request.queryParams("placeNumber");
 
 			try {
@@ -57,7 +56,7 @@ public class AdminCreateUserRoute extends AdminAuthRoute {
 				
 				
 					User nouvelUtilisateur = new User(email, "1", StringUtils.isEmpty(placeNumber) ? null : Integer.parseInt(placeNumber));
-					userService.create(nouvelUtilisateur,  RequestHelper.getAppUrl(request), "admin");
+					userService.create(nouvelUtilisateur,  RequestHelper.getAppUrl(request));
 				
 			} catch (NumberFormatException e) {
 				map.put(Routes.KEY_ERROR, "Le numéro de place est un numéro !");
@@ -71,9 +70,12 @@ public class AdminCreateUserRoute extends AdminAuthRoute {
 
 				if (UserService.USER_EXISTE.equals(e.getMessage()))
 					map.put(Routes.KEY_ERROR, "L'utilisateur "+ email + " existe déjà ! ");
+				
+				if (UserService.PLACE_ALREADY_USED.equals(e.getMessage()))
+					map.put(Routes.KEY_ERROR, "La place  " + placeNumber + " est déjà attribuée !");
 
 				map.put(EMAIL, email);
 			}
-			map.put(Routes.KEY_SUCCESS, "L'utilisateur "+ email + " a été créé ! ");
+			if(!map.containsKey(Routes.KEY_ERROR))	map.put(Routes.KEY_SUCCESS, "L'utilisateur "+ email + " a été créé ! ");
 		}
 }
