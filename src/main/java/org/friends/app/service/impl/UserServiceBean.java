@@ -138,10 +138,8 @@ public class UserServiceBean implements UserService {
 			}
 		}
 
-		
-		if(ConfHelper.INSCRIPTION_LIBRE) {
-			user.setTokenMail(UUID.randomUUID().toString());
-		} else {
+		user.setTokenMail(UUID.randomUUID().toString());
+		if(!ConfHelper.INSCRIPTION_LIBRE) {
 			user.setPwd("1");
 		}
 		User back = userDao.persist(user);
