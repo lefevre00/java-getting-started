@@ -11,6 +11,8 @@ import org.friends.app.view.Templates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.google.common.base.Strings;
+
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -34,12 +36,14 @@ public class LoginRoute implements TemplateViewRoute {
 
 		Map<String, Object> map = Routes.getMap(request);
 		User user = request.session().attribute("user");
+		if(!Strings.isNullOrEmpty(request.queryParams("activationOk")) && ConfHelper.INSCRIPTION_LIBRE){
+			map.put(Routes.KEY_INFO, "Inscription Validée, vous pouvez vous connecter.");
+		}
 		if (user != null) {
 			Routes.redirect(user, response, false);
 		} else if ("POST".equalsIgnoreCase(request.requestMethod())) {
 			onLogin(request, response, map);
 		}
-
 		return new ModelAndView(map, Templates.LOGIN);
 	}
 

@@ -88,9 +88,10 @@ public class MailServiceBean implements MailService {
 	@Override
 	public void sendInformation(User user, String applicationUrl) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(MAIL_BONJOUR).append("Votre compte EcoPArking a été créé.\n")
+		sb.append(MAIL_BONJOUR).append("Votre compte EcoParking a été créé.\n")
 				.append("Afin de finaliser votre inscription, vous devez vous rendre à l'adresse indiquée ci-dessous pour valider votre email.\n")
-				.append(applicationUrl).append(Routes.REGISTER).append(MAIL_SIGNATURE);
+				.append(applicationUrl).append(Routes.REGISTER).append('?').append(Routes.PARAM_TOKEN_VALUE)
+				.append('=').append(user.getTokenMail()).append('&').append(Routes.PARAM_EMAIL_VALUE).append("=").append(user.getEmailAMDM()).append('&').append(Routes.PARAM_PLACE_NUMBER_VALUE).append("=").append(user.getPlaceNumber()!=null ? user.getPlaceNumber() : "").append(MAIL_SIGNATURE);
 
 		MailBuilder mb = MailBuilder.get().addTo(user.getEmailAMDM()).setSubject("Bienvenue @ EcoParking")
 				.setText(sb.toString());

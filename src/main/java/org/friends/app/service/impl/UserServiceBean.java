@@ -127,7 +127,7 @@ public class UserServiceBean implements UserService {
 
 		// Existance utilisateur
 		if(findUserByEmail(user.getEmailAMDM()) != null) {
-			throw new ValidationException(EMAIL_UNKNOWN);
+			throw new ValidationException(USER_UNKNOWN);
 		}
 
 		//Attribution place
@@ -187,7 +187,7 @@ public class UserServiceBean implements UserService {
 		}
 
 		return success;
-	}
+	}	
 
 	@Override
 	public void resetPassword(String email, String appUrl) throws Exception {
@@ -343,13 +343,20 @@ public class UserServiceBean implements UserService {
 
 		// Email validator
 		if (!EmailValidator.isValid(user.getEmailAMDM()))
-			throw new ValidationException(EMAIL_UNKNOWN);
+			throw new ValidationException(USER_UNKNOWN);
 		
 		user.setPwd(hashedPwd);
-		user.setTokenMail(UUID.randomUUID().toString());
+		user.setTokenMail(null);
 		userDao.persist(user);
 
-		mailService.sendWelcome(user, applicationUrl);
+		//mailService.sendWelcome(user, applicationUrl);
+	}
+
+	@Override
+	public boolean findUserByEmailAndToken(String email, String tokenMail) {
+		Assert.notNull(email);
+		Assert.notNull(tokenMail);
+		return userDao.findUserByCriterions(Restrictions.eq("emailAMDM", email),Restrictions.eq("tokenMail", tokenMail)) != null;
 	}
 
 

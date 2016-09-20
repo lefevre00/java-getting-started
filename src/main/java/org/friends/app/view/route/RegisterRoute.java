@@ -33,6 +33,17 @@ public class RegisterRoute implements TemplateViewRoute {
 		Map<String, Object> map = Routes.getMap(request);
 		if ("POST".equalsIgnoreCase(request.requestMethod())) {
 			onRegister(request, response, map);
+		}else {
+			if(!ConfHelper.INSCRIPTION_LIBRE) {
+				String tokenMail = request.queryParams(Routes.PARAM_TOKEN_VALUE);
+				String email = request.queryParams(Routes.PARAM_EMAIL_VALUE);
+				String placeNumber = request.queryParams(Routes.PARAM_PLACE_NUMBER_VALUE);
+				if(tokenMail != null && email != null) {
+					map.put(Routes.PARAM_TOKEN_VALUE, tokenMail);
+					map.put(Routes.PARAM_PLACE_NUMBER_VALUE, placeNumber);
+					map.put(EMAIL, email);
+				} 
+			}
 		}
 
 		return new ModelAndView(map, Templates.REGISTER);
@@ -43,7 +54,8 @@ public class RegisterRoute implements TemplateViewRoute {
 		String email = request.queryParams("email");
 		String pwd = request.queryParams("pwd");
 		String placeNumber = request.queryParams("placeNumber");
-
+		String tokenMail = request.queryParams(Routes.PARAM_TOKEN_VALUE);
+		
 		try {
 			if (Strings.isNullOrEmpty(email))
 				throw new Exception(UserService.EMAIL_REQUIRED);
@@ -53,6 +65,10 @@ public class RegisterRoute implements TemplateViewRoute {
 
 			if (Strings.isNullOrEmpty(pwd))
 				throw new Exception(UserService.PWD_REQUIRED);
+			
+			if(!Strings.isNullOrEmpty(tokenMail) 
+					&& !userService.findUserByEmailAndToken(email,tokenMail)) 
+						throw new Exception(UserService.VALIDATION_TOKEN_ERROR);
 
 			User user = new User(email, pwd, StringUtils.isEmpty(placeNumber) ? null : Integer.parseInt(placeNumber));
 
@@ -69,9 +85,9 @@ public class RegisterRoute implements TemplateViewRoute {
 				if(ConfHelper.INSCRIPTION_LIBRE){
 					map.put(Routes.KEY_ERROR, "Un compte existe déjà avec cette adresse email !");
 				} else {
-					
+					// L'utilisateur vient de confirmer son mail et de créeer son mot de passe
 					userService.updateInscriptionUser(userExiste, pwd, RequestHelper.getAppUrl(request));
-					response.redirect(ConfHelper.complementUrl() + Routes.REGISTRED);	
+					response.redirect(ConfHelper.complementUrl() + Routes.LOGIN + "?activation=ok");	
 				}
 			}
 			map.put(EMAIL, email);

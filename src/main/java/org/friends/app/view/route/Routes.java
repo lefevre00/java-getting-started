@@ -68,6 +68,8 @@ public class Routes {
 	}
 
 	public static String PARAM_TOKEN_VALUE = "tok";
+	public static String PARAM_EMAIL_VALUE = "email";
+	public static String PARAM_PLACE_NUMBER_VALUE = "placeNumber";
 
 	/*
 	 * Accessible for everyone
