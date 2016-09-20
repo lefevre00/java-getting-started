@@ -88,7 +88,7 @@ public class MailServiceBean implements MailService {
 	@Override
 	public void sendInformation(User user, String applicationUrl) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(MAIL_BONJOUR).append("Votre compte 'Parking Mezzo' a été créé.\n")
+		sb.append(MAIL_BONJOUR).append("Votre compte EcoParking a été créé.\n")
 				.append("Afin de finaliser votre inscription, vous devez vous rendre à l'adresse indiquée ci-dessous pour valider votre email.\n")
 				.append(applicationUrl).append(MAIL_SIGNATURE);
 
