@@ -253,8 +253,9 @@ public class UserServiceBean implements UserService {
 		if (!placeService.getReservations(userDb).isEmpty()) {
 			throw new DataIntegrityException(USER_DELETE_BOOK);
 		}
-
+		
 		// Finaly delete user
+		sessionDao.deleteUserSessionByUserId(userDb.getId());
 		userDao.delete(userDb.getId());
 	}
 

@@ -38,6 +38,13 @@ public class UserSessionDaoImpl extends AbstractDao {
 		session.getNamedQuery(UserSession.DELETE_EXPIRED).setParameter("date", now).executeUpdate();
 		session.getTransaction().commit();
 	}
+	
+	public void deleteUserSessionByUserId(Integer user_id) {
+		Session session = getSession();
+		session.beginTransaction();
+		session.getNamedQuery(UserSession.DELETE_BY_USER_ID).setParameter("user_id", user_id).executeUpdate();
+		session.getTransaction().commit();
+	}
 
 	public UserSession findByCookie(String cookie) {
 		getSession().beginTransaction();
