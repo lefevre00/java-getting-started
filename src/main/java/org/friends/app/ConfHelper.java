@@ -3,8 +3,6 @@ package org.friends.app;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 
 import org.friends.app.view.route.LoginRoute;
@@ -138,6 +136,6 @@ public class ConfHelper {
 //	}
 	
 	public static String complementUrl(){
-		return DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? ".." : "";
+		return DeployMode.STANDALONE.equals(getDeployMode()) ? ".." : "";
 	}
 }
