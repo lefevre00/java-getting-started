@@ -61,7 +61,7 @@ public interface UserService {
 	
 	public boolean changePassword(String email, String pwd);
 	
-	public boolean updateUser(Integer idUser, String email, String mobile, Integer placeNumber);
+	public boolean updateUser(Integer idUser, String email, String mobile, Integer placeNumber, boolean mailInformation);
 
 	/**
 	 * retourne l'utilisateur ayant un numéro de place

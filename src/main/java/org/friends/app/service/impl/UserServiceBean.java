@@ -309,7 +309,7 @@ public class UserServiceBean implements UserService {
 	}	
 
 	@Override
-	public boolean updateUser(Integer idUser, String email, String mobile, Integer placeNumber) {
+	public boolean updateUser(Integer idUser, String email, String mobile, Integer placeNumber, boolean infoUser) {
 
 		if (StringUtils.isEmpty(idUser))
 			throw new IllegalArgumentException("Id User required");
@@ -318,12 +318,16 @@ public class UserServiceBean implements UserService {
 		if (placeNumber!=null && findUserByPlaceNUmber(placeNumber) != null) 
 			return false;
 		User user = userDao.findById(idUser);
+		Integer oldPlace = user.getPlaceNumber();
 		// TODO ABTAM : ajouter le mobile qd le mapping est fait
 		if (!email.equals(user.getEmailAMDM()) || user.getPlaceNumber() != placeNumber) { // || !mobile.equals(user.getMobile())
 			user.setEmailAMDM(email);
 			user.setPlaceNumber(placeNumber);
 			// user.setMobile(mobile);
 			userDao.update(user);
+			if(infoUser) {
+				mailService.sendInformationChangementPlace(user, oldPlace);
+			}
 			return true;
 		}
 

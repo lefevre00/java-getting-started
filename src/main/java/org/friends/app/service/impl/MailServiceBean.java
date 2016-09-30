@@ -98,4 +98,28 @@ public class MailServiceBean implements MailService {
 		doSend(mb);
 		
 	}
+
+	@Override
+	public void sendInformationChangementPlace(User user, Integer oldPlace) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(MAIL_BONJOUR);
+		if(oldPlace != null) {
+			// l'utilisateur avait une place
+			if(user.getPlaceNumber()== null) {
+				sb.append("La place de parking n°").append(oldPlace).append(" a été attribuée à une autre personne.");	
+			} else {
+				sb.append("Nous avons du échanger la place de parking n°").append(oldPlace).append(" par la place n°").append(user.getPlaceNumber());
+			}
+		} else {
+			// L'utilisateur n'avait pas de place
+			if(user.getPlaceNumber()!= null) {
+				sb.append("Nous sommes heureux de vous attibuer la place de parking n°").append(user.getPlaceNumber()).append(".");	
+			}
+		}
+		sb.append(MAIL_SIGNATURE);
+
+		MailBuilder mb = MailBuilder.get().addTo(user.getEmailAMDM()).setSubject("Bienvenue @ EcoParking")
+				.setText(sb.toString());
+		doSend(mb);
+	}
 }
