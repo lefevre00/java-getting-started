@@ -4,6 +4,7 @@ import static org.friends.app.view.RequestHelper.getAppUrl;
 
 import java.util.Map;
 
+import org.friends.app.Messages;
 import org.friends.app.model.User;
 import org.friends.app.service.UserService;
 import org.friends.app.validator.EmailValidator;
@@ -60,23 +61,27 @@ public class AdminCreateUserRoute extends AdminAuthRoute {
 					userService.create(nouvelUtilisateur,  getAppUrl(request));
 				
 			} catch (NumberFormatException e) {
-				map.put(Routes.KEY_ERROR, "Le numéro de place est un numéro !");
+				map.put(Routes.KEY_ERROR, Messages.get("number.invalid"));
 			} catch (Exception e) {
 
 				if (UserService.EMAIL_REQUIRED.equals(e.getMessage()))
-					map.put(Routes.KEY_ERROR, "Vous devez saisir une adresse email !");
+					map.put(Routes.KEY_ERROR, Messages.get("email.required"));
 
 				if (UserService.EMAIL_ERROR.equals(e.getMessage()))
-					map.put(Routes.KEY_ERROR, "L'email saisi est invalide !");
+					map.put(Routes.KEY_ERROR, Messages.get("email.error"));
 
 				if (UserService.USER_EXISTE.equals(e.getMessage()))
-					map.put(Routes.KEY_ERROR, "L'utilisateur "+ email + " existe déjà ! ");
+					map.put(Routes.KEY_ERROR, Messages.get("admin.create.user").replaceAll("#email_user#", email));
 				
 				if (UserService.PLACE_ALREADY_USED.equals(e.getMessage()))
-					map.put(Routes.KEY_ERROR, "La place  " + placeNumber + " est déjà attribuée !");
-
+					map.put(Routes.KEY_ERROR, Messages.get("admin.place.used").replaceAll("#placeNumber#", placeNumber));
+				
 				map.put(EMAIL, email);
 			}
-			if(!map.containsKey(Routes.KEY_ERROR))	map.put(Routes.KEY_SUCCESS, "L'utilisateur "+ email + " a été créé ! ");
+			if(!map.containsKey(Routes.KEY_ERROR)) {	
+				
+				String message = Messages.get("admin.create.user");
+				map.put(Routes.KEY_SUCCESS, message.replaceAll("#email_user#", email)); 
+			}
 		}
 }
