@@ -2,10 +2,6 @@ package org.friends.app.service.impl;
 
 import static org.friends.app.ConfHelper.getMailTeam;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
 import org.friends.app.model.User;
 import org.friends.app.service.MailException;
 import org.friends.app.service.MailSender;
@@ -15,8 +11,6 @@ import org.friends.app.view.route.Routes;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import spark.utils.StringUtils;
 
 @Service
 public class MailServiceBean implements MailService {
@@ -67,20 +61,9 @@ public class MailServiceBean implements MailService {
 
 	private void doSend(MailBuilder mb) {
 		try {
-			Context context = new InitialContext();
-			String sendMail = (String)context.lookup("java:comp/env/sendMail");
-			if(StringUtils.isEmpty(sendMail)) {
-				System.out.println("SendMail pas définit");
-				sendMail = "false";
-			}
-			if(Boolean.valueOf(sendMail)) {
-					sender.send(mb.build());
-			} else {
-				new ConsoleMailSender().send(mb.build());
-			}
-		} catch (MailException | NamingException e) {
+			sender.send(mb.build());
+		} catch (MailException e) {
 			LoggerFactory.logger(getClass()).error("Unable send mail");
-			e.printStackTrace();
 			new RuntimeException("Unable to send mail", e);
 		}
 	}
@@ -90,30 +73,34 @@ public class MailServiceBean implements MailService {
 		StringBuilder sb = new StringBuilder();
 		sb.append(MAIL_BONJOUR).append("Votre compte EcoParking a été créé.\n")
 				.append("Afin de finaliser votre inscription, vous devez vous rendre à l'adresse indiquée ci-dessous pour valider votre email.\n")
-				.append(applicationUrl).append(Routes.REGISTER).append('?').append(Routes.PARAM_TOKEN_VALUE)
-				.append('=').append(user.getTokenMail()).append('&').append(Routes.PARAM_EMAIL_VALUE).append("=").append(user.getEmailAMDM()).append('&').append(Routes.PARAM_PLACE_NUMBER_VALUE).append("=").append(user.getPlaceNumber()!=null ? user.getPlaceNumber() : "").append(MAIL_SIGNATURE);
+				.append(applicationUrl).append(Routes.REGISTER).append('?').append(Routes.PARAM_TOKEN_VALUE).append('=')
+				.append(user.getTokenMail()).append('&').append(Routes.PARAM_EMAIL_VALUE).append("=")
+				.append(user.getEmailAMDM()).append('&').append(Routes.PARAM_PLACE_NUMBER_VALUE).append("=")
+				.append(user.getPlaceNumber() != null ? user.getPlaceNumber() : "").append(MAIL_SIGNATURE);
 
 		MailBuilder mb = MailBuilder.get().addTo(user.getEmailAMDM()).setSubject("Bienvenue @ EcoParking")
 				.setText(sb.toString());
 		doSend(mb);
-		
+
 	}
 
 	@Override
 	public void sendInformationChangementPlace(User user, Integer oldPlace) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(MAIL_BONJOUR);
-		if(oldPlace != null) {
+		if (oldPlace != null) {
 			// l'utilisateur avait une place
-			if(user.getPlaceNumber()== null) {
-				sb.append("La place de parking n°").append(oldPlace).append(" a été attribuée à une autre personne.");	
+			if (user.getPlaceNumber() == null) {
+				sb.append("La place de parking n°").append(oldPlace).append(" a été attribuée à une autre personne.");
 			} else {
-				sb.append("Nous avons du échanger la place de parking n°").append(oldPlace).append(" par la place n°").append(user.getPlaceNumber());
+				sb.append("Nous avons du échanger la place de parking n°").append(oldPlace).append(" par la place n°")
+						.append(user.getPlaceNumber());
 			}
 		} else {
 			// L'utilisateur n'avait pas de place
-			if(user.getPlaceNumber()!= null) {
-				sb.append("Nous sommes heureux de vous attibuer la place de parking n°").append(user.getPlaceNumber()).append(".");	
+			if (user.getPlaceNumber() != null) {
+				sb.append("Nous sommes heureux de vous attibuer la place de parking n°").append(user.getPlaceNumber())
+						.append(".");
 			}
 		}
 		sb.append(MAIL_SIGNATURE);

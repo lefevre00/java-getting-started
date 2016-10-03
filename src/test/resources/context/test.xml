@@ -19,7 +19,5 @@
 	   <jdbc:script location="classpath:config/db-test-data.sql"/>
 	</jdbc:initialize-database>
 	
-	<bean id="mailSender" class="org.friends.app.service.impl.ConsoleMailSender"/>
-
 	<import resource="classpath:/context/application.xml"/>
 </beans>

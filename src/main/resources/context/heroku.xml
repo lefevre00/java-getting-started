@@ -20,7 +20,5 @@
 		<property name="url" value="${datasource.url}" />
 	</bean>
 	
-	<bean id="mailSender" class="org.friends.app.service.impl.SendGridMailSender"/>
-
 	<import resource="classpath:/context/application.xml"/>
 </beans>
