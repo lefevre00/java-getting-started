@@ -13,7 +13,7 @@
 		<div class="container containerAttr" style="padding-bottom:80px;">
 			<h2>Oups !</h2>
 			<br>
-			<img src="/images/error_image.png"/>
+			<img src="${ressourcesDirectory}images/error_image.png"/>
 			<br><br>
 			${message}
 		</div>

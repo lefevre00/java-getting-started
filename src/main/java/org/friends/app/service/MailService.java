@@ -10,4 +10,8 @@ public interface MailService {
 
 	void sendContact(String nom, String mail, String message);
 
+	void sendInformation(User back, String applicationUrl);
+	
+	void sendInformationChangementPlace(User back, Integer oldPlace);
+
 }

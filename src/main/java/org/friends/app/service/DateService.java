@@ -25,5 +25,12 @@ public interface DateService {
 	 * @return
 	 */
 	LocalDate getNextWorkingDay(LocalDate base);
+	
+	/**
+	 * Renvoie true si la date passé en paramètre est une date 'reservable'
+	 * @param date
+	 * @return
+	 */
+	boolean isSearchDateValid(LocalDate date);
 
 }

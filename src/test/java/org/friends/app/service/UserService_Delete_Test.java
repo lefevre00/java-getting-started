@@ -2,9 +2,10 @@ package org.friends.app.service;
 
 import java.util.ArrayList;
 
-import org.friends.app.ParkingTest;
-import org.friends.app.dao.UserDao;
+import org.friends.app.ClientTest;
 import org.friends.app.dao.UserDaoTest;
+import org.friends.app.dao.impl.UserDaoImpl;
+import org.friends.app.dao.impl.UserSessionDaoImpl;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.UserServiceBean;
@@ -22,7 +23,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.omg.CORBA.UnknownUserException;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserService_Delete_Test extends ParkingTest {
+public class UserService_Delete_Test extends ClientTest {
 
 	private static final int ID_USER_SANS_PLACE = 1;
 	private static final int ID_USER_AVEC_PLACE = 2;
@@ -31,7 +32,9 @@ public class UserService_Delete_Test extends ParkingTest {
 	UserServiceBean serviceTested = new UserServiceBean();
 
 	@Mock
-	UserDao userDao;
+	UserDaoImpl userDao;
+	@Mock
+	UserSessionDaoImpl userSessionDao;
 	@Mock
 	PlaceService placeService;
 

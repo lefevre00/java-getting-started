@@ -11,7 +11,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import org.friends.app.Configuration;
+import org.friends.app.ConfHelper;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.google.common.base.Charsets;
@@ -26,13 +26,16 @@ import com.google.common.hash.Hashing;
 @Entity
 @Table(name = "SESSIONS")
 @NamedQueries(value = {
-		@NamedQuery(name = Session.DELETE_EXPIRED, query = "delete from Session where expirationDate < :date"),
-		@NamedQuery(name = Session.QUERY_FIND_BY_COOKIE, query = "select s from Session s where s.cookie = :cookie") })
-public class Session {
+		@NamedQuery(name = UserSession.DELETE_EXPIRED, query = "delete from UserSession where expirationDate < :date"),
+		@NamedQuery(name = UserSession.QUERY_FIND_BY_COOKIE, query = "select s from UserSession s where s.cookie = :cookie"),
+		@NamedQuery(name = UserSession.DELETE_BY_USER_ID, query = "delete from UserSession s where s.userId = :user_id") })
+public class UserSession {
 
 	public static final String DELETE_EXPIRED = "expired";
 
 	public static final String QUERY_FIND_BY_COOKIE = "findSessionByCookie";
+	
+	public static final String DELETE_BY_USER_ID = "deleteByUserID";
 
 	@Id
 	@GeneratedValue(generator = "incrementS")
@@ -52,17 +55,17 @@ public class Session {
 	@Column(name = "EXPIRATION_DATE")
 	Date expirationDate;
 
-	public Session() {
+	public UserSession() {
 		// pour hibernate
 	}
 
-	public Session(User user) {
+	public UserSession(User user) {
 		userId = user.getId();
 		Calendar cal = Calendar.getInstance();
 		creationDate = cal.getTime();
 		cookie = Hashing.sha1().hashString(user.getEmailAMDM() + creationDate.toString(), Charsets.UTF_8).toString();
 
-		cal.add(Calendar.SECOND, Configuration.COOKIE_DURATION);
+		cal.add(Calendar.SECOND, ConfHelper.COOKIE_DURATION);
 		expirationDate = cal.getTime();
 	}
 

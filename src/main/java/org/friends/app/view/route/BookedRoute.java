@@ -39,7 +39,7 @@ public class BookedRoute extends AuthenticatedRoute {
 	public ModelAndView doHandle(Request request, Response response) {
 
 		User user = getUser(request);
-
+		boolean canShare = user.getPlaceNumber() != null;
 		String release = request.queryParams("release");
 		if (StringUtils.isNotEmpty(release)) {
 			placeService.release(user, release);
@@ -50,6 +50,10 @@ public class BookedRoute extends AuthenticatedRoute {
 		List<Place> reservations = placeService.getReservations(user);
 
 		Map<String, Object> map = Routes.getMap(request);
+		
+		map.put("messageInfo", "");
+		boolean reservationTodayPossible = false;
+		boolean reservationTomorrowPossible = false;
 		if (!reservations.isEmpty()) {
 			map.put("places", reservations);
 		}
@@ -59,16 +63,60 @@ public class BookedRoute extends AuthenticatedRoute {
 		LocalDate jour1 = dateService.getWorkingDay();
 		String day = dateToString(jour1);
 		map.put("libelleShowToday", DateUtil.dateToMediumString(jour1));
-		if (placeService.canBook(user, day)) {
+		// On vérifie qu'à cette date, le user n'a pas réservé de place et que des places sont disponibles 
+		boolean hasReservedToday = placeService.canBook(user, day);
+		boolean plusPlaceDispoToday = placeService.getAvailablesAtDate(jour1).size() > 0;
+		if (hasReservedToday && plusPlaceDispoToday) {
 			map.put("showToday", day);
+			reservationTodayPossible = true;
 		}
 
+		
 		LocalDate jour2 = dateService.getNextWorkingDay(jour1);
 		day = dateToString(jour2);
 		map.put("libelleShowTomorrow", DateUtil.dateToMediumString(jour2));
-		if (placeService.canBook(user, day)) {
+		// On vérifie qu'à cette date, le user n'a pas réservé de place et que des places sont disponibles
+		boolean hasReservedTomorrow = placeService.canBook(user, day);
+		boolean plusPlaceDispoTomorrow = placeService.getAvailablesAtDate(jour2).size() > 0;
+		if (hasReservedTomorrow && plusPlaceDispoTomorrow ) {
 			map.put("showTomorrow", day);
+			reservationTomorrowPossible = true;
 		}
+		
+		
+		if(!reservationTomorrowPossible && !reservationTodayPossible){
+			String messageInfo = "Vous ne pouvez pas effectuer de réservation ";
+			messageInfo += canShare ? "car votre place est disponible ou inoccupée." : "car il n'y a pas de places disponibles";
+			map.put("info", messageInfo);
+		}else if(!reservationTomorrowPossible || !reservationTodayPossible){
+			String messageInfo = "Vous ne pouvez pas effectuer de réservation le ";
+			if(!reservationTodayPossible) {
+				messageInfo += DateUtil.dateToMediumString(jour1);
+				if(canShare) {
+					messageInfo += " car votre place est disponible ou inoccupée.";
+				} else {
+					if(!hasReservedToday) {
+						messageInfo += " car vous avez déjà réservé une place.";
+					} else if(!plusPlaceDispoToday){
+						messageInfo += " car il n'y a pas de places disponibles.";
+					}
+				}
+			}
+			if(!reservationTomorrowPossible) {
+				messageInfo += DateUtil.dateToMediumString(jour2);
+				if(canShare) {
+					messageInfo += " car votre place est disponible ou inoccupée.";
+				} else {
+					if(!hasReservedTomorrow) {
+						messageInfo += " car vous avez déjà réservé une place.";
+					} else if(!plusPlaceDispoTomorrow){
+						messageInfo += " car il n'y a pas de places disponibles.";
+					}
+				}
+			}
+			map.put("info", messageInfo);
+		}
+		
 
 		return new ModelAndView(map, Templates.RESERVATIONS);
 	}

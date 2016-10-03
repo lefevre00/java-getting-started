@@ -3,9 +3,9 @@
 <head>
 	<#include "header.ftl">
 	
-    <link href="/css/bootstrap-table.css" rel="stylesheet">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap-table.js"></script>
+    <link href="${ressourcesDirectory}css/bootstrap-table.css" rel="stylesheet">
+    <script src="${ressourcesDirectory}js/jquery.min.js"></script>
+    <script src="${ressourcesDirectory}js/bootstrap-table.js"></script>
     <style>
 		.table th {
 		   text-align: center;
@@ -19,7 +19,11 @@
 <body>
   
 	<!--======================================== Section navigation ====================================-->
-	<#include "navAdmin.ftl">
+	<#if admin??>
+		<#include "navAdmin.ftl">
+	<#else>
+		<#include "nav.ftl">
+	</#if>
 
 		
     <section class="content-section">
@@ -27,7 +31,7 @@
 
 			<div  style="margin:0px auto;max-width:700px;" >
 				<a href="#" onclick="history.go(-1);">
-					<img src="/images/retour.png" title="Retour" class="imageLeft" />
+					<img src="${ressourcesDirectory}images/retour.png" title="Retour" class="imageLeft" />
 				</a>
 				<h1 class="titre">${title}</h1>
 			</div>
@@ -134,11 +138,11 @@
 	
 	<!--==================================== javascripts files section  ==================================-->
 	<#include "commonjs.ftl">
-	<script src="/js/confirm.js"></script>
-	<link href="/css/datetimepicker.css" rel="stylesheet">
-  	<script src="/js/moment-with-locales.js"></script>
-  	<script src="/js/datetimepicker.js"></script>	
-    <script src="/js/jquery.tabletoCSV.js"></script>
+	<script src="${ressourcesDirectory}js/confirm.js"></script>
+	<link href="${ressourcesDirectory}css/datetimepicker.css" rel="stylesheet">
+  	<script src="${ressourcesDirectory}js/moment-with-locales.js"></script>
+  	<script src="${ressourcesDirectory}js/datetimepicker.js"></script>	
+    <script src="${ressourcesDirectory}js/jquery.tabletoCSV.js"></script>
     <script>
         $(function(){
             $("#export").click(function(){

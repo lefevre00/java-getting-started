@@ -3,9 +3,9 @@
 <head>
 	<#include "header.ftl">
 	
-    <link href="/css/bootstrap-table.css" rel="stylesheet">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap-table.js"></script>
+    <link href="${ressourcesDirectory}css/bootstrap-table.css" rel="stylesheet">
+    <script src="${ressourcesDirectory}js/jquery.min.js"></script>
+    <script src="${ressourcesDirectory}js/bootstrap-table.js"></script>
     <style>
 		.table th {
 		   text-align: center;
@@ -38,11 +38,10 @@
 							<tr>
 								<th style="text-align:center;">Utilisateur</th> 
 								<th style="text-align:center;">N° place</th> 
-								<!--th style="text-align:center;">Nb connexion</th> 
-								<th style="text-align:center;">Nb partage</th> 
-								<th style="text-align:center;">Nb réservation </th--> 
 								<th style="text-align:center;">Etat compte</th> 
 								<th style="text-align:center;">Editer</th> 
+								<th style="text-align:center;">Libérer</th>
+								<th style="text-align:center;">Supprimer</th>
 							</tr>
 						</thead>
 				<#else>
@@ -50,11 +49,10 @@
 						<tr style="background-color: #f5f5f5; color: #317bba;">
 							<th style="text-align:center;">Utilisateur</th> 
 							<th style="text-align:center;">N° place</th> 
-							<!--th style="text-align:center;">Nb connexion</th> 
-							<th style="text-align:center;">Nb partage</th> 
-							<th style="text-align:center;">Nb réservation </th--> 
 							<th style="text-align:center;">Etat compte</th> 
 							<th style="text-align:center;">Editer</th> 							
+							<th style="text-align:center;">Libérer</th>
+							<th style="text-align:center;">Supprimer</th>
 						</tr>
 				</#if>			
 
@@ -70,24 +68,50 @@
 		  	    				-
 		  	    			</#if>
 		  	    		</td>		
-		  	    		<td><#if user.tokenMail??>Attente activation<#else>Activé</#if></td>				  	    		
-			  	     	<td><a href="/protected/userEdit/${user.emailAMDM}"><img src="/images/edit.png"/></a></td>
+		  	    		<td>
+		  	    			<#if user.tokenMail??>
+		  	    				Attente activation
+		  	    			<#else>
+		  	    				Activé
+		  	    			</#if>
+		  	    		</td>				  	    		
+			  	     	<td>
+			  	     		<a href="${routesDirectory}protected/userEdit?email=${user.emailAMDM}">
+			  	     			<img src="${ressourcesDirectory}images/edit.png"/>
+			  	     		</a>
+			  	     	</td>
+			  	     	<td>
+		  	    			<#if user.placeNumber??>
+								<a href="${routesDirectory}protected/adminShare?email=${user.emailAMDM}&place=${user.placeNumber}">
+									<img src="${ressourcesDirectory}images/partager.png" />
+								</a>
+		  	    			<#else>
+		  	    				-
+		  	    			</#if>
+			  	     	</td>
+			  	     	<td>
+			  	     		<a href="${routesDirectory}protected/unregister?email_user=${user.emailAMDM}"  data-confirm='Etes-vous sûr de vouloir supprimer ce compte ?' >
+								<img src="${ressourcesDirectory}images/delete.png"/></a>
+			  	     		</a>
+			  	     	</td>
 					</tr>
-				</#list>				
-				 
-				</table>				
-				
+				</#list>	
+				</table>
 			</div>				
 			
 			
-
+			<#if inscriptionLibre??>
+				<strong><a style=" color: #317bba;" href="${routesDirectory}protected/adminCreate">Ajouter un utilisateur</a></strong>
+			<#else>
+				-
+			</#if>
 		</div>
 	</section>
 
 
 <!--==================================== javascripts files section  ==================================-->
 <#include "commonjs.ftl">	
-	
+	<script src="${ressourcesDirectory}js/confirm.js"></script>
 
 </body> 
 </html> 

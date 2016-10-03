@@ -50,7 +50,7 @@ public class DateServiceBean implements DateService {
 	 */
 	@Override
 	public LocalDate getNextWorkingDay() {
-		return getNextWorkingDay(DateUtil.now());
+		return getNextWorkingDay(getWorkingDay());
 	}
 
 	/**
@@ -73,5 +73,18 @@ public class DateServiceBean implements DateService {
 			break;
 		}
 		return base.plusDays(toAdd);
+	}
+
+	@Override
+	public boolean isSearchDateValid(LocalDate dateRecherche) {
+		boolean retour = false;
+		
+		if(getWorkingDay().atStartOfDay().isEqual(dateRecherche.atStartOfDay())) {
+			retour = true;
+		}else if(getNextWorkingDay(getWorkingDay()).atStartOfDay().isEqual(dateRecherche.atStartOfDay())) {
+			retour = true;
+		}
+		
+		return retour;
 	}
 }

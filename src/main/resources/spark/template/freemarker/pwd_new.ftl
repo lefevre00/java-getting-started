@@ -2,8 +2,8 @@
 <html lang="fr">
 <head>
 	<#include "header.ftl">	
-	<link rel="stylesheet" href="/css/login.css">
-	<link rel="stylesheet" href="/css/mediaqueries.css" type="text/css" />		
+	<link rel="stylesheet" href="${ressourcesDirectory}css/login.css">
+	<link rel="stylesheet" href="${ressourcesDirectory}css/mediaqueries.css" type="text/css" />		
 </head>
 
 <body>

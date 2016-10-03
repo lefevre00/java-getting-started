@@ -14,39 +14,39 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "PLACES")
 @NamedQueries(value = {
-		@NamedQuery(name=Place.QUERY_RESERVE_PLACE, query="update Place p set usedBy = :email where id = :id")
-})
+		@NamedQuery(name = Place.QUERY_RESERVE_PLACE, query = "update Place p set usedBy = :email where id = :id") })
 public class Place {
-	
+
 	public static final int HEURE_CHANGEMENT_JOUR_RECHERCHE = 18;
 	public static final String QUERY_RESERVE_PLACE = "reservePlace";
 
 	@Id
 	@Embedded
 	private PlacePK id;
-	
-	@Column(name="EMAIL_OCCUPANT")
+
+	@Column(name = "EMAIL_OCCUPANT")
 	private String usedBy;
 
 	// Hibernate
-	public Place() {}
-	
+	public Place() {
+	}
+
 	public Place(Integer number, String date) {
 		id = new PlacePK(number, date);
-	}	
-	
-	public Place(Integer number, String eusedBy, String date) {
+	}
+
+	public Place(Integer number, String date, String email) {
 		this(number, date);
-		usedBy = eusedBy;
-	}	
-	
+		usedBy = email;
+	}
+
 	/**
 	 * @return the placeNumber
 	 */
 	public Integer getPlaceNumber() {
 		return id.placeNumber;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Place [placeNumber=" + getPlaceNumber() + ", usedBy=" + usedBy + ", occupationDate="
@@ -59,37 +59,39 @@ public class Place {
 	public String getUsedBy() {
 		return usedBy;
 	}
-	
+
 	/**
-	 * @param occupiedBy the occupiedBy to set
+	 * @param occupiedBy
+	 *            the occupiedBy to set
 	 */
 	public void setUsedBy(String occupiedBy) {
 		this.usedBy = occupiedBy;
 	}
-	
+
 	/**
 	 * @return the occupationDate
 	 */
 	public String getOccupationDate() {
 		return id.occupationDate;
 	}
-	
+
 	@Embeddable
 	public static class PlacePK implements Serializable {
 		private static final long serialVersionUID = 1L;
 
-		@Column(name="ID")
+		@Column(name = "ID")
 		protected Integer placeNumber;
 
-		@Column(name="OCCUPATION_DATE")
-	    protected String occupationDate;
+		@Column(name = "OCCUPATION_DATE")
+		protected String occupationDate;
 
-	    public PlacePK() {}
+		public PlacePK() {
+		}
 
-	    public PlacePK(Integer placeNumber, String occupationDate) {
-	        this.placeNumber = placeNumber;
-	        this.occupationDate = occupationDate;
-	    }
+		public PlacePK(Integer placeNumber, String occupationDate) {
+			this.placeNumber = placeNumber;
+			this.occupationDate = occupationDate;
+		}
 
 		@Override
 		public int hashCode() {
@@ -138,7 +140,7 @@ public class Place {
 			this.occupationDate = occupationDate;
 		}
 	}
-	
+
 	public boolean isFree() {
 		return usedBy == null || "".equalsIgnoreCase(usedBy.trim());
 	}

@@ -2,7 +2,7 @@ package org.friends.app.service;
 
 import java.util.List;
 
-import org.friends.app.model.Session;
+import org.friends.app.model.UserSession;
 import org.friends.app.model.User;
 import org.omg.CORBA.UnknownUserException;
 
@@ -17,11 +17,13 @@ public interface UserService {
 
 	public static final String USER_DISABLE = "user.disable";
 	public static final String USER_UNKNOWN = "user.unknown";
+	public static final String USER_EXISTE = "user.existe";
 	public static final String USER_DELETE_SHARE = "user.delete.shared";
 	public static final String USER_DELETE_BOOK = "user.delete.booked";
 	public static final String USER_DELETE_USED = "user.delete.used";
 
 	public static final String PLACE_ALREADY_USED = "user.place.used";
+	public static final String VALIDATION_TOKEN_ERROR = "user.token.error";
 
 	public User authenticate(String email, String pwd) throws Exception;
 
@@ -31,7 +33,7 @@ public interface UserService {
 
 	public User create(User user, String applicationHost) throws Exception;
 
-	public Session createSession(User authUser);
+	public UserSession createSession(User authUser);
 
 	public boolean setPassword(String email, String token, String mdp);
 
@@ -55,9 +57,11 @@ public interface UserService {
 	
 	public List<User> getAllUsersWithoutPlaces();
 	
+	public List<User> getAllUsersWithoutAdmin();
+	
 	public boolean changePassword(String email, String pwd);
 	
-	public boolean updateUser(Integer idUser, String email, String mobile, Integer placeNumber);
+	public boolean updateUser(Integer idUser, String email, String mobile, Integer placeNumber, boolean mailInformation);
 
 	/**
 	 * retourne l'utilisateur ayant un numéro de place
@@ -65,4 +69,15 @@ public interface UserService {
 	 * @return
 	 */
 	public User findUserByPlaceNUmber(Integer placeNumber);
+
+	/**
+	 * permet de modifier l'utilisateur pré-créer par l'admin et ce dans le cas d'une utilisation limitée.
+	 * @param userExiste
+	 * @param pwd
+	 * @param appUrl
+	 * @throws Exception
+	 */
+	public void updateInscriptionUser(User userExiste, String pwd, String appUrl) throws Exception ;
+
+	public boolean findUserByEmailAndToken(String email, String tokenMail);
 }

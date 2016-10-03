@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/jdbc
+		http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.h2.Driver" />
+		<property name="url" value="jdbc:h2:~/test;AUTO_SERVER=TRUE" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+	
+	<jdbc:initialize-database data-source="dataSource">
+	   <jdbc:script location="classpath:database/create_h2.sql"/>
+	   <jdbc:script location="classpath:config/db-test-data.sql"/>
+	</jdbc:initialize-database>
+	
+	<bean id="mailSender" class="org.friends.app.service.impl.ConsoleMailSender"/>
+
+	<import resource="classpath:/context/application.xml"/>
+</beans>

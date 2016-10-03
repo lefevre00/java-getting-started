@@ -24,4 +24,9 @@
 			<bootstrap txnIsolation="2"/>
 		</connection>
 	</data-source>
+	<data-source id="sqlite_jdbc-1569a181ade-6456caf1643f9b82" provider="generic" driver="sqlite_jdbc" name="SQLite - accounts.db" create-date="1471464135101" save-password="true" show-system-objects="true" read-only="false">
+		<connection server="" database="/home/michael/.config/libaccounts-glib/accounts.db" url="jdbc:sqlite:/home/michael/.config/libaccounts-glib/accounts.db" user="" type="dev">
+			<bootstrap/>
+		</connection>
+	</data-source>
 </data-sources>

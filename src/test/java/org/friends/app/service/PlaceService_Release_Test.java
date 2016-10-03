@@ -1,7 +1,7 @@
 package org.friends.app.service;
 
-import org.friends.app.ParkingTest;
-import org.friends.app.dao.PlaceDao;
+import org.friends.app.ClientTest;
+import org.friends.app.dao.impl.PlaceDaoImpl;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.PlaceServiceBean;
 import org.junit.Test;
@@ -11,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PlaceService_Release_Test extends ParkingTest {
+public class PlaceService_Release_Test extends ClientTest {
 	
 	static String uneDateAuBonFormat = "2006-03-01";
 	static String uneDateAuMauvaisFormat = "pasbien";
@@ -19,7 +19,7 @@ public class PlaceService_Release_Test extends ParkingTest {
 	@InjectMocks
 	PlaceServiceBean service = new PlaceServiceBean();
 	
-	@Mock PlaceDao dao;
+	@Mock PlaceDaoImpl dao;
 	
 	/*
 	 * Test avec user null

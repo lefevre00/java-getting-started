@@ -1,6 +1,6 @@
 package org.friends.app.view;
 
-import static org.friends.app.Configuration.getPort;
+import static org.friends.app.ConfHelper.getPort;
 import static spark.Spark.after;
 import static spark.Spark.before;
 import static spark.Spark.exception;
@@ -14,15 +14,20 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-import org.friends.app.Configuration;
+import javax.annotation.PostConstruct;
+
+import org.friends.app.ConfHelper;
+import org.friends.app.DeployMode;
 import org.friends.app.model.Place;
-import org.friends.app.model.Session;
 import org.friends.app.model.User;
+import org.friends.app.model.UserSession;
 import org.friends.app.service.DateService;
 import org.friends.app.service.PlaceService;
 import org.friends.app.service.UserService;
 import org.friends.app.util.DateUtil;
+import org.friends.app.view.route.AdminCreateUserRoute;
 import org.friends.app.view.route.AdminRoute;
+import org.friends.app.view.route.AdminShareRoute;
 import org.friends.app.view.route.AuthenticatedRoute;
 import org.friends.app.view.route.BookRoute;
 import org.friends.app.view.route.BookedRoute;
@@ -42,7 +47,7 @@ import org.friends.app.view.route.UserEditRoute;
 import org.friends.app.view.route.UsersListRoute;
 import org.friends.app.view.route.ValidTokenRoute;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import spark.Filter;
@@ -54,15 +59,23 @@ import spark.template.freemarker.FreeMarkerEngine;
 @Component
 public class RoutesLoader {
 
+	public static final String ROUTES_DIR = "routesDirectory";
+	public static final String RESOURCES_DIR = "ressourcesDirectory";
+
 	@Autowired
 	private UserService userService;
 	@Autowired
 	private PlaceService placeService;
 	@Autowired
 	private DateService dateService;
+	@Autowired
+	ApplicationContext context;
 
-	public void init(GenericApplicationContext context) {
-		port(getPort());
+	@PostConstruct
+	public void init() {
+		if (!DeployMode.STANDALONE.equals(ConfHelper.getDeployMode())) {
+			port(getPort());
+		}
 		staticFileLocation("/public");
 
 		/*
@@ -90,22 +103,37 @@ public class RoutesLoader {
 		AdminRoute adminRoute = context.getBean(AdminRoute.class);
 		get(Routes.ADMIN_INDEX, adminRoute, templateEngine);
 		post(Routes.ADMIN_INDEX, adminRoute, templateEngine);
-		
+
 		/*
 		 * Liste des utilisateurs
 		 */
 		UsersListRoute usersList = context.getBean(UsersListRoute.class);
 		get(Routes.USERS_LIST, usersList, templateEngine);
 		post(Routes.USERS_LIST, usersList, templateEngine);
-		
+
 		/*
-		 * Editer un utilisateur
+		 * Editer et modifier un utilisateur
 		 */
 		UserEditRoute userEditRoute = context.getBean(UserEditRoute.class);
 		get(Routes.USER_EDIT, userEditRoute, templateEngine);
 		post(Routes.USER_EDIT, userEditRoute, templateEngine);
+
+		/*
+		 * Libérer les places d'un utilisateur
+		 */
+		AdminShareRoute adminShareRoute = context.getBean(AdminShareRoute.class);
+		get(Routes.ADMIN_SHARE, adminShareRoute, templateEngine);
+		post(Routes.ADMIN_SHARE, adminShareRoute, templateEngine);	
 		
 		
+		/*
+		 * Création d'un nouvel utilisateur
+		 */
+		AdminCreateUserRoute adminCreateRoute = context.getBean(AdminCreateUserRoute.class);
+		get(Routes.ADMIN_CREATE, adminCreateRoute, templateEngine);
+		post(Routes.ADMIN_CREATE, adminCreateRoute, templateEngine);	
+		
+
 		/*
 		 * Page accès interdit
 		 */
@@ -122,6 +150,8 @@ public class RoutesLoader {
 
 		get(Routes.DEFAULT, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
+			map.put(RESOURCES_DIR, DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "./" : "/");
+			map.put(ROUTES_DIR, DeployMode.STANDALONE.equals(ConfHelper.getDeployMode()) ? "./" : "/");
 			LocalDate now = dateService.getWorkingDay();
 			List<Place> placesLibresToday = placeService.getAvailablesAtDate(now);
 			List<Place> placesLibresDemain = placeService.getAvailablesAtDate(dateService.getNextWorkingDay(now));
@@ -139,9 +169,10 @@ public class RoutesLoader {
 		get(Routes.LOGOUT, new AuthenticatedRoute() {
 			@Override
 			protected ModelAndView doHandle(Request request, Response response) {
+				Map<String, Object> map = Routes.getMap(request);
 				unauthenticatedUser(request);
-				response.removeCookie(Configuration.COOKIE);
-				return new ModelAndView(null, Templates.LOGOUT);
+				response.removeCookie(ConfHelper.COOKIE);
+				return new ModelAndView(map, Templates.LOGOUT);
 			}
 		}, templateEngine);
 
@@ -208,7 +239,6 @@ public class RoutesLoader {
 		StatisticsRoute statsRoute = context.getBean(StatisticsRoute.class);
 		get(Routes.PLACE_STATISTICS, statsRoute, templateEngine);
 		post(Routes.PLACE_STATISTICS, statsRoute, templateEngine);
-		
 
 		/*
 		 * User settings
@@ -216,13 +246,13 @@ public class RoutesLoader {
 		SettingRoute setting = context.getBean(SettingRoute.class);
 		get(Routes.SETTINGS, setting, templateEngine);
 		post(Routes.SETTINGS, setting, templateEngine);
+		
 		get(Routes.HISTORY, (req, res) -> {
 			Map<String, Object> map = Routes.getMap(req);
 			map.put("message", "Page en cours de réalisation");
 			return new ModelAndView(map, Templates.ERROR);
 		}, templateEngine);
 
-		
 		/*
 		 * Change password
 		 */
@@ -242,11 +272,10 @@ public class RoutesLoader {
 		Filter setCookieFilter = (request, response) -> {
 			User authUser = getAuthenticatedUser(request);
 			if (authUser != null) {
-				String cookie = request.cookie(Configuration.COOKIE);
+				String cookie = request.cookie(ConfHelper.COOKIE);
 				if (cookie == null) {
-					Session session = userService.createSession(authUser);
-					response.cookie("/", Configuration.COOKIE, session.getCookie(), Configuration.COOKIE_DURATION,
-							false);
+					UserSession session = userService.createSession(authUser);
+					response.cookie("/", ConfHelper.COOKIE, session.getCookie(), ConfHelper.COOKIE_DURATION, false);
 				}
 			}
 		};
