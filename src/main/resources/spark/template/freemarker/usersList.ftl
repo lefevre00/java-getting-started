@@ -76,34 +76,35 @@
 		  	    			</#if>
 		  	    		</td>				  	    		
 			  	     	<td>
-			  	     		<a href="${routesDirectory}protected/userEdit?email=${user.emailAMDM}"><img src="${ressourcesDirectory}images/edit.png"/></a>
+			  	     		<a href="${routesDirectory}protected/userEdit?email=${user.emailAMDM}">
+			  	     			<img src="${ressourcesDirectory}images/edit.png"/>
+			  	     		</a>
 			  	     	</td>
 			  	     	<td>
 		  	    			<#if user.placeNumber??>
-								<a href="${routesDirectory}protected/adminShare?email=${user.emailAMDM}&place=${user.placeNumber}"><img src="${ressourcesDirectory}images/partager.png" /></a>
+								<a href="${routesDirectory}protected/adminShare?email=${user.emailAMDM}&place=${user.placeNumber}">
+									<img src="${ressourcesDirectory}images/partager.png" />
+								</a>
 		  	    			<#else>
 		  	    				-
 		  	    			</#if>
 			  	     	</td>
 			  	     	<td>
-			  	     		<a href="${routesDirectory}protected/unregister?email_user=${user.emailAMDM}"  data-confirm='Etes-vous sûr de vouloir supprimer ce compte ?' ><img src="${ressourcesDirectory}images/edit.png"/></a>
+			  	     		<a href="${routesDirectory}protected/unregister?email_user=${user.emailAMDM}"  data-confirm='Etes-vous sûr de vouloir supprimer ce compte ?' >
+								<img src="${ressourcesDirectory}images/delete.png"/></a>
+			  	     		</a>
 			  	     	</td>
 					</tr>
 				</#list>	
-							
-
 				</table>
-				
 			</div>				
 			
 			
-				 <#if inscriptionLibre??>	
-							
-								<strong><a style=" color: #317bba;" href="${routesDirectory}protected/adminCreate">Ajouter un utilisateur</a></strong>
-
-				<#else>
-					-
-				</#if>
+			<#if inscriptionLibre??>
+				<strong><a style=" color: #317bba;" href="${routesDirectory}protected/adminCreate">Ajouter un utilisateur</a></strong>
+			<#else>
+				-
+			</#if>
 		</div>
 	</section>
 
