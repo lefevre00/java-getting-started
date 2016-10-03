@@ -127,7 +127,7 @@ public class UserServiceBean implements UserService {
 
 		// Existance utilisateur
 		if(findUserByEmail(user.getEmailAMDM()) != null) {
-			throw new ValidationException(EMAIL_UNKNOWN);
+			throw new ValidationException(USER_UNKNOWN);
 		}
 
 		//Attribution place
@@ -138,10 +138,8 @@ public class UserServiceBean implements UserService {
 			}
 		}
 
-		
-		if(ConfHelper.INSCRIPTION_LIBRE) {
-			user.setTokenMail(UUID.randomUUID().toString());
-		} else {
+		user.setTokenMail(UUID.randomUUID().toString());
+		if(!ConfHelper.INSCRIPTION_LIBRE) {
 			user.setPwd("1");
 		}
 		User back = userDao.persist(user);
@@ -189,7 +187,7 @@ public class UserServiceBean implements UserService {
 		}
 
 		return success;
-	}
+	}	
 
 	@Override
 	public void resetPassword(String email, String appUrl) throws Exception {
@@ -255,8 +253,9 @@ public class UserServiceBean implements UserService {
 		if (!placeService.getReservations(userDb).isEmpty()) {
 			throw new DataIntegrityException(USER_DELETE_BOOK);
 		}
-
+		
 		// Finaly delete user
+		sessionDao.deleteUserSessionByUserId(userDb.getId());
 		userDao.delete(userDb.getId());
 	}
 
@@ -310,7 +309,7 @@ public class UserServiceBean implements UserService {
 	}	
 
 	@Override
-	public boolean updateUser(Integer idUser, String email, String mobile, Integer placeNumber) {
+	public boolean updateUser(Integer idUser, String email, String mobile, Integer placeNumber, boolean infoUser) {
 
 		if (StringUtils.isEmpty(idUser))
 			throw new IllegalArgumentException("Id User required");
@@ -319,12 +318,16 @@ public class UserServiceBean implements UserService {
 		if (placeNumber!=null && findUserByPlaceNUmber(placeNumber) != null) 
 			return false;
 		User user = userDao.findById(idUser);
+		Integer oldPlace = user.getPlaceNumber();
 		// TODO ABTAM : ajouter le mobile qd le mapping est fait
 		if (!email.equals(user.getEmailAMDM()) || user.getPlaceNumber() != placeNumber) { // || !mobile.equals(user.getMobile())
 			user.setEmailAMDM(email);
 			user.setPlaceNumber(placeNumber);
 			// user.setMobile(mobile);
 			userDao.update(user);
+			if(infoUser) {
+				mailService.sendInformationChangementPlace(user, oldPlace);
+			}
 			return true;
 		}
 
@@ -345,13 +348,20 @@ public class UserServiceBean implements UserService {
 
 		// Email validator
 		if (!EmailValidator.isValid(user.getEmailAMDM()))
-			throw new ValidationException(EMAIL_UNKNOWN);
+			throw new ValidationException(USER_UNKNOWN);
 		
 		user.setPwd(hashedPwd);
-		user.setTokenMail(UUID.randomUUID().toString());
+		user.setTokenMail(null);
 		userDao.persist(user);
 
-		mailService.sendWelcome(user, applicationUrl);
+		//mailService.sendWelcome(user, applicationUrl);
+	}
+
+	@Override
+	public boolean findUserByEmailAndToken(String email, String tokenMail) {
+		Assert.notNull(email);
+		Assert.notNull(tokenMail);
+		return userDao.findUserByCriterions(Restrictions.eq("emailAMDM", email),Restrictions.eq("tokenMail", tokenMail)) != null;
 	}
 
 

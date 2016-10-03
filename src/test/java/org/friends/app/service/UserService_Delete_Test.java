@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.friends.app.ClientTest;
 import org.friends.app.dao.UserDaoTest;
 import org.friends.app.dao.impl.UserDaoImpl;
+import org.friends.app.dao.impl.UserSessionDaoImpl;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.impl.UserServiceBean;
@@ -32,6 +33,8 @@ public class UserService_Delete_Test extends ClientTest {
 
 	@Mock
 	UserDaoImpl userDao;
+	@Mock
+	UserSessionDaoImpl userSessionDao;
 	@Mock
 	PlaceService placeService;
 

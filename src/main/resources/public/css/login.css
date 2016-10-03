@@ -148,13 +148,21 @@ CONTENT
 .emailRegister {
 	top:130px; 
 }
+
 .passRegister{
 	top:180px;
 }
+
+.placeRegister{
+	top:180px;
+}
+
 .place-icon {
 	top:260px; 
 	background: rgba(65,72,72,0.75) url(../images/place.png) no-repeat center;	
 }
+
+
 
 .emailPwdLost{
 	top:200px; 

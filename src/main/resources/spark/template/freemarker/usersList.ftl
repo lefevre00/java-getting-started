@@ -41,6 +41,7 @@
 								<th style="text-align:center;">Etat compte</th> 
 								<th style="text-align:center;">Editer</th> 
 								<th style="text-align:center;">Libérer</th>
+								<th style="text-align:center;">Supprimer</th>
 							</tr>
 						</thead>
 				<#else>
@@ -51,6 +52,7 @@
 							<th style="text-align:center;">Etat compte</th> 
 							<th style="text-align:center;">Editer</th> 							
 							<th style="text-align:center;">Libérer</th>
+							<th style="text-align:center;">Supprimer</th>
 						</tr>
 				</#if>			
 
@@ -83,6 +85,9 @@
 		  	    				-
 		  	    			</#if>
 			  	     	</td>
+			  	     	<td>
+			  	     		<a href="${routesDirectory}protected/unregister?email_user=${user.emailAMDM}"  data-confirm='Etes-vous sûr de vouloir supprimer ce compte ?' ><img src="${ressourcesDirectory}images/edit.png"/></a>
+			  	     	</td>
 					</tr>
 				</#list>	
 							
@@ -105,7 +110,7 @@
 
 <!--==================================== javascripts files section  ==================================-->
 <#include "commonjs.ftl">	
-	
+	<script src="${ressourcesDirectory}js/confirm.js"></script>
 
 </body> 
 </html> 

@@ -34,9 +34,13 @@ public class LoginRoute implements TemplateViewRoute {
 
 		Map<String, Object> map = Routes.getMap(request);
 		User user = request.session().attribute("user");
+		if(("ok".equalsIgnoreCase(request.queryParams("activation"))) 
+				&& !ConfHelper.INSCRIPTION_LIBRE){
+			map.put(Routes.KEY_INFO, "Inscription Validée, vous pouvez vous connecter.");
+		}
 		if (user != null) {
 			Routes.redirect(user, response, false);
-		} else if ("POST".equalsIgnoreCase(request.requestMethod())) {
+		} else if ("POST".equalsIgnoreCase(request.requestMethod())) {	
 			onLogin(request, response, map);
 		}
 

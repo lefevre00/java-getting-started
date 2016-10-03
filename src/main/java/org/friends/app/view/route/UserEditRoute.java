@@ -33,8 +33,7 @@ public class UserEditRoute extends AuthenticatedRoute {
 		if ( !"true".equalsIgnoreCase((String) map.get("admin")) &&
 				(StringUtils.isEmpty(user.getEmailAMDM()) || !user.getEmailAMDM().endsWith("@amdm.fr")) ) {
 			response.redirect(Routes.ACCESS_DENIED);
-		}
-		else{
+		} else{
 
 			String param_user = request.queryParams("email");
 
@@ -44,12 +43,13 @@ public class UserEditRoute extends AuthenticatedRoute {
 				String email = request.queryParams("email");
 				//String mobile = request.queryParams("mobile");
 				String placeNumber = request.queryParams("placeNumber");
+				boolean mailInformation = request.queryParams("mailInformation") != null;
 				
 				Integer idUserInt = StringUtils.isNotEmpty(idUser) ? Integer.valueOf(idUser) : null;
 				Integer placeNumberInt = StringUtils.isNotEmpty(placeNumber) ? Integer.valueOf(placeNumber) : null;
 						
 				//boolean result = userService.updateUser(idUserInt, email, mobile, placeNumberInt);
-				boolean result = userService.updateUser(idUserInt, email, null, placeNumberInt);
+				boolean result = userService.updateUser(idUserInt, email, null, placeNumberInt, mailInformation);
 
 				if (result) {
 					

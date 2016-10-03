@@ -47,6 +47,7 @@
 						<input class="input place" name="placeNumber" type="text" placeholder="N° place attribuée" value="" <#if !admin??>readonly</#if> />
 					</#if>
 					<div class="place-icon placeEdit"></div>
+					envoi mail information : <input type="checkbox" "checked" id="mailInformation" name="mailInformation"/>
 					
 				</div>
 				

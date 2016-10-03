@@ -23,6 +23,7 @@ public interface UserService {
 	public static final String USER_DELETE_USED = "user.delete.used";
 
 	public static final String PLACE_ALREADY_USED = "user.place.used";
+	public static final String VALIDATION_TOKEN_ERROR = "user.token.error";
 
 	public User authenticate(String email, String pwd) throws Exception;
 
@@ -60,7 +61,7 @@ public interface UserService {
 	
 	public boolean changePassword(String email, String pwd);
 	
-	public boolean updateUser(Integer idUser, String email, String mobile, Integer placeNumber);
+	public boolean updateUser(Integer idUser, String email, String mobile, Integer placeNumber, boolean mailInformation);
 
 	/**
 	 * retourne l'utilisateur ayant un numéro de place
@@ -77,4 +78,6 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	public void updateInscriptionUser(User userExiste, String pwd, String appUrl) throws Exception ;
+
+	public boolean findUserByEmailAndToken(String email, String tokenMail);
 }

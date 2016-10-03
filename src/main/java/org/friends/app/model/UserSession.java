@@ -27,12 +27,15 @@ import com.google.common.hash.Hashing;
 @Table(name = "SESSIONS")
 @NamedQueries(value = {
 		@NamedQuery(name = UserSession.DELETE_EXPIRED, query = "delete from UserSession where expirationDate < :date"),
-		@NamedQuery(name = UserSession.QUERY_FIND_BY_COOKIE, query = "select s from UserSession s where s.cookie = :cookie") })
+		@NamedQuery(name = UserSession.QUERY_FIND_BY_COOKIE, query = "select s from UserSession s where s.cookie = :cookie"),
+		@NamedQuery(name = UserSession.DELETE_BY_USER_ID, query = "delete from UserSession s where s.userId = :user_id") })
 public class UserSession {
 
 	public static final String DELETE_EXPIRED = "expired";
 
 	public static final String QUERY_FIND_BY_COOKIE = "findSessionByCookie";
+	
+	public static final String DELETE_BY_USER_ID = "deleteByUserID";
 
 	@Id
 	@GeneratedValue(generator = "incrementS")
