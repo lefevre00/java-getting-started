@@ -9,10 +9,7 @@
     <style>
 		.table th {
 		   text-align: center;
-		} 
-		.imageLeft {
-			float:left;
-		}			
+		}		
     </style>
 </head>
 

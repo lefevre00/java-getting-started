@@ -21,8 +21,13 @@
 	<!--================================================================================================-->
     <section class="content-section">
 		<div class="container containerAttr" style="padding-bottom:50px;">
-			<h1>Liste des utilisateurs</h1>
-			
+			<div  style="margin:0px auto;max-width:700px;" >
+				<a href="#" onclick="history.go(-1);">
+					<img src="${ressourcesDirectory}images/retour.png" title="Retour" class="imageLeft" />
+				</a>
+				<h1 class="titre">Liste des utilisateurs</h1>
+			</div>
+						
 			<div class="row table-responsive" style="margin:0px auto;max-width:700px; padding-top:30px;">
 				<#if (usersList?size > 7)>
 					<table class="table table-striped table-condensed padding20"

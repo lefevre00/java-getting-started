@@ -21,7 +21,12 @@
     <section class="content-section">
 		<div class="container containerAttr">
 
-			<h1 class="titre">Statistiques</h1>
+			<div  style="margin:0px auto;max-width:700px;" >
+				<a href="#" onclick="history.go(-1);">
+					<img src="${ressourcesDirectory}images/retour.png" title="Retour" class="imageLeft" />
+				</a>
+				<h1 class="titre">Statistiques</h1>
+			</div>
 	
 			<!--======================================== libération par dates ==================================-->
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">					

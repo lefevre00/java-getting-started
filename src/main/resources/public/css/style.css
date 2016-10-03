@@ -42,7 +42,7 @@ p {
 	line-height: 28px;
 }
 
-/* Réduit la taille de l'image pour les mobiles ayant une taille < 400px */
+/* Rï¿½duit la taille de l'image pour les mobiles ayant une taille < 400px */
 @media 
 only screen and (max-width: 400px) {
 	.responsive {
@@ -89,7 +89,7 @@ only screen and (min-device-width : 320px) and (max-device-width : 480px) {
  *
  ***********************************/
  
-/* Paramètres par défaut du menu */ 
+/* Paramï¿½tres par dï¿½faut du menu */ 
 .navbar-default {
 	background: #ffffff;
 	box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.04);
@@ -122,7 +122,7 @@ only screen and (min-device-width : 320px) and (max-device-width : 480px) {
     background-color: #f69b0c;
 	color: #FFF;
 }
-/* Combo élément actif : Couleur background & text */
+/* Combo ï¿½lï¿½ment actif : Couleur background & text */
 .dropdown-toggle:active, .open .dropdown-toggle {
 	background: #f69b0c !important; 
 	color: #FFF !important;
@@ -342,4 +342,9 @@ only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 #datepicker1, #datepicker2{
 	margin-left: auto;
 	margin-right: auto;
+}
+
+/* bouton retour */
+.imageLeft {
+	float:left;
 }	
