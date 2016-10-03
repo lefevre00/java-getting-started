@@ -10,8 +10,8 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/">
-					<img src="/images/logo.png" class="hidden-xs" alt="EcoParking">
+				<a class="navbar-brand" href="${routesDirectory}">
+					<img src="${ressourcesDirectory}images/logo.png" class="hidden-xs" alt="EcoParking">
 				</a>
 				<#if mail??>
 					<p class="navbar-text">
@@ -32,25 +32,25 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ACTIONS <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<#if canShare??>
-									<li><a href="/protected/share">PARTAGE</a></li>
+									<li><a href="${routesDirectory}protected/share">PARTAGE</a></li>
 								</#if>
-								<li><a href="/protected/booked">RÉSERVATIONS</a></li>
+								<li><a href="${routesDirectory}protected/booked">RÉSERVATIONS</a></li>
 								<li role="separator" class="divider"></li>
-								<li><a href="/protected/setting">PARAMÈTRES</a></li>
+								<li><a href="${routesDirectory}protected/setting">PARAMÈTRES</a></li>
 							</ul>
 						</li>
 					</#if>
 					<li>
-						<a href="/#aide" class="hidden-xs">AIDE</a>
-						<a href="/#aide" class="visible-xs" data-toggle="collapse" data-target=".navbar-collapse">AIDE</a>
+						<a href="${routesDirectory}#aide" class="hidden-xs">AIDE</a>
+						<a href="${routesDirectory}#aide" class="visible-xs" data-toggle="collapse" data-target=".navbar-collapse">AIDE</a>
 					</li>
 					<li>
-						<a href="/#contact" class="hidden-xs">CONTACT</a>
-						<a href="/#contact" class="visible-xs" data-toggle="collapse" data-target=".navbar-collapse">CONTACT</a>
+						<a href="${routesDirectory}#contact" class="hidden-xs">CONTACT</a>
+						<a href="${routesDirectory}#contact" class="visible-xs" data-toggle="collapse" data-target=".navbar-collapse">CONTACT</a>
 					</li>
 					
 					<#if mail??>
-						<li><a href="/user/logout">DÉCONNEXION</a></li>
+						<li><a href="${routesDirectory}user/logout">DÉCONNEXION</a></li>
 					</#if>					
 				</ul>
 			</div>			

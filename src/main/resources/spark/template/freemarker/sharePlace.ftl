@@ -2,9 +2,9 @@
 <html lang="fr">
 <head>
 	<#include "header.ftl">
-    <link href="/css/bootstrap-table.css" rel="stylesheet">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap-table.js"></script>
+    <link href="${ressourcesDirectory}css/bootstrap-table.css" rel="stylesheet">
+    <script src="${ressourcesDirectory}js/jquery.min.js"></script>
+    <script src="${ressourcesDirectory}js/bootstrap-table.js"></script>
     <style>
 		.table th {
 		   text-align: center;
@@ -139,7 +139,7 @@
 						  	    		</td>						  	    		
 							  	     	<td>
 							  	     	 	<#if show == "" || show == " ">
-							  	     			<a href="/protected/share?unshareDate=${place.occupationDate}" data-confirm='Annuler le partage de votre place du <strong> ${theDate?string["dd/MM/yyyy"]}	 </strong> ?' ><img src="/images/cancel.png"/></a>
+							  	     			<a href="?unshareDate=${place.occupationDate}" data-confirm='Annuler le partage de votre place du <strong> ${theDate?string["dd/MM/yyyy"]}	 </strong> ?' ><img src="${ressourcesDirectory}images/cancel.png"/></a>
 											<#else>
 												-
 							  	     		</#if>
@@ -205,10 +205,10 @@
 	
 	<!--==================================== javascripts files section  ==================================-->
 	<#include "commonjs.ftl">
-	<script src="/js/confirm.js"></script>
-	<link href="/css/datetimepicker.css" rel="stylesheet">
-  	<script src="/js/moment-with-locales.js"></script>
-  	<script src="/js/datetimepicker.js"></script>	
+	<script src="${ressourcesDirectory}js/confirm.js"></script>
+	<link href="${ressourcesDirectory}css/datetimepicker.css" rel="stylesheet">
+  	<script src="${ressourcesDirectory}js/moment-with-locales.js"></script>
+  	<script src="${ressourcesDirectory}js/datetimepicker.js"></script>	
 
 
 </body>

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.friends.app.ConfHelper;
 import org.friends.app.model.Place;
 import org.friends.app.model.User;
 import org.friends.app.service.DateService;
@@ -78,33 +79,35 @@ public class ShareRoute extends AuthenticatedRoute {
 			
 			// Email de l'occupant de la place
 			String emailOccupant = request.queryParams("emailOccupant");
-			
-			// Email validator
-			if (StringUtils.isNotEmpty(emailOccupant) && !EmailValidator.isValid(emailOccupant)){
-				map.put("message", "L'email saisi est incorrect !");
-				return new ModelAndView(map, Templates.ERROR);
-			}
-					
+
 			boolean retour = false;
 			User userOccupant = null;
-			try {
-				
-				// on vérifie que l'email existe bien en base
-				if(!StringUtils.isEmpty(emailOccupant)){
+
+			if (StringUtils.isNotEmpty(emailOccupant)){
+
+				// Email validator
+				if (!EmailValidator.isValid(emailOccupant)){
+					map.put("message", "L'email saisi est incorrect !");
+					return new ModelAndView(map, Templates.ERROR);
+				}
+				else {
+					// On vérifie que l'utilisateur occupant existe bien en base
 					userOccupant = userService.findUserByEmail(emailOccupant);
 					if(userOccupant == null) {
 						map.put("message", "L'utilisateur n'est pas connu !");
 						return new ModelAndView(map, Templates.ERROR);
 					}
 				}
-				
+			}
+			
+			try {
 				retour = placeService.sharePlaces(user, dateDebut, dateFin, emailOccupant);
-
 			} catch (Exception e) {
 				e.printStackTrace();
 				map.put("message", "Une erreur est survenue lors de l'enregistrement de données !");
 				return new ModelAndView(map, Templates.ERROR);
 			}
+			
 			if (!retour) {
 				if (StringUtils.isNotEmpty(emailOccupant) && userOccupant == null){
 					map.put("message", "Utilisateur introuvable dans notre base de données !");
@@ -131,7 +134,7 @@ public class ShareRoute extends AuthenticatedRoute {
 					map.put("message", "Une erreur est survenue lors de l'annulation !");
 					return new ModelAndView(map, Templates.ERROR);
 				}
-				response.redirect(Routes.PLACE_SHARE + "?annulation=ok");
+				response.redirect(ConfHelper.complementUrl() + Routes.PLACE_SHARE + "?annulation=ok");
 			}
 
 		}

@@ -1,39 +1,24 @@
 package org.friends.app.dao;
 
-import java.time.LocalDate;
-
-import org.friends.app.HibernateUtil;
-import org.friends.app.ParkingTest;
+import org.friends.app.dao.impl.UserDaoImpl;
 import org.friends.app.model.User;
-import org.friends.app.util.DateUtil;
 import org.hibernate.criterion.Restrictions;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class UserDaoTest extends ParkingTest {
+public class UserDaoTest extends DbTest {
 
 	public static final String EMAIL_ABDEL = "abdel.tamditi@amdm.fr";
-	static LocalDate timePoint = DateUtil.now();
-	static String strDateToday = DateUtil.dateToString(timePoint);
-	static String strTomorrow = DateUtil.dateToString(timePoint.plusDays(1));
-	static String strApresDemain = DateUtil.dateToString(timePoint.plusDays(2));
-	static String strYearsteday = DateUtil.dateToString(timePoint.minusDays(1));
-
-	private UserDao userDao = new UserDao();
-
 	private static String MAIL_RESERVANT = "damien.urvoix@amdm.fr";
 
-	@BeforeClass
-	public static void beforeClass() {
-		HibernateUtil.getSession();
-	}
+	@Autowired
+	private UserDaoImpl userDao;
 
 	@Before
 	public void beforeTestMethod() {
-		userDao = new UserDao();
 		userDao.persist(new User(EMAIL_ABDEL, "at", 133));
 		userDao.persist(new User("william.verdeil@amdm.fr", "wv", 141));
 		User mick = new User("michael.lefevre@amdm.fr", "ml", 87);
@@ -46,8 +31,8 @@ public class UserDaoTest extends ParkingTest {
 	}
 
 	@After
-	public void clearDataBase() {
-		userDao.clearAllUsers();
+	public void clearUsersTable() {
+		runSql("delete from Users");
 	}
 
 	@Test

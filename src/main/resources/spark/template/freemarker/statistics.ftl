@@ -2,9 +2,9 @@
 <html lang="fr">
 <head>
 	<#include "header.ftl">
-    <link href="/css/bootstrap-table.css" rel="stylesheet">
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap-table.js"></script>
+    <link href="${ressourcesDirectory}css/bootstrap-table.css" rel="stylesheet">
+    <script src="${ressourcesDirectory}js/jquery.min.js"></script>
+    <script src="${ressourcesDirectory}js/bootstrap-table.js"></script>
     <style>
 		.table th {
 		   text-align: center;
@@ -59,17 +59,37 @@
 						<div class="row table-responsive" style="margin:0px auto;max-width:700px; padding-top:30px;">
 							<#assign dateD = '${dateDebut}'?date("yyyy-MM-dd")>
 							<#assign dateF = '${dateFin}'?date("yyyy-MM-dd")>					
-							Période de partage des places du <strong>${dateD?string["dd/MM/yyyy"]}</strong>  au  <strong>${dateF?string["dd/MM/yyyy"]}</strong>	<br/><br/>
+							Période du <strong>${dateD?string["dd/MM/yyyy"]}</strong>  au  <strong>${dateF?string["dd/MM/yyyy"]}</strong>	<br/><br/>
 							<table class="table table-bordered table-striped table-condensed padding20"  id="table">
 								<tr style="background-color: #f5f5f5; color: #317bba;">
-									<th style="text-align:center;">Nbre partagé</th> 
-									<th style="text-align:center;">Nbre réservé</th> 
-									<th style="text-align:center;">Nbre inoccupé</th>
+									<th style="text-align:center;">Places partagées</th> 
+									<th style="text-align:center;">Places réservées</th> 
+									<th style="text-align:center;">Places inoccupées</th>
 								</tr>
 								<tr>
-									<td><a href="/protected/statistics?var=p&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbrePartage}</a></td>
-					  	    		<td><a href="/protected/statistics?var=o&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbreOccupe}</a></td>
-					  	    		<td><a href="/protected/statistics?var=i&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbreInoccupe}</a></td>
+									<td>
+										<#if nbrePartage gt 0 >
+											<a href="${routesDirectory}protected/statistics?var=p&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbrePartage}</a>
+										<#else>
+											${nbrePartage}
+										</#if>
+										
+									</td>
+					  	    		<td>
+										<#if nbreOccupe gt 0 >
+											<a href="${routesDirectory}protected/statistics?var=o&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbreOccupe}</a>
+										<#else>
+											${nbreOccupe}
+										</#if>
+					  	    			
+					  	    		</td>
+					  	    		<td>
+										<#if nbreInoccupe gt 0 >
+											<a href="${routesDirectory}protected/statistics?var=i&dd=${dateDebut}&df=${dateFin}" class="linkClass">${nbreInoccupe}</a>
+										<#else>
+											${nbreInoccupe}
+										</#if>
+					  	    		</td>
 								</tr>
 							</table>
 							<!--button id="export" data-export="export" class="btn btn-primary">Exporter csv</button-->
@@ -131,11 +151,11 @@
 	
 	<!--==================================== javascripts files section  ==================================-->
 	<#include "commonjs.ftl">
-	<script src="/js/confirm.js"></script>
-	<link href="/css/datetimepicker.css" rel="stylesheet">
-  	<script src="/js/moment-with-locales.js"></script>
-  	<script src="/js/datetimepicker.js"></script>	
-    <script src="/js/jquery.tabletoCSV.js"></script>
+	<script src="${ressourcesDirectory}js/confirm.js"></script>
+	<link href="${ressourcesDirectory}css/datetimepicker.css" rel="stylesheet">
+  	<script src="${ressourcesDirectory}js/moment-with-locales.js"></script>
+  	<script src="${ressourcesDirectory}js/datetimepicker.js"></script>	
+    <script src="${ressourcesDirectory}js/jquery.tabletoCSV.js"></script>
     <script>
         $(function(){
             $("#export").click(function(){

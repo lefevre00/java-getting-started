@@ -2,8 +2,8 @@
 <html lang="fr">
 <head>
 	<#include "header.ftl">	
-	<link rel="stylesheet" href="/css/login.css">
-	<link rel="stylesheet" href="/css/mediaqueries.css" type="text/css" />	
+	<link rel="stylesheet" href="${ressourcesDirectory}css/login.css">
+	<link rel="stylesheet" href="${ressourcesDirectory}css/mediaqueries.css" type="text/css" />	
 </head>
 
 <body>
@@ -26,7 +26,7 @@
 			        <#if email??>
 						<input class="input" name="email" type="email" placeholder="adresse@email.fr" value="${email}" required/>
 			        <#else>
-			          	<input class="input" name="email" type="email" placeholder="adresse@email.fr"  value="damien.urvoix@amdm.fr" required/>
+			          	<input class="input" name="email" type="email" placeholder="adresse@email.fr"  value="" required/>
 	                </#if>
 					<div class="email-icon emailReset"></div>
 				</div>

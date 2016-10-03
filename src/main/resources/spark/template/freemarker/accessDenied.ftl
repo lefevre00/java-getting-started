@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 	<#include "header.ftl">
-	<meta http-equiv="refresh" content="10; URL=/">
+	<meta http-equiv="refresh" content="10; URL=${routesDirectory}">
 </head>
 
 <body>
@@ -14,7 +14,7 @@
 		<div class="container containerAttr" style="padding-bottom:50px;">
 			<h2>Accès non autorisé!</h2>
 			<br><br>
-			<img src="/images/accessDenied.png"/>
+			<img src="${ressourcesDirectory}images/accessDenied.png"/>
 			<br/><br/><br/>
 			Dans 5 secondes, vous serez rediriger vers la page d'accueil.<br/> 
 		</div>

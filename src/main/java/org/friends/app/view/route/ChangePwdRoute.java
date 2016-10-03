@@ -2,6 +2,7 @@ package org.friends.app.view.route;
 
 import java.util.Map;
 
+import org.friends.app.ConfHelper;
 import org.friends.app.model.User;
 import org.friends.app.service.UserService;
 import org.friends.app.view.Templates;
@@ -54,12 +55,12 @@ public class ChangePwdRoute implements TemplateViewRoute {
 				}
 				else{
 					
-					boolean result = userService.changePassword(user.getEmailAMDM(), pwd);
+					boolean result = userService.changePassword(user.getEmailAMDM(), newPwd);
 					if (result) {
 						map.put("title", "Modification du mot de passe");
 						map.put("message", "Votre mot de passe vient d'être modifié avec succès.");
 						map.put("ok", "ok");
-						map.put("urlDest", "/protected/setting");
+						map.put("urlDest", ConfHelper.complementUrl() + "/protected/setting");
 						map.put("libelleBtn", "Retour");
 						template = Templates.MESSAGE_OK_KO;
 					} else {

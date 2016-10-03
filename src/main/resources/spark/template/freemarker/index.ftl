@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   	<#include "header.ftl">
-	<link rel="stylesheet" href="/css/animate.min.css">	
+	<link rel="stylesheet" href="${ressourcesDirectory}css/animate.min.css">	
 </head>
 
 <body>
@@ -22,7 +22,7 @@
 				<div class="wow bounceIn col-md-12 col-sm-12">
 				
 					<#if mail??>
-						<img src="/images/logo_accueil.png" class="responsive"/>
+						<img src="${ressourcesDirectory}images/logo_accueil.png" class="responsive"/>
 						<br clear>
 						<br clear>
 						<span style="text-align:center">
@@ -39,17 +39,17 @@
 							</span>
 						</span>
 					<#else>
-						<img src="/images/logo_accueil.png" class="responsive"/>
+						<img src="${ressourcesDirectory}images/logo_accueil.png" class="responsive"/>
 						<br clear="both"/>
 						<h2 class="txtAccueil">Site de partage des places de parking</h2>
 						<br clear="both"/>
 						<br clear="both"/>
 						<div class="col-md-3"></div>					
 						<div class="col-md-3">
-							<a href="/user/login" class="btn btn-default">SE CONNECTER</a>
+							<a href="${routesDirectory}user/login" class="btn btn-default">SE CONNECTER</a>
 						</div>						
 						<div class="col-md-3">
-							<a href="/user/new" class="btn btn-default">S'INSCRIRE</a>
+							<a href="${routesDirectory}user/new" class="btn btn-default">S'INSCRIRE</a>
 						</div>	
 						<div class="col-md-3"></div>						
 					</#if>
@@ -91,20 +91,20 @@
 					<hr>
 					<h4><i>Pour libérer votre place en votre absence</i></h4>
 					<div style="text-align:justify;">
-						<ol type="1">
-							<li>Cliquez dans le menu <strong><a href="/protected/share" style="color:black">ACTIONS&nbsp;>>&nbsp;PARTAGE</a></strong> en haut de la page. Deux possibilités s'offrent à vous :</li>
+						<ul>
+							<li>Cliquez dans le menu <strong><a href="${routesDirectory}protected/share" style="color:black">ACTIONS&nbsp;>>&nbsp;PARTAGE</a></strong> en haut de la page. Deux possibilités s'offrent à vous :</li>
 							<li>Une libération rapide : permet de libérer la place pour les deux jours successifs</li>  
 							<li>Une libération par période : dans le calendrier, renseignez le jour ou la période de votre absence, pour partager votre place.</li>
-						</ol>
+						</ul>
 					</div>
 					<hr>
 					<h4><i>Vous avez déjà partagé votre place, mais vous en avez besoin.</i></h4>
 					<div style="text-align:justify;">
-					  Cliquez dans le menu <strong><a href="/protected/share" style="color:black">ACTIONS >> PARTAGE</a></strong>.<br/>
-						<ol type="1">
-						<li> Si ce jour-là votre place n'est pas occupée, à l'aide de la croix, vous pouvez annuler votre libération.</li>
-						<li>Si la place est occupée par quelqu'un, pas de soucis, vous pouvez réservé une place libre en cliquant sur le menu <strong><a href="/protected/booked" style="color:black">ACTIONS >> RESERVATION</a></strong>.</li>
-						</ol>
+					  Cliquez dans le menu <strong><a href="${routesDirectory}protected/share" style="color:black">ACTIONS >> PARTAGE</a></strong>.<br/>
+						<ul>
+							<li> Si ce jour-là votre place n'est pas occupée, à l'aide de la croix, vous pouvez annuler votre libération.</li>
+							<li>Si la place est occupée par quelqu'un, pas de soucis, vous pouvez réservé une place libre en cliquant sur le menu <strong><a href="${routesDirectory}protected/booked" style="color:black">ACTIONS >> RESERVATION</a></strong>.</li>
+						</ul>
 					</div>
 				</div>
 				<div class="col-md-6 col-sm-6">
@@ -173,8 +173,8 @@
 	<#include "commonjs.ftl">
 	
 	<!-- seulement sur la page d'accueil --------------->
-	<script src="/js/wow.min.js"></script>	
-	<script src="/js/custom.js"></script> 	
+	<script src="${ressourcesDirectory}/js/wow.min.js"></script>	
+	<script src="${ressourcesDirectory}/js/custom.js"></script> 	
 	
 </body>
 </html>

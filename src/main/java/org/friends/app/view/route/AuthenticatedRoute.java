@@ -2,7 +2,7 @@ package org.friends.app.view.route;
 
 import java.security.AccessControlException;
 
-import org.friends.app.Configuration;
+import org.friends.app.ConfHelper;
 import org.friends.app.model.User;
 import org.friends.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 
 	protected abstract ModelAndView doHandle(Request request, Response response);
 
-	private void checkAuthenticated(Request request, Response response) {
+	protected final void checkAuthenticated(Request request, Response response) {
 		User user = getUser(request);
 
 		// 1 : try to find user in session
@@ -37,7 +37,7 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 
 		// 2. Try to find user using cookie
 		boolean userFound = false;
-		String cookie = request.cookie(Configuration.COOKIE);
+		String cookie = request.cookie(ConfHelper.COOKIE);
 
 		// Lors du refresh sur logout, userService == null
 		if (!StringUtils.isEmpty(cookie) && userService != null) {
@@ -47,7 +47,7 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 				userFound = true;
 			} else {
 				// Clean cookie if no user
-				response.removeCookie(Configuration.COOKIE);
+				response.removeCookie(ConfHelper.COOKIE);
 			}
 		}
 
@@ -61,4 +61,12 @@ public abstract class AuthenticatedRoute implements TemplateViewRoute {
 		return request.session().attribute("user");
 	}
 
+	protected boolean isAdmin(Request request) {
+		if (request == null)
+			return false;
+		User user = getUser(request);
+		if (user == null)
+			return false;
+		return ConfHelper.ADMIN_MAIL.equalsIgnoreCase(user.getEmailAMDM());
+	}
 }

@@ -1,4 +1,4 @@
-<script src="/js/md5.js"></script>
+<script src="${ressourcesDirectory}js/md5.js"></script>
 <script>
 $(document).ready(function() {
 

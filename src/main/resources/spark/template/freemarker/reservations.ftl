@@ -34,35 +34,21 @@
 					<div class="panel-body">
 						<div class="col-sm-6" style="margin-bottom:10px;">
 							<#if showToday??>
-								<a href="/protected/search?day=${showToday}" class="btn btn-primary btn-lg tailleText">${libelleShowToday}</a>
+								<a href="${routesDirectory}protected/search?day=${showToday}" class="btn btn-primary btn-lg tailleText">${libelleShowToday}</a>
 							<#else>
-								<a href="/protected/search" class="btn btn-primary btn-lg disabled tailleText">${libelleShowToday}</a>						
+								<a href="${routesDirectory}protected/search" class="btn btn-primary btn-lg disabled tailleText">${libelleShowToday}</a>						
 							</#if>
 						</div>
 						<div class="col-sm-6" style="margin-bottom:10px;">
 							<#if showTomorrow??>
-								<a href="/protected/search?day=${showTomorrow}" class="btn btn-primary btn-lg tailleText">${libelleShowTomorrow}</a>
+								<a href="${routesDirectory}protected/search?day=${showTomorrow}" class="btn btn-primary btn-lg tailleText">${libelleShowTomorrow}</a>
 							<#else>
-								<a href="/protected/search" class="btn btn-primary btn-lg disabled tailleText">${libelleShowTomorrow}</a>
+								<a href="${routesDirectory}protected/search" class="btn btn-primary btn-lg disabled tailleText">${libelleShowTomorrow}</a>
 							</#if>
 						</div>
 					</div>
 				</div>
 			</div>
-
-			<#if !showToday?? || !showTomorrow??>
-				<#if canShare??>
-					<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
-						<div class="panel panel-default" >
-							<div class="panel-heading"><span class="glyphicon glyphicon-info-sign fa-2x text-primary"></span></div>
-							<div class="panel-body">
-								Vous ne pouvez pas effectuer de réservation car votre place est disponible ou inoccupée les deux prochains jours.
-							</div>
-						</div>
-					</div>
-				</#if>
-			</#if>
-
 
 			<!--============================= Message réservation  ================================-->
 			<div class="row" style="margin:0px auto;max-width:700px; padding-top:20px;">
@@ -91,7 +77,7 @@
 					  	    		</td>
 						  	     	<td>${place.placeNumber}</td>
 						  	     	<td>
-						  	     		<a href="?release=${place.occupationDate}" data-confirm='Annuler la réservation du <strong> ${theDate?string["dd/MM/yyyy"]} </strong> ?' ><img src="/images/cancel.png"/></a>							  	     		
+						  	     		<a href="?release=${place.occupationDate}" data-confirm='Annuler la réservation du <strong> ${theDate?string["dd/MM/yyyy"]} </strong> ?' ><img src="${ressourcesDirectory}images/cancel.png"/></a>							  	     		
 						  	     	</td>
 								</tr>
 							</#list>
@@ -106,6 +92,6 @@
 	
 	<!--==================================== javascripts files section  ==================================-->
 	<#include "commonjs.ftl">		
-	<script src="/js/confirm.js"></script>
+	<script src="${ressourcesDirectory}/js/confirm.js"></script>
 </body>
 </html>
