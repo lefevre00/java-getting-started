@@ -18,15 +18,33 @@
             <div class="row">			
                 <div class="col-md-offset-1 col-md-5 col-sm-5"> 
                     <div class="panel panel-default" >
-                        <div class="panel-heading ">- Liste utilisateurs - </div>
+                        <div class="panel-heading ">- Gestion des utilisateurs - </div>
                         <div class="panel-body">
-                        	Accéder à la liste de tous les utilisateurs de l'application.
-                        	Modifier des données / Libérer des places.       
-                            <!--Récupérer la liste des utilisateurs au format CSV <br>en cliquant <a href="" class="linkClass">ici</a--> <br/>
-                            <hr>
-                            <small>Visualisez la liste des utilisateurs de l'application.</small>
-                            <br/><br/>
-                            <a href="${routesDirectory}protected/usersList" class="btn btn-primary tailleText">Visualiser</a>	
+                        
+	                        <div class="media">
+							  <div class="media-left media-middle">
+							    <a href="${routesDirectory}protected/usersList" class="btn btn-primary tailleText">
+							    	<i class="fa fa-users" aria-hidden="true"></i>&nbsp;Visualiser
+							    </a>
+							  </div>
+							  <div class="media-body">
+							    <h4 class="media-heading">Liste des utilisateurs</h4>
+							     Modifier des données / libérer des places.       
+                                 <!--Récupérer la liste des utilisateurs au format CSV <br>en cliquant <a href="" class="linkClass">ici</a--> <br/>
+							  </div>
+							</div>
+							
+	                        <div class="media">
+							  <div class="media-left media-middle">
+							    <a href="${routesDirectory}protected/adminCreate" class="btn btn-primary tailleText">
+							    	<i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Créer
+							    </a>
+							  </div>
+							  <div class="media-body">
+							    <h4 class="media-heading">Ajouter un utilisateur</h4>
+							  </div>
+							</div>
+                                                    	
                         </div>
                     </div>
                 </div>
