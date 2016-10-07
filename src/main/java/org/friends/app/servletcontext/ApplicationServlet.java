@@ -32,9 +32,7 @@ import spark.servlet.SparkApplication;
 /**
  * Implémentation de {@link SparkApplication} pour pouvoir déployer
  * l'application sur un moteur de servlet
- *
  */
-
 public class ApplicationServlet implements SparkApplication {
 
 	@Override
