@@ -95,7 +95,7 @@ public class AdminCreateUserRoute extends AdminAuthRoute {
 					map.put(Routes.KEY_ERROR, Messages.get("email.error"));
 
 				if (UserService.USER_EXISTE.equals(e.getMessage()))
-					map.put(Routes.KEY_ERROR, Messages.get("admin.create.user").replaceAll("#email_user#", email));
+					map.put(Routes.KEY_ERROR, Messages.get("admin.create.existe").replaceAll("#email_user#", email));
 				
 				if (UserService.PLACE_ALREADY_USED.equals(e.getMessage()))
 					map.put(Routes.KEY_ERROR, Messages.get("admin.place.used").replaceAll("#placeNumber#", placeNumber));
