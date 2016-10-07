@@ -40,7 +40,6 @@ import spark.Request;
 import spark.Response;
 import spark.TemplateViewRoute;
 
-
 @Component
 public class LoginRoute implements TemplateViewRoute {
 
