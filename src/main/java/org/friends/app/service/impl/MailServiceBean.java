@@ -49,7 +49,7 @@ public class MailServiceBean implements MailService {
 	@Override
 	public void sendWelcome(User user, String applicationUrl) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(MAIL_BONJOUR).append("Vous venez de vous enregistrer sur le site de partage du parking Mezzo.\n")
+		sb.append(MAIL_BONJOUR).append("Vous venez de vous enregistrer sur le site de partage du parking ").append(ConfHelper.NOM_PARKING).append(".\n")
 				.append("Afin de finaliser votre inscription, vous devez vous rendre à l'adresse indiquée ci-dessous pour valider votre email.\n")
 				.append(applicationUrl).append(Routes.TOKEN_VALIDATION).append('?').append(Routes.PARAM_TOKEN_VALUE)
 				.append('=').append(user.getTokenMail()).append(MAIL_SIGNATURE);
@@ -96,9 +96,9 @@ public class MailServiceBean implements MailService {
 	@Override
 	public void sendInformation(User user, String applicationUrl) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(MAIL_BONJOUR).append("Votre compte EcoParking a été créé.\n")
-			.append(".\nAfin de finaliser votre inscription, vous devez vous rendre à l'adresse indiquée ci-dessous pour valider votre email");
-				if(ConfHelper.INSCRIPTION_LIBRE) sb.append(" et chosir votre mot de passe");
+		sb.append(MAIL_BONJOUR).append("Votre compte EcoParking a été créé sur le site de partage du parking ").append(ConfHelper.NOM_PARKING).append(".\n")
+			.append("Afin de finaliser votre inscription, vous devez vous rendre à l'adresse indiquée ci-dessous pour valider votre email");
+				if(!ConfHelper.INSCRIPTION_LIBRE) sb.append(" et choisir votre mot de passe");
 		sb.append(".\n").append(applicationUrl).append(Routes.REGISTER).append('?').append(Routes.PARAM_TOKEN_VALUE).append('=')
 			.append(user.getTokenMail()).append('&').append(Routes.PARAM_EMAIL_VALUE).append("=")
 			.append(user.getEmailAMDM()).append('&').append(Routes.PARAM_PLACE_NUMBER_VALUE).append("=")

@@ -46,6 +46,7 @@ public class ConfHelper {
 
 	private static final String APPLICATION_PROPERTIES = "/application.properties";
 	public static final String ADMIN_MAIL;
+	public static final String NOM_PARKING;
 	public static final boolean INSCRIPTION_LIBRE;
 //	public static final String ADMIN_PWD_MD5;
 	static {
@@ -57,6 +58,7 @@ public class ConfHelper {
 			System.out.println("erreur lecture application.properties");
 		}
 		ADMIN_MAIL = tmp.getProperty("admin.email");
+		NOM_PARKING = tmp.getProperty("parking.nom");
 		INSCRIPTION_LIBRE = "true".equalsIgnoreCase(tmp.getProperty("inscription.libre"));
 //		ADMIN_PWD_MD5 = getEncryptedMD5Password(tmp.getProperty("admin.password"));
 	}
