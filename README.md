@@ -1,4 +1,4 @@
-# Parking
+# EcoParking
 
 A simple application to share parking availability with your co-workers.
 
