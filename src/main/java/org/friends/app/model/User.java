@@ -34,12 +34,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-/**
- * A user of the application.
- * 
- * @author michael lefevre
- */
-
 @Entity
 @Table(name = "USERS")
 @NamedQueries(value = {
