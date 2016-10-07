@@ -44,13 +44,6 @@ import spark.Request;
 import spark.Response;
 import spark.utils.StringUtils;
 
-/**
- * Page listing the booked places for days starting today. Give access to
- * booking page.
- * 
- * @author michael
- *
- */
 @Component
 public class BookedRoute extends AuthenticatedRoute {
 
