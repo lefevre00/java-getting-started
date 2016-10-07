@@ -34,9 +34,6 @@ import org.springframework.stereotype.Service;
 
 /**
  * Gestion des dates comportant de la logique.
- * 
- * @author michael
- *
  */
 @Service
 public class DateServiceBean implements DateService {
