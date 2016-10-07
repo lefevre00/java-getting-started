@@ -43,10 +43,7 @@ import com.google.common.hash.Hashing;
 
 /**
  * Fait la jointure entre un user et une session sur un device
- * 
- * @author michael
  */
-
 @Entity
 @Table(name = "SESSIONS")
 @NamedQueries(value = {
