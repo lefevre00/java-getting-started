@@ -40,11 +40,7 @@ import spark.Request;
 import spark.Response;
 import spark.TemplateViewRoute;
 
-/**
- * Page de Login
- * 
- * @author michael lefevre
- */
+
 @Component
 public class LoginRoute implements TemplateViewRoute {
 
