@@ -42,11 +42,11 @@ public class ConfHelper {
 
 	public final static String COOKIE = "takemyplace";
 	public final static int COOKIE_DURATION = 86400; // One day
-	public static final String EMAIL_CONTACT = "contact@takemaplace.fr";
 
 	private static final String APPLICATION_PROPERTIES = "/application.properties";
 	public static final String ADMIN_MAIL;
 	public static final String NOM_PARKING;
+	public static final String MAIL_TEAM;
 	public static final boolean INSCRIPTION_LIBRE;
 //	public static final String ADMIN_PWD_MD5;
 	static {
@@ -59,6 +59,7 @@ public class ConfHelper {
 		}
 		ADMIN_MAIL = tmp.getProperty("admin.email");
 		NOM_PARKING = tmp.getProperty("parking.nom");
+		MAIL_TEAM = tmp.getProperty("parking.mail.team");
 		INSCRIPTION_LIBRE = "true".equalsIgnoreCase(tmp.getProperty("inscription.libre"));
 //		ADMIN_PWD_MD5 = getEncryptedMD5Password(tmp.getProperty("admin.password"));
 	}
@@ -72,7 +73,7 @@ public class ConfHelper {
 	}
 
 	public static String getMailTeam() {
-		return get("MAIL_TEAM", "contact@takemyplace.fr");
+		return get("MAIL_TEAM", MAIL_TEAM);
 	}
 
 	public static Integer getPort() {
