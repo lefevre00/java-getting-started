@@ -1,8 +1,6 @@
 # EcoParking
 
-A simple application to share parking availability with your co-workers.
-
-This application is based on [Getting Started with Java on Heroku](https://devcenter.heroku.com/articles/getting-started-with-java)..
+A simple application to share parking space.
 
 It's currently running [here](https://takemyplace.herokuapp.com/).
 
