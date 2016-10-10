@@ -98,8 +98,8 @@ public class MailServiceBean implements MailService {
 		StringBuilder sb = new StringBuilder();
 		sb.append(MAIL_BONJOUR).append("Votre compte EcoParking a été créé sur le site de partage du parking ").append(ConfHelper.NOM_PARKING).append(".\n")
 			.append("Afin de finaliser votre inscription, vous devez vous rendre à l'adresse indiquée ci-dessous pour valider votre email");
-				if(!ConfHelper.INSCRIPTION_LIBRE) sb.append(" et choisir votre mot de passe");
-		sb.append(".\n").append(applicationUrl).append(Routes.REGISTER).append('?').append(Routes.PARAM_TOKEN_VALUE).append('=')
+			if(!ConfHelper.INSCRIPTION_LIBRE) sb.append(" et choisir votre mot de passe");
+			sb.append(".\n").append(applicationUrl).append(Routes.REGISTER).append('?').append(Routes.PARAM_TOKEN_VALUE).append('=')
 			.append(user.getTokenMail()).append('&').append(Routes.PARAM_EMAIL_VALUE).append("=")
 			.append(user.getEmailAMDM()).append('&').append(Routes.PARAM_PLACE_NUMBER_VALUE).append("=")
 			.append(user.getPlaceNumber() != null ? user.getPlaceNumber() : "").append(MAIL_SIGNATURE);
