@@ -24,11 +24,16 @@
  */
 package org.friends.app.view.route;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.friends.app.ConfHelper;
+import org.friends.app.model.Place;
 import org.friends.app.model.User;
+import org.friends.app.service.PlaceService;
 import org.friends.app.service.UserService;
+import org.friends.app.util.DateUtil;
 import org.friends.app.view.Templates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,6 +48,9 @@ public class UserEditRoute extends AuthenticatedRoute {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PlaceService placeService;
 	
 	private String template;
 
@@ -73,6 +81,23 @@ public class UserEditRoute extends AuthenticatedRoute {
 				Integer placeNumberInt = StringUtils.isNotEmpty(placeNumber) ? Integer.valueOf(placeNumber) : null;
 						
 				//boolean result = userService.updateUser(idUserInt, email, mobile, placeNumberInt);
+				//Si l(utilisateur a partégé une place dans le futur, on bloque la modification de numéro
+				List<Place> listePlacePartagee = placeService.getShared(userService.findUserByEmail(email));
+				if(listePlacePartagee.size()>0) {
+					String datePartage ="";
+					for (Iterator iterator = listePlacePartagee.iterator(); iterator.hasNext();) {
+						Place place = (Place) iterator.next();
+						if(StringUtils.isEmpty(datePartage)){
+							datePartage =  place.getOccupationDate();
+						}else{
+							datePartage += ", ...";
+							break;
+						}
+					}
+					map.put("user", userService.findUserByEmail(email));
+					map.put(Routes.KEY_ERROR, "Impossibilité de modifier le numéro de place tant que l'utilisateur l'a partagée ( "+datePartage + ")" );
+					return new ModelAndView(map, template);
+				}
 				boolean result = userService.updateUser(idUserInt, email, null, placeNumberInt, mailInformation);
 
 				if (result) {
