@@ -114,24 +114,28 @@ public class MailServiceBean implements MailService {
 	public void sendInformationChangementPlace(User user, Integer oldPlace) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(MAIL_BONJOUR);
+		
+		String subject = "";
 		if (oldPlace != null) {
 			// l'utilisateur avait une place
+			subject = "Votre place N°" + oldPlace.toString();
 			if (user.getPlaceNumber() == null) {
-				sb.append("La place de parking n°").append(oldPlace).append(" a été attribuée à une autre personne.");
+				sb.append("suite au déroulement de commission de gestion des places à ").append(ConfHelper.NOM_PARKING).append(", ta place n°").append(oldPlace).append(" a été attribuée à une autre personne.\n\nMerci de ta compréhension.");
 			} else {
-				sb.append("Nous avons du échanger la place de parking n°").append(oldPlace).append(" par la place n°")
-						.append(user.getPlaceNumber());
+				sb.append("Afin d'optimiser la gestion du parking, ").append(ConfHelper.NOM_PARKING).append(" ")
+				.append("nous te demandons de bien vouloir stationner ton véhicule sur la place n° ")
+				.append(user.getPlaceNumber()).append(" au lieu de la place n° ").append(oldPlace).append(".\n\nMerci de ta compréhension.");
 			}
 		} else {
 			// L'utilisateur n'avait pas de place
 			if (user.getPlaceNumber() != null) {
-				sb.append("Nous sommes heureux de vous attibuer la place de parking n°").append(user.getPlaceNumber())
-						.append(".");
+				subject = "Votre place N°" + user.getPlaceNumber();
+				sb.append("Nous sommes heureux de vous attibuer la place n°").append(user.getPlaceNumber()).append(".");
 			}
 		}
 		sb.append(MAIL_SIGNATURE);
 
-		MailBuilder mb = MailBuilder.get().addTo(user.getEmailAMDM()).setSubject("Bienvenue @ EcoParking")
+		MailBuilder mb = MailBuilder.get().addTo(user.getEmailAMDM()).setSubject(subject)
 				.setText(sb.toString());
 		doSend(mb);
 	}
