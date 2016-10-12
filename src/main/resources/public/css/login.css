@@ -158,7 +158,6 @@ CONTENT
 }
 
 .place-icon {
-	top:260px; 
 	background: rgba(65,72,72,0.75) url(../images/place.png) no-repeat center;	
 }
 
@@ -200,7 +199,7 @@ CONTENT
 	top:195px; 
 }
 .placeEdit {
-	top:245px; 
+	top:180px;
 }
 
 .pwdActual{
